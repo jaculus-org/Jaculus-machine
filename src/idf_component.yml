@@ -1,6 +1,6 @@
 version: "0.0.9"
 description: "Jaculus-machine - Embeddable JavaScript runtime"
-repository: "https://github.com/cubicap/Jaculus-machine.git"
+repository: "https://github.com/jaculus-org/Jaculus-machine.git"
 url: "https://machine.jaculus.org"
 dependencies:
   idf: ">=5.0"

@@ -4,10 +4,10 @@ site_description: >-
   Jaculus-machine is a C++ centric JavaScript runtime that can be easily embedded into other applications. It is powered by the QuickJS JavaScript engine.
 site_author: Petr Kubica
 
-repo_url: https://github.com/cubicap/Jaculus-machine
-repo_name: cubicap/Jaculus-machine
+repo_url: https://github.com/jaculus-org/Jaculus-machine
+repo_name: jaculus-org/Jaculus-machine
 
-copyright: Copyright © 2023 Petr Kubica
+copyright: Copyright © 2025 Petr Kubica
 
 theme:
   name: material

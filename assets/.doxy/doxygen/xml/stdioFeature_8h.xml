@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="stdioFeature_8h" kind="file" language="C++">
+    <compoundname>stdioFeature.h</compoundname>
+    <includes refid="functionFactory_8h" local="no">jac/machine/functionFactory.h</includes>
+    <includes refid="machine_8h" local="no">jac/machine/machine.h</includes>
+    <includes refid="values_8h" local="no">jac/machine/values.h</includes>
+    <includes local="no">memory</includes>
+    <includes local="no">string</includes>
+    <includes refid="streams_8h" local="yes">types/streams.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>src/jac/features/stdioFeature.h</label>
+        <link refid="stdioFeature_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>types/streams.h</label>
+        <link refid="streams_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>atom.h</label>
+        <link refid="atom_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>class.h</label>
+        <link refid="class_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>context.h</label>
+        <link refid="context_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>funcUtil.h</label>
+        <link refid="funcUtil_8h_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac/machine/functionFactory.h</label>
+        <link refid="functionFactory_8h_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>internal/declarations.h</label>
+        <link refid="declarations_8h_source"/>
+      </node>
+      <node id="21">
+        <label>jac/machine/machine.h</label>
+        <link refid="machine_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>stringView.h</label>
+        <link refid="stringView_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>traits.h</label>
+        <link refid="traits_8h_source"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>values.h</label>
+        <link refid="values_8h_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>chrono</label>
+      </node>
+      <node id="10">
+        <label>exception</label>
+      </node>
+      <node id="3">
+        <label>functional</label>
+      </node>
+      <node id="25">
+        <label>memory</label>
+      </node>
+      <node id="14">
+        <label>ostream</label>
+      </node>
+      <node id="5">
+        <label>quickjs.h</label>
+      </node>
+      <node id="12">
+        <label>span</label>
+      </node>
+      <node id="23">
+        <label>stdexcept</label>
+      </node>
+      <node id="6">
+        <label>string</label>
+      </node>
+      <node id="18">
+        <label>string_view</label>
+      </node>
+      <node id="7">
+        <label>tuple</label>
+      </node>
+      <node id="20">
+        <label>type_traits</label>
+      </node>
+      <node id="24">
+        <label>unordered_map</label>
+      </node>
+      <node id="8">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classjac_1_1StdioFeature" prot="public">jac::StdioFeature</innerclass>
+    <innerclass refid="classjac_1_1StdioFeature_1_1Stdio" prot="private">jac::StdioFeature::Stdio</innerclass>
+    <innernamespace refid="namespacejac">jac</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;jac/machine/functionFactory.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;jac/machine/machine.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;jac/machine/values.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;memory&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;types/streams.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">jac<sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Next&gt;</highlight></codeline>
+<codeline lineno="16" refid="classjac_1_1StdioFeature" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1StdioFeature" kindref="compound">StdioFeature</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>Next<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Stdio<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;Writable&gt;<sp/>out;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;Writable&gt;<sp/>err;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;Readable&gt;<sp/>in;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Stdio<sp/>stdio;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>initialize()<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Next::initialize();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionFactory" kindref="compound">FunctionFactory</ref><sp/>ff(this-&gt;context());</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;stdio.out)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;StdioFeature:<sp/>stdio.out<sp/>is<sp/>not<sp/>set&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;stdio.err)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>std::runtime_error(</highlight><highlight class="stringliteral">&quot;StdioFeature:<sp/>stdio.err<sp/>is<sp/>not<sp/>set&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref><sp/>console<sp/>=<sp/><ref refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" kindref="member">Object::create</ref>(this-&gt;context());</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;debug&quot;</highlight><highlight class="normal">,<sp/>ff.<ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">](std::string<sp/>str)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;stdio.out-&gt;write(str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}));</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;log&quot;</highlight><highlight class="normal">,<sp/>ff.<ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">](std::string<sp/>str)<sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;stdio.out-&gt;write(str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}));</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;info&quot;</highlight><highlight class="normal">,<sp/>ff.<ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">](std::string<sp/>str)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;stdio.out-&gt;write(str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;warn&quot;</highlight><highlight class="normal">,<sp/>ff.<ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">](std::string<sp/>str)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;stdio.err-&gt;write(str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}));</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>console.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;error&quot;</highlight><highlight class="normal">,<sp/>ff.<ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>([</highlight><highlight class="keyword">this</highlight><highlight class="normal">](std::string<sp/>str)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>this-&gt;stdio.err-&gt;write(str<sp/>+<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}));</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref><sp/>global<sp/>=<sp/>this-&gt;context().getGlobalObject();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>global.<ref refid="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" kindref="member">defineProperty</ref>(</highlight><highlight class="stringliteral">&quot;console&quot;</highlight><highlight class="normal">,<sp/>console);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>mdl<sp/>=<sp/>this-&gt;newModule(</highlight><highlight class="stringliteral">&quot;stdio&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mdl.addExport(</highlight><highlight class="stringliteral">&quot;stdout&quot;</highlight><highlight class="normal">,<sp/>Next::WritableClass::createInstance(this-&gt;context(),<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1WritableRef" kindref="compound">WritableRef</ref>(stdio.out.get())));</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mdl.addExport(</highlight><highlight class="stringliteral">&quot;stderr&quot;</highlight><highlight class="normal">,<sp/>Next::WritableClass::createInstance(this-&gt;context(),<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1WritableRef" kindref="compound">WritableRef</ref>(stdio.err.get())));</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(stdio.in)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mdl.addExport(</highlight><highlight class="stringliteral">&quot;stdin&quot;</highlight><highlight class="normal">,<sp/>Next::ReadableClass::createInstance(this-&gt;context(),<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ReadableRef" kindref="compound">ReadableRef</ref>(stdio.in.get())));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>jac</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/jac/features/stdioFeature.h"/>
+  </compounddef>
+</doxygen>

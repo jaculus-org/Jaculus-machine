@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="functionFactory_8h" kind="file" language="C++">
+    <compoundname>functionFactory.h</compoundname>
+    <includes local="no">functional</includes>
+    <includes refid="class_8h" local="yes">class.h</includes>
+    <includes refid="funcUtil_8h" local="yes">funcUtil.h</includes>
+    <includes refid="values_8h" local="yes">values.h</includes>
+    <includedby refid="basicStreamFeature_8h" local="no">src/jac/features/basicStreamFeature.h</includedby>
+    <includedby refid="eventLoopFeature_8h" local="no">src/jac/features/eventLoopFeature.h</includedby>
+    <includedby refid="filesystemFeature_8h" local="no">src/jac/features/filesystemFeature.h</includedby>
+    <includedby refid="stdioFeature_8h" local="no">src/jac/features/stdioFeature.h</includedby>
+    <includedby refid="timersFeature_8h" local="no">src/jac/features/timersFeature.h</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>atom.h</label>
+        <link refid="atom_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>class.h</label>
+        <link refid="class_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>context.h</label>
+        <link refid="context_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>funcUtil.h</label>
+        <link refid="funcUtil_8h_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/jac/machine/functionFactory.h</label>
+        <link refid="functionFactory_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>internal/declarations.h</label>
+        <link refid="declarations_8h_source"/>
+      </node>
+      <node id="16">
+        <label>stringView.h</label>
+        <link refid="stringView_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>traits.h</label>
+        <link refid="traits_8h_source"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>values.h</label>
+        <link refid="values_8h_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>exception</label>
+      </node>
+      <node id="2">
+        <label>functional</label>
+      </node>
+      <node id="13">
+        <label>ostream</label>
+      </node>
+      <node id="4">
+        <label>quickjs.h</label>
+      </node>
+      <node id="11">
+        <label>span</label>
+      </node>
+      <node id="5">
+        <label>string</label>
+      </node>
+      <node id="17">
+        <label>string_view</label>
+      </node>
+      <node id="6">
+        <label>tuple</label>
+      </node>
+      <node id="19">
+        <label>type_traits</label>
+      </node>
+      <node id="7">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/jac/features/basicStreamFeature.h</label>
+        <link refid="basicStreamFeature_8h_source"/>
+      </node>
+      <node id="3">
+        <label>src/jac/features/eventLoopFeature.h</label>
+        <link refid="eventLoopFeature_8h_source"/>
+      </node>
+      <node id="4">
+        <label>src/jac/features/filesystemFeature.h</label>
+        <link refid="filesystemFeature_8h_source"/>
+      </node>
+      <node id="5">
+        <label>src/jac/features/stdioFeature.h</label>
+        <link refid="stdioFeature_8h_source"/>
+      </node>
+      <node id="6">
+        <label>src/jac/features/timersFeature.h</label>
+        <link refid="timersFeature_8h_source"/>
+      </node>
+      <node id="1">
+        <label>src/jac/machine/functionFactory.h</label>
+        <link refid="functionFactory_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classjac_1_1FunctionFactory" prot="public">jac::FunctionFactory</innerclass>
+    <innernamespace refid="namespacejac">jac</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;functional&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;class.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;funcUtil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;values.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">jac<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="classjac_1_1FunctionFactory" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1FunctionFactory" kindref="compound">FunctionFactory</ref><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>_context;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/>newFunctionHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(Args...)&gt;);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res&gt;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/>newFunctionVariadicHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(std::vector&lt;ValueWeak&gt;)&gt;);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/>newFunctionThisHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>,<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref>,<sp/>Args...)&gt;);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res&gt;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/>newFunctionThisVariadicHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>,<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref>,<sp/>std::vector&lt;ValueWeak&gt;)&gt;);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionFactory" kindref="compound">FunctionFactory</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>context)<sp/>:<sp/>_context(context)<sp/>{}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="53" refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/><ref refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kindref="member">newFunction</ref>(Func<sp/>func)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>newFunctionHelper(func,<sp/>std::function(func));</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="71" refid="classjac_1_1FunctionFactory_1ae71fae8641e051a5c6ff14f48baa171b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/><ref refid="classjac_1_1FunctionFactory_1ae71fae8641e051a5c6ff14f48baa171b" kindref="member">newFunctionVariadic</ref>(Func<sp/>func)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>newFunctionVariadicHelper(func,<sp/>std::function(func));</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="89" refid="classjac_1_1FunctionFactory_1acd6db9e494fcbe181d6aab5c1dd97665" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/><ref refid="classjac_1_1FunctionFactory_1acd6db9e494fcbe181d6aab5c1dd97665" kindref="member">newFunctionThis</ref>(Func<sp/>func)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>newFunctionThisHelper(func,<sp/>std::function(func));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="107" refid="classjac_1_1FunctionFactory_1a8ea36346531f599e40413358f83c29e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref><sp/><ref refid="classjac_1_1FunctionFactory_1a8ea36346531f599e40413358f83c29e4" kindref="member">newFunctionThisVariadic</ref>(Func<sp/>func)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>newFunctionThisVariadicHelper(func,<sp/>std::function(func));</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>Function<sp/>FunctionFactory::newFunctionHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(Args...)&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>Func*<sp/>funcPtr<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Func(std::move(func));</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FuncProtoBuilder<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Opaque&lt;Func&gt;,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Callable<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Value<sp/>callFunction(ContextRef<sp/>ctx,<sp/>ValueWeak<sp/>funcObj,<sp/>ValueWeak<sp/>thisVal,<sp/>std::vector&lt;ValueWeak&gt;<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Func*<sp/>ptr<sp/>=<sp/>ProtoBuilder::Opaque&lt;Func&gt;::getOpaque(ctx,<sp/>funcObj);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>processCall&lt;Func,<sp/>Res,<sp/>Args...&gt;(ctx,<sp/>thisVal,<sp/>args,<sp/>*ptr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">FuncClass<sp/>=<sp/>Class&lt;FuncProtoBuilder&gt;;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>FuncClass::init(</highlight><highlight class="stringliteral">&quot;CppFunction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">Value</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(FuncClass::createInstance(_context,<sp/>funcPtr)).to&lt;Function&gt;();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res&gt;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">Function<sp/>FunctionFactory::newFunctionVariadicHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(std::vector&lt;ValueWeak&gt;)&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>Func*<sp/>funcPtr<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Func(std::move(func));</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FuncProtoBuilder<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Opaque&lt;Func&gt;,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Callable<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Value<sp/>callFunction(ContextRef<sp/>ctx,<sp/>ValueWeak<sp/>funcObj,<sp/>ValueWeak<sp/>thisVal,<sp/>std::vector&lt;ValueWeak&gt;<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Func*<sp/>ptr<sp/>=<sp/>ProtoBuilder::Opaque&lt;Func&gt;::getOpaque(ctx,<sp/>funcObj);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>processCallVariadic&lt;Func,<sp/>Res&gt;(ctx,<sp/>thisVal,<sp/>args,<sp/>*ptr);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">FuncClass<sp/>=<sp/>Class&lt;FuncProtoBuilder&gt;;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>FuncClass::init(</highlight><highlight class="stringliteral">&quot;CppFunction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">Value</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(FuncClass::createInstance(_context,<sp/>funcPtr)).to&lt;Function&gt;();</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">Function<sp/>FunctionFactory::newFunctionThisHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(ContextRef,<sp/>ValueWeak,<sp/>Args...)&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>Func*<sp/>funcPtr<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Func(std::move(func));</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FuncProtoBuilder<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Opaque&lt;Func&gt;,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Callable<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Value<sp/>callFunction(ContextRef<sp/>ctx,<sp/>ValueWeak<sp/>funcObj,<sp/>ValueWeak<sp/>thisVal,<sp/>std::vector&lt;ValueWeak&gt;<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Func*<sp/>ptr<sp/>=<sp/>ProtoBuilder::Opaque&lt;Func&gt;::getOpaque(ctx,<sp/>funcObj);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>processCallThis&lt;Func,<sp/>Res,<sp/>Args...&gt;(ctx,<sp/>thisVal,<sp/>args,<sp/>*ptr);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">FuncClass<sp/>=<sp/>Class&lt;FuncProtoBuilder&gt;;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>FuncClass::init(</highlight><highlight class="stringliteral">&quot;CppFunction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">Value</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(FuncClass::createInstance(_context,<sp/>funcPtr)).to&lt;Function&gt;();</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res&gt;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">Function<sp/>FunctionFactory::newFunctionThisVariadicHelper(Func&amp;<sp/>func,<sp/>std::function&lt;Res(ContextRef,<sp/>ValueWeak,<sp/>std::vector&lt;ValueWeak&gt;)&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>Func*<sp/>funcPtr<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>Func(std::move(func));</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">FuncProtoBuilder<sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Opaque&lt;Func&gt;,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>ProtoBuilder::Callable<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Value<sp/>callFunction(ContextRef<sp/>ctx,<sp/>ValueWeak<sp/>funcObj,<sp/>ValueWeak<sp/>thisVal,<sp/>std::vector&lt;ValueWeak&gt;<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Func*<sp/>ptr<sp/>=<sp/>ProtoBuilder::Opaque&lt;Func&gt;::getOpaque(ctx,<sp/>funcObj);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>processCallThisVariadic&lt;Func,<sp/>Res&gt;(ctx,<sp/>thisVal,<sp/>args,<sp/>*ptr);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">FuncClass<sp/>=<sp/>Class&lt;FuncProtoBuilder&gt;;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>FuncClass::init(</highlight><highlight class="stringliteral">&quot;CppFunction&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">Value</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(FuncClass::createInstance(_context,<sp/>funcPtr)).to&lt;Function&gt;();</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>jac</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/jac/machine/functionFactory.h"/>
+  </compounddef>
+</doxygen>

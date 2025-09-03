@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_10e7d6e7bc593e38e57ffe1bab5ed259" kind="dir">
+    <compoundname>src/jac/machine</compoundname>
+    <innerdir refid="dir_f815192ecbd68c2ad40e839ff65387cf">src/jac/machine/internal</innerdir>
+    <innerfile refid="atom_8h">atom.h</innerfile>
+    <innerfile refid="class_8h">class.h</innerfile>
+    <innerfile refid="context_8cpp">context.cpp</innerfile>
+    <innerfile refid="context_8h">context.h</innerfile>
+    <innerfile refid="functionFactory_8h">functionFactory.h</innerfile>
+    <innerfile refid="funcUtil_8h">funcUtil.h</innerfile>
+    <innerfile refid="machine_8cpp">machine.cpp</innerfile>
+    <innerfile refid="machine_8h">machine.h</innerfile>
+    <innerfile refid="plugins_8h">plugins.h</innerfile>
+    <innerfile refid="stringView_8h">stringView.h</innerfile>
+    <innerfile refid="traits_8h">traits.h</innerfile>
+    <innerfile refid="values_8h">values.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/"/>
+  </compounddef>
+</doxygen>

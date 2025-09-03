@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a2b2c04fa6f0fbb411b14ad1ad300994f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T</type>
+        <definition>static T jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;::from</definition>
+        <argsstring>(ContextRef ctx, ValueWeak val)</argsstring>
+        <name>from</name>
+        <qualifiedname>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;::from</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/traits.h" line="50" column="14" bodyfile="src/jac/machine/traits.h" bodystart="50" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a333aa181e612ca69a1acd24f8b9ae16d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;::to</definition>
+        <argsstring>(ContextRef ctx, T val)</argsstring>
+        <name>to</name>
+        <qualifiedname>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;::to</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/traits.h" line="59" column="18" bodyfile="src/jac/machine/traits.h" bodystart="59" bodyend="61"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/traits.h" line="46" column="1" bodyfile="src/jac/machine/traits.h" bodystart="49" bodyend="62"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a2b2c04fa6f0fbb411b14ad1ad300994f" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;</scope><name>from</name></member>
+      <member refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a333aa181e612ca69a1acd24f8b9ae16d" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;</scope><name>to</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

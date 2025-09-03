@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacejac_1_1detail" kind="namespace" language="C++">
+    <compoundname>jac::detail</compoundname>
+    <innerclass refid="structjac_1_1detail_1_1is__base__of__template__impl" prot="public">jac::detail::is_base_of_template_impl</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="traits_8h_1ae70596fd9bb1815692eb2fbeed153e6e" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool jac::detail::is_leq_i32</definition>
+        <argsstring></argsstring>
+        <name>is_leq_i32</name>
+        <qualifiedname>jac::detail::is_leq_i32</qualifiedname>
+        <initializer>= (std::is_signed_v&lt;T&gt; &amp;&amp; sizeof(T) &lt;= sizeof(int32_t))
+                             || (std::is_unsigned_v&lt;T&gt; &amp;&amp; sizeof(T) &lt; sizeof(int32_t))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/traits.h" line="39" column="20" bodyfile="src/jac/machine/traits.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="34" column="1"/>
+  </compounddef>
+</doxygen>

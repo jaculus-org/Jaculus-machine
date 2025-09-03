@@ -26,7 +26,12 @@ void Module::addExport(std::string name, Value val) {
 void MachineBase::initialize() {
     // last in stack
 
-    _runtime = JS_NewRuntime();
+    if (mallocFunctions) {
+        _runtime = JS_NewRuntime2(mallocFunctions, nullptr);
+    }
+    else {
+        _runtime = JS_NewRuntime();
+    }
     _context = JS_NewContext(_runtime);
 
     JS_SetContextOpaque(_context, this);

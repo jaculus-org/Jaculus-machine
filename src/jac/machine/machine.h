@@ -117,6 +117,7 @@ private:
     std::chrono::milliseconds _watchdogTimeout = std::chrono::milliseconds(0);
     std::chrono::time_point<std::chrono::steady_clock> _watchdogNext;
     std::function<bool()> _wathdogCallback;
+    const JSMallocFunctions* mallocFunctions = nullptr;
 
     JSRuntime* _runtime = nullptr;
     ContextRef _context = nullptr;
@@ -218,6 +219,16 @@ public:
      */
     void setWatchdogHandler(std::function<bool()> callback) {
         _wathdogCallback = callback;
+    }
+
+    /**
+     * @brief Set custom malloc functions for the QuickJS engine.
+     * If the value is nullptr, the default malloc functions will be used.
+     *
+     * @param fns malloc functions to use
+     */
+    void setMallocFunctions(const JSMallocFunctions* fns) {
+        mallocFunctions = fns;
     }
 
     friend class Module;

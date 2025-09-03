@@ -17,10 +17,6 @@ add_library(quickjs STATIC ${QUICKJS_SRC})
 target_include_directories(quickjs PUBLIC .)
 target_compile_definitions(quickjs PUBLIC -DCONFIG_VERSION="${QUICKJS_VERSION}")
 
-if(QUICKJS_ENABLE_BIGNUM_EXT)
-    target_compile_definitions(quickjs PUBLIC -DCONFIG_BIGNUM)
-endif()
-
 target_compile_options(quickjs PRIVATE
     -Wno-cast-function-type
     -Wno-format

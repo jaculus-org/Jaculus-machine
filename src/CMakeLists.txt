@@ -11,12 +11,6 @@ if(ESP_PLATFORM)
         SRCS ${JAC_MACHINE_SRC}
         INCLUDE_DIRS .
     )
-
-    set(QUICKJS_ENABLE_BIGNUM_EXT ${CONFIG_QUICKJS_ENABLE_BIGNUM_EXT})
-
-else()
-    option(QUICKJS_ENABLE_BIGNUM_EXT "Enable QuickJS Bignum extensions" OFF)
-
 endif()
 
 
@@ -25,7 +19,7 @@ FetchContent_Declare(
     QuickJS
     URL               https://github.com/bellard/quickjs/archive/19abf1888db5884a5758036ff6e7fa2b340acedc.tar.gz
     PATCH_COMMAND     ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/quickjs.CMakeLists.txt <SOURCE_DIR>/CMakeLists.txt
-    CMAKE_ARGS        -DESP_PLATFORM=${ESP_PLATFORM} -DQUICKJS_ENABLE_BIGNUM_EXT=${QUICKJS_ENABLE_BIGNUM_EXT}
+    CMAKE_ARGS        -DESP_PLATFORM=${ESP_PLATFORM}
 )
 FetchContent_MakeAvailable(QuickJS)
 

@@ -1,6 +1,2 @@
 menu "QuickJS"
-    config QUICKJS_ENABLE_BIGNUM_EXT
-        bool "Enable QuickJS Bignum extensions"
-        default n
-
 endmenu

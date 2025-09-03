@@ -1,4 +1,4 @@
-version: "0.0.9"
+version: "0.0.10"
 description: "Jaculus-machine - Embeddable JavaScript runtime"
 repository: "https://github.com/jaculus-org/Jaculus-machine.git"
 url: "https://machine.jaculus.org"

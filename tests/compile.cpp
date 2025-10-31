@@ -598,6 +598,25 @@ TEST_CASE("Types", "[aot]") {
         REQUIRE(machine.getReports() == std::vector<std::string>{"undefined"});
     }
 
+    SECTION("Void called") {
+        machine.initialize();
+        std::string code(R"(
+            function fun(): void {
+                return;
+            }
+
+            function call(): int32 {
+                fun();
+                return 1;
+            }
+
+            report(call());
+        )");
+
+        evalCode(machine, code, "test", jac::EvalFlags::Global);
+        REQUIRE(machine.getReports() == std::vector<std::string>{"1"});
+    }
+
     SECTION("Mixed") {
         machine.initialize();
         std::string code(R"(

@@ -404,7 +404,10 @@ RValue emitShortCircuit(RValue lhs, F evalRhs, G processRes, ShortCircuitKind ki
         throw IRGenError("Function not found: " + ident);
     }
 
-    RValue res = { Reg::create(sig->ret) };
+    RValue res = { Reg::undefined() };
+    if (sig->ret != ValueType::Void) {
+        res = { Reg::create(sig->ret) };
+    }
 
     std::vector<Reg> args;
     args.reserve(args_.arguments.size());
@@ -1312,6 +1315,9 @@ bool emit(const ast::Statement& statement, FunctionEmitter& func) {
         }
         bool operator()(const ast::ExpressionStatement& stmt) {
             RValue v = emit(stmt.expression, func);
+            if (v.type() == ValueType::Void) {
+                return false;
+            }
             emitPushFree(v, func);
             return false;
         }

@@ -976,6 +976,10 @@ class CFGInterpreter {
         cfg::interp::CFGInterpreter interp(_compiledHolder);
         JSValue res = interp.run(fn.fn, ctx, JS_UNDEFINED, args.size(), args.data());
 
+        if (call.res.type == ValueType::Void) {
+            JS_FreeValue(ctx, res);
+            return;
+        }
         setReg(call.res.id, unwrapAny(ctx, Any{ res }, call.res.type));
     }
 

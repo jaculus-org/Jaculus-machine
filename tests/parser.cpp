@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
+#include <cmath>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -20,68 +21,18 @@ bool floatEq(auto a, auto b) {
     return std::fabs(a - b) < 0.001;
 }
 
-
-jac::ast::PrimaryExpression& unaryExpPrimary(jac::ast::UnaryExpressionPtr& expr) {
-    return std::get<jac::ast::PrimaryExpression>(
-      std::get<jac::ast::MemberExpression>(
-        std::get<jac::ast::NewExpression>(
-          std::get<jac::ast::LeftHandSideExpressionPtr>(
-            std::get<jac::ast::UpdateExpression>(expr->value)
-          .value)
-        ->value)
-      .value)
-    .value);
+template<typename T>
+bool isLit(const auto* node, T expected) {
+    const auto& lit = dynamic_cast<const jac::ast::Literal&>(*node);
+    if (!std::holds_alternative<T>(lit.value)) {
+        return false;
+    }
+    return std::get<T>(lit.value) == expected;
 }
 
-jac::ast::Literal& unaryExpLiteral(jac::ast::UnaryExpressionPtr& expr) {
-    return std::get<jac::ast::Literal>(
-        unaryExpPrimary(expr)
-    .value);
-}
-
-std::int32_t literalI32(jac::ast::Literal& lit) {
-    return std::get<std::int32_t>(
-      std::get<jac::ast::NumericLiteral>(
-        lit.value)
-      .value);
-}
-
-std::int32_t unaryExpI32(jac::ast::UnaryExpressionPtr& expr) {
-    return literalI32(unaryExpLiteral(expr));
-}
-
-std::string_view unaryExpIdentifier(jac::ast::UnaryExpressionPtr& expr) {
-    return std::get<jac::ast::IdentifierReference>(
-      std::get<jac::ast::PrimaryExpression>(
-        std::get<jac::ast::MemberExpression>(
-          std::get<jac::ast::NewExpression>(
-            std::get<jac::ast::LeftHandSideExpressionPtr>(
-              std::get<jac::ast::UpdateExpression>(expr->value)
-            .value)
-          ->value)
-        .value)
-      .value)
-    .value).identifier.name;
-}
-
-jac::ast::BinaryExpression& assignExpBinary(jac::ast::AssignmentExpression& expr) {
-    return std::get<jac::ast::BinaryExpression>(
-        std::get<jac::ast::ConditionalExpression>(expr.value)
-    .value);
-}
-
-jac::ast::UnaryExpressionPtr& assignExpUnary(jac::ast::AssignmentExpression& expr) {
-    return std::get<jac::ast::UnaryExpressionPtr>(assignExpBinary(expr).value);
-}
-
-auto lhsExpIdentifier(jac::ast::LeftHandSideExpression& expr) {
-    return std::get<jac::ast::IdentifierReference>(
-      std::get<jac::ast::PrimaryExpression>(
-        std::get<jac::ast::MemberExpression>(
-          std::get<jac::ast::NewExpression>(expr.value)
-          .value)
-      .value)
-    .value).identifier.name;
+bool isIdent(const auto* node, auto expected) {
+    const auto& ident = dynamic_cast<const jac::ast::Identifier&>(*node);
+    return ident.name == expected;
 }
 
 
@@ -97,13 +48,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<int>(result->value));
-        REQUIRE(std::get<int>(result->value) == 123);
+
+        REQUIRE(isLit<int32_t>(result.get(), 123));
     }
 
     SECTION("123.456") {
@@ -113,11 +64,12 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
         REQUIRE(std::get<double>(result->value) == 123.456);
     }
@@ -129,11 +81,12 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
         REQUIRE(floatEq(std::get<double>(result->value), 123.456e-7));
     }
@@ -145,11 +98,12 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
         REQUIRE(floatEq(std::get<double>(result->value), 123.456e+7));
     }
@@ -161,11 +115,12 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
         REQUIRE(floatEq(std::get<double>(result->value), 123.456e+7));
     }
@@ -177,13 +132,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<std::int32_t>(result->value));
-        REQUIRE(std::get<std::int32_t>(result->value) == 0x0123);
+
+        REQUIRE(isLit<int32_t>(result.get(), 291));
     }
 
     SECTION("0o0123") {
@@ -193,13 +148,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<std::int32_t>(result->value));
-        REQUIRE(std::get<std::int32_t>(result->value) == 0123);
+
+        REQUIRE(isLit<int32_t>(result.get(), 83));
     }
 
     SECTION("0b1010") {
@@ -209,13 +164,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<std::int32_t>(result->value));
-        REQUIRE(std::get<std::int32_t>(result->value) == 0b1010);
+
+        REQUIRE(isLit<int32_t>(result.get(), 10));
     }
 
     SECTION("0123456789") {
@@ -225,13 +180,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<int>(result->value));
-        REQUIRE(std::get<int>(result->value) == 123456789);
+
+        REQUIRE(isLit<int32_t>(result.get(), 123456789));
     }
 
     SECTION("0x0123456789abcdef") {
@@ -241,11 +196,12 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
         REQUIRE(floatEq(std::get<double>(result->value), 0x0123456789abcdef));
     }
@@ -257,14 +213,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
         REQUIRE(std::holds_alternative<double>(result->value));
-        CAPTURE(std::get<double>(result->value));
-        CAPTURE(0x0123456789ABCDEF);
         REQUIRE(floatEq(std::get<double>(result->value), 0x0123456789ABCDEF));
     }
 
@@ -275,13 +230,13 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<int>(result->value));
-        REQUIRE(std::get<int>(result->value) == 0);
+
+        REQUIRE(isLit<int32_t>(result.get(), 0));
     }
 
     SECTION("invalid") {
@@ -291,7 +246,7 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -304,7 +259,7 @@ TEST_CASE("NumericLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NumericLiteral::parse(state);
+        auto result = jac::ast::parseNumericLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -321,12 +276,13 @@ TEST_CASE("BooleanLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BooleanLiteral::parse(state);
+        auto result = jac::ast::parseBooleanLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->value == true);
+
+        REQUIRE(isLit<bool>(result.get(), true));
     }
 
     SECTION("false") {
@@ -336,12 +292,13 @@ TEST_CASE("BooleanLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BooleanLiteral::parse(state);
+        auto result = jac::ast::parseBooleanLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->value == false);
+
+        REQUIRE(isLit<bool>(result.get(), false));
     }
 
     SECTION("tru") {
@@ -351,7 +308,7 @@ TEST_CASE("BooleanLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BooleanLiteral::parse(state);
+        auto result = jac::ast::parseBooleanLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -368,7 +325,7 @@ TEST_CASE("Identifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Identifier::parse(state);
+        auto result = jac::ast::parseIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
@@ -383,7 +340,7 @@ TEST_CASE("Identifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Identifier::parse(state);
+        auto result = jac::ast::parseIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -400,7 +357,7 @@ TEST_CASE("IdentifierReference", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::IdentifierReference::parse(state);
+        auto result = jac::ast::parseIdentifierReference(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
@@ -413,21 +370,9 @@ TEST_CASE("IdentifierReference", "[parser]") {
         };
 
         jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Yield{true}>();
 
-        auto result = jac::ast::IdentifierReference::parse(state);
-        CAPTURE(state.getErrorMessage());
-        CAPTURE(state.getErrorToken());
-        REQUIRE(!result);
-    }
-
-    SECTION("yield fail2") {
-        auto tokens = TokenVector{
-            jac::lex::Token(1, 1, "yield", jac::lex::Token::Keyword)
-        };
-
-        jac::ast::ParserState state(tokens);
-
-        auto result = jac::ast::IdentifierReference::parse(state);
+        auto result = jac::ast::parseIdentifierReference(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -444,38 +389,27 @@ TEST_CASE("BindingIdentifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BindingIdentifier::parse(state);
+        auto result = jac::ast::parseBindingIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->identifier.name == "label");
+        REQUIRE(result->name == "label");
     }
 
-    SECTION("yield fail") {
+    SECTION("yield") {
         auto tokens = TokenVector{
             jac::lex::Token(1, 1, "yield", jac::lex::Token::Keyword)
         };
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BindingIdentifier::parse(state);
+        auto result = jac::ast::parseBindingIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
-        REQUIRE(!result);
-    }
-
-    SECTION("yield fail2") {
-        auto tokens = TokenVector{
-            jac::lex::Token(1, 1, "yield", jac::lex::Token::Keyword)
-        };
-
-        jac::ast::ParserState state(tokens);
-
-        auto result = jac::ast::BindingIdentifier::parse(state);
-        CAPTURE(state.getErrorMessage());
-        CAPTURE(state.getErrorToken());
-        REQUIRE(!result);
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->name == "yield");
     }
 }
 
@@ -489,7 +423,7 @@ TEST_CASE("LabelIdentifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::LabelIdentifier::parse(state);
+        auto result = jac::ast::parseLabelIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
@@ -502,21 +436,9 @@ TEST_CASE("LabelIdentifier", "[parser]") {
         };
 
         jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Yield{true}>();
 
-        auto result = jac::ast::LabelIdentifier::parse(state);
-        CAPTURE(state.getErrorMessage());
-        CAPTURE(state.getErrorToken());
-        REQUIRE(!result);
-    }
-
-    SECTION("yield fail2") {
-        auto tokens = TokenVector{
-            jac::lex::Token(1, 1, "yield", jac::lex::Token::Keyword)
-        };
-
-        jac::ast::ParserState state(tokens);
-
-        auto result = jac::ast::LabelIdentifier::parse(state);
+        auto result = jac::ast::parseLabelIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -533,7 +455,7 @@ TEST_CASE("PrivateIdentifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::PrivateIdentifier::parse(state);
+        auto result = jac::ast::parsePrivateIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -546,7 +468,7 @@ TEST_CASE("PrivateIdentifier", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::PrivateIdentifier::parse(state);
+        auto result = jac::ast::parsePrivateIdentifier(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
@@ -565,7 +487,7 @@ TEST_CASE("NullLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NullLiteral::parse(state);
+        auto result = jac::ast::parseNullLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
@@ -579,7 +501,7 @@ TEST_CASE("NullLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::NullLiteral::parse(state);
+        auto result = jac::ast::parseNullLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -596,11 +518,13 @@ TEST_CASE("ThisExpr", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::ThisExpr::parse(state);
+        auto result = jac::ast::parseThisExpr(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
+        REQUIRE(dynamic_cast<jac::ast::ThisExpression*>(result.get()) != nullptr);
     }
 }
 
@@ -614,12 +538,13 @@ TEST_CASE("StringLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::StringLiteral::parse(state);
+        auto result = jac::ast::parseStringLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->value == "hello");
+
+        REQUIRE(isLit<std::string>(result.get(), "hello"));
     }
 
     SECTION("\"hello\\nworld\"") {
@@ -629,17 +554,19 @@ TEST_CASE("StringLiteral", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::StringLiteral::parse(state);
+        auto result = jac::ast::parseStringLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->value == "hello\nworld");
+
+        REQUIRE(isLit<std::string>(result.get(), "hello\nworld"));
     }
 }
 
 
 TEST_CASE("Literal", "[parser]") {
+
     SECTION("NumericLiteral") {
         auto tokens = TokenVector{
             jac::lex::Token(1, 1, "123", jac::lex::Token::NumericLiteral)
@@ -647,15 +574,13 @@ TEST_CASE("Literal", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Literal::parse(state);
+        auto result = jac::ast::parseLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<jac::ast::NumericLiteral>(result->value));
-        auto lit = std::get<jac::ast::NumericLiteral>(result->value);
-        REQUIRE(std::holds_alternative<int>(lit.value));
-        REQUIRE(std::get<int>(lit.value) == 123);
+
+        REQUIRE(isLit<int32_t>(result.get(), 123));
     }
 
     SECTION("BooleanLiteral") {
@@ -665,13 +590,13 @@ TEST_CASE("Literal", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Literal::parse(state);
+        auto result = jac::ast::parseLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<jac::ast::BooleanLiteral>(result->value));
-        REQUIRE(std::get<jac::ast::BooleanLiteral>(result->value).value == true);
+
+        REQUIRE(isLit<bool>(result.get(), true));
     }
 
     SECTION("NullLiteral") {
@@ -681,12 +606,12 @@ TEST_CASE("Literal", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Literal::parse(state);
+        auto result = jac::ast::parseLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<jac::ast::NullLiteral>(result->value));
+        REQUIRE(std::holds_alternative<jac::ast::Literal::Null>(result->value));
     }
 
     SECTION("StringLiteral") {
@@ -696,13 +621,13 @@ TEST_CASE("Literal", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Literal::parse(state);
+        auto result = jac::ast::parseLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(std::holds_alternative<jac::ast::StringLiteral>(result->value));
-        REQUIRE(std::get<jac::ast::StringLiteral>(result->value).value == "hello");
+
+        REQUIRE(isLit<std::string>(result.get(), "hello"));
     }
 
     SECTION("invalid") {
@@ -712,7 +637,7 @@ TEST_CASE("Literal", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Literal::parse(state);
+        auto result = jac::ast::parseLiteral(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -731,17 +656,17 @@ TEST_CASE("LexicalDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::LexicalDeclaration::parse(state);
+        auto result = jac::ast::parseLexicalDeclaration(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
         REQUIRE(result->isConst == false);
-        REQUIRE(result->bindings.size() == 1);
-
-        auto& binding = result->bindings[0];
-        REQUIRE(std::holds_alternative<jac::ast::BindingIdentifier>(binding.value));
-        REQUIRE(std::get<jac::ast::BindingIdentifier>(binding.value).identifier.name == "x");
+        REQUIRE(result->bindingCount() == 1);
+        auto binding = result->bindingGet(0);
+        REQUIRE(binding->target()->name == "x");
+        REQUIRE(binding->typeAnnotation() == nullptr);
+        REQUIRE(binding->initializer() == nullptr);
     }
 
     SECTION("const x = 123;") {
@@ -755,41 +680,19 @@ TEST_CASE("LexicalDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::LexicalDeclaration::parse(state);
+        auto result = jac::ast::parseLexicalDeclaration(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
         REQUIRE(result->isConst == true);
-        REQUIRE(result->bindings.size() == 1);
+        REQUIRE(result->bindingCount() == 1);
+        auto binding = result->bindingGet(0);
+        REQUIRE(binding->target()->name == "x");
+        REQUIRE(binding->typeAnnotation() == nullptr);
+        REQUIRE(binding->initializer() != nullptr);
 
-        auto& binding = result->bindings[0];
-        REQUIRE(std::holds_alternative<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(binding.value));
-        auto& pair = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(binding.value);
-        REQUIRE(pair.first.identifier.name == "x");
-        REQUIRE(
-            std::get<std::int32_t>(
-              std::get<jac::ast::NumericLiteral>(
-                std::get<jac::ast::Literal>(
-                  std::get<jac::ast::PrimaryExpression>(
-                    std::get<jac::ast::MemberExpression>(
-                      std::get<jac::ast::NewExpression>(
-                        std::get<jac::ast::LeftHandSideExpressionPtr>(
-                          std::get<jac::ast::UpdateExpression>(
-                            std::get<jac::ast::UnaryExpressionPtr>(
-                              std::get<jac::ast::BinaryExpression>(
-                                std::get<jac::ast::ConditionalExpression>(pair.second->value)
-                              .value)
-                            .value)
-                          ->value)
-                        .value)
-                      ->value)
-                    .value)
-                  .value)
-                .value)
-              .value)
-            .value) == 123
-        );
+        REQUIRE(isLit<int32_t>(binding->initializer(), 123));
     }
 
     SECTION("const x = abc + def;") {
@@ -805,59 +708,27 @@ TEST_CASE("LexicalDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::LexicalDeclaration::parse(state);
+        auto result = jac::ast::parseLexicalDeclaration(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
         REQUIRE(result->isConst == true);
-        REQUIRE(result->bindings.size() == 1);
+        REQUIRE(result->bindingCount() == 1);
+        auto binding = result->bindingGet(0);
+        REQUIRE(binding->target()->name == "x");
+        REQUIRE(binding->typeAnnotation() == nullptr);
+        REQUIRE(binding->initializer() != nullptr);
+        auto initializer = dynamic_cast<jac::ast::BinaryExpression*>(binding->initializer());
+        REQUIRE(initializer != nullptr);
 
-        auto& binding = result->bindings[0];
-        REQUIRE(std::holds_alternative<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(binding.value));
-        auto& pair = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(binding.value);
-        REQUIRE(pair.first.identifier.name == "x");
-        auto& exp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(
-            std::get<jac::ast::BinaryExpression>(
-                std::get<jac::ast::ConditionalExpression>(pair.second->value)
-            .value)
-        .value);
+        auto lhs = dynamic_cast<jac::ast::Identifier*>(initializer->left());
+        REQUIRE(lhs != nullptr);
+        REQUIRE(lhs->name == "abc");
 
-        REQUIRE(std::get<2>(exp) == "+");
-        REQUIRE(
-            std::get<jac::ast::IdentifierReference>(
-              std::get<jac::ast::PrimaryExpression>(
-                std::get<jac::ast::MemberExpression>(
-                  std::get<jac::ast::NewExpression>(
-                    std::get<jac::ast::LeftHandSideExpressionPtr>(
-                        std::get<jac::ast::UpdateExpression>(
-                        std::get<jac::ast::UnaryExpressionPtr>(
-                          std::get<0>(exp)
-                        ->value)
-                      ->value)
-                    .value)
-                  ->value)
-                .value)
-              .value)
-            .value).identifier.name == "abc"
-        );
-        REQUIRE(
-            std::get<jac::ast::IdentifierReference>(
-              std::get<jac::ast::PrimaryExpression>(
-                std::get<jac::ast::MemberExpression>(
-                  std::get<jac::ast::NewExpression>(
-                    std::get<jac::ast::LeftHandSideExpressionPtr>(
-                      std::get<jac::ast::UpdateExpression>(
-                        std::get<jac::ast::UnaryExpressionPtr>(
-                          std::get<1>(exp)
-                        ->value)
-                      ->value)
-                    .value)
-                  ->value)
-                .value)
-              .value)
-            .value).identifier.name == "def"
-        );
+        auto rhs = dynamic_cast<jac::ast::Identifier*>(initializer->right());
+        REQUIRE(rhs != nullptr);
+        REQUIRE(rhs->name == "def");
     }
 }
 
@@ -873,20 +744,19 @@ TEST_CASE("UnaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::UnaryExpression::parse(state);
+        auto result = jac::ast::parseUnaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
+        auto& first_un = dynamic_cast<jac::ast::UnaryExpression&>(*result);
+        REQUIRE(first_un.op == "+");
 
-        auto& un1 = std::get<std::pair<jac::ast::UnaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(un1.second == "+");
+        auto& second_un = dynamic_cast<jac::ast::UnaryExpression&>(*first_un.expression());
+        REQUIRE(second_un.op == "-");
 
-        auto& inner = std::get<std::pair<jac::ast::UnaryExpressionPtr, std::string_view>>(un1.first->value);
-        REQUIRE(inner.second == "-");
-
-        REQUIRE(literalI32(unaryExpLiteral(inner.first)) == 123);
+        REQUIRE(isLit<int32_t>(second_un.expression(), 123));
     }
 
     SECTION("- a++") {
@@ -898,18 +768,20 @@ TEST_CASE("UnaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::UnaryExpression::parse(state);
+        auto result = jac::ast::parseUnaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& un = std::get<std::pair<jac::ast::UnaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(un.second == "-");
+        auto& un = dynamic_cast<jac::ast::UnaryExpression&>(*result);
+        REQUIRE(un.op == "-");
 
-        REQUIRE(std::get<jac::ast::UpdateExpression>(un.first->value).kind == jac::ast::UpdateKind::PostInc);
+        auto& update = dynamic_cast<jac::ast::UpdateExpression&>(*un.expression());
+        REQUIRE(update.kind == jac::ast::UpdateExpression::Op::PostInc);
 
-        REQUIRE(unaryExpIdentifier(un.first) == "a");
+        auto& id = dynamic_cast<jac::ast::Identifier&>(*update.expression());
+        REQUIRE(id.name == "a");
     }
 }
 
@@ -925,18 +797,17 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        auto& exp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(exp) == "+");
-        auto& lhs = std::get<0>(exp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(lhs->value)) == 1);
 
-        auto& rhs = std::get<1>(exp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(rhs->value)) == 2);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(addExp.op == "+");
+
+        REQUIRE(isLit<int32_t>(addExp.left(), 1));
+        REQUIRE(isLit<int32_t>(addExp.right(), 2));
     }
 
     SECTION("1 + 2 * 3") {
@@ -950,21 +821,20 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        auto& addExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(addExp) == "+");
-        auto& addLhs = std::get<0>(addExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(addLhs->value)) == 1);
 
-        auto& addRhs = std::get<1>(addExp);
-        auto& mulExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(addRhs->value);
-        REQUIRE(std::get<2>(mulExp) == "*");
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(mulExp)->value)) == 2);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(mulExp)->value)) == 3);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isLit<int32_t>(addExp.left(), 1));
+
+        auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
+        REQUIRE(mulExp.op == "*");
+        REQUIRE(isLit<int32_t>(mulExp.left(), 2));
+        REQUIRE(isLit<int32_t>(mulExp.right(), 3));
     }
 
     SECTION("1 + 2 * 3 * 4 - 5") {
@@ -982,35 +852,28 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        auto& minExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(minExp) == "-");
-        auto& minLhs = std::get<0>(minExp);
-        auto& minRhs = std::get<1>(minExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(minRhs->value)) == 5);
 
-        auto& addExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(minLhs->value);
-        REQUIRE(std::get<2>(addExp) == "+");
-        auto& addLhs = std::get<0>(addExp);
-        auto& addRhs = std::get<1>(addExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(addLhs->value)) == 1);
+        auto& subExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(subExp.op == "-");
+        REQUIRE(isLit<int32_t>(subExp.right(), 5));
 
-        auto& mulExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(addRhs->value);
-        REQUIRE(std::get<2>(mulExp) == "*");
-        auto& mulLhs = std::get<0>(mulExp);
-        auto& mulRhs = std::get<1>(mulExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(mulRhs->value)) == 4);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*subExp.left());
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
-        auto& mulExp2 = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(mulLhs->value);
-        REQUIRE(std::get<2>(mulExp2) == "*");
-        auto& mulLhs2 = std::get<0>(mulExp2);
-        auto& mulRhs2 = std::get<1>(mulExp2);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(mulLhs2->value)) == 2);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(mulRhs2->value)) == 3);
+        auto& firstMulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
+        REQUIRE(firstMulExp.op == "*");
+        REQUIRE(isLit<int32_t>(firstMulExp.right(), 4));
+
+        auto& secondMulExp = dynamic_cast<jac::ast::BinaryExpression&>(*firstMulExp.left());
+        REQUIRE(secondMulExp.op == "*");
+        REQUIRE(isLit<int32_t>(secondMulExp.left(), 2));
+        REQUIRE(isLit<int32_t>(secondMulExp.right(), 3));
     }
 
     SECTION("1 + (2 * 3)") {
@@ -1026,27 +889,20 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        auto& addExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(addExp) == "+");
-        auto& addLhs = std::get<0>(addExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(addLhs->value)) == 1);
 
-        auto& addRhs = std::get<1>(addExp);
-        auto& primary = unaryExpPrimary(std::get<jac::ast::UnaryExpressionPtr>(addRhs->value));
-        auto& parExp = std::get<jac::ast::ParenthesizedExpression>(primary.value).expression;
-        REQUIRE(parExp.items.size() == 1);
-        auto& mulExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(
-            std::get<jac::ast::BinaryExpression>(
-            std::get<jac::ast::ConditionalExpression>(parExp.items[0]->value).value
-        ).value);
-        REQUIRE(std::get<2>(mulExp) == "*");
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(mulExp)->value)) == 2);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(mulExp)->value)) == 3);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isLit<int32_t>(addExp.left(), 1));
+
+        auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
+        REQUIRE(mulExp.op == "*");
+        REQUIRE(isLit<int32_t>(mulExp.left(), 2));
+        REQUIRE(isLit<int32_t>(mulExp.right(), 3));
     }
 
     SECTION("2 * 4 / 2 % 3") {
@@ -1062,33 +918,24 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& modExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(modExp) == "%");
+        auto& modExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(modExp.op == "%");
+        REQUIRE(isLit<int32_t>(modExp.right(), 3));
 
-        auto& modLhs = std::get<0>(modExp);
-        auto& modRhs = std::get<1>(modExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(modRhs->value)) == 3);
+        auto& divExp = dynamic_cast<jac::ast::BinaryExpression&>(*modExp.left());
+        REQUIRE(divExp.op == "/");
+        REQUIRE(isLit<int32_t>(divExp.right(), 2));
 
-        auto& divExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(modLhs->value);
-        REQUIRE(std::get<2>(divExp) == "/");
-
-        auto& divLhs = std::get<0>(divExp);
-        auto& divRhs = std::get<1>(divExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(divRhs->value)) == 2);
-
-        auto& mulExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(divLhs->value);
-        REQUIRE(std::get<2>(mulExp) == "*");
-
-        auto& mulLhs = std::get<0>(mulExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(mulLhs->value)) == 2);
-        auto& mulRhs = std::get<1>(mulExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(mulRhs->value)) == 4);
+        auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*divExp.left());
+        REQUIRE(mulExp.op == "*");
+        REQUIRE(isLit<int32_t>(mulExp.left(), 2));
+        REQUIRE(isLit<int32_t>(mulExp.right(), 4));
     }
 
     SECTION("1 + + 2 - 3") {
@@ -1103,30 +950,23 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& subExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(result->value);
-        REQUIRE(std::get<2>(subExp) == "-");
+        auto& subExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(subExp.op == "-");
+        REQUIRE(isLit<int32_t>(subExp.right(), 3));
 
-        auto& subLhs = std::get<0>(subExp);
-        auto& subRhs = std::get<1>(subExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(subRhs->value)) == 3);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*subExp.left());
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
-        auto& addExp = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(subLhs->value);
-        REQUIRE(std::get<2>(addExp) == "+");
-
-        auto& addLhs = std::get<0>(addExp);
-        auto& addRhs = std::get<1>(addExp);
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(addLhs->value)) == 1);
-
-        auto& unaryExp = std::get<jac::ast::UnaryExpressionPtr>(addRhs->value);
-        REQUIRE(std::get<std::pair<jac::ast::UnaryExpressionPtr, std::string_view>>(unaryExp->value).second == "+");
-        auto& inner = std::get<std::pair<jac::ast::UnaryExpressionPtr, std::string_view>>(unaryExp->value);
-        REQUIRE(unaryExpI32(inner.first) == 2);
+        auto& unaryExp = dynamic_cast<jac::ast::UnaryExpression&>(*addExp.right());
+        REQUIRE(unaryExp.op == "+");
+        REQUIRE(isLit<int32_t>(unaryExp.expression(), 2));
     }
 
     SECTION("1 +") {
@@ -1137,7 +977,7 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -1153,7 +993,7 @@ TEST_CASE("BinaryExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
@@ -1170,7 +1010,7 @@ TEST_CASE("BinaryExpression", "[parser]") {
         };
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BinaryExpression::parse(state);
+        auto result = jac::ast::parseBinaryExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(result);
@@ -1195,32 +1035,24 @@ TEST_CASE("ConditionalExpression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::ConditionalExpression::parse(state);
+        auto result = jac::ast::parseConditionalExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& condTup = std::get<std::tuple<
-            jac::ast::BinaryExpression,
-            jac::ast::AssignmentExpressionPtr,
-            jac::ast::AssignmentExpressionPtr
-        >>(result->value);
+        auto& condExp = dynamic_cast<jac::ast::ConditionalExpression&>(*result);
+        auto& logicalExp = dynamic_cast<jac::ast::BinaryExpression&>(*condExp.test());
+        REQUIRE(logicalExp.op == "&&");
+        REQUIRE(isIdent(logicalExp.left(), "a"));
+        REQUIRE(isIdent(logicalExp.right(), "b"));
 
-        auto& andTup = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(std::get<0>(condTup).value);
-        REQUIRE(std::get<2>(andTup) == "&&");
+        REQUIRE(isIdent(condExp.consequent(), "c"));
 
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(andTup)->value)) == "a");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(andTup)->value)) == "b");
-
-        auto& consequent = assignExpUnary(*std::get<1>(condTup));
-        REQUIRE(unaryExpIdentifier(consequent) == "c");
-
-        auto& alternate = assignExpBinary(*std::get<2>(condTup));
-        auto& addTuple = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(alternate.value);
-        REQUIRE(std::get<2>(addTuple) == "+");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(addTuple)->value)) == "d");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(addTuple)->value)) == "e");
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*condExp.alternate());
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isIdent(addExp.left(), "d"));
+        REQUIRE(isIdent(addExp.right(), "e"));
     }
 }
 
@@ -1239,15 +1071,17 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::FunctionDeclaration::parse(state, false);
+        auto result = jac::ast::parseFunctionDeclaration(state, false);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->name->identifier.name == "f");
-        REQUIRE(result->parameters.parameterList.empty());
-        REQUIRE_FALSE(result->parameters.restParameter);
-        REQUIRE(!result->body);
+
+        REQUIRE(result->name()->name == "f");
+        REQUIRE(result->parameters());
+        REQUIRE(result->parameters()->parameterCount() == 0);
+        REQUIRE(!result->parameters()->restParameter());
+        REQUIRE(!result->body());
     }
 
     SECTION("function fun(a, b) { const x = 3; let y = 4; return x + y; }") {
@@ -1280,49 +1114,54 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::FunctionDeclaration::parse(state, false);
+        auto result = jac::ast::parseFunctionDeclaration(state, false);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->name->identifier.name == "fun");
-        REQUIRE(result->parameters.parameterList.size() == 2);
-        REQUIRE_FALSE(result->parameters.restParameter);
-        REQUIRE(result->body);
 
-        auto& argIdentA = std::get<jac::ast::BindingIdentifier>(result->parameters.parameterList[0].value);
-        REQUIRE(argIdentA.identifier.name == "a");
-        auto& argIdentB = std::get<jac::ast::BindingIdentifier>(result->parameters.parameterList[1].value);
-        REQUIRE(argIdentB.identifier.name == "b");
+        REQUIRE(result->name()->name == "fun");
+        REQUIRE(result->parameters());
 
+        // params
+        auto& params = *result->parameters();
+        REQUIRE(params.parameterCount() == 2);
 
-        auto& statementList = result->body->statementList;
-        REQUIRE(statementList.items.size() == 3);
+        REQUIRE(isIdent(params.parameterGet(0)->target(), "a"));
 
-        auto& declXStat = std::get<jac::ast::Declaration>(statementList.items[0].value);
-        auto& declX = std::get<jac::ast::LexicalDeclaration>(declXStat.value);
-        REQUIRE(declX.isConst == true);
-        REQUIRE(declX.bindings.size() == 1);
-        auto& bindingX = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(declX.bindings[0].value);
-        REQUIRE(std::get<0>(bindingX).identifier.name == "x");
+        auto& bindingB = *params.parameterGet(1);
+        REQUIRE(isIdent(bindingB.target(), "b"));
 
-        auto& declYStat = std::get<jac::ast::Declaration>(statementList.items[1].value);
-        auto& declY = std::get<jac::ast::LexicalDeclaration>(declYStat.value);
-        REQUIRE(declY.isConst == false);
-        REQUIRE(declY.bindings.size() == 1);
-        auto& bindingY = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(declY.bindings[0].value);
-        REQUIRE(std::get<0>(bindingY).identifier.name == "y");
+        REQUIRE(!result->parameters()->restParameter());
 
-        auto& retStat = std::get<jac::ast::Statement>(statementList.items[2].value);
-        auto& ret = std::get<jac::ast::ReturnStatement>(retStat.value);
-        REQUIRE(ret.expression);
-        REQUIRE(ret.expression->items.size() == 1);
+        // statements
+        REQUIRE(result->body());
+        auto bodyIt = result->body()->children.begin();
+        REQUIRE(bodyIt != result->body()->children.end());
 
-        auto& addExp = assignExpBinary(*ret.expression->items[0]);
-        auto& addVar = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(addExp.value);
-        REQUIRE(std::get<2>(addVar) == "+");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(addVar)->value)) == "x");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(addVar)->value)) == "y");
+        auto& lexDeclX = dynamic_cast<jac::ast::LexicalDeclaration&>(**bodyIt);
+        REQUIRE(lexDeclX.isConst);
+        REQUIRE(lexDeclX.bindingCount() == 1);
+        auto bindingX = lexDeclX.bindingGet(0);
+        REQUIRE(bindingX->target()->name == "x");
+        REQUIRE(isLit<int32_t>(bindingX->initializer(), 3));
+        ++bodyIt;
+        REQUIRE(bodyIt != result->body()->children.end());
+
+        auto& lexDeclY = dynamic_cast<jac::ast::LexicalDeclaration&>(**bodyIt);
+        REQUIRE(!lexDeclY.isConst);
+        REQUIRE(lexDeclY.bindingCount() == 1);
+        auto bindingY = lexDeclY.bindingGet(0);
+        REQUIRE(bindingY->target()->name == "y");
+        REQUIRE(isLit<int32_t>(bindingY->initializer(), 4));
+        ++bodyIt;
+        REQUIRE(bodyIt != result->body()->children.end());
+
+        auto& returnStmt = dynamic_cast<jac::ast::ReturnStatement&>(**bodyIt);
+        auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*returnStmt.expression());
+        REQUIRE(addExp.op == "+");
+        REQUIRE(isIdent(addExp.left(), "x"));
+        REQUIRE(isIdent(addExp.right(), "y"));
     }
 
     SECTION("function fun(a, b=3) {}") {
@@ -1342,22 +1181,27 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::FunctionDeclaration::parse(state, false);
+        auto result = jac::ast::parseFunctionDeclaration(state, false);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-        REQUIRE(result->name->identifier.name == "fun");
-        REQUIRE(result->parameters.parameterList.size() == 2);
-        REQUIRE_FALSE(result->parameters.restParameter);
-        REQUIRE(!result->body);
 
-        auto& argIdentA = std::get<jac::ast::BindingIdentifier>(result->parameters.parameterList[0].value);
-        REQUIRE(argIdentA.identifier.name == "a");
+        REQUIRE(result->name()->name == "fun");
+        REQUIRE(result->parameters());
 
-        auto& argB = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(result->parameters.parameterList[1].value);
-        REQUIRE(argB.first.identifier.name == "b");
-        REQUIRE(unaryExpI32(assignExpUnary(*argB.second)) == 3);
+        // params
+        auto params = result->parameters();
+        REQUIRE(params->parameterCount() == 2);
+        REQUIRE(isIdent(params->parameterGet(0)->target(), "a"));
+
+        auto& bindingB = *params->parameterGet(1);
+        REQUIRE(isIdent(bindingB.target(), "b"));
+        REQUIRE(isLit<int32_t>(bindingB.initializer(), 3));
+
+        REQUIRE(!params->restParameter());
+
+        REQUIRE(!result->body());
     }
 }
 
@@ -1373,15 +1217,16 @@ TEST_CASE("Assignment", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Assignment::parse(state);
+        auto result = jac::ast::parseAssignment(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
         REQUIRE(result->op == "=");
-        REQUIRE(lhsExpIdentifier(result->lhs) == "x");
-        REQUIRE(unaryExpI32(assignExpUnary(*result->rhs)) == 4);
+        auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
+        REQUIRE(lhs.name == "x");
+        REQUIRE(isLit<int32_t>(result->right(), 4));
     }
 
     SECTION("x = x / 4") {
@@ -1395,20 +1240,20 @@ TEST_CASE("Assignment", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Assignment::parse(state);
+        auto result = jac::ast::parseAssignment(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
         REQUIRE(result->op == "=");
-        REQUIRE(lhsExpIdentifier(result->lhs) == "x");
+        auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
+        REQUIRE(lhs.name == "x");
 
-        auto& divExp = assignExpBinary(*result->rhs);
-        auto& divExpTup = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(divExp.value);
-        REQUIRE(std::get<2>(divExpTup) == "/");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(divExpTup)->value)) == "x");
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(divExpTup)->value)) == 4);
+        auto& divExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->right());
+        REQUIRE(divExp.op == "/");
+        REQUIRE(isIdent(divExp.left(), "x"));
+        REQUIRE(isLit<int32_t>(divExp.right(), 4));
     }
 
     SECTION("x += y -= 4") {
@@ -1422,19 +1267,22 @@ TEST_CASE("Assignment", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Assignment::parse(state);
+        auto result = jac::ast::parseAssignment(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
         REQUIRE(result->op == "+=");
-        REQUIRE(lhsExpIdentifier(result->lhs) == "x");
+        auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
+        REQUIRE(lhs.name == "x");
 
-        auto& inner = std::get<jac::ast::Assignment>(result->rhs->value);
-        REQUIRE(inner.op == "-=");
-        REQUIRE(lhsExpIdentifier(inner.lhs) == "y");
-        REQUIRE(unaryExpI32(assignExpUnary(*inner.rhs)) == 4);
+        auto& rightAssign = dynamic_cast<jac::ast::Assignment&>(*result->right());
+        REQUIRE(rightAssign.op == "-=");
+
+        auto& rightLhs = dynamic_cast<jac::ast::Identifier&>(*rightAssign.left());
+        REQUIRE(rightLhs.name == "y");
+        REQUIRE(isLit<int32_t>(rightAssign.right(), 4));
     }
 }
 
@@ -1450,14 +1298,17 @@ TEST_CASE("Expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Expression::parse(state);
+        auto result = jac::ast::parseExpression(state);
 
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->items.size() == 1);
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
+        REQUIRE(binaryExp.op == "<");
+        REQUIRE(isIdent(binaryExp.left(), "x"));
+        REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
     }
 
     SECTION("x++") {
@@ -1468,14 +1319,16 @@ TEST_CASE("Expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Expression::parse(state);
+        auto result = jac::ast::parseExpression(state);
 
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->items.size() == 1);
+        auto& updateExp = dynamic_cast<jac::ast::UpdateExpression&>(*result);
+        REQUIRE(updateExp.kind == jac::ast::UpdateExpression::Op::PostInc);
+        REQUIRE(isIdent(updateExp.expression(), "x"));
     }
 
     SECTION("empty expr") {
@@ -1483,12 +1336,12 @@ TEST_CASE("Expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Expression::parse(state);
+        auto result = jac::ast::parseExpression(state);
 
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
-        REQUIRE_FALSE(result.has_value());
+        REQUIRE(!result);
     }
 
     SECTION("true literal expr") {
@@ -1498,14 +1351,14 @@ TEST_CASE("Expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Expression::parse(state);
+        auto result = jac::ast::parseExpression(state);
 
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->items.size() == 1);
+        REQUIRE(isLit<bool>(result.get(), true));
     }
 }
 
@@ -1520,13 +1373,14 @@ TEST_CASE("BlockStatement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BlockStatement::parse(state);
+        auto result = jac::ast::parseBlockStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE_FALSE(result->statementList);
+        REQUIRE(result->children.size() == 0);
+        REQUIRE(result->kind == jac::ast::StatementList::Kind::Block);
     }
 
     SECTION("{ let x = 3; x <<= x % 4; }") {
@@ -1548,35 +1402,27 @@ TEST_CASE("BlockStatement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::BlockStatement::parse(state);
+        auto result = jac::ast::parseBlockStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& list = result->statementList;
-        REQUIRE(list->items.size() == 2);
+        REQUIRE(result->kind == jac::ast::StatementList::Kind::Block);
+        REQUIRE(result->children.size() == 2);
 
-        auto& decl = std::get<jac::ast::Declaration>(list->items[0].value);
-        auto& declLex = std::get<jac::ast::LexicalDeclaration>(decl.value);
-        REQUIRE(declLex.isConst == false);
-        REQUIRE(declLex.bindings.size() == 1);
-        auto& binding = std::get<std::pair<jac::ast::BindingIdentifier, jac::ast::InitializerPtr>>(declLex.bindings[0].value);
-        REQUIRE(binding.first.identifier.name == "x");
+        auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->children[0]);
+        REQUIRE(!declStmt.isConst);
+        REQUIRE(declStmt.bindingCount() == 1);
+        auto bindingX = declStmt.bindingGet(0);
+        REQUIRE(bindingX->target()->name == "x");
+        REQUIRE(isLit<int32_t>(bindingX->initializer(), 3));
 
-        auto& assignStat = std::get<jac::ast::Statement>(list->items[1].value);
-        auto& assignExpStat = std::get<jac::ast::ExpressionStatement>(assignStat.value).expression;
-        REQUIRE(assignExpStat.items.size() == 1);
-        auto& assignment = std::get<jac::ast::Assignment>(assignExpStat.items[0]->value);
-
-        REQUIRE(assignment.op == "<<=");
-        REQUIRE(lhsExpIdentifier(assignment.lhs) == "x");
-        auto& modExp = assignExpBinary(*assignment.rhs);
-
-        auto& modExpTup = std::get<std::tuple<jac::ast::BinaryExpressionPtr, jac::ast::BinaryExpressionPtr, std::string_view>>(modExp.value);
-        REQUIRE(std::get<2>(modExpTup) == "%");
-        REQUIRE(unaryExpIdentifier(std::get<jac::ast::UnaryExpressionPtr>(std::get<0>(modExpTup)->value)) == "x");
-        REQUIRE(unaryExpI32(std::get<jac::ast::UnaryExpressionPtr>(std::get<1>(modExpTup)->value)) == 4);
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result->children[1]);
+        auto& assignExp = dynamic_cast<jac::ast::Assignment&>(*exprStmt.expression());
+        REQUIRE(assignExp.op == "<<=");
+        auto& lhs = dynamic_cast<jac::ast::Identifier&>(*assignExp.left());
+        REQUIRE(lhs.name == "x");
     }
 }
 
@@ -1590,20 +1436,17 @@ TEST_CASE("Script", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Script::parse(state);
+        auto result = jac::ast::parseScript(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& list = result->statementList;
-        REQUIRE(list->items.size() == 1);
-
-        jac::ast::StatementListItem& expStat = list->items[0];
-        auto& statement = std::get<jac::ast::Statement>(expStat.value);
-        auto& expr = std::get<jac::ast::ExpressionStatement>(statement.value).expression;
-        REQUIRE(expr.items.size() == 1);
-        REQUIRE(std::string(unaryExpIdentifier(assignExpUnary(*expr.items[0]))) == "x");
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+        REQUIRE(result->body()->kind == jac::ast::StatementList::Kind::Normal);
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result->body()->children[0]);
+        REQUIRE(isIdent(exprStmt.expression(), "x"));
     }
 }
 
@@ -1619,18 +1462,11 @@ TEST_CASE("Call expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::CallExpression::parse(state);
+        auto result = jac::ast::parseCallExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
-
-        auto& [mem, args] = std::get<std::pair<jac::ast::MemberExpression, jac::ast::Arguments>>(result->value);
-        auto& primary = std::get<jac::ast::PrimaryExpression>(mem.value);
-        auto& ident = std::get<jac::ast::IdentifierReference>(primary.value);
-        REQUIRE(ident.identifier.name == "f");
-
-        REQUIRE(args.arguments.empty());
     }
 
     SECTION("func(1, 'abc', variable)") {
@@ -1647,18 +1483,24 @@ TEST_CASE("Call expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::CallExpression::parse(state);
+        auto result = jac::ast::parseCallExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& [mem, args] = std::get<std::pair<jac::ast::MemberExpression, jac::ast::Arguments>>(result->value);
-        auto& primary = std::get<jac::ast::PrimaryExpression>(mem.value);
-        auto& ident = std::get<jac::ast::IdentifierReference>(primary.value);
-        REQUIRE(ident.identifier.name == "func");
+        auto& callExp = dynamic_cast<jac::ast::CallExpression&>(*result);
+        REQUIRE(isIdent(callExp.callee(), "func"));
 
-        REQUIRE(args.arguments.size() == 3);
+        REQUIRE(callExp.arguments());
+        REQUIRE(callExp.arguments()->argCount() == 3);
+        auto& args = *callExp.arguments();
+
+        REQUIRE(isLit<int32_t>(args.argGet(0), 1));
+        REQUIRE(isLit<std::string>(args.argGet(1), "abc"));
+        REQUIRE(isIdent(args.argGet(2), "variable"));
+
+        REQUIRE(!callExp.arguments()->spread());
     }
 
     SECTION("call(true)") {
@@ -1671,18 +1513,20 @@ TEST_CASE("Call expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::CallExpression::parse(state);
+        auto result = jac::ast::parseCallExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& [mem, args] = std::get<std::pair<jac::ast::MemberExpression, jac::ast::Arguments>>(result->value);
-        auto& primary = std::get<jac::ast::PrimaryExpression>(mem.value);
-        auto& ident = std::get<jac::ast::IdentifierReference>(primary.value);
-        REQUIRE(ident.identifier.name == "call");
+        auto& callExp = dynamic_cast<jac::ast::CallExpression&>(*result);
+        REQUIRE(isIdent(callExp.callee(), "call"));
 
-        REQUIRE(args.arguments.size() == 1);
+        REQUIRE(callExp.arguments());
+        REQUIRE(callExp.arguments()->argCount() == 1);
+        REQUIRE(isLit<bool>(callExp.arguments()->argGet(0), true));
+
+        REQUIRE(!callExp.arguments()->spread());
     }
 
     SECTION("call(fun(true))") {
@@ -1698,18 +1542,27 @@ TEST_CASE("Call expression", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::CallExpression::parse(state);
+        auto result = jac::ast::parseCallExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        auto& [mem, args] = std::get<std::pair<jac::ast::MemberExpression, jac::ast::Arguments>>(result->value);
-        auto& primary = std::get<jac::ast::PrimaryExpression>(mem.value);
-        auto& ident = std::get<jac::ast::IdentifierReference>(primary.value);
-        REQUIRE(ident.identifier.name == "call");
+        auto& callExp = dynamic_cast<jac::ast::CallExpression&>(*result);
+        REQUIRE(isIdent(callExp.callee(), "call"));
+        REQUIRE(callExp.arguments());
+        REQUIRE(!callExp.arguments()->spread());
 
-        REQUIRE(args.arguments.size() == 1);
+        auto& args = *callExp.arguments();
+        REQUIRE(args.argCount() == 1);
+
+        auto& innerCall = dynamic_cast<jac::ast::CallExpression&>(*args.argGet(0));
+        REQUIRE(isIdent(innerCall.callee(), "fun"));
+        REQUIRE(innerCall.arguments());
+        REQUIRE(!innerCall.arguments()->spread());
+        auto& innerArgs = *innerCall.arguments();
+        REQUIRE(innerArgs.argCount() == 1);
+        REQUIRE(isLit<bool>(innerArgs.argGet(0), true));
     }
 }
 
@@ -1728,13 +1581,14 @@ TEST_CASE("If statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::IfStatement::parse(state);
+        auto result = jac::ast::parseIfStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE_FALSE(result->alternate);
+        REQUIRE(result->consequent());
+        REQUIRE_FALSE(result->alternate());
     }
 
     SECTION("if (x) { y; } else { z; }") {
@@ -1756,13 +1610,14 @@ TEST_CASE("If statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::IfStatement::parse(state);
+        auto result = jac::ast::parseIfStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->alternate);
+        REQUIRE(result->consequent());
+        REQUIRE(result->alternate());
     }
 
     SECTION("if (a == 4) b; else c;") {
@@ -1782,13 +1637,14 @@ TEST_CASE("If statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::IfStatement::parse(state);
+        auto result = jac::ast::parseIfStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->alternate);
+        REQUIRE(result->consequent());
+        REQUIRE(result->alternate());
     }
 }
 
@@ -1807,13 +1663,21 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::WhileStatement::parse(state);
+        auto result = jac::ast::parseWhileStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->statement);
+        REQUIRE(!result->init());
+        REQUIRE(result->statement());
+        REQUIRE(result->preCondition());
+        REQUIRE(!result->postCondition());
+        REQUIRE(!result->update());
+
+        REQUIRE(isIdent(result->preCondition(), "x"));
+        REQUIRE(dynamic_cast<jac::ast::StatementList&>(*result->statement()).children.empty());
+
     }
 
     SECTION("while (x) { y; }") {
@@ -1830,13 +1694,23 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::WhileStatement::parse(state);
+        auto result = jac::ast::parseWhileStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->statement);
+        REQUIRE(!result->init());
+        REQUIRE(result->statement());
+        REQUIRE(result->preCondition());
+        REQUIRE(!result->postCondition());
+        REQUIRE(!result->update());
+
+        REQUIRE(isIdent(result->preCondition(), "x"));
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        REQUIRE(stmtList.children.size() == 1);
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
+        REQUIRE(isIdent(exprStmt.expression(), "y"));
     }
 
     SECTION("while (true);") {
@@ -1850,13 +1724,20 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::WhileStatement::parse(state);
+        auto result = jac::ast::parseWhileStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->statement);
+        REQUIRE(!result->init());
+        REQUIRE(result->statement());
+        REQUIRE(result->preCondition());
+        REQUIRE(!result->postCondition());
+        REQUIRE(!result->update());
+
+        REQUIRE(isLit<bool>(result->preCondition(), true));
+        REQUIRE(dynamic_cast<jac::ast::EmptyStatement*>(result->statement()));
     }
 
     SECTION("do { x; } while (y > 0);") {
@@ -1877,13 +1758,27 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::DoWhileStatement::parse(state);
+        auto result = jac::ast::parseDoWhileStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->statement);
+        REQUIRE(result->statement());
+        REQUIRE(result->postCondition());
+        REQUIRE(!result->preCondition());
+        REQUIRE(!result->init());
+        REQUIRE(!result->update());
+
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        REQUIRE(stmtList.children.size() == 1);
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
+        REQUIRE(isIdent(exprStmt.expression(), "x"));
+
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->postCondition());
+        REQUIRE(binaryExp.op == ">");
+        REQUIRE(isIdent(binaryExp.left(), "y"));
+        REQUIRE(isLit<int32_t>(binaryExp.right(), 0));
     }
 
     SECTION("for (let x = 0; x < 10; x++) { y; }") {
@@ -1910,16 +1805,38 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::ForStatement::parse(state);
+        auto result = jac::ast::parseForStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(std::holds_alternative<jac::ast::LexicalDeclaration>(result->init));
-        REQUIRE(result->condition);
-        REQUIRE(result->update);
-        REQUIRE(result->statement);
+        REQUIRE(result->init());
+        REQUIRE(result->preCondition());
+        REQUIRE(!result->postCondition());
+        REQUIRE(result->update());
+        REQUIRE(result->statement());
+
+        auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->init());
+        REQUIRE(!declStmt.isConst);
+        REQUIRE(declStmt.bindingCount() == 1);
+        auto bindingX = declStmt.bindingGet(0);
+        REQUIRE(bindingX->target()->name == "x");
+        REQUIRE(isLit<int32_t>(bindingX->initializer(), 0));
+
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->preCondition());
+        REQUIRE(binaryExp.op == "<");
+        REQUIRE(isIdent(binaryExp.left(), "x"));
+        REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
+
+        auto& updateExp = dynamic_cast<jac::ast::UpdateExpression&>(*result->update());
+        REQUIRE(updateExp.kind == jac::ast::UpdateExpression::Op::PostInc);
+        REQUIRE(isIdent(updateExp.expression(), "x"));
+
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        REQUIRE(stmtList.children.size() == 1);
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
+        REQUIRE(isIdent(exprStmt.expression(), "y"));
     }
 
     SECTION("for (;;) { }") {
@@ -1935,13 +1852,23 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::ForStatement::parse(state);
+        auto result = jac::ast::parseForStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
+        REQUIRE(!result->init());
+        REQUIRE(!result->preCondition());
+        REQUIRE(!result->postCondition());
+        REQUIRE(!result->update());
+        REQUIRE(result->statement());
+
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        REQUIRE(stmtList.children.size() == 0);
     }
 }
+
 
 
 TEST_CASE("Statement", "[parser]") {
@@ -1960,13 +1887,15 @@ TEST_CASE("Statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::Statement::parse(state);
+        auto result = jac::ast::parseStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(std::holds_alternative<jac::ast::ExpressionStatement>(result->value));
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result);
+        auto& callExp = dynamic_cast<jac::ast::CallExpression&>(*exprStmt.expression());
+        REQUIRE(isIdent(callExp.callee(), "report"));
     }
 }
 
@@ -1982,11 +1911,15 @@ TEST_CASE("Member access", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::LeftHandSideExpression::parse(state);
+        auto result = jac::ast::parseLeftHandSideExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
+        auto& memberExp = dynamic_cast<jac::ast::MemberAccessExpression&>(*result);
+        REQUIRE(isIdent(memberExp.object(), "a"));
+        REQUIRE(isLit<std::string>(memberExp.property(), "b"));
     }
 
     SECTION("return a.b;") {
@@ -2001,14 +1934,14 @@ TEST_CASE("Member access", "[parser]") {
         jac::ast::ParserState state(tokens);
 
         auto _ = state.pushTemplate<jac::ast::Return{true}>();
-        auto result = jac::ast::Statement::parse(state);
+        auto result = jac::ast::parseStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
     }
 
-    SECTION("a.b.c[\"test\"]") {
+    SECTION("a.b.c") {
         auto tokens = TokenVector{
             jac::lex::Token(1, 1, "a", jac::lex::Token::IdentifierName),
             jac::lex::Token(1, 2, ".", jac::lex::Token::Punctuator),
@@ -2019,11 +1952,46 @@ TEST_CASE("Member access", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::MemberExpression::parse(state);
+        auto result = jac::ast::parseLeftHandSideExpression(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
+
+        auto& memberExp1 = dynamic_cast<jac::ast::MemberAccessExpression&>(*result);
+        REQUIRE(isLit<std::string>(memberExp1.property(), "c"));
+        auto& memberExp2 = dynamic_cast<jac::ast::MemberAccessExpression&>(*memberExp1.object());
+        REQUIRE(isLit<std::string>(memberExp2.property(), "b"));
+        REQUIRE(isIdent(memberExp2.object(), "a"));
+    }
+
+    SECTION("a.b.c[\"test\"]") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "a", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 2, ".", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 3, "b", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 4, ".", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 5, "c", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 6, "[", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 7, "\"test\"", jac::lex::Token::StringLiteral),
+            jac::lex::Token(1, 13, "]", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseLeftHandSideExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& memberExp1 = dynamic_cast<jac::ast::MemberAccessExpression&>(*result);
+        REQUIRE(isLit<std::string>(memberExp1.property(), "test"));
+        auto& memberExp2 = dynamic_cast<jac::ast::MemberAccessExpression&>(*memberExp1.object());
+        REQUIRE(isLit<std::string>(memberExp2.property(), "c"));
+        auto& memberExp3 = dynamic_cast<jac::ast::MemberAccessExpression&>(*memberExp2.object());
+        REQUIRE(isLit<std::string>(memberExp3.property(), "b"));
+        REQUIRE(isIdent(memberExp3.object(), "a"));
     }
 }
 
@@ -2037,12 +2005,12 @@ TEST_CASE("Type annotation", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::TypeAnnotation::parse(state);
+        auto result = jac::ast::parseTypeAnnotation(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->type == "i32");
+        REQUIRE(result->name == "i32");
     }
 }

@@ -323,7 +323,12 @@ struct FunctionEmitter {
     }
 
     auto pushScope() { scopes.emplace_front(); return ListPopper(scopes); }
-    LVRef addLexical(Identifier name, ValueType type, bool isConst) { return scopes.front().addLocal(name, type, isConst); }
+    LVRef addLexical(Identifier name, ValueType type, bool isConst) {
+        if (scopes.front().locals.contains(name)) {
+            throw std::runtime_error("Redeclaration of local variable: " + name);
+        }
+        return scopes.front().addLocal(name, type, isConst);
+    }
     LVRef addUndefined(Identifier name, ValueType type) {
         auto reg = Reg::create(type);
         undefined.emplace_back(name, reg);

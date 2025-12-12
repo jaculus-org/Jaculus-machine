@@ -1,10 +1,24 @@
 #include "ast.h"
 
+#include "../../util.h"
+
+#include <cmath>
+#include <memory>
+#include <string_view>
+
 
 namespace jac::ast {
 
 
+ExpressionPtr parseAssignmentExpression(ParserState& state);
+StatementPtr parseStatement(ParserState& state);
+StatementListPtr parseStatementList(ParserState& state);
+ExpressionPtr parseExpression(ParserState& state);
+
+
+// TODO: check identifiers reserved words, await/yield
 std::optional<IdentifierName> parseIdentifierName(ParserState& state, bool allowReserved) {
+    // TODO: support unicode escape sequences
     if (state.current().kind == lex::Token::IdentifierName || (allowReserved && state.current().kind == lex::Token::Keyword)) {
         IdentifierName id;
         id = state.current().text;
@@ -16,118 +30,102 @@ std::optional<IdentifierName> parseIdentifierName(ParserState& state, bool allow
 }
 
 
-std::optional<Identifier> Identifier::parse(ParserState& state) {
+IdentifierPtr parseIdentifier(ParserState& state) {
     if (auto id = parseIdentifierName(state, false)) {
-        return Identifier{*id};
+        return std::make_unique<Identifier>(*id);
     }
-
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<IdentifierReference> IdentifierReference::parse(ParserState& state) {
+IdentifierPtr parseSpecialIdentifier(ParserState& state, bool allowYield, bool allowAwait) {
+    if (auto id = parseIdentifier(state)) {
+        return id;
+    }
+
+    if (auto current = state.current(); current.kind == lex::Token::Keyword) {
+        if ((allowYield && current.text == "yield")
+         || (allowAwait && current.text == "await")) {
+            state.advance();
+            return std::make_unique<Identifier>(IdentifierName(current.text));
+        }
+    }
+
+    return nullptr;
+}
+
+
+IdentifierPtr parseIdentifierReference(ParserState& state) {
+    return parseSpecialIdentifier(state, !state.getYield(), !state.getAwait());
+}
+
+
+IdentifierPtr parseBindingIdentifier(ParserState& state) {
+    // TODO: strict mode - cannot be "arguments" or "eval"
+    return parseSpecialIdentifier(state, true, true);
+}
+
+
+IdentifierPtr parseLabelIdentifier(ParserState& state) {
+    return parseSpecialIdentifier(state, !state.getYield(), !state.getAwait());
+}
+
+
+IdentifierPtr parsePrivateIdentifier(ParserState& state) {
     auto start = state.getPosition();
-    if (auto id = Identifier::parse(state)) {
-        if (state.getYield() && id->name == "yield") {
-            state.restorePosition(start);
-            state.error("Unexpected yield");
-            return std::nullopt;
-        }
-        if (state.getAwait() && id->name == "await") {
-            state.restorePosition(start);
-            state.error("Unexpected await");
-            return std::nullopt;
-        }
-        return IdentifierReference{*id};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<BindingIdentifier> BindingIdentifier::parse(ParserState& state) {
-    if (auto id = Identifier::parse(state)) {
-        return BindingIdentifier{*id};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<LabelIdentifier> LabelIdentifier::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (auto id = Identifier::parse(state)) {
-        if (state.getYield() && id->name == "yield") {
-            state.restorePosition(start);
-            state.error("Unexpected yield");
-            return std::nullopt;
-        }
-        if (state.getAwait() && id->name == "await") {
-            state.restorePosition(start);
-            state.error("Unexpected await");
-            return std::nullopt;
-        }
-        return LabelIdentifier{*id};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<PrivateIdentifier> PrivateIdentifier::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (auto id = parseIdentifierName(state, false)) {
+    if (auto id = parseIdentifierName(state, true)) {
         if (id->size() < 2 || (*id)[0] != '#') {
             state.restorePosition(start);
             state.error("Private identifier must start with #");
-            return std::nullopt;
+            return nullptr;
         }
-        return PrivateIdentifier{*id};
+        return std::make_unique<Identifier>(*id);
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<ThisExpr> ThisExpr::parse(ParserState& state) {
+ThisExpressionPtr parseThisExpr(ParserState& state) {
     if (state.current().kind == lex::Token::Keyword && state.current().text == "this") {
         state.advance();
-        return ThisExpr{};
+        return std::make_unique<ThisExpression>();
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<NullLiteral> NullLiteral::parse(ParserState& state) {
+LiteralPtr parseNullLiteral(ParserState& state) {
     if (state.current().kind == lex::Token::Keyword && state.current().text == "null") {
         state.advance();
-        return NullLiteral{};
+        return std::make_unique<Literal>(Literal::Null{});
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<BooleanLiteral> BooleanLiteral::parse(ParserState& state) {
+LiteralPtr parseBooleanLiteral(ParserState& state) {
     if (state.current().kind == lex::Token::Keyword) {
         if (state.current().text == "true") {
             state.advance();
-            return BooleanLiteral{true};
+            return std::make_unique<Literal>(true);
         }
         if (state.current().text == "false") {
             state.advance();
-            return BooleanLiteral{false};
+            return std::make_unique<Literal>(false);
         }
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
+LiteralPtr parseNumericLiteral(ParserState& state) {
+    // TODO: check correctness, maybe process in lexer?
     if (state.current().kind != lex::Token::NumericLiteral) {
-        return std::nullopt;
+        return nullptr;
     }
     std::string_view text = state.current().text;
     std::int32_t num = 0;
@@ -149,7 +147,7 @@ std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
             legacyOctal = false;
             if (text.empty()) {
                 state.error("Invalid numeric literal");
-                return std::nullopt;
+                return nullptr;
             }
         }
     }
@@ -217,7 +215,7 @@ std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
     if (legacyOctal && num != 0) {
         // TODO: fix base
         state.error("Legacy octal literals are not supported");
-        return std::nullopt;
+        return nullptr;
     }
 
     if (suffixStart != text.end() && std::tolower(*suffixStart) == 'e' && base == 10) {
@@ -226,7 +224,7 @@ std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
         bool negative = false;
         if (exponentText.empty()) {
             state.error("Invalid numeric literal");
-            return std::nullopt;
+            return nullptr;
         }
         if (exponentText[0] == '+' || exponentText[0] == '-') {
             negative = exponentText[0] == '-';
@@ -234,7 +232,7 @@ std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
         }
         if (exponentText.empty()) {
             state.error("Invalid numeric literal");
-            return std::nullopt;
+            return nullptr;
         }
         for (char c : exponentText) {
             if (c == '_') {
@@ -266,15 +264,15 @@ std::optional<NumericLiteral> NumericLiteral::parse(ParserState& state) {
 
     state.advance();
     if (isFloatingPoint) {
-        return NumericLiteral{dnum};
+        return std::make_unique<Literal>(dnum);
     }
-    return NumericLiteral{num};
+    return std::make_unique<Literal>(num);
 }
 
 
-std::optional<StringLiteral> StringLiteral::parse(ParserState& state) {
+LiteralPtr parseStringLiteral(ParserState& state) {
     if (state.current().kind != lex::Token::StringLiteral) {
-        return std::nullopt;
+        return nullptr;
     }
     std::string_view text = state.current().text;
     text = text.substr(1, text.size() - 2);  // remove quotes
@@ -299,7 +297,7 @@ std::optional<StringLiteral> StringLiteral::parse(ParserState& state) {
             ++it;
             if (it == text.end()) {
                 state.error("Invalid escape sequence");
-                return std::nullopt;
+                return nullptr;
             }
             char c = *it;
             switch (c) {
@@ -335,53 +333,82 @@ std::optional<StringLiteral> StringLiteral::parse(ParserState& state) {
     }
 
     state.advance();
-    return StringLiteral{str};
+    return std::make_unique<Literal>(str);
 }
 
 
-std::optional<Literal> Literal::parse(ParserState& state) {
-    if (auto null = NullLiteral::parse(state)) {
-        return Literal{*null};
+LiteralPtr parseLiteral(ParserState& state) {
+    // TODO: check all literals
+    if (auto null = parseNullLiteral(state)) {
+        return null;
     }
-    if (auto boolean = BooleanLiteral::parse(state)) {
-        return Literal{*boolean};
+    if (auto boolean = parseBooleanLiteral(state)) {
+        return boolean;
     }
-    if (auto numeric = NumericLiteral::parse(state)) {
-        return Literal{*numeric};
+    if (auto numeric = parseNumericLiteral(state)) {
+        return numeric;
     }
-    if (auto string = StringLiteral::parse(state)) {
-        return Literal{*string};
+    if (auto string = parseStringLiteral(state)) {
+        return string;
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<UnaryExpression> UnaryExpression::parse(ParserState& state) {
-    if (state.current().kind == lex::Token::Punctuator || state.current().kind == lex::Token::Keyword) { // parse prefix unary
+ExpressionPtr parseUpdateExpression(ParserState& state) {
+    // TODO: check that "AssignmentTargetType" is simple while parsing
+    if (state.current().kind == lex::Token::Punctuator) {
         std::string_view op = state.current().text;
-        if (unaryOperator.contains(op) && (state.getAwait() || op != "await")) {
+        if (op == "++" || op == "--") {
             state.advance();
-            if (auto expr = UnaryExpression::parse(state)) {
-                auto ptr = std::make_unique<UnaryExpression>(std::move(*expr));
-                return UnaryExpression{std::pair{std::move(ptr), op}};
+            if (auto expr = parseUnaryExpression(state)) {
+                return std::make_unique<UpdateExpression>(std::move(expr), (op == "++" ? UpdateExpression::Op::PreInc : UpdateExpression::Op::PreDec));
             }
             state.backtrack();
         }
     }
 
-    if (auto update = UpdateExpression::parse(state)) {
-        return UnaryExpression{std::move(*update)};
+
+    if (auto expr = parseLeftHandSideExpression(state)) {
+        if (state.current().kind == lex::Token::Punctuator) {
+            std::string_view op = state.current().text;
+            if (op == "++" || op == "--") {
+                state.advance();
+                return std::make_unique<UpdateExpression>(std::move(expr), (op == "++" ? UpdateExpression::Op::PostInc : UpdateExpression::Op::PostDec));
+            }
+        }
+        return expr;
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<BinaryExpression> BinaryExpression::parse(ParserState& state) {
+ExpressionPtr parseUnaryExpression(ParserState& state) {
+    if (state.current().kind == lex::Token::Punctuator || state.current().kind == lex::Token::Keyword) { // parse prefix unary
+        std::string_view op = state.current().text;
+        if (unaryOperator.contains(op) && (state.getAwait() || op != "await")) {
+            state.advance();
+            if (auto expr = parseUnaryExpression(state)) {
+                return std::make_unique<UnaryExpression>(std::move(expr), op);
+            }
+            state.backtrack();
+        }
+    }
+
+    if (auto update = parseUpdateExpression(state)) {
+        return update;
+    }
+
+    return nullptr;
+}
+
+
+ExpressionPtr parseBinaryExpression(ParserState& state) {
     // Shunting Yard algorithm
     using Element = std::variant<
-        UnaryExpressionPtr,
+        ExpressionPtr,
         std::string_view
     >;
 
@@ -390,11 +417,11 @@ std::optional<BinaryExpression> BinaryExpression::parse(ParserState& state) {
 
     auto start = state.getPosition();
     while (true) {
-        auto unary = UnaryExpression::parse(state);
+        auto unary = parseUnaryExpression(state);
         if (!unary) {
-            return std::nullopt;
+            return nullptr;
         }
-        output.emplace_back(std::make_unique<UnaryExpression>(std::move(*unary)));
+        output.emplace_back(std::move(unary));
         auto next = state.current();
         if (next.kind != lex::Token::Punctuator) {
             break;
@@ -426,35 +453,35 @@ std::optional<BinaryExpression> BinaryExpression::parse(ParserState& state) {
         ParserState& state;
         std::span<lex::Token>::iterator start;
 
-        std::optional<BinaryExpression> pop() {
+        ExpressionPtr pop() {
             if (output.empty()) {
                 state.restorePosition(start);
-                return std::nullopt;
+                return nullptr;
             }
             auto elem = std::move(output.back());
             output.pop_back();
-            if (auto unary = std::get_if<UnaryExpressionPtr>(&elem)) {
-                return BinaryExpression{std::move(*unary)};
+            if (auto expr = std::get_if<ExpressionPtr>(&elem)) {
+                return std::move(*expr);
             }
             if (auto op = std::get_if<std::string_view>(&elem)) {
                 auto rhs = pop();
                 if (!rhs) {
                     state.restorePosition(start);
-                    return std::nullopt;
+                    return nullptr;
                 }
                 auto lhs = pop();
                 if (!lhs) {
                     state.restorePosition(start);
-                    return std::nullopt;
+                    return nullptr;
                 }
-                return BinaryExpression{std::make_tuple(
-                    std::make_unique<BinaryExpression>(std::move(*lhs)),
-                    std::make_unique<BinaryExpression>(std::move(*rhs)),
+                return std::make_unique<BinaryExpression>(
+                    std::move(lhs),
+                    std::move(rhs),
                     *op
-                )};
+                );
             }
 
-            return std::nullopt;
+            return nullptr;
         }
     };
 
@@ -462,105 +489,170 @@ std::optional<BinaryExpression> BinaryExpression::parse(ParserState& state) {
     auto res = popper.pop();
     if (!res) {
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
-    return BinaryExpression{std::move(*res)};
+    assert(output.empty());
+    return res;
 }
 
 
-std::optional<BindingPattern> BindingPattern::parse(ParserState&) {
-    // XXX: ignore for now
-    return std::nullopt;
-}
-
-
-std::optional<TypeAnnotation> TypeAnnotation::parse(ParserState& state) {
+TypeAnnotationPtr parseTypeAnnotation(ParserState& state) {
     if (state.current().kind == lex::Token::Punctuator && state.current().text == ":") {
         state.advance();
         if (state.current().kind == lex::Token::Keyword && !allowedKWTypes.contains(state.current().text)) {
             state.error("Invalid type annotation");
-            return std::nullopt;
+            return nullptr;
         }
         if (auto id = parseIdentifierName(state, true)) {
-            return TypeAnnotation{*id};
+            return std::make_unique<TypeAnnotation>(*id);
         }
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<BindingRestElement> BindingRestElement::parse(ParserState&) {
+ExpressionPtr parseInitializer(ParserState& state) {
+    if (state.current().kind == lex::Token::Punctuator && state.current().text == "=") {
+        state.advance();
+        if (auto initializer = (state.pushTemplate<In{true}>(), parseAssignmentExpression(state))) {
+            return initializer;
+        }
+        state.backtrack();
+    }
+
+    return nullptr;
+}
+
+
+BindingElementPtr parseSingleNameBinding(ParserState& state) {
+    auto id = parseBindingIdentifier(state);
+    if (!id) {
+        return nullptr;
+    }
+    auto annotation = parseTypeAnnotation(state);
+    auto initializer = parseInitializer(state);
+
+    return std::make_unique<BindingElement>(std::move(id), std::move(annotation), std::move(initializer));
+}
+
+
+auto parseBindingPattern(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<FormalParameters> FormalParameters::parse(ParserState& state) {
-    FormalParameters params;
+BindingElementPtr parseBindingElement(ParserState& state) {
+    // TODO: vs LexicalBinding
+    if (auto single = parseSingleNameBinding(state)) {
+        return single;
+    }
+    if (auto pattern = parseBindingPattern(state)) {
+        // TODO
+        // auto annotation = parseTypeAnnotation(state);
+        // auto initializer = parseInitializer(state);
+
+        return pattern;
+    }
+
+    return nullptr;
+}
+
+
+auto parseBindingRestElement(ParserState&) {
+    // XXX: ignore for now
+    return nullptr;
+}
+
+
+auto parseFormalParameters(ParserState& state) {
+    std::vector<BindingElementPtr> params;
+    BindingElementPtr rest;
 
     bool canContinue = true;
-    while (true) {
-        if (auto param = FormalParameter::parse(state)) {
-            params.parameterList.push_back(std::move(*param));
+    while (canContinue) {
+        if (auto param = parseFormalParameter(state)) {
+            params.emplace_back(std::move(param));
             if (state.current().kind == lex::Token::Punctuator && state.current().text == ",") {
                 state.advance();
                 continue;
             }
+            else {
+                canContinue = false;
+            }
         }
-
-        canContinue = false;
         break;
     }
 
     if (canContinue) {
-        if (auto rest = BindingRestElement::parse(state)) {
-            params.restParameter.emplace(BindingRestElement{std::move(*rest)});
-        }
+        rest = parseBindingRestElement(state);
     }
 
-    return params;
+    return std::make_unique<FormalParameters>(std::move(rest), std::move(params));
 }
 
 
-std::optional<FunctionBody> FunctionBody::parse(ParserState& state) {
-    if (auto stmts = (state.pushTemplate<Return{true}>(), StatementList::parse(state))) {
-        return FunctionBody{std::move(*stmts)};
+StatementListPtr parseFunctionBody(ParserState& state) {
+    if (auto stmts = (state.pushTemplate<Return{true}>(), parseStatementList(state))) {
+        return stmts;
     }
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<Block> Block::parse(ParserState& state) {
+StatementListPtr parseBlock(ParserState& state) {
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "{") {
         state.error("Expected {");
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    Block block;
     auto start = state.getPosition();
-    if (auto list = StatementList::parse(state)) {
-        block.statementList.emplace(std::move(*list));
-    }
+
+    auto list = parseStatementList(state);
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "}") {
         state.restorePosition(start);
         state.error("Expected }");
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    return block;
+    if (list) {
+        list->kind = StatementList::Kind::Block;
+        return list;
+    }
+
+    return std::make_unique<StatementList>(StatementList::Kind::Block, std::vector<StatementPtr>{});
 }
 
 
+BindingElementPtr parseLexicalBinding(ParserState& state) {
+    if (auto id = parseBindingIdentifier(state)) {
+        auto annotation = parseTypeAnnotation(state);
+        auto initializer = parseInitializer(state);
+        return std::make_unique<BindingElement>(std::move(id), std::move(annotation), std::move(initializer));
+    }
 
-std::optional<LexicalDeclaration> LexicalDeclaration::parse(ParserState& state) {
+    auto start = state.getPosition();
+    if (auto pattern = parseBindingPattern(state)) {
+        auto annotation = parseTypeAnnotation(state);
+        if (auto initializer = parseInitializer(state)) {
+            return std::make_unique<BindingElement>(std::move(pattern), std::move(annotation), std::move(initializer));
+        }
+    }
+
+    state.restorePosition(start);
+    return nullptr;
+}
+
+
+LexicalDeclarationPtr parseLexicalDeclaration(ParserState& state) {
     auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword) {
         state.error("Expected let or const");
-        return std::nullopt;
+        return nullptr;
     }
     bool isConst;
     if (state.current().text == "let") {
@@ -571,20 +663,20 @@ std::optional<LexicalDeclaration> LexicalDeclaration::parse(ParserState& state) 
     }
     else {
         state.error("Expected let or const");
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    LexicalDeclaration declaration{ isConst, {} };
+    std::vector<BindingElementPtr> bindings;
 
     while (true) {
-        if (auto binding = LexicalBinding::parse(state)) {
-            declaration.bindings.push_back(std::move(*binding));
+        if (auto binding = parseLexicalBinding(state)) {
+            bindings.emplace_back(std::move(binding));
         }
         else {
             state.restorePosition(start);
             state.error("Invalid lexical declaration");
-            return std::nullopt;
+            return nullptr;
         }
 
 
@@ -598,408 +690,598 @@ std::optional<LexicalDeclaration> LexicalDeclaration::parse(ParserState& state) 
         }
         state.error("Unexpected token");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
 
-    return declaration;
+    return std::make_unique<LexicalDeclaration>(isConst, std::move(bindings));
 }
 
 
-std::optional<VariableStatement> VariableStatement::parse(ParserState&) {
+auto parseVariableStatement(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<EmptyStatement> EmptyStatement::parse(ParserState& state) {
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        return std::nullopt;
-    }
-    state.advance();
-    return EmptyStatement{};
-}
-
-
-std::optional<ExpressionStatement> ExpressionStatement::parse(ParserState& state) {
+ExpressionStatementPtr parseExpressionStatement(ParserState& state) {
     auto start = state.getPosition();
-    if (auto expr = (state.pushTemplate<In{false}>(), Expression::parse(state))) {
+    if (auto expr = (state.pushTemplate<In{false}>(), parseExpression(state))) {
         if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
             state.error("Expected ;");
             state.restorePosition(start);
-            return std::nullopt;
+            return nullptr;
         }
         state.advance();
-        return ExpressionStatement{std::move(*expr)};
+        return std::make_unique<ExpressionStatement>(std::move(expr));
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
-
-std::optional<IterationStatement> IterationStatement::parse(ParserState& state) {
-    if (auto doWhile = DoWhileStatement::parse(state)) {
-        return IterationStatement{std::move(*doWhile)};
-    }
-    if (auto whileStmt = WhileStatement::parse(state)) {
-        return IterationStatement{std::move(*whileStmt)};
-    }
-    if (auto forStmt = ForStatement::parse(state)) {
-        return IterationStatement{std::move(*forStmt)};
-    }
-    if (auto forInOf = ForInOfStatement::parse(state)) {
-        return IterationStatement{std::move(*forInOf)};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<SwitchStatement> SwitchStatement::parse(ParserState&) {
-    // XXX: ignore for now
-    return std::nullopt;
-}
-
-
-std::optional<BreakableStatement> BreakableStatement::parse(ParserState& state) {
-    if (auto iter = IterationStatement::parse(state)) {
-        return BreakableStatement{std::move(*iter)};
-    }
-    if (auto sw = SwitchStatement::parse(state)) {
-        return BreakableStatement{std::move(*sw)};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<ContinueStatement> ContinueStatement::parse(ParserState& state) {
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "continue") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    ContinueStatement statement;
-
-    if (auto ident = LabelIdentifier::parse(state)) {
-        statement.label = std::move(*ident);
-    }
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        state.error("Expected ;");
-        return std::nullopt;
-    }
-    state.advance();
-    return statement;
-}
-
-
-std::optional<BreakStatement> BreakStatement::parse(ParserState& state) {
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "break") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    BreakStatement statement;
-
-    if (auto ident = LabelIdentifier::parse(state)) {
-        statement.label = std::move(*ident);
-    }
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        state.error("Expected ;");
-        return std::nullopt;
-    }
-    state.advance();
-    return statement;
-}
-
-
-std::optional<ReturnStatement> ReturnStatement::parse(ParserState& state) {
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "return") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    ReturnStatement statement;
-
+ExpressionPtr parseExpressionParenthesised(ParserState& state) {
     auto start = state.getPosition();
-    if (auto expr = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
-        statement.expression = std::move(*expr);
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
+        state.error("Expected (");
+        return nullptr;
+    }
+    state.advance();
+
+    auto expr = parseExpression(state);
+    if (!expr) {
+        state.error("Expected expression");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
+        state.error("Expected )");
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+    return expr;
+}
+
+
+IterationStatementPtr parseDoWhileStatement(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "do") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto statement = parseStatement(state);
+    if (!statement) {
+        state.error("Expected statement");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "while") {
+        state.error("Expected while");
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+    auto expr = (state.pushTemplate<In{true}>(), parseExpressionParenthesised(state));
+    if (!expr) {
+        state.error("Expected expression");
+        state.restorePosition(start);
+        return nullptr;
     }
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
         state.error("Expected ;");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
-
     state.advance();
-    return statement;
+
+    return std::make_unique<IterationStatement>(IterationStatement::doWhile(std::move(statement), std::move(expr)));
 }
 
 
-std::optional<WithStatement> WithStatement::parse(ParserState&) {
-    return std::nullopt;
-}
-
-
-std::optional<FunctionDeclaration> FunctionDeclaration::parse(ParserState& state, bool Default) {
+IterationStatementPtr parseWhileStatement(ParserState& state) {
     auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "function") {
-        return std::nullopt;
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "while") {
+        return nullptr;
     }
     state.advance();
 
-    std::optional<BindingIdentifier> name;
-    if (!Default) {
-        if (auto id = BindingIdentifier::parse(state)) {
-            name = std::move(*id);
+    auto expr = (state.pushTemplate<In{true}>(), parseExpressionParenthesised(state));
+    if (!expr) {
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    auto statement = parseStatement(state);
+    if (!statement) {
+        state.error("Expected statement");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    return std::make_unique<IterationStatement>(IterationStatement::while_(std::move(expr), std::move(statement)));
+}
+
+
+IterationStatementPtr parseForInOfStatement(ParserState&) {
+    return nullptr;
+}
+
+
+IterationStatementPtr parseForStatement(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "for") {
+        return nullptr;
+    }
+    state.advance();
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
+        state.error("Expected (");
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+    ASTNodePtr init;
+
+    if (state.current().kind == lex::Token::Keyword && state.current().text == "var") {
+        throw std::runtime_error("Variable declarations in for loop are not supported");
+    }
+    if (state.current().kind == lex::Token::Keyword && (state.current().text == "let" || state.current().text == "const")) {
+        if (auto decl = (state.pushTemplate<In{false}>(), parseLexicalDeclaration(state))) {
+            init = std::move(decl);
         }
         else {
+            state.restorePosition(start);
+            return nullptr;
+        }
+        // semicolon as part of the declaration statement
+    }
+    else {
+        if (auto expr = (state.pushTemplate<In{false}>(), parseExpression(state))) {
+            init = std::move(expr);
+        }
+        if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+            state.error("Expected ;");
+            state.restorePosition(start);
+            return nullptr;
+        }
+        state.advance();
+    }
+
+
+    auto condition = (state.pushTemplate<In{true}>(), parseExpression(state));
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+        state.error("Expected ;");
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+
+    auto update = (state.pushTemplate<In{true}>(), parseExpression(state));
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
+        state.error("Expected )");
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+    auto statement = parseStatement(state);
+    if (!statement) {
+        state.error("Expected statement");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    return std::make_unique<IterationStatement>(IterationStatement::for_(std::move(init), std::move(condition), std::move(update), std::move(statement)));
+}
+
+
+IterationStatementPtr parseIterationStatement(ParserState& state) {
+    if (auto doWhile = parseDoWhileStatement(state)) {
+        return doWhile;
+    }
+    if (auto whileStmt = parseWhileStatement(state)) {
+        return whileStmt;
+    }
+    if (auto forStmt = parseForStatement(state)) {
+        return forStmt;
+    }
+    if (auto forInOf = parseForInOfStatement(state)) {
+        return forInOf;
+    }
+
+    return nullptr;
+}
+
+
+auto parseSwitchStatement(ParserState&) {
+    // XXX: ignore for now
+    return nullptr;
+}
+
+
+StatementPtr parseBreakableStatement(ParserState& state) {
+    if (auto iter = parseIterationStatement(state)) {
+        return  iter;
+    }
+    if (auto sw = parseSwitchStatement(state)) {
+        return  sw;
+    }
+
+    return nullptr;
+}
+
+
+ContinueStatementPtr parseContinueStatement(ParserState& state) {
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "continue") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto label = parseLabelIdentifier(state);
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+        state.error("Expected ;");
+        return nullptr;
+    }
+
+    state.advance();
+    return std::make_unique<ContinueStatement>(std::move(label));
+}
+
+
+BreakStatementPtr parseBreakStatement(ParserState& state) {
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "break") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto label = parseLabelIdentifier(state);
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+        state.error("Expected ;");
+        return nullptr;
+    }
+    state.advance();
+    return std::make_unique<BreakStatement>(std::move(label));
+}
+
+
+ReturnStatementPtr parseReturnStatement(ParserState& state) {
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "return") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto start = state.getPosition();
+    auto expr = (state.pushTemplate<In{true}>(), parseExpression(state));
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+        state.error("Expected ;");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    state.advance();
+    return std::make_unique<ReturnStatement>(std::move(expr));
+}
+
+
+ThrowStatementPtr parseThrowStatement(ParserState& state) {
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "throw") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto start = state.getPosition();
+    auto expr = (state.pushTemplate<In{true}>(), parseExpression(state));
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
+        state.error("Expected ;");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    state.advance();
+    return std::make_unique<ThrowStatement>(std::move(expr));
+}
+
+
+auto parseWithStatement(ParserState&) {
+    return nullptr;
+}
+
+
+FunctionPtr parseFunction(ParserState& state, TriState identifierRequired) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "function") {
+        return nullptr;
+    }
+    state.advance();
+
+    IdentifierPtr name;
+    if (identifierRequired != TriState::False) {
+        if (auto id = parseBindingIdentifier(state)) {
+            name = std::move(id);
+        }
+        else if (identifierRequired == TriState::True) {
             state.error("Expected identifier");
             state.restorePosition(start);
-            return std::nullopt;
+            return nullptr;
         }
     }
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
         state.error("Expected (");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    auto params = (state.pushTemplate<Yield{false}, Await{false}>(), FormalParameters::parse(state));
+    auto params = (state.pushTemplate<Yield{false}, Await{false}>(), parseFormalParameters(state));
     if (!params) {
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
         state.error("Expected )");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    auto returnType = TypeAnnotation::parse(state);
+    auto returnType = parseTypeAnnotation(state);
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "{") {
         state.error("Expected {");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    auto body = (state.pushTemplate<Yield{false}, Await{false}>(), FunctionBody::parse(state));
+    auto body = (state.pushTemplate<Yield{false}, Await{false}>(), parseFunctionBody(state));
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "}") {
         state.error("Expected }");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
-
-    std::string_view code(start->text.begin(), state.current().text.end());
 
     state.advance();
 
-    return FunctionDeclaration{
-        std::move(name),
-        std::move(*params),
-        std::move(body),
-        std::move(returnType),
-        code
-    };
+    return std::make_unique<Function>(
+        false, false, std::move(name), std::move(params), std::move(returnType),
+        std::move(body), std::string_view(start->text.begin(), state.current().text.begin())
+    );
 }
 
 
-std::optional<LabeledStatement> LabeledStatement::parse(ParserState&) {
+FunctionPtr parseFunctionDeclaration(ParserState& state, bool Default) {
+    return parseFunction(state, Default ? TriState::False : TriState::True);
+}
+
+
+auto parseLabeledStatement(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<ThrowStatement> ThrowStatement::parse(ParserState& state) {
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "throw") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    ThrowStatement statement;
-
-    auto start = state.getPosition();
-    if (auto expr = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
-        statement.expression = std::move(*expr);
-    }
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        state.error("Expected ;");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    state.advance();
-    return statement;
-}
-
-
-std::optional<TryStatement> TryStatement::parse(ParserState&) {
+auto parseTryStatement(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<DebuggerStatement> DebuggerStatement::parse(ParserState& state) {
+DebuggerStatementPtr parseDebuggerStatement(ParserState& state) {
     if (state.current().kind != lex::Token::Keyword || state.current().text != "debugger") {
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
         state.error("Expected ;");
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
-    return DebuggerStatement{};
+    return std::make_unique<DebuggerStatement>();
 }
 
 
-std::optional<Statement> Statement::parse(ParserState& state) {
-    if (auto block = BlockStatement::parse(state)) {
-        return Statement{std::move(*block)};
+IfStatementPtr parseIfStatement(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "if") {
+        return nullptr;
     }
-    if (auto variable = VariableStatement::parse(state)) {
-        return Statement{std::move(*variable)};
+    state.advance();
+
+    auto expr = (state.pushTemplate<In{true}>(), parseExpressionParenthesised(state));
+    if (!expr) {
+        state.restorePosition(start);
+        return nullptr;
     }
-    if (auto empty = EmptyStatement::parse(state)) {
-        return Statement{std::move(*empty)};
+
+    auto consequent = parseStatement(state);
+    if (!consequent) {
+        state.error("Expected statement");
+        state.restorePosition(start);
+        return nullptr;
     }
-    if (auto expression = ExpressionStatement::parse(state)) {
-        return Statement{std::move(*expression)};
-    }
-    if (auto if_ = IfStatement::parse(state)) {
-        return Statement{std::move(*if_)};
-    }
-    if (auto breakable = BreakableStatement::parse(state)) {
-        return Statement{std::move(*breakable)};
-    }
-    if (auto continue_ = ContinueStatement::parse(state)) {
-        return Statement{std::move(*continue_)};
-    }
-    if (auto break_ = BreakStatement::parse(state)) {
-        return Statement{std::move(*break_)};
-    }
-    if (state.getReturn()) {
-        if (auto ret = ReturnStatement::parse(state)) {
-            return Statement{std::move(*ret)};
+
+    StatementPtr alternate;
+    if (state.current().kind == lex::Token::Keyword && state.current().text == "else") {
+        state.advance();
+        alternate = parseStatement(state);
+
+        if (!alternate) {
+            state.error("Expected statement");
+            state.restorePosition(start);
+            return nullptr;
         }
     }
-    if (auto with = WithStatement::parse(state)) {
-        return Statement{std::move(*with)};
-    }
-    if (auto labeled = LabeledStatement::parse(state)) {
-        return Statement{std::move(*labeled)};
-    }
-    if (auto throw_ = ThrowStatement::parse(state)) {
-        return Statement{std::move(*throw_)};
-    }
-    if (auto try_ = TryStatement::parse(state)) {
-        return Statement{std::move(*try_)};
-    }
-    if (auto debugger = DebuggerStatement::parse(state)) {
-        return Statement{std::move(*debugger)};
-    }
 
-    return std::nullopt;
+    return std::make_unique<IfStatement>(std::move(expr),  std::move(consequent), std::move(alternate));
 }
 
 
-std::optional<GeneratorDeclaration> GeneratorDeclaration::parse(ParserState&, bool) {
+EmptyStatementPtr parseEmptyStatement(ParserState& state) {
+    if (state.current().kind == lex::Token::Punctuator && state.current().text == ";") {
+        state.advance();
+        return std::make_unique<EmptyStatement>();
+    }
+
+    return nullptr;
+}
+
+
+StatementPtr parseStatement(ParserState& state) {
+    if (auto block = parseBlockStatement(state)) {
+        return block;
+    }
+    if (auto variable = parseVariableStatement(state)) {
+        return variable;
+    }
+    if (auto empty = parseEmptyStatement(state)) {
+        return empty;
+    }
+    if (auto expression = parseExpressionStatement(state)) {
+        return expression;
+    }
+    if (auto if_ = parseIfStatement(state)) {
+        return if_;
+    }
+    if (auto breakable = parseBreakableStatement(state)) {
+        return breakable;
+    }
+    if (auto continue_ = parseContinueStatement(state)) {
+        return continue_;
+    }
+    if (auto break_ = parseBreakStatement(state)) {
+        return break_;
+    }
+    if (state.getReturn()) {
+        if (auto ret = parseReturnStatement(state)) {
+            return ret;
+        }
+    }
+    if (auto with = parseWithStatement(state)) {
+        return with;
+    }
+    if (auto labeled = parseLabeledStatement(state)) {
+        return labeled;
+    }
+    if (auto throw_ = parseThrowStatement(state)) {
+        return throw_;
+    }
+    if (auto try_ = parseTryStatement(state)) {
+        return try_;
+    }
+    if (auto debugger = parseDebuggerStatement(state)) {
+        return debugger;
+    }
+
+    return nullptr;
+}
+
+
+auto parseGeneratorDeclaration(ParserState&, bool) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<AsyncFunctionDeclaration> AsyncFunctionDeclaration::parse(ParserState&, bool) {
+auto parseAsyncFunctionDeclaration(ParserState&, bool) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<AsyncGeneratorDeclaration> AsyncGeneratorDeclaration::parse(ParserState&, bool) {
+auto parseAsyncGeneratorDeclaration(ParserState&, bool) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<HoistableDeclaration> HoistableDeclaration::parse(ParserState& state, bool Default) {
-    if (auto function = FunctionDeclaration::parse(state, Default)) {
-        return HoistableDeclaration{std::move(*function)};
+HoistableDeclarationPtr parseHoistableDeclaration(ParserState& state, bool Default) {
+    if (auto function = parseFunctionDeclaration(state, Default)) {
+        return std::make_unique<HoistableDeclaration>(std::move(function));
     }
-    if (auto generator = GeneratorDeclaration::parse(state, Default)) {
-        return HoistableDeclaration{std::move(*generator)};
+    if (auto generator = parseGeneratorDeclaration(state, Default)) {
+        return std::make_unique<HoistableDeclaration>(std::move(generator));
     }
-    if (auto asyncFunction = AsyncFunctionDeclaration::parse(state, Default)) {
-        return HoistableDeclaration{std::move(*asyncFunction)};
+    if (auto asyncFunction = parseAsyncFunctionDeclaration(state, Default)) {
+        return std::make_unique<HoistableDeclaration>(std::move(asyncFunction));
     }
-    if (auto asyncGenerator = AsyncGeneratorDeclaration::parse(state, Default)) {
-        return HoistableDeclaration{std::move(*asyncGenerator)};
+    if (auto asyncGenerator = parseAsyncGeneratorDeclaration(state, Default)) {
+        return std::make_unique<HoistableDeclaration>(std::move(asyncGenerator));
     }
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<ClassDeclaration> ClassDeclaration::parse(ParserState&, bool) {
+auto parseClassDeclaration(ParserState&, bool) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<Declaration> Declaration::parse(ParserState& state) {
-    if (auto hoistable = HoistableDeclaration::parse(state, false)) {
-        return Declaration{std::move(*hoistable)};
+StatementPtr parseDeclaration(ParserState& state) {
+    if (auto hoistable = parseHoistableDeclaration(state, false)) {
+        return hoistable;
     }
-    if (auto klass = ClassDeclaration::parse(state, false)) {
-        return Declaration{std::move(*klass)};
+    if (auto klass = parseClassDeclaration(state, false)) {
+        return klass;
     }
-    if (auto lexical = (state.pushTemplate<In{true}>(), LexicalDeclaration::parse(state))) {
-        return Declaration{std::move(*lexical)};
+    if (auto lexical = (state.pushTemplate<In{true}>(), parseLexicalDeclaration(state))) {
+        return lexical;
     }
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<StatementListItem> StatementListItem::parse(ParserState& state) {
-    if (auto statement = Statement::parse(state)) {
-        return StatementListItem{std::move(*statement)};
+StatementPtr parseStatementListItem(ParserState& state) {
+    if (auto statement = parseStatement(state)) {
+        return statement;
     }
-    if (auto declaration = Declaration::parse(state)) {
-        return StatementListItem{std::move(*declaration)};
+    if (auto declaration = parseDeclaration(state)) {
+        return declaration;
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<RegularExpressionLiteral> RegularExpressionLiteral::parse(ParserState&) {
-    return std::nullopt;
+auto parseRegularExpressionLiteral(ParserState&) {
+    return nullptr;
 }
 
 
-std::optional<TemplateLiteral> TemplateLiteral::parse(ParserState&, bool) {
-    return std::nullopt;
+auto parseTemplateLiteral(ParserState&, bool) {
+    return nullptr;
 }
 
 
-std::optional<CoverParenthesizedExpressionAndArrowParameterList> CoverParenthesizedExpressionAndArrowParameterList::parse(ParserState& state) {
+CoverParenthesizedExpressionAndArrowParameterListPtr parseCoverParenthesizedExpressionAndArrowParameterList(ParserState& state) {
     auto start = state.getPosition();
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    CoverParenthesizedExpressionAndArrowParameterList result;
+    std::vector<ASTNodePtr> result;
+    ASTNodePtr rest;
     bool canContinue = true;
 
-    if (auto expr = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
-        result.expression = std::move(*expr);
+    if (auto expr = (state.pushTemplate<In{true}>(), parseExpression(state))) {
+        result.emplace_back(std::move(expr));
         if (state.current().kind != lex::Token::Punctuator || state.current().text != ",") {
             canContinue = false;
         }
@@ -1011,16 +1293,16 @@ std::optional<CoverParenthesizedExpressionAndArrowParameterList> CoverParenthesi
     if (canContinue) {
         if (state.current().kind == lex::Token::Punctuator && state.current().text == "...") {
             state.advance();
-            if (auto binding = BindingIdentifier::parse(state)) {
-                result.parameters.template emplace<BindingIdentifier>(std::move(*binding));
+            if (auto ident = parseBindingIdentifier(state)) {
+                rest = std::move(ident);
             }
-            else if (auto pattern = BindingPattern::parse(state)) {
-                result.parameters.template emplace<BindingPattern>(std::move(*pattern));
+            if (auto pattern = parseBindingPattern(state)) {
+                rest = std::move(pattern);
             }
             else {
                 state.error("Invalid binding");
                 state.restorePosition(start);
-                return std::nullopt;
+                return nullptr;
             }
         }
     }
@@ -1028,89 +1310,144 @@ std::optional<CoverParenthesizedExpressionAndArrowParameterList> CoverParenthesi
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
         state.error("Expected )");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
     state.advance();
 
-    return result;
+    return std::make_unique<CoverParenthesizedExpressionAndArrowParameterList>(std::move(result), std::move(rest));
 }
 
 
-std::optional<ParenthesizedExpression> CoverParenthesizedExpressionAndArrowParameterList::refineParExp() {
-    // XXX: investigate more
-    if (!std::holds_alternative<std::monostate>(parameters)) {
-        return std::nullopt;
+ExpressionPtr refineParenthesizedExpression(ParserState& state, CoverParenthesizedExpressionAndArrowParameterList& cover) {
+    if (cover.rest()) {
+        return nullptr;
     }
-    if (!expression) {
-        return std::nullopt;
+    for (size_t i = 0; i < cover.children.size() - 1; ++i) {
+        if (!dynamic_cast<Expression*>(cover.children[i].get())) {
+            return nullptr;
+        }
     }
-    return ParenthesizedExpression{std::move(*expression)};
+
+    auto children = std::move(cover.children);
+    children.pop_back();
+    if (children.size() == 1) {
+        return ExpressionPtr(static_cast<Expression*>(children[0].release()));  // NOLINT
+    }
+    return std::make_unique<CommaExpression>(std::move(children));
 }
 
 
-std::optional<PrimaryExpression> PrimaryExpression::parse(ParserState& state) {
-    if (auto thisExpr = ThisExpr::parse(state)) {
-        return PrimaryExpression{std::move(*thisExpr)};
+ExpressionPtr parsePrimaryExpression(ParserState& state) {
+    if (auto thisExpr = parseThisExpr(state)) {
+        return thisExpr;
     }
-    if (auto identifier = IdentifierReference::parse(state)) {
-        return PrimaryExpression{std::move(*identifier)};
+    if (auto identifier = parseIdentifierReference(state)) {
+        return identifier;
     }
-    if (auto lit = Literal::parse(state)) {
-        return PrimaryExpression{std::move(*lit)};
+    if (auto lit = parseLiteral(state)) {
+        return lit;
     }
-
-    if (auto cover = CoverParenthesizedExpressionAndArrowParameterList::parse(state)) {
-        if (auto refined = cover->refineParExp()) {
-            return PrimaryExpression{std::move(*refined)};
+    if (auto cover = parseCoverParenthesizedExpressionAndArrowParameterList(state)) {
+        // TODO: move to AssignmentExpression?
+        if (auto refined = refineParenthesizedExpression(state, *cover)) {
+            return refined;
         }
         state.error("Invalid parenthesized expression");
-        return std::nullopt;
+        return nullptr;
     }
 
     // TODO: rest of the cases
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<SuperProperty> SuperProperty::parse(ParserState&) {
+auto parseSuperProperty(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<MetaProperty> MetaProperty::parse(ParserState&) {
+auto parseMetaProperty(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<MemberExpression> MemberExpression::parse(ParserState& state) {
-    if (state.current().kind == lex::Token::Keyword && state.current().text == "new") {
-        auto start = state.getPosition();
+ArgumentsPtr parseArguments(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
+        return nullptr;
+    }
+    state.advance();
+
+    std::vector<ExpressionPtr> args;
+    if (state.current().kind == lex::Token::Punctuator && state.current().text == ")") {
         state.advance();
-        if (auto member = MemberExpression::parse(state)) {
-            if (auto args = Arguments::parse(state)) {
-                auto ptr = std::make_unique<MemberExpression>(std::move(*member));
-                return MemberExpression{std::pair{std::move(ptr), std::move(*args)}};
+        return std::make_unique<Arguments>(std::move(args), nullptr);
+    }
+
+    bool canContinue = true;
+    while (true) {
+        if (auto expr = (state.pushTemplate<In{true}>(), parseAssignmentExpression(state))) {
+            args.emplace_back(std::move(expr));
+        }
+        else {
+            break;
+        }
+
+        if (state.current().kind != lex::Token::Punctuator || state.current().text != ",") {
+            canContinue = false;
+            break;
+        }
+        state.advance();
+    }
+
+    ExpressionPtr spread;
+    if (canContinue) {
+        if (state.current().kind == lex::Token::Punctuator && state.current().text == "...") {
+            state.advance();
+            spread = (state.pushTemplate<In{true}>(), parseAssignmentExpression(state));
+            if (!spread) {
+                state.error("Expected expression after ...");
+                state.restorePosition(start);
+                return nullptr;
             }
         }
+    }
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
+        state.error("Expected )");
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
+    }
+    state.advance();
+
+    return std::make_unique<Arguments>(std::move(args), std::move(spread));
+}
+
+
+ExpressionPtr parseMemberExpression(ParserState& state, int& initNewCount) {
+    auto fullStart = state.getPosition();
+
+    int newCount = initNewCount;
+    if (state.current().kind == lex::Token::Keyword && state.current().text == "new") {
+        state.advance();
+        newCount++;
     }
 
-    std::optional<MemberExpression> member;
-    if (auto super = SuperProperty::parse(state)) {
-        member.emplace(MemberExpression{ std::move(*super) });
+    ExpressionPtr prev;
+    if (auto super = parseSuperProperty(state)) {
+        prev = std::move(super);
     }
-    else if (auto meta = MetaProperty::parse(state)) {
-        member.emplace(MemberExpression{ std::move(*meta) });
+    else if (auto meta = parseMetaProperty(state)) {
+        prev = std::move(meta);
     }
-    else if (auto primary = PrimaryExpression::parse(state)) {
-        member.emplace(MemberExpression{ std::move(*primary) });
+    else if (auto primary = parsePrimaryExpression(state)) {
+        prev = std::move(primary);
     }
 
-    if (!member) {
-        return std::nullopt;
+    if (!prev) {
+        return nullptr;
     }
 
     do {
@@ -1118,11 +1455,10 @@ std::optional<MemberExpression> MemberExpression::parse(ParserState& state) {
 
         if (state.current().kind == lex::Token::Punctuator && state.current().text == "[") {
             state.advance();
-            if (auto expr = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
+            if (auto expr = (state.pushTemplate<In{true}>(), parseExpression(state))) {
                 if (state.current().kind == lex::Token::Punctuator && state.current().text == "]") {
                     state.advance();
-                    auto ptr = std::make_unique<MemberExpression>(std::move(*member));
-                    member.emplace(MemberExpression{std::pair{std::move(ptr), std::move(*expr)}});
+                    prev = std::make_unique<MemberAccessExpression>(std::move(prev), std::move(expr));
                     continue;
                 }
                 state.error("Expected ]");
@@ -1131,106 +1467,141 @@ std::optional<MemberExpression> MemberExpression::parse(ParserState& state) {
         }
         if (state.current().kind == lex::Token::Punctuator && state.current().text == ".") {
             state.advance();
-            if (auto identifier = parseIdentifierName(state, false)) {
-                auto ptr = std::make_unique<MemberExpression>(std::move(*member));
-                member.emplace(MemberExpression{std::pair{std::move(ptr), std::move(*identifier)}});
+            constexpr auto asLiteral = [](IdentifierPtr id) { return std::make_unique<Literal>(std::move(id->name)); };
+            if (auto identifier = parseIdentifier(state)) {
+                prev = std::make_unique<MemberAccessExpression>(std::move(prev), asLiteral(std::move(identifier)));
                 continue;
             }
-            if (auto priv = PrivateIdentifier::parse(state)) {
-                auto ptr = std::make_unique<MemberExpression>(std::move(*member));
-                member.emplace(MemberExpression{std::pair{std::move(ptr), std::move(*priv)}});
+            if (auto priv = parsePrivateIdentifier(state)) {
+                prev = std::make_unique<MemberAccessExpression>(std::move(prev), asLiteral(std::move(priv)));
                 continue;
             }
             state.backtrack();
         }
-        if (auto tplate = TemplateLiteral::parse(state, true)) {
-            auto ptr = std::make_unique<MemberExpression>(std::move(*member));
-            member.emplace(MemberExpression{std::pair{std::move(ptr), std::move(*tplate)}});
+        if (auto tplate = parseTemplateLiteral(state, true)) {
+            prev = std::make_unique<TaggedTemplateExpression>(std::move(prev), std::move(tplate));
             continue;
+        }
+        if (newCount > 0) {
+            if (auto args = parseArguments(state)) {
+                prev = std::make_unique<NewCallExpression>(std::move(prev), std::move(args));
+                newCount--;
+                continue;
+            }
         }
 
         state.restorePosition(start);
         break;
     } while (true);
 
-    return member;
+    if (newCount > initNewCount) {
+        state.error("Missing arguments for new expression");
+        state.restorePosition(fullStart);
+        return nullptr;
+    }
+    initNewCount = newCount;
+
+    return prev;
 }
 
 
-std::optional<NewExpression> NewExpression::parse(ParserState& state) {
-    if (auto member = MemberExpression::parse(state)) {
-        return NewExpression{std::move(*member)};
-    }
-    if (state.current().kind == lex::Token::Keyword && state.current().text == "new") {
+ExpressionPtr parseNewExpression(ParserState& state) {
+    int openNewCount = 0;
+    while (state.current().kind == lex::Token::Keyword && state.current().text == "new") {
         state.advance();
-        if (auto expr = NewExpression::parse(state)) {
-            auto ptr = std::make_unique<NewExpression>(std::move(*expr));
-            return NewExpression{std::move(ptr)};
-        }
-        state.backtrack();
+        openNewCount++;
     }
 
-    return std::nullopt;
+    if (auto member = parseMemberExpression(state, openNewCount)) {
+        while (openNewCount > 0) {
+            member = std::make_unique<NewCallExpression>(std::move(member), nullptr);
+            openNewCount--;
+        }
+        return member;
+    }
+
+    return nullptr;
 }
 
 
-std::optional<SuperCall> SuperCall::parse(ParserState&) {
+auto parseSuperCall(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<ImportCall> ImportCall::parse(ParserState&) {
+auto parseImportCall(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<CoverCallExpressionAndAsyncArrowHead> CoverCallExpressionAndAsyncArrowHead::parse(ParserState& state) {
+CoverCallExpressionAndAsyncArrowHeadPtr parseCoverCallExpressionAndAsyncArrowHead(ParserState& state) {
     auto start = state.getPosition();
-    if (auto member = MemberExpression::parse(state)) {
-        if (auto args = Arguments::parse(state)) {
-            return CoverCallExpressionAndAsyncArrowHead{std::move(*member), std::move(*args)};
+    int dummy = 0;
+    if (auto member = parseMemberExpression(state, dummy)) {
+        if (auto args = parseArguments(state)) {
+            return std::make_unique<CoverCallExpressionAndAsyncArrowHead>(std::move(member), std::move(args));
         }
     }
 
     state.restorePosition(start);
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<CallExpression> CallExpression::parse(ParserState& state) {
-    std::optional<CallExpression> call;
+ExpressionPtr refineCallExpression(ParserState& state, CoverCallExpressionAndAsyncArrowHead& cover) {
+    if (cover.children.size() != 2) {
+        return nullptr;
+    }
+    auto children = std::move(cover.children);
+    assert(dynamic_cast<Expression*>(children[0].get()));
+    assert(dynamic_cast<Arguments*>(children[1].get()));
 
-    if (auto super = SuperCall::parse(state)) {
-        call.emplace(CallExpression{std::move(*super)});
+    auto callee = ExpressionPtr(static_cast<Expression*>(children[0].release()));  // NOLINT
+    auto args = ArgumentsPtr(static_cast<Arguments*>(children[1].release()));  // NOLINT
+
+    return std::make_unique<CallExpression>(std::move(callee), std::move(args));
+}
+
+
+ExpressionPtr parseCallExpression(ParserState& state) {
+    ExpressionPtr prev;
+
+    if (auto super = parseSuperCall(state)) {
+        prev = std::move(super);
     }
-    else if (auto import = ImportCall::parse(state)) {
-        call.emplace(CallExpression{std::move(*import)});
+    else if (auto import = parseImportCall(state)) {
+        prev = std::move(import);
     }
-    else if (auto cover = CoverCallExpressionAndAsyncArrowHead::parse(state)) {
-        call.emplace(CallExpression{std::pair{std::move(cover->memberExpression), std::move(cover->arguments)}});
+    else if (auto cover = parseCoverCallExpressionAndAsyncArrowHead(state)) {
+        // TODO: move elsewhere?
+        if (auto refined = refineCallExpression(state, *cover)) {
+            prev = std::move(refined);
+        }
+        else {
+            state.error("Invalid call expression");
+            return nullptr;
+        }
     }
 
-    if (!call) {
-        return std::nullopt;
+    if (!prev) {
+        return nullptr;
     }
 
     do {
         auto start = state.getPosition();
 
-        if (auto args = Arguments::parse(state)) {
-            auto ptr = std::make_unique<CallExpression>(std::move(*call));
-            call.emplace(CallExpression{std::pair{std::move(ptr), std::move(*args)}});
+        if (auto args = parseArguments(state)) {
+            prev = std::make_unique<CallExpression>(std::move(prev), std::move(args));
             continue;
         }
         if (state.current().kind == lex::Token::Punctuator && state.current().text == "[") {
             state.advance();
-            if (auto expr = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
+            if (auto expr = (state.pushTemplate<In{true}>(), parseExpression(state))) {
                 if (state.current().kind == lex::Token::Punctuator && state.current().text == "]") {
                     state.advance();
-                    auto ptr = std::make_unique<CallExpression>(std::move(*call));
-                    call.emplace(CallExpression{std::pair{std::move(ptr), std::move(*expr)}});
+                    prev = std::make_unique<MemberAccessExpression>(std::move(prev), std::move(expr));
                     continue;
                 }
                 state.error("Expected ]");
@@ -1239,21 +1610,19 @@ std::optional<CallExpression> CallExpression::parse(ParserState& state) {
         }
         if (state.current().kind == lex::Token::Punctuator && state.current().text == ".") {
             state.advance();
-            if (auto identifier = parseIdentifierName(state, false)) {
-                auto ptr = std::make_unique<CallExpression>(std::move(*call));
-                call.emplace(CallExpression{std::pair{std::move(ptr), std::move(*identifier)}});
+            constexpr auto asLiteral = [](IdentifierPtr id) { return std::make_unique<Literal>(std::move(id->name)); };
+            if (auto identifier = parseIdentifier(state)) {
+                prev = std::make_unique<MemberAccessExpression>(std::move(prev), asLiteral(std::move(identifier)));
                 continue;
             }
-            if (auto identifier = PrivateIdentifier::parse(state)) {
-                auto ptr = std::make_unique<CallExpression>(std::move(*call));
-                call.emplace(CallExpression{std::pair{std::move(ptr), std::move(*identifier)}});
+            if (auto identifier = parsePrivateIdentifier(state)) {
+                prev = std::make_unique<MemberAccessExpression>(std::move(prev), asLiteral(std::move(identifier)));
                 continue;
             }
             state.backtrack();
         }
-        if (auto tplate = TemplateLiteral::parse(state, true)) {
-            auto ptr = std::make_unique<CallExpression>(std::move(*call));
-            call.emplace(CallExpression{std::pair{std::move(ptr), std::move(*tplate)}});
+        if (auto tplate = parseTemplateLiteral(state, true)) {
+            prev = std::make_unique<TaggedTemplateExpression>(std::move(prev), std::move(tplate));
             continue;
         }
 
@@ -1261,279 +1630,132 @@ std::optional<CallExpression> CallExpression::parse(ParserState& state) {
         break;
     } while (true);
 
-    return call;
+    return prev;
 }
 
 
-std::optional<LeftHandSideExpression> LeftHandSideExpression::parse(ParserState& state) {
-    if (auto call = CallExpression::parse(state)) {
-        return LeftHandSideExpression{std::move(*call)};
+ExpressionPtr parseLeftHandSideExpression(ParserState& state) {
+    // new Function()()
+    if (auto call = parseCallExpression(state)) {
+        return call;
     }
-    if (auto newExpr = NewExpression::parse(state)) {
-        return LeftHandSideExpression{std::move(*newExpr)};
+    if (auto newExpr = parseNewExpression(state)) {
+        return newExpr;
     }
     // TODO: rest
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<YieldExpression> YieldExpression::parse(ParserState&) {
+auto parseYieldExpression(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<ArrowFunction> ArrowFunction::parse(ParserState&) {
+auto parseArrowFunction(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<AsyncArrowFunction> AsyncArrowFunction::parse(ParserState&) {
+auto parseAsyncArrowFunction(ParserState&) {
     // XXX: ignore for now
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<AssignmentExpression> AssignmentExpression::parse(ParserState& state) {
-    if (auto yield = YieldExpression::parse(state)) {
-        return AssignmentExpression{std::move(*yield)};
-    }
-    if (auto arrow = ArrowFunction::parse(state)) {
-        return AssignmentExpression{std::move(*arrow)};
-    }
-    if (auto asyncArrow = AsyncArrowFunction::parse(state)) {
-        return AssignmentExpression{std::move(*asyncArrow)};
-    }
-    if (auto assignment = Assignment::parse(state)) {
-        return AssignmentExpression{std::move(*assignment)};
-    }
-    if (auto cond = ConditionalExpression::parse(state)) {
-        return AssignmentExpression{std::move(*cond)};
-    }
-    return std::nullopt;
-}
-
-
-std::optional<Script> Script::parse(ParserState& state) {
+ScriptPtr parseScript(ParserState& state) {
     if (state.isEnd()) {
-        return Script{};
+        return std::make_unique<Script>(std::make_unique<StatementList>(StatementList::Normal, std::vector<StatementPtr>{}));
     }
 
     auto _ = state.pushTemplate<Yield{false}, Await{false}, Return{false}>();
 
-    if (auto statementList = StatementList::parse(state)) {
-        return Script{std::move(*statementList)};
+    if (auto statementList = parseStatementList(state)) {
+        return std::make_unique<Script>(std::move(statementList));
     }
 
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<UpdateExpression> UpdateExpression::parse(ParserState& state) {
-    // TODO: check that "AssignmentTargetType" is simple while parsing
-    if (state.current().kind == lex::Token::Punctuator) {
-        std::string_view op = state.current().text;
-        if (op == "++" || op == "--") {
-            state.advance();
-            if (auto expr = UnaryExpression::parse(state)) {
-                auto ptr = std::make_unique<UnaryExpression>(std::move(*expr));
-                return UpdateExpression{std::move(ptr), (op == "++" ? UpdateKind::PreInc : UpdateKind::PreDec)};
-            }
-            state.backtrack();
-        }
-    }
-
-
-    if (auto expr = LeftHandSideExpression::parse(state)) {
-        auto ptr = std::make_unique<LeftHandSideExpression>(std::move(*expr));
-        if (state.current().kind == lex::Token::Punctuator) {
-            std::string_view op = state.current().text;
-            if (op == "++" || op == "--") {
-                state.advance();
-                return UpdateExpression{std::move(ptr), (op == "++" ? UpdateKind::PostInc : UpdateKind::PostDec)};
-            }
-        }
-        return UpdateExpression{std::move(ptr), UpdateKind::None};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<ConditionalExpression> ConditionalExpression::parse(ParserState& state) {
+ExpressionPtr parseConditionalExpression(ParserState& state) {
     auto start = state.getPosition();
-    if (auto shortCircuit = BinaryExpression::parse(state)) {
+    if (auto shortCircuit = parseBinaryExpression(state)) {
         if (state.current().kind == lex::Token::Punctuator && state.current().text == "?") {
             state.advance();
-            if (auto consequent = AssignmentExpression::parse(state)) {
+            if (auto consequent = parseAssignmentExpression(state)) {
                 if (state.current().kind == lex::Token::Punctuator && state.current().text == ":") {
                     state.advance();
-                    if (auto alternate = AssignmentExpression::parse(state)) {
-                        auto consPtr = std::make_unique<AssignmentExpression>(std::move(*consequent));
-                        auto altPtr = std::make_unique<AssignmentExpression>(std::move(*alternate));
-                        return ConditionalExpression{std::tuple{std::move(*shortCircuit), std::move(consPtr), std::move(altPtr)}};
+                    if (auto alternate = parseAssignmentExpression(state)) {
+                        return std::make_unique<ConditionalExpression>(std::move(shortCircuit), std::move(consequent), std::move(alternate));
                     }
                 }
             }
             state.restorePosition(start);
-            return std::nullopt;
+            return nullptr;
         }
-        return ConditionalExpression{std::move(*shortCircuit)};
+        return shortCircuit;
     }
-    return std::nullopt;
+    return nullptr;
 }
 
 
-std::optional<BindingElement> BindingElement::parse(ParserState& state) {
-    if (auto id = BindingIdentifier::parse(state)) {
-        auto annotation = TypeAnnotation::parse(state);
-
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == "=") {
-            state.advance();
-            if (auto initializer = (state.pushTemplate<In{true}>(), AssignmentExpression::parse(state))) {
-                auto ptr = std::make_unique<AssignmentExpression>(std::move(*initializer));
-                return BindingElement{std::pair{std::move(*id), std::move(ptr)}, std::move(annotation)};
-            }
-            state.backtrack();
-            return std::nullopt;
-        }
-        return BindingElement{std::move(*id), std::move(annotation)};
-    }
-    if (auto pattern = BindingPattern::parse(state)) {
-        auto annotation = TypeAnnotation::parse(state);
-
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == "=") {
-            state.advance();
-            if (auto initializer = (state.pushTemplate<In{true}>(), AssignmentExpression::parse(state))) {
-                auto ptr = std::make_unique<AssignmentExpression>(std::move(*initializer));
-                return BindingElement{std::pair{std::move(*pattern), std::move(ptr)}, std::move(annotation)};
-            }
-            state.backtrack();
-            return std::nullopt;
-        }
-        return BindingElement{std::move(*pattern), std::move(annotation)};
-    }
-
-    return std::nullopt;
-}
-
-
-std::optional<Assignment> Assignment::parse(ParserState& state) {
+AssignmentPtr parseAssignment(ParserState& state) {
     auto start = state.getPosition();
-    auto lhs = LeftHandSideExpression::parse(state);
+    auto lhs = parseLeftHandSideExpression(state);
     if (!lhs) {
-        return std::nullopt;
+        return nullptr;
     }
 
     if (state.current().kind != lex::Token::Punctuator || !assignmentOperator.contains(state.current().text)) {
         state.restorePosition(start);
         state.error("Expected assignment operator");
-        return std::nullopt;
+        return nullptr;
     }
 
     std::string_view op = state.current().text;
     state.advance();
 
-    auto rhs = AssignmentExpression::parse(state);
+    auto rhs = parseAssignmentExpression(state);
     if (!rhs) {
         state.restorePosition(start);
-        return std::nullopt;
+        return nullptr;
     }
 
-    return Assignment{std::move(*lhs), std::make_unique<AssignmentExpression>(std::move(*rhs)), op};
+    return std::make_unique<Assignment>(std::move(lhs), std::move(rhs), op);
 }
 
 
-std::optional<Arguments> Arguments::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
-        return std::nullopt;
+ExpressionPtr parseAssignmentExpression(ParserState& state) {
+    if (auto yield = parseYieldExpression(state)) {
+        return yield;
     }
-    state.advance();
-
-    Arguments args;
-    if (state.current().kind == lex::Token::Punctuator && state.current().text == ")") {
-        state.advance();
-        return args;
+    if (auto arrow = parseArrowFunction(state)) {
+        return arrow;
     }
-
-    while (true) {
-        bool isSpread = false;
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == "...") {
-            isSpread = true;
-            state.advance();
-        }
-
-        if (auto expr = (state.pushTemplate<In{true}>(), AssignmentExpression::parse(state))) {
-            args.arguments.emplace_back(std::pair{isSpread, std::make_unique<AssignmentExpression>(std::move(*expr))});
-        }
-        else {
-            state.restorePosition(start);
-            state.error("Invalid arguments");
-            return std::nullopt;
-        }
-
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == ",") {
-            state.advance();
-            continue;
-        }
-
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == ")") {
-            state.advance();
-            break;
-        }
-
-        state.restorePosition(start);
-        state.error("Expected , or )");
-        return std::nullopt;
+    if (auto asyncArrow = parseAsyncArrowFunction(state)) {
+        return asyncArrow;
     }
-
-    return args;
+    if (auto assignment = parseAssignment(state)) {
+        return assignment;
+    }
+    if (auto cond = parseConditionalExpression(state)) {
+        return cond;
+    }
+    return nullptr;
 }
 
 
-std::optional<LexicalBinding> LexicalBinding::parse(ParserState& state) {
-    if (auto id = BindingIdentifier::parse(state)) {
-        auto annotation = TypeAnnotation::parse(state);
+ExpressionPtr parseExpression(ParserState& state) {
+    std::vector<ExpressionPtr> items;
 
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == "=") {
-            state.advance();
-            if (auto initializer = AssignmentExpression::parse(state)) {
-                auto ptr = std::make_unique<AssignmentExpression>(std::move(*initializer));
-                return LexicalBinding{std::pair{std::move(*id), std::move(ptr)}, std::move(annotation)};
-            }
-            state.backtrack();
-            return std::nullopt;
-        }
-        return LexicalBinding{std::move(*id), std::move(annotation)};
-    }
-
-    auto start = state.getPosition();
-    if (auto pattern = BindingPattern::parse(state)) {
-        auto annotation = TypeAnnotation::parse(state);
-
-        if (state.current().kind == lex::Token::Punctuator && state.current().text == "=") {
-            state.advance();
-            if (auto initializer = AssignmentExpression::parse(state)) {
-                auto ptr = std::make_unique<AssignmentExpression>(std::move(*initializer));
-                return LexicalBinding{std::pair{std::move(*pattern), std::move(ptr)}, std::move(annotation)};
-            }
-        }
-    }
-
-    state.restorePosition(start);
-    return std::nullopt;
-}
-
-
-std::optional<Expression> Expression::parse(ParserState& state) {
-    Expression expr;
     auto last = state.getPosition();
     while (true) {
-        if (auto assignment = AssignmentExpression::parse(state)) {
-            expr.items.push_back(std::make_unique<AssignmentExpression>(std::move(*assignment)));
+        if (auto assignment = parseAssignmentExpression(state)) {
+            items.emplace_back(std::move(assignment));
             last = state.getPosition();
         }
         else {
@@ -1546,238 +1768,31 @@ std::optional<Expression> Expression::parse(ParserState& state) {
         state.advance();
     }
     state.restorePosition(last);
-    if (expr.items.empty()) {
-        return std::nullopt;
+    if (items.empty()) {
+        return nullptr;
     }
-    return expr;
-}
-
-std::optional<Expression> Expression::parseParenthesised(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
-        state.error("Expected (");
-        return std::nullopt;
+    if (items.size() == 1) {
+        return std::move(items[0]);
     }
-    state.advance();
-
-    auto expr = parse(state);
-    if (!expr) {
-        state.error("Expected expression");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
-        state.error("Expected )");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    return expr;
-}
-
-std::optional<IfStatement> IfStatement::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "if") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    auto expr = (state.pushTemplate<In{true}>(), Expression::parseParenthesised(state));
-    if (!expr) {
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    auto consequent = Statement::parse(state);
-    if (!consequent) {
-        state.error("Expected statement");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    if (state.current().kind == lex::Token::Keyword && state.current().text == "else") {
-        state.advance();
-        auto alternate = Statement::parse(state);
-
-        if (!alternate) {
-            state.error("Expected statement");
-            state.restorePosition(start);
-            return std::nullopt;
-        }
-
-        StatementPtr consequentPtr = std::make_unique<Statement>(std::move(*consequent));
-        StatementPtr alternatePtr = std::make_unique<Statement>(std::move(*alternate));
-        return IfStatement{std::move(*expr), std::move(consequentPtr), std::move(alternatePtr)};
-    }
-
-    StatementPtr consequentPtr = std::make_unique<Statement>(std::move(*consequent));
-    return IfStatement{std::move(*expr), std::move(consequentPtr), std::nullopt};
+    return std::make_unique<CommaExpression>(std::move(items));
 }
 
 
-std::optional<DoWhileStatement> DoWhileStatement::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "do") {
-        return std::nullopt;
-    }
-    state.advance();
+StatementListPtr parseStatementList(ParserState& state) {
+    std::vector<StatementPtr> items;
 
-    auto statement = Statement::parse(state);
-    if (!statement) {
-        state.error("Expected statement");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "while") {
-        state.error("Expected while");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    auto expr = (state.pushTemplate<In{true}>(), Expression::parseParenthesised(state));
-    if (!expr) {
-        state.error("Expected expression");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        state.error("Expected ;");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    StatementPtr statementPtr = std::make_unique<Statement>(std::move(*statement));
-    return DoWhileStatement{std::move(statementPtr), std::move(*expr)};
-}
-
-
-std::optional<WhileStatement> WhileStatement::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "while") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    auto expr = (state.pushTemplate<In{true}>(), Expression::parseParenthesised(state));
-    if (!expr) {
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    auto statement = Statement::parse(state);
-    if (!statement) {
-        state.error("Expected statement");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    StatementPtr statementPtr = std::make_unique<Statement>(std::move(*statement));
-    return WhileStatement{std::move(*expr), std::move(statementPtr)};
-}
-
-
-std::optional<ForInOfStatement> ForInOfStatement::parse(ParserState&) {
-    return std::nullopt;
-}
-
-
-std::optional<ForStatement> ForStatement::parse(ParserState& state) {
-    auto start = state.getPosition();
-    if (state.current().kind != lex::Token::Keyword || state.current().text != "for") {
-        return std::nullopt;
-    }
-    state.advance();
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != "(") {
-        state.error("Expected (");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    ForStatement forStmt;
-
-    if (state.current().kind == lex::Token::Keyword && state.current().text == "var") {
-        throw std::runtime_error("Variable declarations in for loop are not supported");
-    }
-    if (state.current().kind == lex::Token::Keyword && (state.current().text == "let" || state.current().text == "const")) {
-        if (auto decl = (state.pushTemplate<In{false}>(), LexicalDeclaration::parse(state))) {
-            forStmt.init = std::move(*decl);
-        }
-        else {
-            state.restorePosition(start);
-            return std::nullopt;
-        }
-        // semicolon as part of the declaration statement
-    }
-    else {
-        if (auto expr = (state.pushTemplate<In{false}>(), Expression::parse(state))) {
-            forStmt.init = std::move(*expr);
-        }
-        if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-            state.error("Expected ;");
-            state.restorePosition(start);
-            return std::nullopt;
-        }
-        state.advance();
-    }
-
-
-    if (auto cond = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
-        forStmt.condition = std::move(*cond);
-    }
-
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
-        state.error("Expected ;");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    if (auto update = (state.pushTemplate<In{true}>(), Expression::parse(state))) {
-        forStmt.update = std::move(*update);
-    }
-
-    if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
-        state.error("Expected )");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-    state.advance();
-
-    auto statement = Statement::parse(state);
-    if (!statement) {
-        state.error("Expected statement");
-        state.restorePosition(start);
-        return std::nullopt;
-    }
-
-    forStmt.statement = std::make_unique<Statement>(std::move(*statement));
-    return forStmt;
-}
-
-
-std::optional<StatementList> StatementList::parse(ParserState& state) {
-    StatementList list;
     while (true) {
-        if (auto item = StatementListItem::parse(state)) {
-            list.items.push_back(std::move(*item));
+        if (auto item = parseStatementListItem(state)) {
+            items.emplace_back(std::move(item));
         }
         else {
             break;
         }
     }
-    if (list.items.empty()) {
-        return std::nullopt;
+    if (items.empty()) {
+        return nullptr;
     }
-    return list;
+    return std::make_unique<StatementList>(StatementList::Normal, std::move(items));
 }
 
 

@@ -1,18 +1,619 @@
 #pragma once
 
-#include <cassert>
-#include <cmath>
-#include <memory>
-#include <optional>
-#include <span>
-#include <string>
-#include <utility>
-#include <variant>
-
 #include "scanner.h"
+#include "../../util.h"
+
+#include <cassert>
+#include <memory>
+#include <span>
+#include <variant>
+#include <vector>
 
 
 namespace jac::ast {
+
+
+struct ASTNode;
+using ASTNodePtr = std::unique_ptr<ASTNode>;
+struct ASTNode {
+    std::vector<ASTNodePtr> children;
+
+    ASTNode() = default;
+    ASTNode(std::vector<ASTNodePtr> children_) : children(std::move(children_)) {}
+
+    ASTNode(ASTNode&&) = default;
+    virtual ~ASTNode() = default;
+};
+using IdentifierName = std::string;
+
+
+template<typename... Args>
+std::vector<ASTNodePtr> makeChildren(Args&&... args) {
+    std::vector<ASTNodePtr> children;
+    children.reserve(sizeof...(args));
+    (children.emplace_back(std::forward<Args>(args)), ...);
+    return children;
+}
+
+
+struct Expression : public ASTNode {
+    Expression(std::vector<ASTNodePtr> children_) : ASTNode(std::move(children_)) {}
+};
+using ExpressionPtr = std::unique_ptr<Expression>;
+
+
+struct Statement : public ASTNode {
+    Statement(std::vector<ASTNodePtr> children_) : ASTNode(std::move(children_)) {}
+};
+using StatementPtr = std::unique_ptr<Statement>;
+
+struct TypeAnnotation : public ASTNode {
+    IdentifierName name;
+
+    TypeAnnotation(IdentifierName name_) : name(std::move(name_)) {}
+};
+using TypeAnnotationPtr = std::unique_ptr<TypeAnnotation>;
+
+
+struct Identifier : public Expression {
+    IdentifierName name;
+
+    Identifier(IdentifierName name_):
+        Expression({}),
+        name(std::move(name_))
+    {
+        assert(!name.empty());
+    }
+
+    bool isPrivate() const {
+        return name[0] == '#';
+    }
+};
+using IdentifierPtr = std::unique_ptr<Identifier>;
+
+
+struct BindingElement : public ASTNode {
+    BindingElement(IdentifierPtr target, TypeAnnotationPtr type_, ExpressionPtr initializer_):
+        ASTNode(makeChildren(std::move(target), std::move(type_), std::move(initializer_)))
+    {}
+
+    Identifier* target() const {
+        return dynamic_cast<Identifier*>(children[0].get());
+    }
+
+    TypeAnnotation* typeAnnotation() const {
+        return dynamic_cast<TypeAnnotation*>(children[1].get());
+    }
+    Expression* initializer() const {
+        return dynamic_cast<Expression*>(children[2].get());
+    }
+};
+using BindingElementPtr = std::unique_ptr<BindingElement>;
+
+
+struct Literal : public Expression {
+    struct Null {};
+
+    std::variant<Null, bool, double, int32_t, std::string> value;
+
+    explicit Literal(auto v):
+        Expression({}),
+        value(std::move(v))
+    {}
+};
+using LiteralPtr = std::unique_ptr<Literal>;
+
+
+struct BinaryExpression : public Expression {
+    // TODO: switch to enum op
+    enum Op {
+        Add,
+        Subtract,
+        Multiply,
+        Divide
+    };
+
+    std::string op;
+
+    BinaryExpression(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+        Expression(makeChildren(std::move(left_), std::move(right_))),
+        op(op_)
+    {}
+
+    Expression* left() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Expression* right() const {
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+};
+using BinaryExpressionPtr = std::unique_ptr<BinaryExpression>;
+
+
+struct ConditionalExpression : public Expression {
+    ConditionalExpression(ExpressionPtr test_, ExpressionPtr consequent_, ExpressionPtr alternate_):
+        Expression(makeChildren(std::move(test_), std::move(consequent_), std::move(alternate_)))
+    {}
+
+    Expression* test() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Expression* consequent() const {
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+    Expression* alternate() const {
+        return dynamic_cast<Expression*>(children[2].get());
+    }
+};
+
+
+struct UnaryExpression : public Expression {
+    // TODO: switch to enum op
+    enum Op {
+        Negate,
+        Not
+    };
+
+    std::string op;
+
+    UnaryExpression(ExpressionPtr expr_, std::string_view op_):
+        Expression(makeChildren(std::move(expr_))),
+        op(op_)
+    {}
+
+    Expression* expression() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+};
+using UnaryExpressionPtr = std::unique_ptr<UnaryExpression>;
+
+
+struct UpdateExpression : public Expression {
+    enum class Op { // TODO: switch to enum
+        PreInc,
+        PreDec,
+        PostInc,
+        PostDec
+    };
+
+    Op kind;
+
+    UpdateExpression(ASTNodePtr expr_, Op kind_):
+        Expression(makeChildren(std::move(expr_))),
+        kind(kind_)
+    {}
+
+    Expression* expression() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+};
+using UpdateExpressionPtr = std::unique_ptr<UpdateExpression>;
+
+
+struct FormalParameters : public ASTNode {
+    FormalParameters(BindingElementPtr restParam_, std::vector<BindingElementPtr> params_) {
+        children.reserve(1 + params_.size());
+
+        children.emplace_back(std::move(restParam_));
+        for (auto& param : params_) {
+            children.emplace_back(std::move(param));
+        }
+    }
+
+    BindingElement* restParameter() const {
+        return dynamic_cast<BindingElement*>(children[0].get());
+    }
+    size_t parameterCount() const {
+        return children.size() - 1;
+    }
+    BindingElement* parameterGet(size_t index) const {
+        return dynamic_cast<BindingElement*>(children[index + 1].get());
+    }
+};
+using FormalParametersPtr = std::unique_ptr<FormalParameters>;
+
+
+struct ExpressionStatement : public Statement {
+    ExpressionStatement(ExpressionPtr expr_):
+        Statement(makeChildren(std::move(expr_)))
+    {}
+
+    Expression* expression() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+};
+using ExpressionStatementPtr = std::unique_ptr<ExpressionStatement>;
+
+
+struct StatementList : public Statement {
+    enum Kind {
+        Normal,
+        Block
+    };
+
+    Kind kind;
+    StatementList(Kind kind_, std::vector<StatementPtr> statements_):
+        Statement({}),
+        kind(kind_)
+    {
+        children.reserve(statements_.size());
+        for (auto& stmt : statements_) {
+            children.emplace_back(std::move(stmt));
+        }
+    }
+
+    size_t statementCount() const {
+        return children.size();
+    }
+    Statement* statementGet(size_t index) const {
+        return dynamic_cast<Statement*>(children[index].get());
+    }
+};
+using StatementListPtr = std::unique_ptr<StatementList>;
+
+
+struct LexicalDeclaration : public Statement {
+    bool isConst;
+
+    LexicalDeclaration(bool isConst_, std::vector<BindingElementPtr> bindings_):
+        Statement({}),
+        isConst(isConst_)
+    {
+        children.reserve(bindings_.size());
+        for (auto& binding : bindings_) {
+            children.emplace_back(std::move(binding));
+        }
+    }
+
+    size_t bindingCount() const {
+        return children.size();
+    }
+    BindingElement* bindingGet(size_t index) const {
+        return dynamic_cast<BindingElement*>(children[index].get());
+    }
+};
+using LexicalDeclarationPtr = std::unique_ptr<LexicalDeclaration>;
+
+
+struct Function : public Expression {
+    bool isGenerator;
+    bool isAsync;
+    std::string_view code;
+
+    Function(bool isGenerator_, bool isAsync_, IdentifierPtr name, FormalParametersPtr params_, TypeAnnotationPtr returnType_, StatementListPtr body_, std::string_view code_):
+        Expression(makeChildren(std::move(name), std::move(params_), std::move(returnType_), std::move(body_))),
+        isGenerator(isGenerator_),
+        isAsync(isAsync_),
+        code(code_)
+    {}
+
+    Identifier* name() const {
+        return dynamic_cast<Identifier*>(children[0].get());
+    }
+    FormalParameters* parameters() const {
+        return dynamic_cast<FormalParameters*>(children[1].get());
+    }
+    TypeAnnotation* returnType() const {
+        return dynamic_cast<TypeAnnotation*>(children[2].get());
+    }
+    StatementList* body() const {
+        return dynamic_cast<StatementList*>(children[3].get());
+    }
+};
+using FunctionPtr = std::unique_ptr<Function>;
+
+
+struct IterationStatement : public Statement {
+    enum Kind {
+        While,
+        For,
+        DoWhile
+    };
+
+    Kind kind;
+private:
+    IterationStatement(Kind kind_, ASTNodePtr init_, ExpressionPtr condition_, ExpressionPtr update_, StatementPtr statement_):
+        Statement(makeChildren(std::move(init_) , std::move(condition_), std::move(update_), std::move(statement_))),
+        kind(kind_)
+    {}
+public:
+
+    IterationStatement(IterationStatement&&) = default;
+
+    ASTNode* init() const {
+        return children[0].get();
+    }
+    Expression* preCondition() const {
+        if (kind == DoWhile) {
+            return nullptr;
+        }
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+    Expression* postCondition() const {
+        if (kind != DoWhile) {
+            return nullptr;
+        }
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+    Expression* update() const {
+        return dynamic_cast<Expression*>(children[2].get());
+    }
+    Statement* statement() const {
+        return dynamic_cast<Statement*>(children[3].get());
+    }
+
+
+    static IterationStatement while_(ExpressionPtr condition_, StatementPtr statement_) {
+        return IterationStatement(While, nullptr, std::move(condition_), nullptr, std::move(statement_));
+    }
+    static IterationStatement for_(ASTNodePtr init_, ExpressionPtr condition_, ExpressionPtr update_, StatementPtr statement_) {
+        return IterationStatement(For, std::move(init_), std::move(condition_), std::move(update_), std::move(statement_));
+    }
+    static IterationStatement doWhile(StatementPtr statement_, ExpressionPtr condition_) {
+        return IterationStatement(DoWhile, nullptr, std::move(condition_), nullptr, std::move(statement_));
+    }
+};
+using IterationStatementPtr = std::unique_ptr<IterationStatement>;
+
+
+struct ContinueStatement : public Statement {
+    ContinueStatement(IdentifierPtr label_):
+        Statement(makeChildren(std::move(label_)))
+    {}
+
+    Identifier* label() const {
+        return dynamic_cast<Identifier*>(children[0].get());
+    }
+};
+using ContinueStatementPtr = std::unique_ptr<ContinueStatement>;
+
+struct BreakStatement : public Statement {
+    BreakStatement(IdentifierPtr label_):
+        Statement(makeChildren(std::move(label_)))
+    {}
+
+    Identifier* label() const {
+        return dynamic_cast<Identifier*>(children[0].get());
+    }
+};
+using BreakStatementPtr = std::unique_ptr<BreakStatement>;
+
+
+struct ReturnStatement : public Statement {
+    ReturnStatement(ExpressionPtr expr_):
+        Statement(makeChildren(std::move(expr_)))
+    {}
+
+    Expression* expression() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+};
+using ReturnStatementPtr = std::unique_ptr<ReturnStatement>;
+
+
+struct ThrowStatement : public Statement {
+    ThrowStatement(ExpressionPtr expr_):
+        Statement(makeChildren(std::move(expr_)))
+    {}
+
+    Expression* expression() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+};
+using ThrowStatementPtr = std::unique_ptr<ThrowStatement>;
+
+
+struct DebuggerStatement : public Statement {
+    DebuggerStatement():
+        Statement({})
+    {}
+};
+using DebuggerStatementPtr = std::unique_ptr<DebuggerStatement>;
+
+
+struct HoistableDeclaration : public Statement {
+    HoistableDeclaration(FunctionPtr function_):
+        Statement(makeChildren(std::move(function_)))
+    {}
+
+    Function* function() const {
+        return dynamic_cast<Function*>(children[0].get());
+    }
+};
+using HoistableDeclarationPtr = std::unique_ptr<HoistableDeclaration>;
+
+
+struct IfStatement : public Statement {
+    IfStatement(ExpressionPtr condition_, StatementPtr consequent_, StatementPtr alternate_):
+        Statement(makeChildren(std::move(condition_), std::move(consequent_), std::move(alternate_)))
+    {}
+
+    Expression* condition() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Statement* consequent() const {
+        return dynamic_cast<Statement*>(children[1].get());
+    }
+    Statement* alternate() const {
+        return dynamic_cast<Statement*>(children[2].get());
+    }
+};
+using IfStatementPtr = std::unique_ptr<IfStatement>;
+
+
+struct EmptyStatement : public Statement {
+    EmptyStatement() : Statement({}) {}
+};
+using EmptyStatementPtr = std::unique_ptr<EmptyStatement>;
+
+
+struct CoverParenthesizedExpressionAndArrowParameterList : public ASTNode {
+    CoverParenthesizedExpressionAndArrowParameterList(std::vector<ASTNodePtr> children_, ASTNodePtr rest):
+        ASTNode(std::move(children_))
+    {
+        children.shrink_to_fit();
+        children.emplace_back(std::move(rest));
+    }
+
+    ASTNode* rest() const {
+        return children.back().get();
+    }
+};
+using CoverParenthesizedExpressionAndArrowParameterListPtr = std::unique_ptr<CoverParenthesizedExpressionAndArrowParameterList>;
+
+
+struct Arguments : public ASTNode {
+    Arguments(std::vector<ExpressionPtr> args_, ExpressionPtr spread_) {
+        children.reserve(args_.size() + 1);
+        for (auto& arg : args_) {
+            children.emplace_back(std::move(arg));
+        }
+        children.emplace_back(std::move(spread_));
+    }
+
+    Expression* spread() const {
+        return dynamic_cast<Expression*>(children.back().get());
+    }
+
+    size_t argCount() const {
+        return children.size() - 1;
+    }
+
+    Expression* argGet(size_t index) const {
+        return dynamic_cast<Expression*>(children[index].get());
+    }
+};
+using ArgumentsPtr = std::unique_ptr<Arguments>;
+
+
+struct CoverCallExpressionAndAsyncArrowHead : public ASTNode {
+    CoverCallExpressionAndAsyncArrowHead(ExpressionPtr callee_, ArgumentsPtr arguments_):
+        ASTNode(makeChildren(std::move(callee_), std::move(arguments_)))
+    {}
+};
+using CoverCallExpressionAndAsyncArrowHeadPtr = std::unique_ptr<CoverCallExpressionAndAsyncArrowHead>;
+
+
+struct NewCallExpression : public Expression {
+    NewCallExpression(ExpressionPtr callee_, ArgumentsPtr arguments_):
+        Expression(makeChildren(std::move(callee_), std::move(arguments_)))
+    {}
+
+    Expression* callee() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Arguments* arguments() const {
+        return dynamic_cast<Arguments*>(children[1].get());
+    }
+};
+using NewCallExpressionPtr = std::unique_ptr<NewCallExpression>;
+
+
+struct CommaExpression : public Expression {
+    CommaExpression(std::vector<ExpressionPtr> items_):
+        Expression({})
+    {
+        children.reserve(items_.size());
+        for (auto& item : items_) {
+            children.emplace_back(std::move(item));
+        }
+    }
+
+    CommaExpression(std::vector<ASTNodePtr> items_):
+        Expression(std::move(items_))
+    {}
+
+    auto itemCount() const {
+        return children.size();
+    }
+    Expression* itemGet(size_t index) const {
+        return dynamic_cast<Expression*>(children[index].get());
+    }
+};
+
+
+struct Script : public ASTNode {
+    Script(StatementListPtr body_):
+        ASTNode(makeChildren(std::move(body_)))
+    {}
+
+    StatementList* body() const {
+        return dynamic_cast<StatementList*>(children[0].get());
+    }
+};
+using ScriptPtr = std::unique_ptr<Script>;
+
+
+struct Assignment : public Expression {
+    std::string op;
+
+    Assignment(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+        Expression(makeChildren(std::move(left_), std::move(right_))),
+        op(op_)
+    {}
+
+    Expression* left() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Expression* right() const {
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+};
+using AssignmentPtr = std::unique_ptr<Assignment>;
+
+
+struct MemberAccessExpression : public Expression {
+    MemberAccessExpression(ExpressionPtr object_, ExpressionPtr property_):
+        Expression(makeChildren(std::move(object_), std::move(property_)))
+    {}
+
+    Expression* object() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Expression* property() const {
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+};
+using MemberAccessExpressionPtr = std::unique_ptr<MemberAccessExpression>;
+
+
+struct TaggedTemplateExpression : public Expression {
+    TaggedTemplateExpression(ExpressionPtr tag_, ExpressionPtr templateLiteral_):
+        Expression(makeChildren(std::move(tag_), std::move(templateLiteral_)))
+    {}
+
+    Expression* tag() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Expression* templateLiteral() const {
+        return dynamic_cast<Expression*>(children[1].get());
+    }
+};
+using TaggedTemplateExpressionPtr = std::unique_ptr<TaggedTemplateExpression>;
+
+
+struct CallExpression : public Expression {
+    CallExpression(ExpressionPtr callee_, ArgumentsPtr arguments_):
+        Expression(makeChildren(std::move(callee_), std::move(arguments_)))
+    {}
+
+    Expression* callee() const {
+        return dynamic_cast<Expression*>(children[0].get());
+    }
+    Arguments* arguments() const {
+        return dynamic_cast<Arguments*>(children[1].get());
+    }
+};
+using CallExpressionPtr = std::unique_ptr<CallExpression>;
+
+
+struct ThisExpression : public Expression {
+    ThisExpression():
+        Expression({})
+    {}
+};
+using ThisExpressionPtr = std::unique_ptr<ThisExpression>;
+
 
 
 struct Yield {
@@ -179,954 +780,151 @@ public:
 };
 
 
-using IdentifierName = std::string;
+ExpressionPtr parseAssignmentExpression(ParserState& state);
+StatementPtr parseStatement(ParserState& state);
+StatementListPtr parseStatementList(ParserState& state);
+ExpressionPtr parseExpression(ParserState& state);
+std::optional<IdentifierName> parseIdentifierName(ParserState& state, bool allowReserved);
+IdentifierPtr parseIdentifier(ParserState& state);
+IdentifierPtr parseSpecialIdentifier(ParserState& state, bool allowYield, bool allowAwait);
+IdentifierPtr parseIdentifierReference(ParserState& state);
+IdentifierPtr parseBindingIdentifier(ParserState& state);
+IdentifierPtr parseLabelIdentifier(ParserState& state);
+IdentifierPtr parsePrivateIdentifier(ParserState& state);
+ThisExpressionPtr parseThisExpr(ParserState& state);
+LiteralPtr parseNullLiteral(ParserState& state);
+LiteralPtr parseBooleanLiteral(ParserState& state);
+LiteralPtr parseNumericLiteral(ParserState& state);
+LiteralPtr parseStringLiteral(ParserState& state);
+LiteralPtr parseLiteral(ParserState& state);
+ExpressionPtr parseUnaryExpression(ParserState& state);
+ExpressionPtr parseLeftHandSideExpression(ParserState& state);
+ExpressionPtr parseUpdateExpression(ParserState& state);
+ExpressionPtr parseUnaryExpression(ParserState& state);
+ExpressionPtr parseBinaryExpression(ParserState& state);
+TypeAnnotationPtr parseTypeAnnotation(ParserState& state);
+ExpressionPtr parseInitializer(ParserState& state);
+BindingElementPtr parseSingleNameBinding(ParserState& state);
+auto parseBindingPattern(ParserState&);
+BindingElementPtr parseBindingElement(ParserState& state);
+auto parseBindingRestElement(ParserState&);
+constexpr auto parseFormalParameter = parseBindingElement;
+auto parseFormalParameters(ParserState& state);
+StatementListPtr parseFunctionBody(ParserState& state);
+StatementListPtr parseBlock(ParserState& state);
+BindingElementPtr parseLexicalBinding(ParserState& state);
+LexicalDeclarationPtr parseLexicalDeclaration(ParserState& state);
+auto parseVariableStatement(ParserState&);
+EmptyStatementPtr parseEmptyStatement(ParserState& state);
+ExpressionStatementPtr parseExpressionStatement(ParserState& state);
+ExpressionPtr parseExpressionParenthesised(ParserState& state);
+IterationStatementPtr parseDoWhileStatement(ParserState& state);
+IterationStatementPtr parseWhileStatement(ParserState& state);
+IterationStatementPtr parseForInOfStatement(ParserState&);
+IterationStatementPtr parseForStatement(ParserState& state);
+IterationStatementPtr parseIterationStatement(ParserState& state);
+auto parseSwitchStatement(ParserState&);
+StatementPtr parseBreakableStatement(ParserState& state);
+ContinueStatementPtr parseContinueStatement(ParserState& state);
+BreakStatementPtr parseBreakStatement(ParserState& state);
+ReturnStatementPtr parseReturnStatement(ParserState& state);
+ThrowStatementPtr parseThrowStatement(ParserState& state);
+auto parseWithStatement(ParserState&);
+FunctionPtr parseFunction(ParserState& state, TriState identifierRequired);
+FunctionPtr parseFunctionDeclaration(ParserState& state, bool Default);
+auto parseLabeledStatement(ParserState&);
+auto parseTryStatement(ParserState&);
+DebuggerStatementPtr parseDebuggerStatement(ParserState& state);
+IfStatementPtr parseIfStatement(ParserState& state);
+constexpr auto parseBlockStatement = parseBlock;
+StatementPtr parseStatement(ParserState& state);
+auto parseGeneratorDeclaration(ParserState&, bool);
+auto parseAsyncFunctionDeclaration(ParserState&, bool);
+auto parseAsyncGeneratorDeclaration(ParserState&, bool);
+HoistableDeclarationPtr parseHoistableDeclaration(ParserState& state, bool Default);
+auto parseClassDeclaration(ParserState&, bool);
+StatementPtr parseDeclaration(ParserState& state);
+StatementPtr parseStatementListItem(ParserState& state);
+auto parseRegularExpressionLiteral(ParserState&);
+auto parseTemplateLiteral(ParserState&, bool);
+CoverParenthesizedExpressionAndArrowParameterListPtr parseCoverParenthesizedExpressionAndArrowParameterList(ParserState& state);
+ExpressionPtr parsePrimaryExpression(ParserState& state);
+auto parseSuperProperty(ParserState&);
+auto parseMetaProperty(ParserState&);
+ArgumentsPtr parseArguments(ParserState& state);
+ExpressionPtr parseMemberExpression(ParserState& state, int& initNewCount);
+ExpressionPtr parseNewExpression(ParserState& state);
+auto parseSuperCall(ParserState&);
+auto parseImportCall(ParserState&);
+CoverCallExpressionAndAsyncArrowHeadPtr parseCoverCallExpressionAndAsyncArrowHead(ParserState& state);
+ExpressionPtr parseCallExpression(ParserState& state);
+ExpressionPtr parseLeftHandSideExpression(ParserState& state);
+auto parseYieldExpression(ParserState&);
+auto parseArrowFunction(ParserState&);
+auto parseAsyncArrowFunction(ParserState&);
+ScriptPtr parseScript(ParserState& state);
+ExpressionPtr parseConditionalExpression(ParserState& state);
+AssignmentPtr parseAssignment(ParserState& state);
+ExpressionPtr parseAssignmentExpression(ParserState& state);
+ExpressionPtr parseExpression(ParserState& state);
+StatementListPtr parseStatementList(ParserState& state);
+
+
+using MiscTypes = TypeList<
+    TypeAnnotation, BindingElement, FormalParameters, Arguments, CoverParenthesizedExpressionAndArrowParameterList,
+    CoverCallExpressionAndAsyncArrowHead, Script,
+    ASTNode, Expression, Statement
+>;
+
+using ExpressionTypes = TypeList<
+    Identifier, Literal, BinaryExpression, ConditionalExpression, UnaryExpression, UpdateExpression, Function,
+    NewCallExpression, CommaExpression, Assignment, MemberAccessExpression, TaggedTemplateExpression, CallExpression,
+    ThisExpression
+>;
 
+using StatementTypes = TypeList<
+    ExpressionStatement, StatementList, LexicalDeclaration, IterationStatement, ContinueStatement, BreakStatement,
+    ReturnStatement, ThrowStatement, DebuggerStatement, HoistableDeclaration, IfStatement
+>;
 
-struct Identifier {
-    IdentifierName name;
 
-    static std::optional<Identifier> parse(ParserState& state);
-};
-
-struct IdentifierReference {
-    Identifier identifier;
-
-    static std::optional<IdentifierReference> parse(ParserState& state);
-};
-
-struct BindingIdentifier {
-    Identifier identifier;
-
-    static std::optional<BindingIdentifier> parse(ParserState& state);
-};
-
-struct LabelIdentifier {
-    Identifier identifier;
-
-    static std::optional<LabelIdentifier> parse(ParserState& state);
-};
-
-struct PrivateIdentifier {
-    IdentifierName name;
-
-    static std::optional<PrivateIdentifier> parse(ParserState& state);
-};
-
-
-struct ThisExpr {
-    static std::optional<ThisExpr> parse(ParserState& state);
-};
-
-struct NullLiteral {
-    static std::optional<NullLiteral> parse(ParserState& state);
-};
-
-struct BooleanLiteral {
-    bool value;
-
-    static std::optional<BooleanLiteral> parse(ParserState& state);
-};
-
-struct NumericLiteral {
-    std::variant<std::int32_t, double> value;  // TODO: bigint
-
-    static std::optional<NumericLiteral> parse(ParserState& state);
-};
-
-struct StringLiteral {
-    std::string value;
-
-    static std::optional<StringLiteral> parse(ParserState& state);
-};
-
-struct Literal {
-    std::variant<NullLiteral, BooleanLiteral, NumericLiteral, StringLiteral> value;
-
-    static std::optional<Literal> parse(ParserState& state);
-};
-
-struct AssignmentExpression;
-
-using AssignmentExpressionPtr = std::unique_ptr<AssignmentExpression>;
-
-using InitializerPtr = AssignmentExpressionPtr;
-
-struct LeftHandSideExpression;
-using LeftHandSideExpressionPtr = std::unique_ptr<LeftHandSideExpression>;
-
-struct UnaryExpression;
-
-using UnaryExpressionPtr = std::unique_ptr<UnaryExpression>;
-
-
-enum class UpdateKind {
-    None,
-    PreInc,
-    PreDec,
-    PostInc,
-    PostDec
-};
-
-struct UpdateExpression {
-    std::variant<
-        UnaryExpressionPtr,
-        LeftHandSideExpressionPtr
-    > value;
-
-    UpdateKind kind;
-
-    static std::optional<UpdateExpression> parse(ParserState& state);
-};
-
-struct UnaryExpression {
-    std::variant<
-        std::pair<UnaryExpressionPtr, std::string_view>,
-        UpdateExpression
-    > value;
-
-    static std::optional<UnaryExpression> parse(ParserState& state);
-};
-
-struct BinaryExpression {
-    using BinaryExpressionPtr = std::unique_ptr<BinaryExpression>;
-
-    std::variant<
-        std::tuple<BinaryExpressionPtr, BinaryExpressionPtr, std::string_view>,
-        UnaryExpressionPtr
-    > value;
-
-    static std::optional<BinaryExpression> parse(ParserState& state);
-};
-
-using BinaryExpressionPtr = std::unique_ptr<BinaryExpression>;
-
-struct ConditionalExpression {
-    std::variant<
-        BinaryExpression,
-        std::tuple<  // ternary conditional operator
-            BinaryExpression,
-            AssignmentExpressionPtr,
-            AssignmentExpressionPtr
-        >
-    > value;
-
-    static std::optional<ConditionalExpression> parse(ParserState& state);
-};
-
-struct Elision {};
-
-struct ArrayLiteral {
-    // AssignmentExpression[+In, Yield, Await]
-    std::vector<std::variant<Elision, AssignmentExpressionPtr>> elementList;
-    std::optional<AssignmentExpressionPtr> spreadElement;
-};
-
-struct ComputedPropertyName {
-    // AssignmentExpression[+In, Yield, Await]
-    AssignmentExpressionPtr expression;
-};
-
-struct PropertyName {
-    std::variant<
-        IdentifierName,
-        StringLiteral,
-        NumericLiteral,
-        ComputedPropertyName
-    > value;
-};
-
-struct ClassElementName {
-    std::variant<
-        PropertyName,
-        PrivateIdentifier
-    > value;
-};
-
-struct BindingProperty;
-
-struct BindingElement;
-
-struct ObjectBindingPattern {
-    std::vector<BindingProperty> properties;
-    std::optional<BindingIdentifier> rest;
-};
-
-struct ArrayBindingPattern {
-    std::vector<std::variant<
-        Elision,
-        BindingElement
-    >> elements;
-    std::optional<BindingIdentifier> rest;
-};
-
-struct BindingPattern {
-    std::variant<
-        ObjectBindingPattern,
-        ArrayBindingPattern
-    > value;
-
-    static std::optional<BindingPattern> parse(ParserState&);
-
-    BindingPattern(BindingPattern&&);
-    ~BindingPattern();
-};
-
-
-// XXX: EXTENSION, incompatible with standard
-struct TypeAnnotation {
-    IdentifierName type;
-
-    static std::optional<TypeAnnotation> parse(ParserState& state);
-};
-
-struct BindingElement {
-    std::variant<
-        BindingIdentifier,
-        std::pair<BindingIdentifier, InitializerPtr>,  // Initializer[+In, Yield, Await]
-        BindingPattern,
-        std::pair<BindingPattern, InitializerPtr>  // Initializer[+In, Yield, Await]
-    > value;
-    std::optional<TypeAnnotation> type;
-
-    static std::optional<BindingElement> parse(ParserState& state);
-};
-
-struct BindingProperty {
-    std::variant<
-        BindingIdentifier,
-        std::pair<BindingIdentifier, InitializerPtr>,  // Initializer[+In, Yield, Await]
-        std::pair<PropertyName, BindingElement>
-    > value;
-};
-
-using FormalParameter = BindingElement;
-
-struct BindingRestElement {
-    std::variant<
-        BindingIdentifier,
-        BindingPattern
-    > value;
-
-    static std::optional<BindingRestElement> parse(ParserState&);
-};
-
-struct FormalParameters {
-    std::vector<FormalParameter> parameterList;
-    std::optional<BindingRestElement> restParameter;
-
-    static std::optional<FormalParameters> parse(ParserState& state);
-};
-
-struct UniqueFormalParameters {
-    FormalParameters parameters;
-};
-
-struct Statement;
-
-using StatementPtr = std::unique_ptr<Statement>;
-
-struct StatementListItem;
-
-struct StatementList {
-    std::vector<StatementListItem> items;
-
-    static std::optional<StatementList> parse(ParserState& state);
-
-    ~StatementList();
-    StatementList();
-    StatementList(StatementList&&);
-};
-
-struct FunctionBody {
-    StatementList statementList;  // StatementList[Yield, Await, +Return]
-
-    static std::optional<FunctionBody> parse(ParserState& state);
-};
-
-using GeneratorBody = FunctionBody;         // FunctionBody[+Yield, -Await]
-using AsyncFunctionBody = FunctionBody;     // FunctionBody[-Yield, +Await]
-using AsyncGeneratorBody = FunctionBody;     // FunctionBody[+Yield, +Await]
-
-struct Expression {
-    std::vector<AssignmentExpressionPtr> items;
-
-    static std::optional<Expression> parse(ParserState& state);
-
-    static std::optional<Expression> parseParenthesised(ParserState& state);
-};
-
-struct Block {
-    std::optional<StatementList> statementList;
-
-    static std::optional<Block> parse(ParserState& state);
-};
-
-struct LexicalBinding {
-    std::variant<
-        BindingIdentifier,
-        std::pair<BindingIdentifier, InitializerPtr>,
-        std::pair<BindingPattern, InitializerPtr>
-    > value;
-    std::optional<TypeAnnotation> type;  // TODO: maybe move to BindingIdentifier?
-
-    static std::optional<LexicalBinding> parse(ParserState& state);
-};
-
-struct LexicalDeclaration {
-    bool isConst;
-    std::vector<LexicalBinding> bindings;
-
-    static std::optional<LexicalDeclaration> parse(ParserState& state);
-};
-
-using BlockStatement = Block;
-
-struct VariableDeclaration {
-    BindingIdentifier identifier;
-    std::optional<InitializerPtr> initializer;
-};
-
-struct VariableDeclarationList {
-    std::vector<std::variant<VariableDeclaration>> declarations;
-
-};
-
-struct VariableStatement {
-    VariableDeclarationList declarationList;  // VariableDeclarationList[+In, Yield, Await]
-
-    static std::optional<VariableStatement> parse(ParserState&);
-};
-
-struct EmptyStatement {
-    static std::optional<EmptyStatement> parse(ParserState& state);
-};
-
-struct ExpressionStatement {
-    Expression expression;  // Expression[+In, Yield, Await]
-
-    static std::optional<ExpressionStatement> parse(ParserState& state);
-};
-
-struct IfStatement {
-    Expression expression;  // Expression[+In, Yield, Await]
-    StatementPtr consequent;
-    std::optional<StatementPtr> alternate;
-
-    static std::optional<IfStatement> parse(ParserState& state);
-};
-
-struct DoWhileStatement {
-    StatementPtr statement;
-    Expression expression;  // Expression[+In, Yield, Await]
-
-    static std::optional<DoWhileStatement> parse(ParserState& state);
-};
-
-struct WhileStatement {
-    Expression expression;  // Expression[+In, Yield, Await]
-    StatementPtr statement;
-
-    static std::optional<WhileStatement> parse(ParserState& state);
-};
-
-struct ForStatement {
-    std::variant<
-        std::monostate,
-        Expression,               // Expression[-In, Yield, Await]
-        VariableDeclarationList,  // VariableDeclarationList[-In, Yield, Await]
-        LexicalDeclaration        // LexicalDeclaration[-In, Yield, Await]
-    > init;
-    std::optional<Expression> condition;  // Expression[+In, Yield, Await]
-    std::optional<Expression> update;     // Expression[+In, Yield, Await]
-    StatementPtr statement;
-
-    static std::optional<ForStatement> parse(ParserState& state);
-};
-
-struct ForInOfStatement {
-    // XXX: ignore for now
-
-    static std::optional<ForInOfStatement> parse(ParserState&);
-};
-
-struct IterationStatement {
-    std::variant<
-        DoWhileStatement,
-        WhileStatement,
-        ForStatement,
-        ForInOfStatement
-    > value;
-
-    static std::optional<IterationStatement> parse(ParserState& state);
-};
-
-struct CaseClause {
-    Expression expression;  // Expression[+In, Yield, Await]
-    std::optional<StatementList> statementList;
-};
-
-struct DefaultClause {
-    std::optional<StatementList> statementList;
-};
-
-struct SwitchStatement {
-    Expression expression;  // Expression[+In, Yield, Await]
-    std::vector<CaseClause> caseBlock;
-    std::optional<DefaultClause> defaultClause;
-
-    static std::optional<SwitchStatement> parse(ParserState&);
-};
-
-struct BreakableStatement {
-    std::variant<
-        IterationStatement,
-        SwitchStatement
-    > value;
-
-    static std::optional<BreakableStatement> parse(ParserState& state);
-};
-
-struct ContinueStatement {
-    std::optional<LabelIdentifier> label;
-
-    static std::optional<ContinueStatement> parse(ParserState& state);
-};
-
-struct BreakStatement {
-    std::optional<LabelIdentifier> label;
-
-    static std::optional<BreakStatement> parse(ParserState& state);
-};
-
-struct ReturnStatement {
-    std::optional<Expression> expression;  // Expression[+In, Yield, Await]
-
-    static std::optional<ReturnStatement> parse(ParserState& state);
-};
-
-struct WithStatement {
-    // XXX: ignore for now
-
-    static std::optional<WithStatement> parse(ParserState&);
-};
-
-struct FunctionDeclaration {
-    std::optional<BindingIdentifier> name;  // optional only when [+Default]
-    FormalParameters parameters;       // FormalParameters[-Yield, -Await]
-    std::optional<FunctionBody> body;  // FunctionBody[-Yield, -Await]
-    std::optional<TypeAnnotation> returnType;
-
-    std::string_view code;
-
-    static std::optional<FunctionDeclaration> parse(ParserState& state, bool Default);
-};
-
-struct LabeledStatement {
-    LabelIdentifier label;
-    std::variant<
-        StatementPtr,
-        FunctionDeclaration  // FunctionDeclaration[Yield, Await, -Default]
-    > statement;
-
-    static std::optional<LabeledStatement> parse(ParserState&);
-};
-
-struct ThrowStatement {
-    Expression expression;  // Expression[+In, Yield, Await]
-
-    static std::optional<ThrowStatement> parse(ParserState&);
-};
-
-struct CatchParameter {
-    std::variant<
-        BindingIdentifier,
-        BindingPattern
-    > value;
-};
-
-struct Catch {
-    CatchParameter parameter;
-    Block block;
-};
-
-struct TryStatement {
-    Block block;
-    std::optional<Catch> catchClause;
-    std::optional<Block> finallyClause;
-
-    static std::optional<TryStatement> parse(ParserState&);
-};
-
-struct DebuggerStatement {
-    static std::optional<DebuggerStatement> parse(ParserState& state);
-};
-
-struct Statement {
-    std::variant<
-        BlockStatement,
-        VariableStatement,
-        EmptyStatement,
-        ExpressionStatement,
-        IfStatement,
-        BreakableStatement,
-        ContinueStatement,
-        BreakStatement,
-        ReturnStatement, // [+Return]
-        WithStatement,
-        LabeledStatement,
-        ThrowStatement,
-        TryStatement,
-        DebuggerStatement
-    > value;
-
-    static std::optional<Statement> parse(ParserState& state);
-};
-
-struct GeneratorDeclaration {
-    std::optional<BindingIdentifier> name;  // optional only when [+Default]
-    FormalParameters parameters;  // FormalParameters[-Yield, -Await]
-    GeneratorBody body;
-
-    static std::optional<GeneratorDeclaration> parse(ParserState&, bool);
-};
-
-struct AsyncFunctionDeclaration {
-    std::optional<BindingIdentifier> name;  // optional only when [+Default]
-    FormalParameters parameters;  // FormalParameters[-Yield, -Await]
-    AsyncFunctionBody body;
-
-    static std::optional<AsyncFunctionDeclaration> parse(ParserState&, bool);
-};
-
-struct AsyncGeneratorDeclaration {
-    std::optional<BindingIdentifier> name;  // optional only when [+Default]
-    FormalParameters parameters;  // FormalParameters[-Yield, -Await]
-    AsyncGeneratorBody body;
-
-    static std::optional<AsyncGeneratorDeclaration> parse(ParserState&, bool);
-};
-
-struct HoistableDeclaration {
-    std::variant<
-        FunctionDeclaration,
-        GeneratorDeclaration,
-        AsyncFunctionDeclaration,
-        AsyncGeneratorDeclaration
-    > value;
-
-    static std::optional<HoistableDeclaration> parse(ParserState& state, bool Default);
-};
-
-struct ClassHeritage {
-    LeftHandSideExpressionPtr value;
-};
-
-struct ClassStaticBlock {
-    std::optional<StatementList> statementList;  // StatementList[-Yield, -Await, -Return]
-};
-
-struct GetFunctionBody : public FunctionBody {};  // FunctionBody[-Yield, -Await]
-struct SetFunctionBody : public FunctionBody {};  // FunctionBody[-Yield, -Await]
-
-struct MethodDefinition {
-
-    std::variant<  // UniqueFormalParameters[-Yield, -Await]
-        std::tuple<ClassElementName, UniqueFormalParameters, FunctionBody>,  // FunctionBody[-Yield, -Await]
-        std::tuple<ClassElementName, UniqueFormalParameters, GeneratorBody>,
-        std::tuple<ClassElementName, UniqueFormalParameters, AsyncFunctionBody>,
-        std::tuple<ClassElementName, UniqueFormalParameters, AsyncGeneratorBody>,
-        std::tuple<ClassElementName, GetFunctionBody>,
-        std::tuple<ClassElementName, UniqueFormalParameters, SetFunctionBody>
-    > value;
-};
-
-struct FieldDefinition {
-    ClassElementName name;
-    std::optional<InitializerPtr> initializer;  // Initializer[+In, Yield, Await]
-};
-
-struct ClassElement {
-    std::variant<
-        std::monostate,  // semicolon
-        std::pair<bool, MethodDefinition>,  // bool: static
-        std::pair<bool, FieldDefinition>,  // bool: static
-        ClassStaticBlock
-    > value;
-};
-
-struct ClassBody {
-    std::vector<ClassElement> elements;
-};
-
-struct ClassDeclaration {
-    std::optional<BindingIdentifier> name;  // optional only when [+Default]
-    std::optional<ClassHeritage> heritage;
-    ClassBody body;
-
-    static std::optional<ClassDeclaration> parse(ParserState&, bool);
-};
-
-struct Declaration {
-    std::variant<
-        HoistableDeclaration,  // HoistableDeclaration[Yield, Await, -Default]
-        ClassDeclaration,      // ClassDeclaration[Yield, Await, -Default]
-        LexicalDeclaration     // LexicalDeclaration[+In, Yield, Await]
-    > value;
-
-    static std::optional<Declaration> parse(ParserState& state);
-};
-
-struct StatementListItem {
-    std::variant<
-        Statement,
-        Declaration
-    > value;
-
-    StatementListItem(Statement statement): value(std::move(statement)) {}
-    StatementListItem(Declaration declaration): value(std::move(declaration)) {}
-
-    static std::optional<StatementListItem> parse(ParserState& state);
-};
-
-struct CoverInitializedName {
-    IdentifierReference identifier;
-    InitializerPtr initializer;  // Initializer[+In, Yield, Await]
-};
-
-struct PropertyDefinition {
-    using SpreadAssignmentExpressionPtr = AssignmentExpressionPtr;  // AssignmentExpression[+In, Yield, Await]
-
-    std::variant<
-        IdentifierReference,
-        CoverInitializedName,
-        std::pair<PropertyName, AssignmentExpressionPtr>,  // AssignmentExpression[+In, Yield, Await]
-        MethodDefinition,
-        SpreadAssignmentExpressionPtr
-    > value;
-};
-
-struct ObjectLiteral {
-    std::vector<PropertyDefinition> properties;
-};
-
-struct FunctionExpression {
-    std::optional<BindingIdentifier> name;  // BindingIdentifier[-Yield, -Await]
-    FormalParameters parameters;            // FormalParameters[-Yield, -Await]
-    FunctionBody body;                      // FunctionBody[-Yield, -Await]
-};
-
-struct ClassExpression {
-    std::optional<BindingIdentifier> name;
-    std::optional<ClassHeritage> heritage;
-    ClassBody body;
-};
-
-struct GeneratorExpression {
-    std::optional<BindingIdentifier> name;  // BindingIdentifier[-Yield, -Await]
-    FormalParameters parameters;            // FormalParameters[-Yield, -Await]
-    GeneratorBody body;
-};
-
-struct AsyncFunctionExpression {
-    std::optional<BindingIdentifier> name;  // BindingIdentifier[-Yield, -Await]
-    FormalParameters parameters;            // FormalParameters[-Yield, -Await]
-    AsyncFunctionBody body;
-};
-
-struct AsyncGeneratorExpression {
-    std::optional<BindingIdentifier> name;  // BindingIdentifier[-Yield, -Await]
-    FormalParameters parameters;            // FormalParameters[-Yield, -Await]
-    AsyncGeneratorBody body;
-};
-
-struct RegularExpressionLiteral {
-    // XXX: ignore for now
-
-    static std::optional<RegularExpressionLiteral> parse(ParserState&);
-};
-
-struct TemplateLiteral {
-    // XXX: ignore for now
+namespace detail {
 
-    static std::optional<TemplateLiteral> parse(ParserState&, bool);
-};
-
-struct ParenthesizedExpression {
-    Expression expression;  // Expression[+In, Yield, Await]
-};
-
-struct CoverParenthesizedExpressionAndArrowParameterList {
-    std::optional<Expression> expression;  // Expression[+In, Yield, Await]
-    std::variant<
-        std::monostate,  // no parameters
-        BindingIdentifier,
-        BindingPattern
-    > parameters;
-
-    static std::optional<CoverParenthesizedExpressionAndArrowParameterList> parse(ParserState& state);
-
-    std::optional<ParenthesizedExpression> refineParExp();
-};
-
-struct PrimaryExpression {
-    std::variant<
-        ThisExpr,
-        IdentifierReference,
-        Literal,
-        ArrayLiteral,
-        ObjectLiteral,
-        FunctionExpression,
-        ClassExpression,
-        GeneratorExpression,
-        AsyncFunctionExpression,
-        AsyncGeneratorExpression,
-        RegularExpressionLiteral,
-        TemplateLiteral,  // TemplateLiteral[In, Yield, -Tagged]
-        ParenthesizedExpression  // TODO: check if ok
-    > value;
-
-    static std::optional<PrimaryExpression> parse(ParserState& state);
-};
-
-struct SuperProperty {
-    std::variant<
-        IdentifierName,  // dot
-        Expression  // bracket; Expression[+In, Yield, Await]
-    > value;
-
-    static std::optional<SuperProperty> parse(ParserState&);
-};
-
-struct MetaProperty {
-    enum Kind {
-        NewTarget,
-        ImportMeta
-    };
-
-    Kind kind;
-
-    static std::optional<MetaProperty> parse(ParserState&);
-};
-
-struct Arguments {
-    std::vector<std::pair<bool, AssignmentExpressionPtr>> arguments;  // bool: spread; AssignmentExpression[+In, Yield, Await]
-
-    static std::optional<Arguments> parse(ParserState& state);
-};
-
-struct MemberExpression {
-    using MemberExpressionPtr = std::unique_ptr<MemberExpression>;
-
-    std::variant<
-        SuperProperty,
-        MetaProperty,
-        PrimaryExpression,
-        std::pair<MemberExpressionPtr, Expression>,  // bracket; Expression[+In, Yield, Await]
-        std::pair<MemberExpressionPtr, IdentifierName>, // dot
-        std::pair<MemberExpressionPtr, PrivateIdentifier>,  // dot
-        std::pair<MemberExpressionPtr, TemplateLiteral>,  // tag; TemplateLiteral[In, Yield, +Tagged]
-        std::pair<MemberExpressionPtr, Arguments>  // new
-    > value;
-
-    static std::optional<MemberExpression> parse(ParserState& state);
-};
-using MemberExpressionPtr = std::unique_ptr<MemberExpression>;
-
-
-struct NewExpression;
-
-using NewExpressionPtr = std::unique_ptr<NewExpression>;
-
-struct NewExpression {
-
-    std::variant<
-        MemberExpression,
-        NewExpressionPtr
-    > value;
-
-    static std::optional<NewExpression> parse(ParserState& state);
-};
-using NewExpressionPtr = std::unique_ptr<NewExpression>;
-
-struct SuperCall {
-    Arguments arguments;
-
-    static std::optional<SuperCall> parse(ParserState&);
-};
-
-struct ImportCall {
-    Expression expression;  // Expression[+In, Yield, Await]
-
-    static std::optional<ImportCall> parse(ParserState&);
-};
-
-struct CoverCallExpressionAndAsyncArrowHead {
-    MemberExpression memberExpression;
-    Arguments arguments;
-
-    static std::optional<CoverCallExpressionAndAsyncArrowHead> parse(ParserState& state);
-};
-
-struct CallExpression {
-    using CallExpressionPtr = std::unique_ptr<CallExpression>;
 
-    // grammar: CoverCallExpressionAndAsyncArrowHead
-    std::variant<
-        SuperCall,
-        ImportCall,
-        std::pair<MemberExpression, Arguments>,  // cover grammar
-        std::pair<CallExpressionPtr, Arguments>,
-        std::pair<CallExpressionPtr, Expression>,  // bracket; Expression[+In, Yield, Await]
-        std::pair<CallExpressionPtr, IdentifierName>,  // dot
-        std::pair<CallExpressionPtr, PrivateIdentifier>,  // dot
-        std::pair<CallExpressionPtr, TemplateLiteral>  // tag; TemplateLiteral[In, Yield, +Tagged]
-    > value;
-
-    static std::optional<CallExpression> parse(ParserState& state);
-};
-
-using CallExpressionPtr = std::unique_ptr<CallExpression>;
-
-struct OptionalChain {
-    using OptionalChainPtr = std::unique_ptr<OptionalChain>;
-
-    std::optional<OptionalChainPtr> chain;
-    std::variant<
-        Arguments,  // ?.
-        Expression,  // ?.[   Expression[+In, Yield, Await]
-        IdentifierName,  // ?.identifier
-        PrivateIdentifier,  // ?.#identifier
-        TemplateLiteral  // ?.tag   // TemplateLiteral[In, Yield, +Tagged]
-    > value;
-};
-
-struct OptionalExpression {
-    using OptionalExpressionPtr = std::unique_ptr<OptionalExpression>;
-
-    std::variant<
-        MemberExpression,
-        CallExpression,
-        OptionalExpressionPtr
-    > value;
-    OptionalChain chain;
-};
-
-struct LeftHandSideExpression {
-    std::variant<
-        CallExpression,
-        NewExpression
-        // OptionalExpression
-    > value;
-
-    static std::optional<LeftHandSideExpression> parse(ParserState& state);
-};
-
-struct YieldExpression {
-    bool star;
-    std::optional<AssignmentExpressionPtr> expression;
-
-    static std::optional<YieldExpression> parse(ParserState&);
-};
-
-struct ArrowParameters {
-    std::variant<
-        BindingIdentifier,
-        CoverParenthesizedExpressionAndArrowParameterList
-    > value;
-};
-
-struct ConciseBody {
-    std::variant<
-        AssignmentExpressionPtr,  // lookahead not {, AssignmentExpression[In, -Yield, -Await]
-        FunctionBody  // FunctionBody[-Yield, -Await]
-    > value;
-};
-
-struct ArrowFunction {
-    ArrowParameters parameters;
-    ConciseBody body;
-
-    static std::optional<ArrowFunction> parse(ParserState&);
+template<typename Last, typename... Ts>
+struct Tail {
+    using type = Last;
+    using rest = TypeList<Ts...>;
 };
 
-struct AsyncConciseBody {
-    std::variant<
-        AssignmentExpressionPtr,  // lookahead not {, AssignmentExpression[In, -Yield, -Await]
-        AsyncFunctionBody
-    > value;
-};
-
-struct AsyncArrowFunction {
-    std::variant<
-        BindingIdentifier,  // BindingIdentifier[Yield, +Await]
-        CoverCallExpressionAndAsyncArrowHead
-    > parameters;
-    AsyncConciseBody body;
-
-    static std::optional<AsyncArrowFunction> parse(ParserState&);
-};
-
-struct Assignment {
-    LeftHandSideExpression lhs;
-    AssignmentExpressionPtr rhs;
-    std::string_view op;
-
-    static std::optional<Assignment> parse(ParserState& state);
-};
-
-struct AssignmentExpression {
-    std::variant<
-        ConditionalExpression,
-        YieldExpression,  // only when [+Yield]
-        ArrowFunction,
-        AsyncArrowFunction,
-        Assignment
-    > value;
-
-    static std::optional<AssignmentExpression> parse(ParserState& state);
-};
 
+template<typename First, typename... Ts>
+decltype(auto) visitNodeImpl(auto&& node, auto&& func, TypeList<First, Ts...>) {
+    using NodeT = std::remove_reference_t<decltype(node)>;
+    using Target = std::conditional_t<std::is_const_v<NodeT>, const First, First>;
 
-struct Script {
-    std::optional<StatementList> statementList;  // StatementList[-Yield, -Await, -Return]
+    if (auto ptr = dynamic_cast<Target*>(&node)) {
+        RETURN_IF_NOT_VOID(func(*ptr));
+    }
+    if constexpr (sizeof...(Ts) > 0) {
+        RETURN_IF_NOT_VOID(visitNodeImpl(node, func, TypeList<Ts...>{}));
+    } else {
+        throw std::runtime_error("Unhandled ASTNode type");
+    }
+}
 
-    static std::optional<Script> parse(ParserState& state);
-};
-
-struct ImportDeclaration {
-    // XXX: ignore for now
-};
-
-struct ExportDeclaration {
-    // XXX: ignore for now
-};
-
-struct ModuleItem {
-    std::variant<
-        ImportDeclaration,
-        ExportDeclaration,
-        StatementListItem  // StatementListItem[-Yield, +Await, -Return]
-    > value;
-};
-
-struct ModuleItemList {
-    std::vector<ModuleItem> items;
-};
-
-struct Module {
-    std::optional<ModuleItemList> moduleItemList;
-};
 
+static constexpr auto id = [](auto&& res) { return res; };
 
-inline StatementList::~StatementList() = default;
 
-inline StatementList::StatementList() = default;
+}  // namespace detail
 
-inline StatementList::StatementList(StatementList&&) = default;
 
-inline BindingPattern::~BindingPattern() = default;
 
-inline BindingPattern::BindingPattern(BindingPattern&&) = default;
+template<typename Types = ConcatTypeLists<ExpressionTypes, StatementTypes, MiscTypes>>
+decltype(auto) visitNode(auto&& node, auto&& func) {
+    RETURN_IF_NOT_VOID(detail::visitNodeImpl(node, func, Types{}));
+}
 
 
 }  // namespace jac::ast

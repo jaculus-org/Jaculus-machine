@@ -63,7 +63,7 @@ class AotEvalFeature : public EvalFeature<Next> {
         return "__jac_aot_func_" + std::to_string(reinterpret_cast<uint64_t>(ptr));  // NOLINT
     }
 
-    jac::ast::Script parseScript(std::string_view js) {
+    jac::ast::ScriptPtr parseScript(std::string_view js) {
         bool hadError = false;
         std::vector<std::string> reports;
         jac::lex::Scanner scanner(js, [&hadError, &reports](int line, int col, const std::string& msg) {
@@ -82,7 +82,7 @@ class AotEvalFeature : public EvalFeature<Next> {
 
         jac::ast::ParserState state(tokens);
 
-        auto script = jac::ast::Script::parse(state);
+        auto script = jac::ast::parseScript(state);
         if (!script || !state.isEnd()) {
             lex::Token errorToken = state.getErrorToken();
             std::cerr << "Parse error: " << state.getErrorMessage()
@@ -90,28 +90,28 @@ class AotEvalFeature : public EvalFeature<Next> {
             throw std::runtime_error("Parse error");
         }
 
-        return std::move(*script);
+        return script;
     }
 
     std::list<std::pair<jac::cfg::Function, std::string_view>> transformFunctions(const jac::ast::traverse::Functions& functions) {
         std::list<std::pair<jac::cfg::Function, std::string_view>> result;
         std::map<cfg::Identifier, cfg::SignaturePtr> signatures;
         for (const auto& astFunc : functions.functions) {
-            if (!astFunc->name) {
+            if (!astFunc->name()) {
                 continue;
             }
             auto sig = jac::cfg::getSignature(*astFunc);
             if (sig) {
-                signatures.emplace(astFunc->name->identifier.name, sig);
+                signatures.emplace(astFunc->name()->name, sig);
             }
         }
 
         for (const auto& astFunc : functions.functions) {
-            if (!astFunc->name || !signatures.contains(astFunc->name->identifier.name)) {
+            if (!astFunc->name() || !signatures.contains(astFunc->name()->name)) {
                 continue;
             }
 
-            auto sig = signatures.at(astFunc->name->identifier.name);
+            auto sig = signatures.at(astFunc->name()->name);
             auto cfgFuncEm = jac::cfg::emit(*astFunc, sig, signatures);
 
             auto cfgFunc = cfgFuncEm.output();
@@ -168,10 +168,10 @@ class AotEvalFeature : public EvalFeature<Next> {
     }
 
     std::string tryAot(std::string_view js) {
-        jac::ast::Script script = parseScript(js);
+        jac::ast::ScriptPtr script = parseScript(js);
 
         jac::ast::traverse::Functions astFunctions;
-        jac::ast::traverse::funcs(script, astFunctions);
+        jac::ast::traverse::funcs(*script, astFunctions);
 
         auto simple = transformFunctions(astFunctions);
 

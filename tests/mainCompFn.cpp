@@ -88,7 +88,7 @@ int main(const int argc, const char* argv[]) {
 
     jac::ast::ParserState state(tokens);
 
-    auto fun = jac::ast::FunctionDeclaration::parse(state, false);
+    auto fun = jac::ast::parseFunctionDeclaration(state, false);
     if (!fun || !state.isEnd()) {
         jac::lex::Token errorToken = state.getErrorToken();
         std::cerr << "Parse error: " << state.getErrorMessage()
@@ -97,8 +97,7 @@ int main(const int argc, const char* argv[]) {
     }
 
     if (mode == "ast") {
-        jac::ast::print::NestOStream os(std::cout);
-        os << fun;
+        jac::ast::printAST(*fun, std::cout, 0);  // TODO: improve printer
         return 0;
     }
 

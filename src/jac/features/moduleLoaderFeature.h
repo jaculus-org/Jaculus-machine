@@ -36,6 +36,8 @@ private:
         meta.set("url", filename);
         meta.set("main", false);
 
+        JS_FreeValue(ctx, val);
+
         return mdl;
     }
 

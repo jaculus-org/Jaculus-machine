@@ -147,6 +147,51 @@ public:
     }
 
     /**
+     * @brief Check if the Value is number.
+     *
+     * @return true if the Value is number, false otherwise
+     */
+    bool isNumber() {
+        return JS_IsNumber(_val);
+    }
+
+    /**
+     * @brief Check if the Value is BigInt.
+     *
+     * @return true if the Value is BigInt, false otherwise
+     */
+    bool isBigInt() {
+        return JS_IsBigInt(_ctx, _val);
+    }
+
+    /**
+     * @brief Check if the Value is boolean.
+     *
+     * @return true if the Value is boolean, false otherwise
+     */
+    bool isBoolean() {
+        return JS_IsBool(_val);
+    }
+
+    /**
+     * @brief Check if the Value is string.
+     *
+     * @return true if the Value is string, false otherwise
+     */
+    bool isString() {
+        return JS_IsString(_val);
+    }
+
+    /**
+     * @brief Check if the Value is symbol.
+     *
+     * @return true if the Value is symbol, false otherwise
+     */
+    bool isSymbol() {
+        return JS_IsSymbol(_val);
+    }
+
+    /**
      * @brief Check if the Value is an object.
      *
      * @return true if the Value is an object, false otherwise
@@ -172,6 +217,14 @@ public:
     bool isFunction() {
         return JS_IsFunction(_ctx, _val);
     }
+
+    /**
+     * @brief Check if the Value is an instance of the given object.
+     * @param obj object to check against
+     *
+     * @return true if the Value is an instance of the given object, false otherwise
+     */
+    bool isInstanceOf(ObjectWeak obj);
 
     /**
      * @brief Convert the Value to a StringView.
@@ -501,6 +554,22 @@ public:
         }
     }
 
+    std::vector<Atom> getOwnPropertyNames(int flags = JS_GPN_STRING_MASK | JS_GPN_ENUM_ONLY) {
+        JSPropertyEnum* props;
+        uint32_t len;
+        if (JS_GetOwnPropertyNames(_ctx, &props, &len, _val, flags) < 0) {
+            throw _ctx.getException();
+        }
+
+        std::vector<Atom> result;
+        result.reserve(len);
+        for (uint32_t i = 0; i < len; i++) {
+            result.emplace_back(Atom(_ctx, props[i].atom));
+        }
+        js_free(_ctx, props);
+        return result;
+    }
+
     /**
      * @brief Create a new empty object.
      *
@@ -802,6 +871,11 @@ ValueWrapper<managed>::ValueWrapper(ContextRef ctx, JSValue val) : _ctx(ctx), _v
     if (JS_IsException(_val)) {
         throw ctx.getException();
     }
+}
+
+template<bool managed>
+bool ValueWrapper<managed>::isInstanceOf(ObjectWeak obj) {
+    return JS_IsInstanceOf(_ctx, _val, obj.getVal());
 }
 
 template<bool managed>

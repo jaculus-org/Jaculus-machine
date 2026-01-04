@@ -23,7 +23,18 @@ endfunction()
 
 add_test_executable(filesystem)
 add_test_executable(eval)
-add_test_executable(moduleLoader)
+
+add_executable(simpleModuleLoader moduleLoader.cpp)
+target_link_libraries(simpleModuleLoader PUBLIC jac-machine Catch2::Catch2WithMain)
+add_test(NAME simpleModuleLoader COMMAND ${EXECUTABLE_OUTPUT_PATH}/simpleModuleLoader)
+
+add_executable(nodeModuleLoader moduleLoader.cpp)
+target_compile_definitions(nodeModuleLoader PRIVATE USE_NODE_MODULE_LOADER)
+target_link_libraries(nodeModuleLoader PUBLIC jac-machine Catch2::Catch2WithMain)
+add_test(NAME nodeModuleLoader COMMAND ${EXECUTABLE_OUTPUT_PATH}/nodeModuleLoader)
+
+add_test_executable(nodeModuleLoaderExtended)
+
 add_test_executable(machineBase)
 add_test_executable(values)
 add_test_executable(functionFactory)

@@ -86,6 +86,18 @@ private:
             return buffer;
         }
 
+        bool existsCode(std::string path_) {
+            return std::filesystem::exists(_feature._codeDir / path_);
+        }
+
+        bool isFileCode(std::string path_) {
+            return std::filesystem::is_regular_file(_feature._codeDir / path_);
+        }
+
+        bool isDirectoryCode(std::string path_) {
+            return std::filesystem::is_directory(_feature._codeDir / path_);
+        }
+
 
         File open(std::string path_, std::string flags) {
             return File(_feature._workingDir / path_, flags);

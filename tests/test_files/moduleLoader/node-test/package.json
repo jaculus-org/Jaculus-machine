@@ -1,0 +1,5 @@
+{
+    "name": "node-test",
+    "main": "./src/index.js",
+    "type": "module"
+}

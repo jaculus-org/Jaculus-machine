@@ -7,10 +7,10 @@ namespace jac {
 
 
 template<class Next>
-class ModuleLoaderFeature : public Next {
+class SimpleModuleLoaderFeature : public Next {
 private:
     static JSModuleDef *moduleLoaderCbk(JSContext* ctx, const char *module_name, void *_self) {
-        auto &self = *static_cast<ModuleLoaderFeature<Next>*>(_self);
+        auto &self = *static_cast<SimpleModuleLoaderFeature<Next>*>(_self);
 
         std::string filename = module_name;
 

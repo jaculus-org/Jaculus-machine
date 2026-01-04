@@ -4,7 +4,7 @@
 #include <string>
 
 #include <jac/features/filesystemFeature.h>
-#include <jac/features/moduleLoaderFeature.h>
+#include <jac/features/simpleModuleLoaderFeature.h>
 #include <jac/machine/class.h>
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>

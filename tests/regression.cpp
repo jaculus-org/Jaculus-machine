@@ -6,7 +6,7 @@
 #include <jac/features/eventLoopFeature.h>
 #include <jac/features/eventQueueFeature.h>
 #include <jac/features/filesystemFeature.h>
-#include <jac/features/moduleLoaderFeature.h>
+#include <jac/features/simpleModuleLoaderFeature.h>
 #include <jac/features/timersFeature.h>
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
@@ -18,7 +18,7 @@ TEST_CASE("Imported promise", "[moduleLoader]") {
     using Machine =
         jac::EventLoopTerminal<
         jac::TimersFeature<
-        jac::ModuleLoaderFeature<
+        jac::SimpleModuleLoaderFeature<
         jac::FilesystemFeature<
         jac::EventLoopFeature<
         jac::EventQueueFeature<
@@ -31,7 +31,7 @@ TEST_CASE("Imported promise", "[moduleLoader]") {
     machine.setCodeDir("test_files/regression/importPromise");
     machine.initialize();
 
-    evalFile(machine, "main.js");
+    evalFile(machine, "./main.js");
     machine.runEventLoop();
 
     REQUIRE(machine.getReports() == std::vector<std::string> { "before", "after", "then" });

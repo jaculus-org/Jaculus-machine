@@ -5,7 +5,7 @@
 #include <jac/features/eventLoopFeature.h>
 #include <jac/features/eventQueueFeature.h>
 #include <jac/features/filesystemFeature.h>
-#include <jac/features/moduleLoaderFeature.h>
+#include <jac/features/simpleModuleLoaderFeature.h>
 #include <jac/features/stdioFeature.h>
 #include <jac/features/timersFeature.h>
 #include <jac/features/util/ostreamjs.h>
@@ -21,7 +21,7 @@ using Machine = jac::ComposeMachine<
     jac::StdioFeature,
     jac::EventLoopFeature,
     jac::FilesystemFeature,
-    jac::ModuleLoaderFeature,
+    jac::SimpleModuleLoaderFeature,
     jac::TimersFeature,
     jac::EventLoopTerminal
 >;
@@ -40,7 +40,7 @@ int main() {
     initializeIo(machine);
     machine.initialize();
     try {
-        auto val = machine.eval(code, "main.js", jac::EvalFlags::Module);
+        auto val = machine.eval(code, "./main.js", jac::EvalFlags::Module);
         machine.runEventLoop();
 
         std::cout << "Exit code: " << machine.getExitCode() << std::endl;

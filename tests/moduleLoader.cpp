@@ -6,12 +6,25 @@
 #include <jac/features/eventLoopFeature.h>
 #include <jac/features/eventQueueFeature.h>
 #include <jac/features/filesystemFeature.h>
-#include <jac/features/moduleLoaderFeature.h>
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
 #include "util.h"
 
+
+#ifdef USE_NODE_MODULE_LOADER
+
+    #include <jac/features/nodeModuleLoaderFeature.h>
+    template<class Next>
+    using ModuleLoaderFeature = jac::NodeModuleLoaderFeature<Next>;
+
+#else
+
+    #include <jac/features/simpleModuleLoaderFeature.h>
+    template<class Next>
+    using ModuleLoaderFeature = jac::SimpleModuleLoaderFeature<Next>;
+
+#endif
 
 TEST_CASE("Eval file", "[moduleLoader]") {
     using Machine = jac::ComposeMachine<
@@ -20,7 +33,7 @@ TEST_CASE("Eval file", "[moduleLoader]") {
         jac::EventQueueFeature,
         jac::EventLoopFeature,
         jac::FilesystemFeature,
-        jac::ModuleLoaderFeature,
+        ModuleLoaderFeature,
         jac::EventLoopTerminal
     >;
     Machine machine;
@@ -29,7 +42,7 @@ TEST_CASE("Eval file", "[moduleLoader]") {
     auto [comment, path, expected] = GENERATE(
         sgn {
             "Eval file",
-            "test_files/moduleLoader/test.js",
+            "./test_files/moduleLoader/test.js",
             { "first", "second" }
         }
     );
@@ -38,18 +51,18 @@ TEST_CASE("Eval file", "[moduleLoader]") {
         machine.setCodeDir(machine.path.dirname(path));
         machine.initialize();
 
-        machine.evalFile(machine.path.basename(path));
+        machine.evalFile("./" + machine.path.basename(path));
         REQUIRE(machine.getReports() == expected);
     }
 
     SECTION("File not found") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/notFound.js");
+        evalFileThrows(machine, "./test_files/moduleLoader/notFound.js");
     }
 
     SECTION("Exception") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/throw.js");
+        evalFileThrows(machine, "./test_files/moduleLoader/throw.js");
     }
 }
 
@@ -61,7 +74,7 @@ TEST_CASE("Import file", "[moduleLoader]") {
         jac::EventQueueFeature,
         jac::EventLoopFeature,
         jac::FilesystemFeature,
-        jac::ModuleLoaderFeature,
+        ModuleLoaderFeature,
         jac::EventLoopTerminal
     >;
     Machine machine;
@@ -89,13 +102,13 @@ TEST_CASE("Import file", "[moduleLoader]") {
         machine.setCodeDir(machine.path.dirname(path));
         machine.initialize();
 
-        evalFile(machine, machine.path.basename(path));
+        evalFile(machine, "./" + machine.path.basename(path));
 
         REQUIRE(machine.getReports() == expected);
     }
 
     SECTION("Import not found") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/importNotFound/main.js");
+        evalFileThrows(machine, "./test_files/moduleLoader/importNotFound/main.js");
     }
 }

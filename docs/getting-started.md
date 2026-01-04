@@ -11,7 +11,7 @@ For example, a Machine with some built-in MFeatures can be created like this:
 #include <jaculus/features/stdioFeature.h>
 #include <jaculus/features/filesystemFeature.h>
 #include <jaculus/features/basicStreamFeature.h>
-#include <jaculus/features/moduleLoaderFeature.h>
+#include <jaculus/features/simpleModuleLoaderFeature.h>
 #include <jaculus/features/util/ostreamjs.h>
 
 

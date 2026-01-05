@@ -9,10 +9,10 @@
 #include <jac/util.h>
 
 #include <jac/machine/compiler/ast.h>
+#include <jac/machine/compiler/ast2cfg.h>
 #include <jac/machine/compiler/cfg.h>
-#include <jac/machine/compiler/cfgEmit.h>
-#include <jac/machine/compiler/cfgMir.h>
-#include <jac/machine/compiler/cfgSimplify.h>
+#include <jac/machine/compiler/cfg2mir.h>
+#include <jac/machine/compiler/cfgUtil.h>
 #include <jac/machine/compiler/scanner.h>
 #include <jac/machine/compiler/traverseFuncs.h>
 
@@ -126,7 +126,7 @@ class AotEvalFeature : public EvalFeature<Next> {
                 continue;
             }
             auto sig = signatures.at(astFunc->name()->name);
-            auto cfgFuncEm = jac::cfg::emit(*astFunc, sig, signatures);
+            auto cfgFuncEm = jac::cfg::ast2cfg(*astFunc, sig, signatures);
 
             auto cfgFunc = cfgFuncEm.output();
             jac::cfg::removeEmptyBlocks(cfgFunc);

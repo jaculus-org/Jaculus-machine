@@ -1,4 +1,4 @@
-#include "cfgEmit.h"
+#include "ast2cfg.h"
 #include "ast.h"
 #include "cfg.h"
 #include "opcode.h"
@@ -936,7 +936,7 @@ SignaturePtr getSignature(const ast::Function& decl) {
     return sig;
 }
 
-FunctionEmitter emit(const ast::Function& decl, SignaturePtr sig, const std::map<cfg::Identifier, cfg::SignaturePtr>& otherSignatures) {
+FunctionEmitter ast2cfg(const ast::Function& decl, SignaturePtr sig, const std::map<cfg::Identifier, cfg::SignaturePtr>& otherSignatures) {
     if (!decl.name()) {
         throw IRGenError("Function declarations must have a name");
     }

@@ -1,4 +1,4 @@
-#include "cfgMir.h"
+#include "cfg2mir.h"
 
 #include "cfg.h"
 #include "mirUtil.h"

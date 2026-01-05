@@ -5,9 +5,9 @@
 #include <jac/machine/machine.h>
 
 #include <jac/machine/compiler/ast.h>
+#include <jac/machine/compiler/ast2cfg.h>
 #include <jac/machine/compiler/cfg.h>
-#include <jac/machine/compiler/cfgEmit.h>
-#include <jac/machine/compiler/cfgSimplify.h>
+#include <jac/machine/compiler/cfgUtil.h>
 #include <jac/machine/compiler/scanner.h>
 #include <jac/machine/compiler/traverseFuncs.h>
 
@@ -112,7 +112,7 @@ class AotEvalFeature : public EvalFeature<Next> {
             }
 
             auto sig = signatures.at(astFunc->name()->name);
-            auto cfgFuncEm = jac::cfg::emit(*astFunc, sig, signatures);
+            auto cfgFuncEm = jac::cfg::ast2cfg(*astFunc, sig, signatures);
 
             auto cfgFunc = cfgFuncEm.output();
             jac::cfg::removeEmptyBlocks(cfgFunc);

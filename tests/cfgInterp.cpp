@@ -11,8 +11,8 @@
 #include <jac/machine/values.h>
 
 #include <jac/machine/compiler/ast.h>
-#include <jac/machine/compiler/cfgEmit.h>
-#include <jac/machine/compiler/cfgSimplify.h>
+#include <jac/machine/compiler/ast2cfg.h>
+#include <jac/machine/compiler/cfgUtil.h>
 
 
 jac::cfg::Function compile(const std::string& code) {
@@ -44,7 +44,7 @@ jac::cfg::Function compile(const std::string& code) {
 
     auto sig = jac::cfg::getSignature(*fun);
 
-    auto cfg = jac::cfg::emit(*fun, sig, {});
+    auto cfg = jac::cfg::ast2cfg(*fun, sig, {});
 
     auto res = cfg.output();
     jac::cfg::removeEmptyBlocks(res);

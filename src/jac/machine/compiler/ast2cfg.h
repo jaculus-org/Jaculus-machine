@@ -18,7 +18,7 @@ public:
 
 
 SignaturePtr getSignature(const ast::Function& decl);
-FunctionEmitter emit(const ast::Function& decl, SignaturePtr sig, const std::map<cfg::Identifier, cfg::SignaturePtr>& otherSignatures);
+FunctionEmitter ast2cfg(const ast::Function& decl, SignaturePtr sig, const std::map<cfg::Identifier, cfg::SignaturePtr>& otherSignatures);
 
 
 }  // namespace jac::cfg

@@ -4,11 +4,11 @@
 #include <string>
 
 #include <jac/machine/compiler/ast.h>
+#include <jac/machine/compiler/ast2cfg.h>
 #include <jac/machine/compiler/astPrint.h>
 #include <jac/machine/compiler/cfg.h>
 #include <jac/machine/compiler/cfgDot.h>
-#include <jac/machine/compiler/cfgEmit.h>
-#include <jac/machine/compiler/cfgSimplify.h>
+#include <jac/machine/compiler/cfgUtil.h>
 
 
 int main(const int argc, const char* argv[]) {
@@ -102,7 +102,7 @@ int main(const int argc, const char* argv[]) {
     }
 
     auto sig = jac::cfg::getSignature(*fun);
-    auto cfg = jac::cfg::emit(*fun, sig, {});
+    auto cfg = jac::cfg::ast2cfg(*fun, sig, {});
 
     auto fn = cfg.output();
     jac::cfg::removeEmptyBlocks(fn);

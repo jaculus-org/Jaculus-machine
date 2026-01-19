@@ -751,10 +751,10 @@ TEST_CASE("UnaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& first_un = dynamic_cast<jac::ast::UnaryExpression&>(*result);
-        REQUIRE(first_un.op == "+");
+        REQUIRE(first_un.op == jac::ast::UnaryExpression::Op::Plus);
 
         auto& second_un = dynamic_cast<jac::ast::UnaryExpression&>(*first_un.expression());
-        REQUIRE(second_un.op == "-");
+        REQUIRE(second_un.op == jac::ast::UnaryExpression::Op::Minus);
 
         REQUIRE(isLit<int32_t>(second_un.expression(), 123));
     }
@@ -775,7 +775,7 @@ TEST_CASE("UnaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& un = dynamic_cast<jac::ast::UnaryExpression&>(*result);
-        REQUIRE(un.op == "-");
+        REQUIRE(un.op == jac::ast::UnaryExpression::Op::Minus);
 
         auto& update = dynamic_cast<jac::ast::UpdateExpression&>(*un.expression());
         REQUIRE(update.kind == jac::ast::UpdateExpression::Op::PostInc);
@@ -804,7 +804,7 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
 
         REQUIRE(isLit<int32_t>(addExp.left(), 1));
         REQUIRE(isLit<int32_t>(addExp.right(), 2));
@@ -828,11 +828,11 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
         auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
-        REQUIRE(mulExp.op == "*");
+        REQUIRE(mulExp.op == jac::ast::BinaryExpression::Op::Mul);
         REQUIRE(isLit<int32_t>(mulExp.left(), 2));
         REQUIRE(isLit<int32_t>(mulExp.right(), 3));
     }
@@ -859,19 +859,19 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& subExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(subExp.op == "-");
+        REQUIRE(subExp.op == jac::ast::BinaryExpression::Op::Sub);
         REQUIRE(isLit<int32_t>(subExp.right(), 5));
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*subExp.left());
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
         auto& firstMulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
-        REQUIRE(firstMulExp.op == "*");
+        REQUIRE(firstMulExp.op == jac::ast::BinaryExpression::Op::Mul);
         REQUIRE(isLit<int32_t>(firstMulExp.right(), 4));
 
         auto& secondMulExp = dynamic_cast<jac::ast::BinaryExpression&>(*firstMulExp.left());
-        REQUIRE(secondMulExp.op == "*");
+        REQUIRE(secondMulExp.op == jac::ast::BinaryExpression::Op::Mul);
         REQUIRE(isLit<int32_t>(secondMulExp.left(), 2));
         REQUIRE(isLit<int32_t>(secondMulExp.right(), 3));
     }
@@ -896,11 +896,11 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
         auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*addExp.right());
-        REQUIRE(mulExp.op == "*");
+        REQUIRE(mulExp.op == jac::ast::BinaryExpression::Op::Mul);
         REQUIRE(isLit<int32_t>(mulExp.left(), 2));
         REQUIRE(isLit<int32_t>(mulExp.right(), 3));
     }
@@ -925,15 +925,15 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& modExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(modExp.op == "%");
+        REQUIRE(modExp.op == jac::ast::BinaryExpression::Op::Rem);
         REQUIRE(isLit<int32_t>(modExp.right(), 3));
 
         auto& divExp = dynamic_cast<jac::ast::BinaryExpression&>(*modExp.left());
-        REQUIRE(divExp.op == "/");
+        REQUIRE(divExp.op == jac::ast::BinaryExpression::Op::Div);
         REQUIRE(isLit<int32_t>(divExp.right(), 2));
 
         auto& mulExp = dynamic_cast<jac::ast::BinaryExpression&>(*divExp.left());
-        REQUIRE(mulExp.op == "*");
+        REQUIRE(mulExp.op == jac::ast::BinaryExpression::Op::Mul);
         REQUIRE(isLit<int32_t>(mulExp.left(), 2));
         REQUIRE(isLit<int32_t>(mulExp.right(), 4));
     }
@@ -957,15 +957,15 @@ TEST_CASE("BinaryExpression", "[parser]") {
         REQUIRE(result);
 
         auto& subExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(subExp.op == "-");
+        REQUIRE(subExp.op == jac::ast::BinaryExpression::Op::Sub);
         REQUIRE(isLit<int32_t>(subExp.right(), 3));
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*subExp.left());
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isLit<int32_t>(addExp.left(), 1));
 
         auto& unaryExp = dynamic_cast<jac::ast::UnaryExpression&>(*addExp.right());
-        REQUIRE(unaryExp.op == "+");
+        REQUIRE(unaryExp.op == jac::ast::UnaryExpression::Op::Plus);
         REQUIRE(isLit<int32_t>(unaryExp.expression(), 2));
     }
 
@@ -1043,14 +1043,14 @@ TEST_CASE("ConditionalExpression", "[parser]") {
 
         auto& condExp = dynamic_cast<jac::ast::ConditionalExpression&>(*result);
         auto& logicalExp = dynamic_cast<jac::ast::BinaryExpression&>(*condExp.test());
-        REQUIRE(logicalExp.op == "&&");
+        REQUIRE(logicalExp.op == jac::ast::BinaryExpression::Op::LogAnd);
         REQUIRE(isIdent(logicalExp.left(), "a"));
         REQUIRE(isIdent(logicalExp.right(), "b"));
 
         REQUIRE(isIdent(condExp.consequent(), "c"));
 
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*condExp.alternate());
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isIdent(addExp.left(), "d"));
         REQUIRE(isIdent(addExp.right(), "e"));
     }
@@ -1159,7 +1159,7 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
 
         auto& returnStmt = dynamic_cast<jac::ast::ReturnStatement&>(**bodyIt);
         auto& addExp = dynamic_cast<jac::ast::BinaryExpression&>(*returnStmt.expression());
-        REQUIRE(addExp.op == "+");
+        REQUIRE(addExp.op == jac::ast::BinaryExpression::Op::Add);
         REQUIRE(isIdent(addExp.left(), "x"));
         REQUIRE(isIdent(addExp.right(), "y"));
     }
@@ -1223,7 +1223,7 @@ TEST_CASE("Assignment", "[parser]") {
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->op == "=");
+        REQUIRE(result->op == jac::ast::Assignment::Op::Assign);
         auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
         REQUIRE(lhs.name == "x");
         REQUIRE(isLit<int32_t>(result->right(), 4));
@@ -1246,12 +1246,12 @@ TEST_CASE("Assignment", "[parser]") {
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->op == "=");
+        REQUIRE(result->op == jac::ast::Assignment::Op::Assign);
         auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
         REQUIRE(lhs.name == "x");
 
         auto& divExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->right());
-        REQUIRE(divExp.op == "/");
+        REQUIRE(divExp.op == jac::ast::BinaryExpression::Op::Div);
         REQUIRE(isIdent(divExp.left(), "x"));
         REQUIRE(isLit<int32_t>(divExp.right(), 4));
     }
@@ -1273,12 +1273,12 @@ TEST_CASE("Assignment", "[parser]") {
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->op == "+=");
+        REQUIRE(result->op == jac::ast::Assignment::Op::AddAssign);
         auto& lhs = dynamic_cast<jac::ast::Identifier&>(*result->left());
         REQUIRE(lhs.name == "x");
 
         auto& rightAssign = dynamic_cast<jac::ast::Assignment&>(*result->right());
-        REQUIRE(rightAssign.op == "-=");
+        REQUIRE(rightAssign.op == jac::ast::Assignment::Op::SubAssign);
 
         auto& rightLhs = dynamic_cast<jac::ast::Identifier&>(*rightAssign.left());
         REQUIRE(rightLhs.name == "y");
@@ -1306,7 +1306,7 @@ TEST_CASE("Expression", "[parser]") {
         REQUIRE(result);
 
         auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result);
-        REQUIRE(binaryExp.op == "<");
+        REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Lt);
         REQUIRE(isIdent(binaryExp.left(), "x"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
     }
@@ -1379,7 +1379,7 @@ TEST_CASE("BlockStatement", "[parser]") {
         REQUIRE(state.isEnd());
         REQUIRE(result);
 
-        REQUIRE(result->children.size() == 0);
+        REQUIRE(result->children.empty());
         REQUIRE(result->kind == jac::ast::StatementList::Kind::Block);
     }
 
@@ -1420,7 +1420,7 @@ TEST_CASE("BlockStatement", "[parser]") {
 
         auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result->children[1]);
         auto& assignExp = dynamic_cast<jac::ast::Assignment&>(*exprStmt.expression());
-        REQUIRE(assignExp.op == "<<=");
+        REQUIRE(assignExp.op == jac::ast::Assignment::Op::LShiftAssign);
         auto& lhs = dynamic_cast<jac::ast::Identifier&>(*assignExp.left());
         REQUIRE(lhs.name == "x");
     }
@@ -1776,7 +1776,7 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(isIdent(exprStmt.expression(), "x"));
 
         auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->postCondition());
-        REQUIRE(binaryExp.op == ">");
+        REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Gt);
         REQUIRE(isIdent(binaryExp.left(), "y"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 0));
     }
@@ -1825,7 +1825,7 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(isLit<int32_t>(bindingX->initializer(), 0));
 
         auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->preCondition());
-        REQUIRE(binaryExp.op == "<");
+        REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Lt);
         REQUIRE(isIdent(binaryExp.left(), "x"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
 
@@ -1865,7 +1865,7 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(result->statement());
 
         auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
-        REQUIRE(stmtList.children.size() == 0);
+        REQUIRE(stmtList.children.empty());
     }
 }
 

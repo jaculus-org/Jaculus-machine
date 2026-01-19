@@ -12,60 +12,60 @@ enum class ShortCircuitKind {
     Or
 };
 
-const std::unordered_map<std::string_view, ShortCircuitKind> shortCircuitOps = {
-    { "&&", ShortCircuitKind::And },
-    { "||", ShortCircuitKind::Or }
+const std::unordered_map<ast::BinaryExpression::Op, ShortCircuitKind> shortCircuitOps = {
+    { ast::BinaryExpression::Op::LogAnd, ShortCircuitKind::And },
+    { ast::BinaryExpression::Op::LogOr, ShortCircuitKind::Or }
 };
 
-const std::unordered_map<std::string_view, Opcode> binaryOps = {
-    { "|", Opcode::BitOr },
-    { "^", Opcode::BitXor },
-    { "&", Opcode::BitAnd },
-    { "==", Opcode::Eq },
-    { "!=", Opcode::Neq },
+const std::unordered_map<ast::BinaryExpression::Op, Opcode> binaryOps = {
+    { ast::BinaryExpression::Op::BitOr, Opcode::BitOr },
+    { ast::BinaryExpression::Op::BitXor, Opcode::BitXor },
+    { ast::BinaryExpression::Op::BitAnd, Opcode::BitAnd },
+    { ast::BinaryExpression::Op::Eq, Opcode::Eq },
+    { ast::BinaryExpression::Op::Neq, Opcode::Neq },
     // { "===", ... },
     // { "!==", ... },
-    { "<", Opcode::Lt },
-    { "<=", Opcode::Lte },
-    { ">", Opcode::Gt },
-    { ">=", Opcode::Gte },
+    { ast::BinaryExpression::Op::Lt, Opcode::Lt },
+    { ast::BinaryExpression::Op::Lte, Opcode::Lte },
+    { ast::BinaryExpression::Op::Gt, Opcode::Gt },
+    { ast::BinaryExpression::Op::Gte, Opcode::Gte },
     // { "in", ... },
     // { "instanceof", ... },
-    { "<<", Opcode::LShift },
-    { ">>", Opcode::RShift },
-    { ">>>", Opcode::URShift },
-    { "+", Opcode::Add },
-    { "-", Opcode::Sub },
-    { "*", Opcode::Mul },
-    { "/", Opcode::Div },
-    { "%", Opcode::Rem },
-    { "**", Opcode::Pow }
+    { ast::BinaryExpression::Op::LShift, Opcode::LShift },
+    { ast::BinaryExpression::Op::RShift, Opcode::RShift },
+    { ast::BinaryExpression::Op::URShift, Opcode::URShift },
+    { ast::BinaryExpression::Op::Add, Opcode::Add },
+    { ast::BinaryExpression::Op::Sub, Opcode::Sub },
+    { ast::BinaryExpression::Op::Mul, Opcode::Mul },
+    { ast::BinaryExpression::Op::Div, Opcode::Div },
+    { ast::BinaryExpression::Op::Rem, Opcode::Rem },
+    { ast::BinaryExpression::Op::Exp, Opcode::Pow }
 };
 
-const std::unordered_map<std::string_view, ShortCircuitKind> shortCircuitAssignmentOps = {
-    { "&&=", ShortCircuitKind::And },
-    { "||=", ShortCircuitKind::Or }
+const std::unordered_map<ast::Assignment::Op, ShortCircuitKind> shortCircuitAssignmentOps = {
+    { ast::Assignment::Op::LogAndAssign, ShortCircuitKind::And },
+    { ast::Assignment::Op::LogOrAssign, ShortCircuitKind::Or }
 };
 
-const std::unordered_map<std::string_view, Opcode> arithAssignmentOps = {
-    { "+=", Opcode::Add },
-    { "-=", Opcode::Sub },
-    { "*=", Opcode::Mul },
-    { "/=", Opcode::Div },
-    { "%=", Opcode::Rem },
-    { "&=", Opcode::BitAnd },
-    { "|=", Opcode::BitOr },
-    { "^=", Opcode::BitXor },
-    { "<<=", Opcode::LShift },
-    { ">>=", Opcode::RShift },
-    { ">>>=", Opcode::URShift }
+const std::unordered_map<ast::Assignment::Op, Opcode> arithAssignmentOps = {
+    { ast::Assignment::Op::AddAssign, Opcode::Add },
+    { ast::Assignment::Op::SubAssign, Opcode::Sub },
+    { ast::Assignment::Op::MulAssign, Opcode::Mul },
+    { ast::Assignment::Op::DivAssign, Opcode::Div },
+    { ast::Assignment::Op::RemAssign, Opcode::Rem },
+    { ast::Assignment::Op::BitAndAssign, Opcode::BitAnd },
+    { ast::Assignment::Op::BitOrAssign, Opcode::BitOr },
+    { ast::Assignment::Op::BitXorAssign, Opcode::BitXor },
+    { ast::Assignment::Op::LShiftAssign, Opcode::LShift },
+    { ast::Assignment::Op::RShiftAssign, Opcode::RShift },
+    { ast::Assignment::Op::URShiftAssign, Opcode::URShift }
 };
 
-const std::unordered_map<std::string_view, Opcode> unaryOps = {
-    { "!", Opcode::BoolNot },
-    { "~", Opcode::BitNot },
-    { "+", Opcode::UnPlus },
-    { "-", Opcode::UnMinus },
+const std::unordered_map<ast::UnaryExpression::Op, Opcode> unaryOps = {
+    { ast::UnaryExpression::Op::LogNot, Opcode::BoolNot },
+    { ast::UnaryExpression::Op::BitNot, Opcode::BitNot },
+    { ast::UnaryExpression::Op::Plus, Opcode::UnPlus },
+    { ast::UnaryExpression::Op::Minus, Opcode::UnMinus },
     // "typeof",
     // "void",
     // "delete",
@@ -509,7 +509,7 @@ RValue emitShortCircuit(RValue lhs, F evalRhs, G processRes, ShortCircuitKind ki
 
     auto it = unaryOps.find(expr.op);
     if (it == unaryOps.end()) {
-        throw IRGenError("Unsupported unary operator '" + std::string(expr.op) + "'");
+        throw IRGenError("Unsupported unary operator '" + std::to_string(expr.op) + "'");
     }
     Opcode op = it->second;
 
@@ -621,7 +621,7 @@ RValue emitShortCircuit(RValue lhs, F evalRhs, G processRes, ShortCircuitKind ki
 [[nodiscard]] RValue emitAsRV(const ast::Assignment& assign, FunctionEmitter& func) {
     LVRef target = emitAsLV(*assign.left(), func);
 
-    if (assign.op == "=") {
+    if (assign.op == ast::Assignment::Op::Assign) {
         auto rhs = emitAsRV(*assign.right(), func);
         return emitAssign(target, rhs, func);
     }

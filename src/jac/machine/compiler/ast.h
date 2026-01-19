@@ -1,9 +1,10 @@
 #pragma once
 
-#include "scanner.h"
 #include "../../util.h"
+#include "scanner.h"
 
 #include <cassert>
+#include <cstdint>
 #include <memory>
 #include <span>
 #include <variant>
@@ -105,19 +106,70 @@ using LiteralPtr = std::unique_ptr<Literal>;
 
 
 struct BinaryExpression : public Expression {
-    // TODO: switch to enum op
-    enum Op {
+    enum Op : uint8_t {
+        Coalesce,
+        LogOr,
+        LogAnd,
+        BitOr,
+        BitXor,
+        BitAnd,
+        Eq,
+        Neq,
+        StrictEq,
+        StrictNeq,
+        InstanceOf,
+        Lt,
+        Lte,
+        Gt,
+        Gte,
+        In,
+        LShift,
+        RShift,
+        URShift,
         Add,
-        Subtract,
-        Multiply,
-        Divide
+        Sub,
+        Mul,
+        Div,
+        Rem,
+        Exp
     };
 
-    std::string op;
+    static inline const std::unordered_map<std::string_view, Op> ops = {
+        { "??", Coalesce },
+        { "||", LogOr },
+        { "&&", LogAnd },
+        { "|", BitOr },
+        { "^", BitXor },
+        { "&", BitAnd },
+        { "==", Eq },
+        { "!=", Neq },
+        { "===", StrictEq },
+        { "!==", StrictNeq },
+        { "instanceof", InstanceOf },
+        { "<", Lt },
+        { "<=", Lte },
+        { ">", Gt },
+        { ">=", Gte },
+        { "in", In },
+        { "<<", LShift },
+        { ">>", RShift },
+        { ">>>", URShift },
+        { "+", Add },
+        { "-", Sub },
+        { "*", Mul },
+        { "/", Div },
+        { "%", Rem },
+        { "**", Exp }
+    };
 
-    BinaryExpression(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+    Op op;
+
+    BinaryExpression(ExpressionPtr left_, ExpressionPtr right_, Op op_):
         Expression(makeChildren(std::move(left_), std::move(right_))),
         op(op_)
+    {}
+    BinaryExpression(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+        BinaryExpression(std::move(left_), std::move(right_), ops.at(op_))
     {}
 
     Expression* left() const {
@@ -148,17 +200,36 @@ struct ConditionalExpression : public Expression {
 
 
 struct UnaryExpression : public Expression {
-    // TODO: switch to enum op
-    enum Op {
-        Negate,
-        Not
+    enum Op : uint8_t {
+        LogNot,
+        BitNot,
+        Plus,
+        Minus,
+        Typeof,
+        Void,
+        Delete,
+        Await
     };
 
-    std::string op;
+    static inline const std::unordered_map<std::string_view, Op> ops = {
+        { "!", LogNot },
+        { "~", BitNot },
+        { "+", Plus },
+        { "-", Minus },
+        { "typeof", Typeof },
+        { "void", Void },
+        { "delete", Delete },
+        { "await", Await }
+    };
 
-    UnaryExpression(ExpressionPtr expr_, std::string_view op_):
+    Op op;
+
+    UnaryExpression(ExpressionPtr expr_, Op op_):
         Expression(makeChildren(std::move(expr_))),
         op(op_)
+    {}
+    UnaryExpression(ExpressionPtr expr_, std::string_view op_):
+        UnaryExpression(std::move(expr_), ops.at(op_))
     {}
 
     Expression* expression() const {
@@ -169,7 +240,7 @@ using UnaryExpressionPtr = std::unique_ptr<UnaryExpression>;
 
 
 struct UpdateExpression : public Expression {
-    enum class Op { // TODO: switch to enum
+    enum class Op {
         PreInc,
         PreDec,
         PostInc,
@@ -545,11 +616,52 @@ using ScriptPtr = std::unique_ptr<Script>;
 
 
 struct Assignment : public Expression {
-    std::string op;
+    enum Op {
+        Assign,
+        AddAssign,
+        SubAssign,
+        ExpAssign,
+        MulAssign,
+        DivAssign,
+        RemAssign,
+        LShiftAssign,
+        RShiftAssign,
+        URShiftAssign,
+        BitAndAssign,
+        BitXorAssign,
+        BitOrAssign,
+        LogAndAssign,
+        LogOrAssign,
+        CoalesceAssign
+    };
 
-    Assignment(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+    static inline const std::unordered_map<std::string_view, Op> ops = {
+        { "=", Assign },
+        { "+=", AddAssign },
+        { "-=", SubAssign },
+        { "**=", ExpAssign },
+        { "*=", MulAssign },
+        { "/=", DivAssign },
+        { "%=", RemAssign },
+        { "<<=", LShiftAssign },
+        { ">>=", RShiftAssign },
+        { ">>>=", URShiftAssign },
+        { "&=", BitAndAssign },
+        { "^=", BitXorAssign },
+        { "|=", BitOrAssign },
+        { "&&=", LogAndAssign },
+        { "||=", LogOrAssign },
+        { "\?\?=", CoalesceAssign }
+    };
+
+    Op op;
+
+    Assignment(ExpressionPtr left_, ExpressionPtr right_, Op op_):
         Expression(makeChildren(std::move(left_), std::move(right_))),
         op(op_)
+    {}
+    Assignment(ExpressionPtr left_, ExpressionPtr right_, std::string_view op_):
+        Assignment(std::move(left_), std::move(right_), ops.at(op_))
     {}
 
     Expression* left() const {
@@ -909,7 +1021,7 @@ decltype(auto) visitNodeImpl(auto&& node, auto&& func, TypeList<First, Ts...>) {
     if constexpr (sizeof...(Ts) > 0) {
         RETURN_IF_NOT_VOID(visitNodeImpl(node, func, TypeList<Ts...>{}));
     } else {
-        throw std::runtime_error("Unhandled ASTNode type");
+        throw std::runtime_error(std::string("Unhandled ASTNode type") + typeid(node).name());
     }
 }
 

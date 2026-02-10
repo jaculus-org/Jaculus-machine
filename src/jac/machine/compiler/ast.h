@@ -394,16 +394,7 @@ public:
     ASTNode* init() const {
         return children[0].get();
     }
-    Expression* preCondition() const {
-        if (kind == DoWhile) {
-            return nullptr;
-        }
-        return dynamic_cast<Expression*>(children[1].get());
-    }
-    Expression* postCondition() const {
-        if (kind != DoWhile) {
-            return nullptr;
-        }
+    Expression* condition() const {
         return dynamic_cast<Expression*>(children[1].get());
     }
     Expression* update() const {
@@ -411,6 +402,9 @@ public:
     }
     Statement* statement() const {
         return dynamic_cast<Statement*>(children[3].get());
+    }
+    bool isDoWhile() const {
+        return kind == DoWhile;
     }
 
 

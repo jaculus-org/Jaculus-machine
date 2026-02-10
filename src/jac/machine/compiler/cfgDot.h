@@ -90,6 +90,9 @@ inline void print(std::ostream& os, const ConstInit& init) {
         if constexpr (std::is_same_v<std::decay_t<decltype(value)>, std::string>) {
             os << std::quoted(value, '\'');
         }
+        else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, bool>) {
+            os << (value ? "True" : "False");
+        }
         else {
             os << value;
         }

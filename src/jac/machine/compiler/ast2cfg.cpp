@@ -732,20 +732,18 @@ bool emitStmt(const ast::LexicalDeclaration& stmt, FunctionEmitter& func) {
 bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
     auto preBlock = func.getActiveBlock();
     auto initBlock = func.createBlock();
-    auto preCondBlock = func.createBlock();
-    auto postCondBlock = func.createBlock();
+    auto condBlock = func.createBlock();
     auto updateBlock = func.createBlock();
     auto statementBlock = func.createBlock();
     auto postBlock = func.createBlock();
 
     postBlock->jump = preBlock->jump;
-    preBlock->jump = Terminator::jump(initBlock);
-    initBlock->jump = Terminator::jump(preCondBlock);
-    statementBlock->jump = Terminator::jump(postCondBlock);
-    updateBlock->jump = Terminator::jump(preCondBlock);
+    preBlock->jump = Terminator::jump(stmt.isDoWhile() ? statementBlock : initBlock);
+    initBlock->jump = Terminator::jump(condBlock);
+    statementBlock->jump = Terminator::jump(updateBlock);
+    updateBlock->jump = Terminator::jump(condBlock);
 
-    postCondBlock->jump = Terminator::jump(updateBlock);
-    preCondBlock->jump = Terminator::jump(statementBlock);
+    condBlock->jump = Terminator::jump(statementBlock);
 
     auto _ = func.pushScope();
 
@@ -763,10 +761,10 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
         });
     }
 
-    // pre-condition block
-    if (auto preCond = stmt.preCondition()) {
-        func.setActiveBlock(preCondBlock);
-        auto res = emitAsRV(*preCond, func);
+    // condition block
+    if (auto cond = stmt.condition()) {
+        func.setActiveBlock(condBlock);
+        auto res = emitAsRV(*cond, func);
         auto test = emitCastAndFree(res, ValueType::Bool, func);
         emitPushFree(test, func);
 
@@ -786,16 +784,6 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
         func.setActiveBlock(updateBlock);
         auto v = emitAsRV(*update, func);
         emitPushFree(v, func);
-    }
-
-    // post-condition block
-    if (auto postCond = stmt.postCondition()) {
-        func.setActiveBlock(postCondBlock);
-        auto res = emitAsRV(*postCond, func);
-        auto test = emitCastAndFree(res, ValueType::Bool, func);
-        emitPushFree(test, func);
-
-        func.getActiveBlock()->jump = Terminator::branch(test, updateBlock, postBlock);
     }
 
     func.setActiveBlock(postBlock);

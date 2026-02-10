@@ -1671,11 +1671,11 @@ TEST_CASE("Loop statement", "[parser]") {
 
         REQUIRE(!result->init());
         REQUIRE(result->statement());
-        REQUIRE(result->preCondition());
-        REQUIRE(!result->postCondition());
+        REQUIRE(result->condition());
         REQUIRE(!result->update());
+        REQUIRE(!result->isDoWhile());
 
-        REQUIRE(isIdent(result->preCondition(), "x"));
+        REQUIRE(isIdent(result->condition(), "x"));
         REQUIRE(dynamic_cast<jac::ast::StatementList&>(*result->statement()).children.empty());
 
     }
@@ -1702,11 +1702,11 @@ TEST_CASE("Loop statement", "[parser]") {
 
         REQUIRE(!result->init());
         REQUIRE(result->statement());
-        REQUIRE(result->preCondition());
-        REQUIRE(!result->postCondition());
+        REQUIRE(result->condition());
         REQUIRE(!result->update());
+        REQUIRE(!result->isDoWhile());
 
-        REQUIRE(isIdent(result->preCondition(), "x"));
+        REQUIRE(isIdent(result->condition(), "x"));
         auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
         REQUIRE(stmtList.children.size() == 1);
         auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
@@ -1732,11 +1732,11 @@ TEST_CASE("Loop statement", "[parser]") {
 
         REQUIRE(!result->init());
         REQUIRE(result->statement());
-        REQUIRE(result->preCondition());
-        REQUIRE(!result->postCondition());
+        REQUIRE(result->condition());
         REQUIRE(!result->update());
+        REQUIRE(!result->isDoWhile());
 
-        REQUIRE(isLit<bool>(result->preCondition(), true));
+        REQUIRE(isLit<bool>(result->condition(), true));
         REQUIRE(dynamic_cast<jac::ast::EmptyStatement*>(result->statement()));
     }
 
@@ -1765,17 +1765,17 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(result);
 
         REQUIRE(result->statement());
-        REQUIRE(result->postCondition());
-        REQUIRE(!result->preCondition());
+        REQUIRE(result->condition());
         REQUIRE(!result->init());
         REQUIRE(!result->update());
+        REQUIRE(result->isDoWhile());
 
         auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
         REQUIRE(stmtList.children.size() == 1);
         auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
         REQUIRE(isIdent(exprStmt.expression(), "x"));
 
-        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->postCondition());
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->condition());
         REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Gt);
         REQUIRE(isIdent(binaryExp.left(), "y"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 0));
@@ -1812,10 +1812,10 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(result);
 
         REQUIRE(result->init());
-        REQUIRE(result->preCondition());
-        REQUIRE(!result->postCondition());
+        REQUIRE(result->condition());
         REQUIRE(result->update());
         REQUIRE(result->statement());
+        REQUIRE(!result->isDoWhile());
 
         auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->init());
         REQUIRE(!declStmt.isConst);
@@ -1824,7 +1824,7 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(bindingX->target()->name == "x");
         REQUIRE(isLit<int32_t>(bindingX->initializer(), 0));
 
-        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->preCondition());
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->condition());
         REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Lt);
         REQUIRE(isIdent(binaryExp.left(), "x"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
@@ -1859,8 +1859,7 @@ TEST_CASE("Loop statement", "[parser]") {
         REQUIRE(result);
 
         REQUIRE(!result->init());
-        REQUIRE(!result->preCondition());
-        REQUIRE(!result->postCondition());
+        REQUIRE(!result->condition());
         REQUIRE(!result->update());
         REQUIRE(result->statement());
 

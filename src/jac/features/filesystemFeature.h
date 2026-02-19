@@ -9,6 +9,8 @@
 
 #include "types/file.h"
 
+// XXX: automatic path normalization is performed because esp-idf does not support "." and ".." in paths
+
 
 namespace jac {
 
@@ -77,7 +79,7 @@ private:
 
         std::string loadCode(std::string filename) {
             std::string buffer;
-            File file(_feature._codeDir / filename, "r");
+            File file(_feature.path.normalize(_feature._codeDir / filename), "r");
             std::string read = file.read();
             while (!read.empty()) {
                 buffer += read;
@@ -87,52 +89,52 @@ private:
         }
 
         bool existsCode(std::string path_) {
-            return std::filesystem::exists(_feature._codeDir / path_);
+            return std::filesystem::exists(_feature.path.normalize(_feature._codeDir / path_));
         }
 
         bool isFileCode(std::string path_) {
-            return std::filesystem::is_regular_file(_feature._codeDir / path_);
+            return std::filesystem::is_regular_file(_feature.path.normalize(_feature._codeDir / path_));
         }
 
         bool isDirectoryCode(std::string path_) {
-            return std::filesystem::is_directory(_feature._codeDir / path_);
+            return std::filesystem::is_directory(_feature.path.normalize(_feature._codeDir / path_));
         }
 
 
         File open(std::string path_, std::string flags) {
-            return File(_feature._workingDir / path_, flags);
+            return File(_feature.path.normalize(_feature._workingDir / path_), flags);
         }
 
         bool exists(std::string path_) {
-            return std::filesystem::exists(_feature._workingDir / path_);
+            return std::filesystem::exists(_feature.path.normalize(_feature._workingDir / path_));
         }
 
         bool isFile(std::string path_) {
-            return std::filesystem::is_regular_file(_feature._workingDir / path_);
+            return std::filesystem::is_regular_file(_feature.path.normalize(_feature._workingDir / path_));
         }
 
         bool isDirectory(std::string path_) {
-            return std::filesystem::is_directory(_feature._workingDir / path_);
+            return std::filesystem::is_directory(_feature.path.normalize(_feature._workingDir / path_));
         }
 
         void mkdir(std::string path_) {
-            std::filesystem::create_directories(_feature._workingDir / path_);
+            std::filesystem::create_directories(_feature.path.normalize(_feature._workingDir / path_));
         }
 
         std::vector<std::string> readdir(std::string path_) {
             std::vector<std::string> res;
-            for (auto& p : std::filesystem::directory_iterator(_feature._workingDir / path_)) {
+            for (auto& p : std::filesystem::directory_iterator(_feature.path.normalize(_feature._workingDir / path_))) {
                 res.push_back(p.path().filename().string());
             }
             return res;
         }
 
         void rm(std::string path_) {
-            std::filesystem::remove(_feature._workingDir / path_);
+            std::filesystem::remove(_feature.path.normalize(_feature._workingDir / path_));
         }
 
         void rmdir(std::string path_) {
-            std::filesystem::remove_all(_feature._workingDir / path_);
+            std::filesystem::remove_all(_feature.path.normalize(_feature._workingDir / path_));
         }
     };
 

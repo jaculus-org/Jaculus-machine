@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <set>
 
 
 // XXX: experimental and not fully implemented and tested
@@ -19,6 +20,12 @@
 // Because quickjs performs automatic of relative imports to current module URL, we can
 // only differentiate relative imports ("./", "../") and package imports by initial characters
 // of "module_name". We therefore expect the entry point to have a file path starting with "./".
+//
+// Known issues:
+// - Relative imports in modules do not work because of quickjs's automatic "import path"
+//   concatenation (and thus missing information whether the import is relative inside a module
+//   or an import of package entry point). If exports are written consistently with the internal
+//   structure of the package, it can be made to work (but all internal imports must be listed).
 
 
 namespace jac {
@@ -35,8 +42,9 @@ std::string_view substring(const std::string& str, size_t pos, size_t count = st
 
 template<class Next>
 class NodeModuleLoaderFeature : public Next {
-private:
+public:
     // XXX: parentURL is always empty and thus ignored
+    static inline const std::set<std::string_view> defaultConditions = { "jaculus", "node", "import" };  // XXX: different from spec
 
     static std::optional<std::string> PACKAGE_TARGET_RESOLVE(const std::string& packageURL, jac::Value target, std::optional<std::string> patternMatch, NodeModuleLoaderFeature<Next>& self) {
         // XXX: isImports is always false for now
@@ -83,11 +91,24 @@ private:
             }
             return ss.str();  // TODO: "URL resolution"
         }
-        else if (target.isObject()) {
-            throw jac::Exception::create(jac::Exception::Type::Error, "object targets not implemented");
-        }
         else if (target.isArray()) {
             throw jac::Exception::create(jac::Exception::Type::Error, "array targets not implemented");
+        }
+        else if (target.isObject()) {  // check
+            auto objectTarget = target.to<jac::Object>();
+            auto keys = objectTarget.getOwnPropertyNames();
+            for (auto& key : keys) {
+                auto keyStr = key.toString();
+
+                if (keyStr == "default" || defaultConditions.contains(keyStr)) {
+                    auto targetValue = objectTarget.get<jac::Value>(key);
+                    auto resolved = PACKAGE_TARGET_RESOLVE(packageURL, targetValue, patternMatch, self);
+                    if (resolved) {
+                        return resolved;
+                    }
+                }
+            }
+            return std::nullopt;
         }
         else if (target.isNull()) {
             return std::nullopt;
@@ -260,7 +281,7 @@ private:
 
         std::string packageURL = "node_modules/" + packageName;  // XXX: resolve URL relative to parentURL
         if (!self.fs.isDirectoryCode(packageURL)) {
-            throw jac::Exception::create(jac::Exception::Type::Error, "module not found");
+            throw jac::Exception::create(jac::Exception::Type::Error, std::string("module not found: ") + packageSpecifier);
         }
         jac::Object pjson = READ_PACKAGE_JSON(packageURL, self);
 
@@ -283,7 +304,7 @@ private:
             return packageURL + "/" + packageSubpath;
         }
 
-        throw jac::Exception::create(jac::Exception::Type::Error, "module not found");
+        throw jac::Exception::create(jac::Exception::Type::Error, std::string("module not found: ") + packageSpecifier);
     }
 
     static std::string ESM_RESOLVE(const std::string& specifier, NodeModuleLoaderFeature<Next>& self) {
@@ -319,12 +340,13 @@ private:
             throw jac::Exception::create(jac::Exception::Type::Error, "unsupported directory import");
         }
         if (!self.fs.existsCode(resolved) || !self.fs.isFileCode(resolved)) {
-            throw jac::Exception::create(jac::Exception::Type::Error, "module not found");
+            throw jac::Exception::create(jac::Exception::Type::Error, std::string("module not found: ") + resolved);
         }
 
         return resolved;
     }
 
+private:
     static JSModuleDef *moduleLoaderCbk(JSContext* ctx, const char *module_name, void *_self) {
         auto &self = *static_cast<NodeModuleLoaderFeature<Next>*>(_self);
 

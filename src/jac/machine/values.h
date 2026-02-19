@@ -554,6 +554,12 @@ public:
         }
     }
 
+    /**
+     * @brief Get own property names of the object.
+     *
+     * @param flags flags to filter the properties
+     * @return Vector of property names (atoms)
+     */
     std::vector<Atom> getOwnPropertyNames(int flags = JS_GPN_STRING_MASK | JS_GPN_ENUM_ONLY) {
         JSPropertyEnum* props;
         uint32_t len;

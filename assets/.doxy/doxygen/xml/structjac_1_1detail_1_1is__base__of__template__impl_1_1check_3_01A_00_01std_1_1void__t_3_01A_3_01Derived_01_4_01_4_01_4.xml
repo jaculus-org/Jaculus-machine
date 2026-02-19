@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1detail_1_1is__base__of__template__impl_1_1check_3_01A_00_01std_1_1void__t_3_01A_3_01Derived_01_4_01_4_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>jac::detail::is_base_of_template_impl::check&lt; A, std::void_t&lt; A&lt; Derived &gt; &gt; &gt;</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::true_type</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>template&lt; class... &gt; class</type>
+        <declname>A</declname>
+        <defname>A</defname>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>jac::detail::is_base_of_template_impl&lt; Base, Derived &gt;::check&lt; A, std::void_t&lt; A&lt; Derived &gt; &gt; &gt;</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check_3_01A_00_01std_1_1void__t_3_01A_3_01Derived_01_4_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::true_type</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>jac::detail::is_base_of_template_impl&lt; Base, Derived &gt;::check&lt; A, std::void_t&lt; A&lt; Derived &gt; &gt; &gt;</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check_3_01A_00_01std_1_1void__t_3_01A_3_01Derived_01_4_01_4_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::true_type</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/class.h" line="47" column="9" bodyfile="src/jac/machine/class.h" bodystart="47" bodyend="47"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

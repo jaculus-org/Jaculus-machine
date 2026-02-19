@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ProtoBuilder_1_1LifetimeHandles" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ProtoBuilder::LifetimeHandles</compoundname>
+    <includes refid="class_8h" local="no">class.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1LifetimeHandles_1ad80ccaa4074e3d56e679c2c1db2c79dd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void jac::ProtoBuilder::LifetimeHandles::postConstruction</definition>
+        <argsstring>(ContextRef ctx, Object thisVal, std::vector&lt; ValueWeak &gt; args)</argsstring>
+        <name>postConstruction</name>
+        <qualifiedname>jac::ProtoBuilder::LifetimeHandles::postConstruction</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="226" column="21" bodyfile="src/jac/machine/class.h" bodystart="226" bodyend="228"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A base class used to add handles for lifetime events of an instance. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The functions <computeroutput>postConstruction</computeroutput> can be overriden to provide custom handling of the class instance after it&apos;s constructed. </para>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="225" column="5" bodyfile="src/jac/machine/class.h" bodystart="225" bodyend="229"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ProtoBuilder_1_1LifetimeHandles_1ad80ccaa4074e3d56e679c2c1db2c79dd" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::LifetimeHandles</scope><name>postConstruction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

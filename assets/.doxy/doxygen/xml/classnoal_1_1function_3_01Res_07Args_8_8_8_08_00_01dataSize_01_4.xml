@@ -1,0 +1,382 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4" kind="class" language="C++" prot="public">
+    <compoundname>noal::function&lt; Res(Args...), dataSize &gt;</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Res</type>
+      </param>
+      <param>
+        <type>typename...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+      <param>
+        <type>size_t</type>
+        <declname>dataSize</declname>
+        <defname>dataSize</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a65f53f7417bb792eff99d87603bcc057" prot="private" static="no">
+        <type>Res(Args...)</type>
+        <definition>using noal::function&lt; Res(Args...), dataSize &gt;::Sign =  Res(Args...)</definition>
+        <argsstring></argsstring>
+        <name>Sign</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::Sign</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="107" column="5" bodyfile="src/noal_func.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a59287ddb5b7ef8c4bf36b25160a86d45" prot="private" static="no" mutable="no">
+        <type>Res(*</type>
+        <definition>Res(* noal::function&lt; Res(Args...), dataSize &gt;::call) (void *, Args...)</definition>
+        <argsstring>)(void *, Args...)</argsstring>
+        <name>call</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::call</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="109" column="5" bodyfile="src/noal_func.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9a22337d4950b04ad0b247cf701d3ed" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t noal::function&lt; Res(Args...), dataSize &gt;::data[dataSize]</definition>
+        <argsstring>[dataSize]</argsstring>
+        <name>data</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="110" column="13" bodyfile="src/noal_func.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aacee28bc1579dd21ebbc5ab293e02657" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>()=default</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="113" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a0e8c6225a1287b153fe01be7f0268ff1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>size_t</type>
+            <declname>otherSize</declname>
+            <defname>otherSize</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classnoal_1_1function" kindref="compound">function</ref> &amp;</type>
+        <definition>function &amp; noal::function&lt; Res(Args...), dataSize &gt;::operator=</definition>
+        <argsstring>(const function&lt; Sign, otherSize &gt; &amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt; Sign, otherSize &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="115" column="14" bodyfile="src/noal_func.h" bodystart="115" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af73ffb4dcb44bf7ff355f6ff48dbb095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>size_t</type>
+            <declname>otherSize</declname>
+            <defname>otherSize</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classnoal_1_1function" kindref="compound">function</ref> &amp;</type>
+        <definition>function &amp; noal::function&lt; Res(Args...), dataSize &gt;::operator=</definition>
+        <argsstring>(function&lt; Sign, otherSize &gt; &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt; Sign, otherSize &gt; &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="124" column="14" bodyfile="src/noal_func.h" bodystart="124" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ae86c6fefc5a12adabb0151fc8f956640" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>size_t</type>
+            <declname>otherSize</declname>
+            <defname>otherSize</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(const function&lt; Sign, otherSize &gt; &amp;other)</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type>const <ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt; Sign, otherSize &gt; &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="126" column="5" bodyfile="src/noal_func.h" bodystart="126" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af6b424d97ae9e5ba161308fff93e631e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>size_t</type>
+            <declname>otherSize</declname>
+            <defname>otherSize</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(function&lt; Sign, otherSize &gt; &amp;&amp;other)</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt; Sign, otherSize &gt; &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="128" column="5" bodyfile="src/noal_func.h" bodystart="128" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a722359762ec835bbe463f41b8be36b82" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Res</type>
+        <definition>Res noal::function&lt; Res(Args...), dataSize &gt;::operator()</definition>
+        <argsstring>(Args... args)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator()</qualifiedname>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="131" column="9" bodyfile="src/noal_func.h" bodystart="131" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af525aa4ec2d8dc2cefbfcbf606bed50d" prot="public" static="no" const="yes" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::operator bool</definition>
+        <argsstring>() const</argsstring>
+        <name>operator bool</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator bool</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="135" column="14" bodyfile="src/noal_func.h" bodystart="135" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aa00ca516bcfdec26ff0aeddc7f5b889e" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(Res(*func)(Args...))</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type>Res(*)(Args...)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="140" column="14" bodyfile="src/noal_func.h" bodystart="140" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9de4eb6ea1969e455036da43be7a0d1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classnoal_1_1function" kindref="compound">function</ref> &amp;</type>
+        <definition>function &amp; noal::function&lt; Res(Args...), dataSize &gt;::operator=</definition>
+        <argsstring>(Res(*func)(Args...))</argsstring>
+        <name>operator=</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator=</qualifiedname>
+        <param>
+          <type>Res(*)(Args...)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="146" column="14" bodyfile="src/noal_func.h" bodystart="146" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af51a8834fd79e41e56c2cdf4289a6dd2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Class</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(Res(Class::*func)(Args...), Class *self)</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...)</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>Class *</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="149" column="5" bodyfile="src/noal_func.h" bodystart="149" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a9cd207700294f8a5415c5956f973bedc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Class</type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(Res(Class::*func)(Args...) const, Class *self)</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...) const</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>Class *</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="155" column="5" bodyfile="src/noal_func.h" bodystart="155" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a485d5c283bab1e4f844cffbf9a90276e" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Sign</type>
+            <defval>typename <ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;decltype(&amp;Func::operator())&gt;::type</defval>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function&lt; Res(Args...), dataSize &gt;::function</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::function</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="160" column="14" bodyfile="src/noal_func.h" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad12a8a6d90ddc6634747a7347e45d84a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Sign</type>
+            <defval>typename <ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;decltype(&amp;Func::operator())&gt;::type</defval>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classnoal_1_1function" kindref="compound">function</ref> &amp;</type>
+        <definition>function &amp; noal::function&lt; Res(Args...), dataSize &gt;::operator=</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>noal::function&lt; Res(Args...), dataSize &gt;::operator=</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="165" column="14" bodyfile="src/noal_func.h" bodystart="165" bodyend="165"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/noal_func.h" line="106" column="1" bodyfile="src/noal_func.h" bodystart="106" bodyend="166"/>
+    <listofallmembers>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a59287ddb5b7ef8c4bf36b25160a86d45" prot="private" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>call</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9a22337d4950b04ad0b247cf701d3ed" prot="private" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>data</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aacee28bc1579dd21ebbc5ab293e02657" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ae86c6fefc5a12adabb0151fc8f956640" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af6b424d97ae9e5ba161308fff93e631e" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aa00ca516bcfdec26ff0aeddc7f5b889e" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af51a8834fd79e41e56c2cdf4289a6dd2" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a9cd207700294f8a5415c5956f973bedc" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a485d5c283bab1e4f844cffbf9a90276e" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>function</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af525aa4ec2d8dc2cefbfcbf606bed50d" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator bool</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a722359762ec835bbe463f41b8be36b82" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator()</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a0e8c6225a1287b153fe01be7f0268ff1" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator=</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af73ffb4dcb44bf7ff355f6ff48dbb095" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator=</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9de4eb6ea1969e455036da43be7a0d1" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator=</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad12a8a6d90ddc6634747a7347e45d84a" prot="public" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>operator=</name></member>
+      <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a65f53f7417bb792eff99d87603bcc057" prot="private" virt="non-virtual"><scope>noal::function&lt; Res(Args...), dataSize &gt;</scope><name>Sign</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

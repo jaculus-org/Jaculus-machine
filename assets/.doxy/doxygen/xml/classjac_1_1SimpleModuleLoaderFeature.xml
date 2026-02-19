@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1SimpleModuleLoaderFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::SimpleModuleLoaderFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classjac_1_1SimpleModuleLoaderFeature_1a32f427e14c446b36080646aa200d92d9" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSModuleDef *</type>
+        <definition>static JSModuleDef * jac::SimpleModuleLoaderFeature&lt; Next &gt;::moduleLoaderCbk</definition>
+        <argsstring>(JSContext *ctx, const char *module_name, void *_self)</argsstring>
+        <name>moduleLoaderCbk</name>
+        <qualifiedname>jac::SimpleModuleLoaderFeature::moduleLoaderCbk</qualifiedname>
+        <param>
+          <type>JSContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>module_name</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>_self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/simpleModuleLoaderFeature.h" line="12" column="24" bodyfile="src/jac/features/simpleModuleLoaderFeature.h" bodystart="12" bodyend="40"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1SimpleModuleLoaderFeature_1a5911bfec0c4b7e3d247bc9886642fa88" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::SimpleModuleLoaderFeature&lt; Next &gt;::evalFile</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>evalFile</name>
+        <qualifiedname>jac::SimpleModuleLoaderFeature::evalFile</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A promise that will be resolved when the module ends, and rejected if the module throws an exception. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/simpleModuleLoaderFeature.h" line="50" column="11" bodyfile="src/jac/features/simpleModuleLoaderFeature.h" bodystart="50" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1SimpleModuleLoaderFeature_1a99a1a95492c193b346c3133796342275" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::SimpleModuleLoaderFeature&lt; Next &gt;::evalFileWithEventLoop</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>evalFileWithEventLoop</name>
+        <qualifiedname>jac::SimpleModuleLoaderFeature::evalFileWithEventLoop</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a file and run the event loop until the program exits or throws an exception. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/simpleModuleLoaderFeature.h" line="63" column="10" bodyfile="src/jac/features/simpleModuleLoaderFeature.h" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1SimpleModuleLoaderFeature_1af3ce051a8ff52652e844b4a6131046da" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::SimpleModuleLoaderFeature&lt; Next &gt;::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::SimpleModuleLoaderFeature::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/simpleModuleLoaderFeature.h" line="68" column="10" bodyfile="src/jac/features/simpleModuleLoaderFeature.h" bodystart="68" bodyend="72"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::SimpleModuleLoaderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1SimpleModuleLoaderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::SimpleModuleLoaderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1SimpleModuleLoaderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/simpleModuleLoaderFeature.h" line="10" column="1" bodyfile="src/jac/features/simpleModuleLoaderFeature.h" bodystart="10" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classjac_1_1SimpleModuleLoaderFeature_1a5911bfec0c4b7e3d247bc9886642fa88" prot="public" virt="non-virtual"><scope>jac::SimpleModuleLoaderFeature</scope><name>evalFile</name></member>
+      <member refid="classjac_1_1SimpleModuleLoaderFeature_1a99a1a95492c193b346c3133796342275" prot="public" virt="non-virtual"><scope>jac::SimpleModuleLoaderFeature</scope><name>evalFileWithEventLoop</name></member>
+      <member refid="classjac_1_1SimpleModuleLoaderFeature_1af3ce051a8ff52652e844b4a6131046da" prot="public" virt="non-virtual"><scope>jac::SimpleModuleLoaderFeature</scope><name>initialize</name></member>
+      <member refid="classjac_1_1SimpleModuleLoaderFeature_1a32f427e14c446b36080646aa200d92d9" prot="private" virt="non-virtual"><scope>jac::SimpleModuleLoaderFeature</scope><name>moduleLoaderCbk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

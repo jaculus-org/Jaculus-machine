@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1StdioFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::StdioFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <innerclass refid="classjac_1_1StdioFeature_1_1Stdio" prot="private">jac::StdioFeature::Stdio</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classjac_1_1StdioFeature_1a7885331670e64ee1b3bf4eba3644ece9" prot="public" static="no" mutable="no">
+        <type>Stdio</type>
+        <definition>Stdio jac::StdioFeature&lt; Next &gt;::stdio</definition>
+        <argsstring></argsstring>
+        <name>stdio</name>
+        <qualifiedname>jac::StdioFeature::stdio</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/stdioFeature.h" line="25" column="11" bodyfile="src/jac/features/stdioFeature.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1StdioFeature_1adc55de3490ff4ab76e61bdd32e8c417b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::StdioFeature&lt; Next &gt;::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::StdioFeature::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/stdioFeature.h" line="27" column="10" bodyfile="src/jac/features/stdioFeature.h" bodystart="27" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::StdioFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1StdioFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="3">
+        <label>jac::StdioFeature&lt; Next &gt;::Stdio</label>
+      </node>
+      <node id="1">
+        <label>jac::StdioFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1StdioFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>stdio</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/stdioFeature.h" line="16" column="1" bodyfile="src/jac/features/stdioFeature.h" bodystart="16" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classjac_1_1StdioFeature_1adc55de3490ff4ab76e61bdd32e8c417b" prot="public" virt="non-virtual"><scope>jac::StdioFeature</scope><name>initialize</name></member>
+      <member refid="classjac_1_1StdioFeature_1a7885331670e64ee1b3bf4eba3644ece9" prot="public" virt="non-virtual"><scope>jac::StdioFeature</scope><name>stdio</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

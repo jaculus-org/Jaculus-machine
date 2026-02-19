@@ -1,0 +1,855 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="values_8h" kind="file" language="C++">
+    <compoundname>values.h</compoundname>
+    <includes local="no">quickjs.h</includes>
+    <includes local="no">span</includes>
+    <includes local="no">string</includes>
+    <includes local="no">tuple</includes>
+    <includes local="no">vector</includes>
+    <includes refid="atom_8h" local="yes">atom.h</includes>
+    <includes refid="context_8h" local="yes">context.h</includes>
+    <includes refid="declarations_8h" local="yes">internal/declarations.h</includes>
+    <includes refid="stringView_8h" local="yes">stringView.h</includes>
+    <includes refid="traits_8h" local="yes">traits.h</includes>
+    <includedby refid="basicStreamFeature_8h" local="no">src/jac/features/basicStreamFeature.h</includedby>
+    <includedby refid="nodeModuleLoaderFeature_8h" local="no">src/jac/features/nodeModuleLoaderFeature.h</includedby>
+    <includedby refid="stdioFeature_8h" local="no">src/jac/features/stdioFeature.h</includedby>
+    <includedby refid="file_8h" local="no">src/jac/features/types/file.h</includedby>
+    <includedby refid="class_8h" local="yes">src/jac/machine/class.h</includedby>
+    <includedby refid="context_8cpp" local="yes">src/jac/machine/context.cpp</includedby>
+    <includedby refid="funcUtil_8h" local="yes">src/jac/machine/funcUtil.h</includedby>
+    <includedby refid="functionFactory_8h" local="yes">src/jac/machine/functionFactory.h</includedby>
+    <includedby refid="machine_8h" local="yes">src/jac/machine/machine.h</includedby>
+    <includedby refid="traits_8h" local="yes">src/jac/machine/traits.h</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>atom.h</label>
+        <link refid="atom_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>context.h</label>
+        <link refid="context_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>internal/declarations.h</label>
+        <link refid="declarations_8h_source"/>
+      </node>
+      <node id="11">
+        <label>stringView.h</label>
+        <link refid="stringView_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>traits.h</label>
+        <link refid="traits_8h_source"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/jac/machine/values.h</label>
+        <link refid="values_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>ostream</label>
+      </node>
+      <node id="2">
+        <label>quickjs.h</label>
+      </node>
+      <node id="3">
+        <label>span</label>
+      </node>
+      <node id="4">
+        <label>string</label>
+      </node>
+      <node id="12">
+        <label>string_view</label>
+      </node>
+      <node id="5">
+        <label>tuple</label>
+      </node>
+      <node id="14">
+        <label>type_traits</label>
+      </node>
+      <node id="6">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/jac/features/basicStreamFeature.h</label>
+        <link refid="basicStreamFeature_8h_source"/>
+      </node>
+      <node id="9">
+        <label>src/jac/features/eventLoopFeature.h</label>
+        <link refid="eventLoopFeature_8h_source"/>
+      </node>
+      <node id="6">
+        <label>src/jac/features/filesystemFeature.h</label>
+        <link refid="filesystemFeature_8h_source"/>
+      </node>
+      <node id="3">
+        <label>src/jac/features/nodeModuleLoaderFeature.h</label>
+        <link refid="nodeModuleLoaderFeature_8h_source"/>
+      </node>
+      <node id="13">
+        <label>src/jac/features/simpleModuleLoaderFeature.h</label>
+        <link refid="simpleModuleLoaderFeature_8h_source"/>
+      </node>
+      <node id="4">
+        <label>src/jac/features/stdioFeature.h</label>
+        <link refid="stdioFeature_8h_source"/>
+      </node>
+      <node id="10">
+        <label>src/jac/features/timersFeature.h</label>
+        <link refid="timersFeature_8h_source"/>
+      </node>
+      <node id="5">
+        <label>src/jac/features/types/file.h</label>
+        <link refid="file_8h_source"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/jac/machine/class.h</label>
+        <link refid="class_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/jac/machine/funcUtil.h</label>
+        <link refid="funcUtil_8h_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/jac/machine/functionFactory.h</label>
+        <link refid="functionFactory_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>src/jac/machine/machine.h</label>
+        <link refid="machine_8h_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>src/jac/machine/plugins.h</label>
+        <link refid="plugins_8h_source"/>
+      </node>
+      <node id="15">
+        <label>src/jac/machine/traits.h</label>
+        <link refid="traits_8h_source"/>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/jac/machine/values.h</label>
+        <link refid="values_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classjac_1_1ValueWrapper" prot="public">jac::ValueWrapper</innerclass>
+    <innerclass refid="classjac_1_1ExceptionWrapper" prot="public">jac::ExceptionWrapper</innerclass>
+    <innerclass refid="classjac_1_1ObjectWrapper" prot="public">jac::ObjectWrapper</innerclass>
+    <innerclass refid="classjac_1_1FunctionWrapper" prot="public">jac::FunctionWrapper</innerclass>
+    <innerclass refid="classjac_1_1ArrayWrapper" prot="public">jac::ArrayWrapper</innerclass>
+    <innerclass refid="classjac_1_1PromiseWrapper" prot="public">jac::PromiseWrapper</innerclass>
+    <innerclass refid="classjac_1_1ArrayBufferWrapper" prot="public">jac::ArrayBufferWrapper</innerclass>
+    <innernamespace refid="namespacejac">jac</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;quickjs.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;span&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;tuple&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;atom.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;context.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;internal/declarations.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stringView.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">jac<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>PropFlags<sp/>:<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>Default<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>Configurable<sp/>=<sp/>JS_PROP_CONFIGURABLE,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>Writable<sp/>=<sp/>JS_PROP_WRITABLE,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Enumerable<sp/>=<sp/>JS_PROP_ENUMERABLE,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>C_W_E<sp/>=<sp/>JS_PROP_C_W_E</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>PropFlags<sp/>operator|(PropFlags<sp/>a,<sp/>PropFlags<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">PropFlags</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(a)<sp/>|<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(b));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>PropFlags<sp/>operator&amp;(PropFlags<sp/>a,<sp/>PropFlags<sp/>b)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">PropFlags</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(a)<sp/>&amp;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(b));</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">T<sp/>fromValue(ContextRef<sp/>ctx,<sp/>ValueWeak<sp/>val);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">Value<sp/>toValue(ContextRef<sp/>ctx,<sp/>T<sp/>val);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="51" refid="classjac_1_1ValueWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>_ctx;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>JSValue<sp/>_val;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref><sp/>&amp;other):</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_ctx(other._ctx),</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_val(managed<sp/>?<sp/>JS_DupValue(_ctx,<sp/>other._val)<sp/>:<sp/>other._val)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>{}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref><sp/>&amp;&amp;other)<sp/>:<sp/>_ctx(other._ctx),<sp/>_val(other._val)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>other._ctx<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>other._val<sp/>=<sp/>JS_UNDEFINED;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref><sp/>&amp;other)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(managed)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_val<sp/>=<sp/>JS_DupValue(_ctx,<sp/>other._val);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_val<sp/>=<sp/>other._val;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_ctx<sp/>=<sp/>other._ctx;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&amp;<sp/>operator=(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref><sp/>&amp;&amp;other)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(managed<sp/>&amp;&amp;<sp/>_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_val<sp/>=<sp/>other._val;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_ctx<sp/>=<sp/>other._ctx;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>other._val<sp/>=<sp/>JS_UNDEFINED;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>other._ctx<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref>(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">~ValueWrapper</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(managed<sp/>&amp;&amp;<sp/>_ctx)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::pair&lt;ContextRef,<sp/>JSValue&gt;<sp/><ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">loot</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JSValue<sp/>ret_<sp/>=<sp/>_val;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx_<sp/>=<sp/>this-&gt;_ctx;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_ctx<sp/>=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_val<sp/>=<sp/>JS_UNDEFINED;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{ctx_,<sp/>ret_};</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>JSValue&amp;<sp/><ref refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kindref="member">getVal</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_val;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" kindref="member">isUndefined</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsUndefined(_val);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" kindref="member">isNull</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsNull(_val);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" kindref="member">isNumber</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsNumber(_val);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" kindref="member">isBigInt</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsBigInt(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" kindref="member">isBoolean</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsBool(_val);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" kindref="member">isString</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsString(_val);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190" refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" kindref="member">isSymbol</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsSymbol(_val);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199" refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" kindref="member">isObject</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsObject(_val);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" kindref="member">isArray</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsArray(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" kindref="member">isFunction</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsFunction(_ctx,<sp/>_val);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" kindref="member">isInstanceOf</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWeak</ref><sp/>obj);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref><sp/><ref refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" kindref="member">toString</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>to&lt;StringView&gt;();</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="245" refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kindref="member">to</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>fromValue&lt;T&gt;(_ctx,<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255" refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" kindref="member">stringify</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>indent<sp/>=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>idt<sp/>=<sp/><ref refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" kindref="member">Value::from</ref>(_ctx,<sp/>indent);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref>(_ctx,<sp/>JS_JSONStringify(_ctx,<sp/>_val,<sp/>JS_UNDEFINED,<sp/>idt.getVal()));</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="269" refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" kindref="member">from</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>T<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>toValue(ctx,<sp/>val);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282" refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" kindref="member">fromJSON</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>std::string<sp/>json,<sp/>std::string<sp/>filename<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&lt;json&gt;&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>extended<sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref>(ctx,<sp/>JS_ParseJSON2(ctx,<sp/>json.c_str(),<sp/>json.size(),<sp/>filename.c_str(),<sp/>extended<sp/>?<sp/>JS_PARSE_JSON_EXT<sp/>:<sp/>0));</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" kindref="member">undefined</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>(ctx,<sp/>JS_UNDEFINED);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302" refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" kindref="member">null</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>(ctx,<sp/>JS_NULL);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/>operator&lt;&lt;(std::ostream&amp;<sp/>os,<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&amp;<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>os<sp/>&lt;&lt;<sp/>val.<ref refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" kindref="member">toString</ref>();</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>os;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="320" refid="classjac_1_1ExceptionWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;,<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>std::exception<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum<sp/>class</highlight><highlight class="normal"><sp/>Type<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Any,</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error,</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SyntaxError,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TypeError,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReferenceError,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RangeError,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InternalError</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>_message;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>Type<sp/>_type;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>(Type<sp/>type,<sp/>std::string<sp/>message)<sp/>:<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper&lt;managed&gt;</ref>(</highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>JS_UNDEFINED),<sp/>_message(std::move(message)),<sp/>_type(type)<sp/>{}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="348" refid="classjac_1_1ExceptionWrapper_1a9a44e5d5e67878336eaf6f72ac06cf7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ExceptionWrapper_1a9a44e5d5e67878336eaf6f72ac06cf7d" kindref="member">ExceptionWrapper</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;(std::move(value)),<sp/>_type(Type::Any)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_message<sp/>=<sp/>this-&gt;<ref refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" kindref="member">toString</ref>();</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" kindref="member">stackTrace</ref>()<sp/>noexcept;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365" refid="classjac_1_1ExceptionWrapper_1a21513f888170af549c9ed26ddb32f4a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/><ref refid="classjac_1_1ExceptionWrapper_1a21513f888170af549c9ed26ddb32f4a2" kindref="member">what</ref>()<sp/>const<sp/>noexcept</highlight><highlight class="keyword"><sp/>override<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_message.c_str();</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376" refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref><sp/><ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">create</ref>(Type<sp/>type,<sp/>std::string<sp/>message)<sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>(type,<sp/>message);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/>JSValue<sp/><ref refid="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" kindref="member">throwJS</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="398" refid="classjac_1_1ObjectWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;<sp/>{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="411" refid="classjac_1_1ObjectWrapper_1a70bc1725583ea405d82a9aabd1649f33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper_1a70bc1725583ea405d82a9aabd1649f33" kindref="member">ObjectWrapper</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;(std::move(value))<sp/>{</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;<ref refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" kindref="member">isObject</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">Exception::create</ref>(Exception::Type::TypeError,<sp/></highlight><highlight class="stringliteral">&quot;not<sp/>an<sp/>object&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T<sp/>=<sp/>Value&gt;</highlight></codeline>
+<codeline lineno="426" refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" kindref="member">get</ref>(<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>prop)<sp/>{</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/>val(_ctx,<sp/>JS_GetProperty(_ctx,<sp/>_val,<sp/>prop.<ref refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kindref="member">get</ref>()));</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>val.<ref refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kindref="member">to</ref>&lt;T&gt;();</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T<sp/>=<sp/>Value&gt;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" kindref="member">get</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name)<sp/>{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>get&lt;T&gt;(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>name.c_str()));</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T<sp/>=<sp/>Value&gt;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/><ref refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" kindref="member">get</ref>(uint32_t<sp/>idx)<sp/>{</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>get&lt;T&gt;(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>idx));</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="449" refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>prop,<sp/>T<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_SetProperty(_ctx,<sp/>_val,<sp/>prop.<ref refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kindref="member">get</ref>(),<sp/>toValue(_ctx,<sp/>val).<ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">loot</ref>().second)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>name,<sp/>T<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>name.c_str()),<sp/>val);</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(uint32_t<sp/>idx,<sp/>T<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>idx),<sp/>val);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/><ref refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" kindref="member">invoke</ref>(Atom<sp/>key,<sp/>Args...<sp/>args);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/><ref refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" kindref="member">invoke</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::string&amp;<sp/>key,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke&lt;Res&gt;(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>key.c_str()),<sp/>args...);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/><ref refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" kindref="member">invoke</ref>(uint32_t<sp/>idx,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>invoke&lt;Res&gt;(<ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/>idx),<sp/>args...);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Id&gt;</highlight></codeline>
+<codeline lineno="499" refid="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" kindref="member">defineProperty</ref>(Id<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/>value,<sp/>PropFlags<sp/>flags<sp/>=<sp/>PropFlags::Default)<sp/>{</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>atom<sp/>=<sp/><ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_DefinePropertyValue(_ctx,<sp/>_val,<sp/>atom.<ref refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kindref="member">get</ref>(),<sp/>value.<ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">loot</ref>().second,<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">int</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(flags))<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Id&gt;</highlight></codeline>
+<codeline lineno="514" refid="classjac_1_1ObjectWrapper_1abbc0d7dfd49ef9f2f7cd9edb71b56c7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1abbc0d7dfd49ef9f2f7cd9edb71b56c7d" kindref="member">hasProperty</ref>(Id<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>atom<sp/>=<sp/><ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>res<sp/>=<sp/>JS_HasProperty(_ctx,<sp/>_val,<sp/>atom.<ref refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kindref="member">get</ref>());</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(res<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>res;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Id&gt;</highlight></codeline>
+<codeline lineno="530" refid="classjac_1_1ObjectWrapper_1a5526e2afd9daba1b2dc064659d76389c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a5526e2afd9daba1b2dc064659d76389c" kindref="member">deleteProperty</ref>(Id<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>atom<sp/>=<sp/><ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create</ref>(_ctx,<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_DeleteProperty(_ctx,<sp/>_val,<sp/>atom.<ref refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kindref="member">get</ref>(),<sp/>0)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight></codeline>
+<codeline lineno="542" refid="classjac_1_1ObjectWrapper_1ac0bb89529ff7b51cadac3bf96650296e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref><sp/><ref refid="classjac_1_1ObjectWrapper_1ac0bb89529ff7b51cadac3bf96650296e" kindref="member">getPrototype</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref>(_ctx,<sp/>JS_GetPrototype(this-&gt;_ctx,<sp/>this-&gt;_val));</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551" refid="classjac_1_1ObjectWrapper_1a453407b45b1cc138bcdc4526ed3d99e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper_1a453407b45b1cc138bcdc4526ed3d99e4" kindref="member">setPrototype</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref><sp/>proto)<sp/>{</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_SetPrototype(this-&gt;_ctx,<sp/>this-&gt;_val,<sp/>proto.<ref refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kindref="member">getVal</ref>())<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563" refid="classjac_1_1ObjectWrapper_1a8b0c2ffd645f3631e4a83473774a7eb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Atom&gt;<sp/><ref refid="classjac_1_1ObjectWrapper_1a8b0c2ffd645f3631e4a83473774a7eb8" kindref="member">getOwnPropertyNames</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flags<sp/>=<sp/>JS_GPN_STRING_MASK<sp/>|<sp/>JS_GPN_ENUM_ONLY)<sp/>{</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JSPropertyEnum*<sp/>props;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>len;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_GetOwnPropertyNames(_ctx,<sp/>&amp;props,<sp/>&amp;len,<sp/>_val,<sp/>flags)<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>_ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;Atom&gt;<sp/>result;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result.reserve(len);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>len;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result.emplace_back(<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref>(_ctx,<sp/>props[i].atom));</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>js_free(_ctx,<sp/>props);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585" refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref><sp/><ref refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" kindref="member">create</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref>(ctx,<sp/>JS_NewObject(ctx));</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="588"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"></highlight></codeline>
+<codeline lineno="590"><highlight class="normal"></highlight></codeline>
+<codeline lineno="596"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="597" refid="classjac_1_1FunctionWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1FunctionWrapper" kindref="compound">FunctionWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;<sp/>{</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="609" refid="classjac_1_1FunctionWrapper_1ac8fe842086ca31e7e1e91d20e7c67c27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper_1ac8fe842086ca31e7e1e91d20e7c67c27" kindref="member">FunctionWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(std::move(value))<sp/>{</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;<ref refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" kindref="member">isFunction</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">Exception::create</ref>(Exception::Type::TypeError,<sp/></highlight><highlight class="stringliteral">&quot;not<sp/>a<sp/>function&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">FunctionWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">FunctionWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="629" refid="classjac_1_1FunctionWrapper_1aa891dab9770acb96e4b413e9af6d6ca8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/><ref refid="classjac_1_1FunctionWrapper_1aa891dab9770acb96e4b413e9af6d6ca8" kindref="member">callThis</ref>(<ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/>thisVal,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;JSValue&gt;<sp/>vals;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vals.reserve(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args));</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(vals.push_back(toValue(_ctx,<sp/>args).<ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">loot</ref>().second),<sp/>...);</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/>ret(_ctx,<sp/>JS_Call(_ctx,<sp/>_val,<sp/>thisVal.<ref refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kindref="member">getVal</ref>(),<sp/>vals.size(),<sp/>vals.data()));</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;v<sp/>:<sp/>vals)<sp/>{</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>v);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vals.clear();</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret.<ref refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kindref="member">to</ref>&lt;Res&gt;();</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(<ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref><sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;v<sp/>:<sp/>vals)<sp/>{</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>v);</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>e;</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="663" refid="classjac_1_1FunctionWrapper_1ac4adf9709961efb6572a7289e61ec9f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/><ref refid="classjac_1_1FunctionWrapper_1ac4adf9709961efb6572a7289e61ec9f0" kindref="member">call</ref>(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>callThis&lt;Res&gt;(<ref refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" kindref="member">Value::undefined</ref>(_ctx),<sp/>args...);</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="680" refid="classjac_1_1FunctionWrapper_1adeb5a9512138b01b08a15537f68f9428" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/><ref refid="classjac_1_1FunctionWrapper_1adeb5a9512138b01b08a15537f68f9428" kindref="member">callConstructor</ref>(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;JSValue&gt;<sp/>vals;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vals.reserve(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">...(Args));</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(vals.push_back(toValue(_ctx,<sp/>args).<ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">loot</ref>().second),<sp/>...);</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref><sp/>ret(_ctx,<sp/>JS_CallConstructor(_ctx,<sp/>_val,<sp/>vals.size(),<sp/>vals.data()));</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;v<sp/>:<sp/>vals)<sp/>{</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>v);</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vals.clear();</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(<ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref><sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;v<sp/>:<sp/>vals)<sp/>{</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_FreeValue(_ctx,<sp/>v);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>e;</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="700"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"></highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="709" refid="classjac_1_1ArrayWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ArrayWrapper" kindref="compound">ArrayWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;<sp/>{</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="721" refid="classjac_1_1ArrayWrapper_1af2dac912e256c8e2dc91eb8d2a195034" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ArrayWrapper_1af2dac912e256c8e2dc91eb8d2a195034" kindref="member">ArrayWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(std::move(value))<sp/>{</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!this-&gt;<ref refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" kindref="member">isArray</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">Exception::create</ref>(Exception::Type::TypeError,<sp/></highlight><highlight class="stringliteral">&quot;not<sp/>an<sp/>array&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ArrayWrapper" kindref="compound">ArrayWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1ArrayWrapper" kindref="compound">ArrayWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"></highlight></codeline>
+<codeline lineno="733" refid="classjac_1_1ArrayWrapper_1aded9d5be4c6be89cc189bb35ea6eb8e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayWrapper_1aded9d5be4c6be89cc189bb35ea6eb8e1" kindref="member">length</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;</highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>get&lt;int&gt;(</highlight><highlight class="stringliteral">&quot;length&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="743" refid="classjac_1_1ArrayWrapper_1a1ebbce86b94282080e4ec1f2e24715bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayWrapper" kindref="compound">Array</ref><sp/><ref refid="classjac_1_1ArrayWrapper_1a1ebbce86b94282080e4ec1f2e24715bd" kindref="member">create</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayWrapper" kindref="compound">Array</ref>(ctx,<sp/>JS_NewArray(ctx));</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="746"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"></highlight></codeline>
+<codeline lineno="748"><highlight class="normal"></highlight></codeline>
+<codeline lineno="754"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="755" refid="classjac_1_1PromiseWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1PromiseWrapper" kindref="compound">PromiseWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper&lt;managed&gt;</ref><sp/>{</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="767" refid="classjac_1_1PromiseWrapper_1adc231272c95090c586350374a75682ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1PromiseWrapper_1adc231272c95090c586350374a75682ff" kindref="member">PromiseWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(std::move(value))<sp/>{</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>check<sp/>if<sp/>value<sp/>is<sp/>Promise</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>implemented,<sp/>because<sp/>a<sp/>convenient<sp/>check<sp/>is<sp/>not<sp/>a<sp/>part<sp/>of<sp/>QuickJS<sp/>API</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>different<sp/>type<sp/>being<sp/>converted<sp/>to<sp/>promise<sp/>may<sp/>cause<sp/>hard<sp/>to<sp/>find<sp/>errors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1PromiseWrapper" kindref="compound">PromiseWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1PromiseWrapper" kindref="compound">PromiseWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"></highlight></codeline>
+<codeline lineno="778" refid="classjac_1_1PromiseWrapper_1aec32a1ce1b1bba3db4d58d327441cda0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>std::tuple&lt;Promise,<sp/>Function,<sp/>Function&gt;<sp/><ref refid="classjac_1_1PromiseWrapper_1aec32a1ce1b1bba3db4d58d327441cda0" kindref="member">create</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JSValue<sp/>functions[2];</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JSValue<sp/>promise<sp/>=<sp/>JS_NewPromiseCapability(ctx,<sp/>functions);</highlight></codeline>
+<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::make_tuple(<ref refid="classjac_1_1PromiseWrapper" kindref="compound">Promise</ref>(ctx,<sp/>promise),<sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref>(ctx,<sp/>functions[0]),<sp/><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref>(ctx,<sp/>functions[1]));</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="783"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="784"><highlight class="normal"></highlight></codeline>
+<codeline lineno="785"><highlight class="normal"></highlight></codeline>
+<codeline lineno="791"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="792" refid="classjac_1_1ArrayBufferWrapper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBufferWrapper</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;<sp/>{</highlight></codeline>
+<codeline lineno="793"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_val;</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal"><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;::_ctx;</highlight></codeline>
+<codeline lineno="796"><highlight class="normal"></highlight></codeline>
+<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>freeArrayBuffer(JSRuntime*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ptr)<sp/>{</highlight></codeline>
+<codeline lineno="798"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal">[]<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(ptr);</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="800"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="808" refid="classjac_1_1ArrayBufferWrapper_1aead28949e0d68631df49f766fd03eb47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1aead28949e0d68631df49f766fd03eb47" kindref="member">ArrayBufferWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper&lt;managed&gt;</ref><sp/>value)<sp/>:<sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(std::move(value))<sp/>{</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO:<sp/>check<sp/>if<sp/>value<sp/>is<sp/>ArrayBuffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>not<sp/>implemented,<sp/>because<sp/>a<sp/>convenient<sp/>check<sp/>is<sp/>not<sp/>a<sp/>part<sp/>of<sp/>QuickJS<sp/>API</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="811"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>different<sp/>type<sp/>being<sp/>converted<sp/>to<sp/>promise<sp/>may<sp/>cause<sp/>hard<sp/>to<sp/>find<sp/>errors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>methods<sp/>of<sp/>ArrayBufferWrapper<sp/>will<sp/>throw<sp/>exceptions<sp/>if<sp/>the<sp/>type<sp/>is<sp/>not<sp/>ArrayBuffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="814"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBufferWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBufferWrapper</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt;managed&gt;(ctx,<sp/>val))<sp/>{}</highlight></codeline>
+<codeline lineno="815"><highlight class="normal"></highlight></codeline>
+<codeline lineno="821" refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t*<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" kindref="member">data</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(JS_GetArrayBuffer(_ctx,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/>_val));</highlight></codeline>
+<codeline lineno="823"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="824"><highlight class="normal"></highlight></codeline>
+<codeline lineno="830" refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="831"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="832"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>JS_GetArrayBuffer(_ctx,<sp/>&amp;<ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>,<sp/>_val);</highlight></codeline>
+<codeline lineno="833"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="834"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="835"><highlight class="normal"></highlight></codeline>
+<codeline lineno="842"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="843" refid="classjac_1_1ArrayBufferWrapper_1a49a90cc5e4dea4a6fed118bcd9f09c54" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::span&lt;T&gt;<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a49a90cc5e4dea4a6fed118bcd9f09c54" kindref="member">typedView</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="844"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>()<sp/>%<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(T)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="845"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">Exception::create</ref>(Exception::Type::TypeError,<sp/></highlight><highlight class="stringliteral">&quot;size<sp/>is<sp/>not<sp/>a<sp/>multiple<sp/>of<sp/>the<sp/>element<sp/>size&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="846"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="847"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="848"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>T*<sp/>ptr<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">T*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(JS_GetArrayBuffer(_ctx,<sp/>&amp;<ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>,<sp/>_val));</highlight></codeline>
+<codeline lineno="849"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>std::span&lt;T&gt;(ptr,<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref><sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(T));</highlight></codeline>
+<codeline lineno="850"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="851"><highlight class="normal"></highlight></codeline>
+<codeline lineno="859" refid="classjac_1_1ArrayBufferWrapper_1ad6f26ff2c28b39189c81f59cfc1020c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBuffer</ref><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1ad6f26ff2c28b39189c81f59cfc1020c5" kindref="member">create</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="860"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBuffer</ref>(ctx,<sp/>JS_NewArrayBuffer(ctx,<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>uint8_t[<ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>]{},<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kindref="member">size</ref>,<sp/>freeArrayBuffer,<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="861"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="862"><highlight class="normal"></highlight></codeline>
+<codeline lineno="870" refid="classjac_1_1ArrayBufferWrapper_1a21bc097d89934fa8b9b44a1431893cf5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBuffer</ref><sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a21bc097d89934fa8b9b44a1431893cf5" kindref="member">create</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>std::span&lt;const<sp/>uint8_t&gt;<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" kindref="member">data</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="871"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBuffer</ref>(ctx,<sp/>JS_NewArrayBufferCopy(ctx,<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" kindref="member">data</ref>.data(),<sp/><ref refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" kindref="member">data</ref>.size()));</highlight></codeline>
+<codeline lineno="872"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="873"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="874"><highlight class="normal"></highlight></codeline>
+<codeline lineno="875"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="876" refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" refkind="member"><highlight class="normal"><ref refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" kindref="member">ValueWrapper&lt;managed&gt;::ValueWrapper</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx,<sp/>JSValue<sp/>val)<sp/>:<sp/>_ctx(ctx),<sp/>_val(val)<sp/>{</highlight></codeline>
+<codeline lineno="877"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(JS_IsException(_val))<sp/>{</highlight></codeline>
+<codeline lineno="878"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/>ctx.<ref refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kindref="member">getException</ref>();</highlight></codeline>
+<codeline lineno="879"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="880"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="881"><highlight class="normal"></highlight></codeline>
+<codeline lineno="882"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="883" refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" kindref="member">ValueWrapper&lt;managed&gt;::isInstanceOf</ref>(<ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWeak</ref><sp/>obj)<sp/>{</highlight></codeline>
+<codeline lineno="884"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_IsInstanceOf(_ctx,<sp/>_val,<sp/>obj.<ref refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kindref="member">getVal</ref>());</highlight></codeline>
+<codeline lineno="885"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="886"><highlight class="normal"></highlight></codeline>
+<codeline lineno="887"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="888"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="889" refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" refkind="member"><highlight class="normal">Res<sp/><ref refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" kindref="member">ObjectWrapper&lt;managed&gt;::invoke</ref>(<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref><sp/>key,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="890"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>get&lt;Function&gt;(key).template<sp/>callThis&lt;Res&gt;(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">,<sp/>args...);</highlight></codeline>
+<codeline lineno="891"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="892"><highlight class="normal"></highlight></codeline>
+<codeline lineno="893"><highlight class="normal"></highlight></codeline>
+<codeline lineno="894"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="895" refid="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" refkind="member"><highlight class="normal">std::string<sp/><ref refid="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" kindref="member">ExceptionWrapper&lt;managed&gt;::stackTrace</ref>()<sp/>noexcept<sp/>{</highlight></codeline>
+<codeline lineno="896"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="897"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWeak</ref><sp/>obj(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="898"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>obj.<ref refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" kindref="member">get</ref>(</highlight><highlight class="stringliteral">&quot;stack&quot;</highlight><highlight class="normal">).toString();</highlight></codeline>
+<codeline lineno="899"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(std::exception<sp/>&amp;e)<sp/>{</highlight></codeline>
+<codeline lineno="900"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;failed<sp/>to<sp/>get<sp/>stack<sp/>trace:<sp/>&quot;</highlight><highlight class="normal"><sp/>+<sp/>std::string(e.what());</highlight></codeline>
+<codeline lineno="901"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="902"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="903"><highlight class="normal"></highlight></codeline>
+<codeline lineno="904"><highlight class="normal"></highlight></codeline>
+<codeline lineno="905"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>managed&gt;</highlight></codeline>
+<codeline lineno="906" refid="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" refkind="member"><highlight class="normal">JSValue<sp/><ref refid="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" kindref="member">ExceptionWrapper&lt;managed&gt;::throwJS</ref>(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref><sp/>ctx)<sp/>{</highlight></codeline>
+<codeline lineno="907"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_type<sp/>==<sp/>Type::Any)<sp/>{</highlight></codeline>
+<codeline lineno="908"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>[_,<sp/>val]<sp/>=<sp/><ref refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kindref="member">ValueWrapper&lt;managed&gt;::loot</ref>();</highlight></codeline>
+<codeline lineno="909"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_Throw(ctx,<sp/>val);</highlight></codeline>
+<codeline lineno="910"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="911"><highlight class="normal"></highlight></codeline>
+<codeline lineno="912"><highlight class="normal"></highlight></codeline>
+<codeline lineno="913"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(_type<sp/>==<sp/>Type::Error)<sp/>{</highlight></codeline>
+<codeline lineno="914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWeak</ref><sp/>errObj(ctx,<sp/>JS_NewError(ctx));</highlight></codeline>
+<codeline lineno="915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>errObj.<ref refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kindref="member">set</ref>(</highlight><highlight class="stringliteral">&quot;message&quot;</highlight><highlight class="normal">,<sp/>_message);</highlight></codeline>
+<codeline lineno="916"><highlight class="normal"></highlight></codeline>
+<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_Throw(ctx,<sp/>errObj.<ref refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kindref="member">getVal</ref>());</highlight></codeline>
+<codeline lineno="918"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="919"><highlight class="normal"></highlight></codeline>
+<codeline lineno="920"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(_type)<sp/>{</highlight></codeline>
+<codeline lineno="921"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Type::SyntaxError:</highlight></codeline>
+<codeline lineno="922"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_ThrowSyntaxError(ctx,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>_message.c_str());</highlight></codeline>
+<codeline lineno="923"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Type::TypeError:</highlight></codeline>
+<codeline lineno="924"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_ThrowTypeError(ctx,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>_message.c_str());</highlight></codeline>
+<codeline lineno="925"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Type::ReferenceError:</highlight></codeline>
+<codeline lineno="926"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_ThrowReferenceError(ctx,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>_message.c_str());</highlight></codeline>
+<codeline lineno="927"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Type::RangeError:</highlight></codeline>
+<codeline lineno="928"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_ThrowRangeError(ctx,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>_message.c_str());</highlight></codeline>
+<codeline lineno="929"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Type::InternalError:</highlight></codeline>
+<codeline lineno="930"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_ThrowInternalError(ctx,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>_message.c_str());</highlight></codeline>
+<codeline lineno="931"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="932"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>JS_Throw(ctx,<sp/>JS_NewError(ctx));</highlight></codeline>
+<codeline lineno="933"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="934"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="935"><highlight class="normal"></highlight></codeline>
+<codeline lineno="936"><highlight class="normal"></highlight></codeline>
+<codeline lineno="937"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>jac</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="938"><highlight class="normal"></highlight></codeline>
+<codeline lineno="939"><highlight class="normal"></highlight></codeline>
+<codeline lineno="940"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;traits.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="941"><highlight class="normal"></highlight></codeline>
+<codeline lineno="942"><highlight class="normal"></highlight></codeline>
+<codeline lineno="943"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">jac<sp/>{</highlight></codeline>
+<codeline lineno="944"><highlight class="normal"></highlight></codeline>
+<codeline lineno="945"><highlight class="normal"></highlight></codeline>
+<codeline lineno="946"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="947"><highlight class="normal">T<sp/>fromValue([[maybe_unused]]<sp/>ContextRef<sp/>ctx,<sp/>[[maybe_unused]]<sp/>ValueWeak<sp/>val)<sp/>{</highlight></codeline>
+<codeline lineno="948"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>(std::is_same_v&lt;T,<sp/>void&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="949"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="950"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="951"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="952"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConvTraits&lt;T&gt;::from(ctx,<sp/>val);</highlight></codeline>
+<codeline lineno="953"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="954"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="955"><highlight class="normal"></highlight></codeline>
+<codeline lineno="956"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="957"><highlight class="normal">Value<sp/>toValue([[maybe_unused]]<sp/>ContextRef<sp/>ctx,<sp/>[[maybe_unused]]<sp/>T<sp/>value)<sp/>{</highlight></codeline>
+<codeline lineno="958"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>(std::is_same_v&lt;T,<sp/>void&gt;)<sp/>{</highlight></codeline>
+<codeline lineno="959"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" kindref="member">Value::undefined</ref>(ctx);</highlight></codeline>
+<codeline lineno="960"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="961"><highlight class="normal"></highlight></codeline>
+<codeline lineno="962"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>val<sp/>=<sp/>ConvTraits&lt;T&gt;::to(ctx,<sp/>value);</highlight></codeline>
+<codeline lineno="963"><highlight class="normal"></highlight></codeline>
+<codeline lineno="964"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>val;</highlight></codeline>
+<codeline lineno="965"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="966"><highlight class="normal"></highlight></codeline>
+<codeline lineno="967"><highlight class="normal"></highlight></codeline>
+<codeline lineno="968"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>jac</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/jac/machine/values.h"/>
+  </compounddef>
+</doxygen>

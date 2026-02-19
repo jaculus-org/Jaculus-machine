@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1Class" kind="class" language="C++" prot="public">
+    <compoundname>jac::Class</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class Builder</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="classjac_1_1Class_1aa33e94dff79afed7fd7b32085b33a72e" prot="private" static="yes" mutable="no">
+        <type>JSClassID</type>
+        <definition>JSClassID jac::Class&lt; Builder &gt;::classId</definition>
+        <argsstring></argsstring>
+        <name>classId</name>
+        <qualifiedname>jac::Class::classId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="287" column="29" bodyfile="src/jac/machine/class.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Class_1a8181253c4c68d535dd3b0fe708ec7043" prot="private" static="yes" mutable="no">
+        <type>JSClassDef</type>
+        <definition>JSClassDef jac::Class&lt; Builder &gt;::classDef</definition>
+        <argsstring></argsstring>
+        <name>classDef</name>
+        <qualifiedname>jac::Class::classDef</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="288" column="30" bodyfile="src/jac/machine/class.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Class_1af64fe88e57dfeddb6cd5654f1bb57409" prot="private" static="yes" mutable="no">
+        <type>std::string</type>
+        <definition>std::string jac::Class&lt; Builder &gt;::className</definition>
+        <argsstring></argsstring>
+        <name>className</name>
+        <qualifiedname>jac::Class::className</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="289" column="31" bodyfile="src/jac/machine/class.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Class_1ad6df6b6ad95c8fde071602af678045a2" prot="private" static="yes" mutable="no">
+        <type>bool</type>
+        <definition>bool jac::Class&lt; Builder &gt;::isConstructor</definition>
+        <argsstring></argsstring>
+        <name>isConstructor</name>
+        <qualifiedname>jac::Class::isConstructor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="290" column="24" bodyfile="src/jac/machine/class.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classjac_1_1Class_1acca8f9f739c6dbf09309d291fc456612" prot="private" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>JSValue</type>
+        <definition>static JSValue jac::Class&lt; Builder &gt;::constructor_impl</definition>
+        <argsstring>(JSContext *ctx, JSValueConst thisVal, int argc, JSValueConst *argv) noexcept</argsstring>
+        <name>constructor_impl</name>
+        <qualifiedname>jac::Class::constructor_impl</qualifiedname>
+        <param>
+          <type>JSContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValueConst</type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>JSValueConst *</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="292" column="20" bodyfile="src/jac/machine/class.h" bodystart="292" bodyend="328"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1Class_1ab08cafccd9d4573e294e2c87d3aacaab" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void jac::Class&lt; Builder &gt;::init</definition>
+        <argsstring>(std::string name, bool isCtor=false)</argsstring>
+        <name>init</name>
+        <qualifiedname>jac::Class::init</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isCtor</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Initialize the class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This function should be called only once. Any subsequent calls with different parameters will throw an exception</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>isCtor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether or not the class is callable a constructor (if it&apos;s callable at all) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="339" column="17" bodyfile="src/jac/machine/class.h" bodystart="339" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Class_1adac6d64b4203b5b4e78667ed7556000d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void jac::Class&lt; Builder &gt;::initContext</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>initContext</name>
+        <qualifiedname>jac::Class::initContext</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the class prototype. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>If the class is already initialized, this function does nothing</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="397" column="17" bodyfile="src/jac/machine/class.h" bodystart="397" bodyend="413"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Class_1ad0c36a5256e61f87ba9d8364ded906e7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSClassID</type>
+        <definition>static JSClassID jac::Class&lt; Builder &gt;::getClassId</definition>
+        <argsstring>()</argsstring>
+        <name>getClassId</name>
+        <qualifiedname>jac::Class::getClassId</qualifiedname>
+        <briefdescription>
+<para>Get the class id of this class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>JSClassID </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="420" column="22" bodyfile="src/jac/machine/class.h" bodystart="420" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Class_1a0d16ecd79c6df7af0c96d65b0250b712" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+        <definition>static Object jac::Class&lt; Builder &gt;::getProto</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>getProto</name>
+        <qualifiedname>jac::Class::getProto</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Get the prototype object of this class in given context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>if the class wasn&apos;t initialized in the context, it will be initialized</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The prototype object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="431" column="19" bodyfile="src/jac/machine/class.h" bodystart="431" bodyend="442"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Class_1a64c3f2c37b3a77e0ec3dfb11784ad647" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>static Function jac::Class&lt; Builder &gt;::getConstructor</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>getConstructor</name>
+        <qualifiedname>jac::Class::getConstructor</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Get the constructor object of this class in given context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>if the class wasn&apos;t initialized in the context, it will be initialized</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The constructor object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="451" column="21" bodyfile="src/jac/machine/class.h" bodystart="451" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Class_1a904c522c9151e1b8afffb6b57304cd91" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>typename Bdr</type>
+            <defval>Builder</defval>
+          </param>
+        </templateparamlist>
+        <type>std::enable_if_t&lt; is_base_of_template_v&lt; <ref refid="structjac_1_1ProtoBuilder_1_1Opaque" kindref="compound">ProtoBuilder::Opaque</ref>, Bdr &gt; &amp;&amp;std::is_base_of_v&lt; typename Bdr::OpaqueType, T &gt; &amp;&amp;std::is_same_v&lt; Bdr, Builder &gt;, <ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref> &gt;</type>
+        <definition>static std::enable_if_t&lt; is_base_of_template_v&lt; ProtoBuilder::Opaque, Bdr &gt; &amp;&amp;std::is_base_of_v&lt; typename Bdr::OpaqueType, T &gt; &amp;&amp;std::is_same_v&lt; Bdr, Builder &gt;, Value &gt; jac::Class&lt; Builder &gt;::createInstance</definition>
+        <argsstring>(ContextRef ctx, T *instance)</argsstring>
+        <name>createInstance</name>
+        <qualifiedname>jac::Class::createInstance</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>T *</type>
+          <declname>instance</declname>
+        </param>
+        <briefdescription>
+<para>Create a new instance of this class in given context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>if the class wasn&apos;t initialized in the context, it will be initialized</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the context </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>instance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a new-allocated instance to be saved as opaque data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The new instance </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="468" column="9" bodyfile="src/jac/machine/class.h" bodystart="468" bodyend="474"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="286" column="1" bodyfile="src/jac/machine/class.h" bodystart="286" bodyend="475"/>
+    <listofallmembers>
+      <member refid="classjac_1_1Class_1a8181253c4c68d535dd3b0fe708ec7043" prot="private" virt="non-virtual"><scope>jac::Class</scope><name>classDef</name></member>
+      <member refid="classjac_1_1Class_1aa33e94dff79afed7fd7b32085b33a72e" prot="private" virt="non-virtual"><scope>jac::Class</scope><name>classId</name></member>
+      <member refid="classjac_1_1Class_1af64fe88e57dfeddb6cd5654f1bb57409" prot="private" virt="non-virtual"><scope>jac::Class</scope><name>className</name></member>
+      <member refid="classjac_1_1Class_1acca8f9f739c6dbf09309d291fc456612" prot="private" virt="non-virtual"><scope>jac::Class</scope><name>constructor_impl</name></member>
+      <member refid="classjac_1_1Class_1a904c522c9151e1b8afffb6b57304cd91" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>createInstance</name></member>
+      <member refid="classjac_1_1Class_1ad0c36a5256e61f87ba9d8364ded906e7" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>getClassId</name></member>
+      <member refid="classjac_1_1Class_1a64c3f2c37b3a77e0ec3dfb11784ad647" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>getConstructor</name></member>
+      <member refid="classjac_1_1Class_1a0d16ecd79c6df7af0c96d65b0250b712" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>getProto</name></member>
+      <member refid="classjac_1_1Class_1ab08cafccd9d4573e294e2c87d3aacaab" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>init</name></member>
+      <member refid="classjac_1_1Class_1adac6d64b4203b5b4e78667ed7556000d" prot="public" virt="non-virtual"><scope>jac::Class</scope><name>initContext</name></member>
+      <member refid="classjac_1_1Class_1ad6df6b6ad95c8fde071602af678045a2" prot="private" virt="non-virtual"><scope>jac::Class</scope><name>isConstructor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

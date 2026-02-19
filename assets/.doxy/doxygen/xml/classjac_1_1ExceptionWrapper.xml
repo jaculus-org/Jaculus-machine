@@ -1,0 +1,408 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ExceptionWrapper" kind="class" language="C++" prot="public">
+    <compoundname>jac::ExceptionWrapper</compoundname>
+    <basecompoundref refid="classjac_1_1ValueWrapper" prot="public" virt="non-virtual">jac::ValueWrapper&lt; managed &gt;</basecompoundref>
+    <basecompoundref prot="public" virt="non-virtual">std::exception</basecompoundref>
+    <includes refid="values_8h" local="no">values.h</includes>
+    <templateparamlist>
+      <param>
+        <type>bool</type>
+        <declname>managed</declname>
+        <defname>managed</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="enum" id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456" prot="public" static="no" strong="yes">
+        <type></type>
+        <name>Type</name>
+        <qualifiedname>jac::ExceptionWrapper::Type</qualifiedname>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456aed36a1ef76a59ee3f15180e0441188ad" prot="public">
+          <name>Any</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a902b0d55fddef6f8d651fe1035b7d4bd" prot="public">
+          <name>Error</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456aece592fd242f4ba674cc9da539a625a7" prot="public">
+          <name>SyntaxError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a137bf8cff2d59f0883c600f9524b3eed" prot="public">
+          <name>TypeError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456af0c115b5c5c017cd42bb8050e8d82306" prot="public">
+          <name>ReferenceError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a66d83f56eefb07fec956c23a0ee5ad2d" prot="public">
+          <name>RangeError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a8462b58246e70e5c83e5b939a9332cb5" prot="public">
+          <name>InternalError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="322" column="5" bodyfile="src/jac/machine/values.h" bodystart="322" bodyend="330"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1ExceptionWrapper_1af060d2ece1deae083200859c213190c4" prot="private" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string jac::ExceptionWrapper&lt; managed &gt;::_message</definition>
+        <argsstring></argsstring>
+        <name>_message</name>
+        <qualifiedname>jac::ExceptionWrapper::_message</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="332" column="17" bodyfile="src/jac/machine/values.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1ExceptionWrapper_1ad8bde76cff986d0a25e7ea0dcff2dd20" prot="private" static="no" mutable="no">
+        <type>Type</type>
+        <definition>Type jac::ExceptionWrapper&lt; managed &gt;::_type</definition>
+        <argsstring></argsstring>
+        <name>_type</name>
+        <qualifiedname>jac::ExceptionWrapper::_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="333" column="10" bodyfile="src/jac/machine/values.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1acb2ed5451c4e84e21fff3b8b8bf11e3c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ExceptionWrapper&lt; managed &gt;::ExceptionWrapper</definition>
+        <argsstring>(Type type, std::string message)</argsstring>
+        <name>ExceptionWrapper</name>
+        <qualifiedname>jac::ExceptionWrapper::ExceptionWrapper</qualifiedname>
+        <param>
+          <type>Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="335" column="5" bodyfile="src/jac/machine/values.h" bodystart="335" bodyend="335"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1a9a44e5d5e67878336eaf6f72ac06cf7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ExceptionWrapper&lt; managed &gt;::ExceptionWrapper</definition>
+        <argsstring>(ValueWrapper&lt; managed &gt; value)</argsstring>
+        <name>ExceptionWrapper</name>
+        <qualifiedname>jac::ExceptionWrapper::ExceptionWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt; managed &gt;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Wrap an existing JSValue. If managed is true, JSValue will be freed when the Exception is destroyed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Used internally when directly working with QuickJS API. New Exception should be created using <ref refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kindref="member">Exception::create()</ref> or by converting an existing Value to an Exception using <ref refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kindref="member">Value::to&lt;Exception&gt;()</ref>.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSValue to wrap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="348" column="5" bodyfile="src/jac/machine/values.h" bodystart="348" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1ad99cc7990b4a99e85b21794f40bfcde3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ExceptionWrapper&lt; managed &gt;::ExceptionWrapper</definition>
+        <argsstring>(ContextRef ctx, JSValue val)</argsstring>
+        <name>ExceptionWrapper</name>
+        <qualifiedname>jac::ExceptionWrapper::ExceptionWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValue</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="351" column="5" bodyfile="src/jac/machine/values.h" bodystart="351" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" prot="public" static="no" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::ExceptionWrapper&lt; managed &gt;::stackTrace</definition>
+        <argsstring>() noexcept</argsstring>
+        <name>stackTrace</name>
+        <qualifiedname>jac::ExceptionWrapper::stackTrace</qualifiedname>
+        <briefdescription>
+<para>Get the exception stack trace. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>std::string containing the stack trace </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="358" column="17" bodyfile="src/jac/machine/values.h" bodystart="895" bodyend="902"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1a21513f888170af549c9ed26ddb32f4a2" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * jac::ExceptionWrapper&lt; managed &gt;::what</definition>
+        <argsstring>() const noexcept override</argsstring>
+        <name>what</name>
+        <qualifiedname>jac::ExceptionWrapper::what</qualifiedname>
+        <briefdescription>
+<para>Get the exception message. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>std::string containing the exception message </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="365" column="16" bodyfile="src/jac/machine/values.h" bodystart="365" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>JSValue</type>
+        <definition>JSValue jac::ExceptionWrapper&lt; managed &gt;::throwJS</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>throwJS</name>
+        <qualifiedname>jac::ExceptionWrapper::throwJS</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Throw the exception into JS. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Used internally when directly working with QuickJS API. In most cases, exceptions should be thrown using a throw statement and wrapper functions will propagate the exception to JS. </para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to throw the exception in</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>JSValue containing the exception </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="388" column="13" bodyfile="src/jac/machine/values.h" bodystart="906" bodyend="934"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref></type>
+        <definition>static Exception jac::ExceptionWrapper&lt; managed &gt;::create</definition>
+        <argsstring>(Type type, std::string message)</argsstring>
+        <name>create</name>
+        <qualifiedname>jac::ExceptionWrapper::create</qualifiedname>
+        <param>
+          <type>Type</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Create a new Exception. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the exception </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>exception message </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting Exception </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="376" column="22" bodyfile="src/jac/machine/values.h" bodystart="376" bodyend="378"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>An exception wrapper which can either wrap a JSValue or contain an exception description and can be thrown into JS as a specific Error type. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>managed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether the JSValue should be freed when the wrapper is destroyed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>jac::ExceptionWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ExceptionWrapper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+      </node>
+      <node id="3">
+        <label>std::exception</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>jac::ContextRef</label>
+        <link refid="classjac_1_1ContextRef"/>
+      </node>
+      <node id="1">
+        <label>jac::ExceptionWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ExceptionWrapper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>_ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>std::exception</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/values.h" line="320" column="1" bodyfile="src/jac/machine/values.h" bodystart="320" bodyend="389"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ValueWrapper_1abb202860c6e6398341e7dde74e60baa9" prot="protected" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1af060d2ece1deae083200859c213190c4" prot="private" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>_message</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1ad8bde76cff986d0a25e7ea0dcff2dd20" prot="private" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>_type</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a66a74b7b7bc37155f184b4c30f0de510" prot="protected" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>_val</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>create</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1acb2ed5451c4e84e21fff3b8b8bf11e3c" prot="private" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ExceptionWrapper</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a9a44e5d5e67878336eaf6f72ac06cf7d" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ExceptionWrapper</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1ad99cc7990b4a99e85b21794f40bfcde3" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ExceptionWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>from</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>fromJSON</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>getVal</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isArray</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isBigInt</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isBoolean</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isFunction</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isInstanceOf</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isNull</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isNumber</name></member>
+      <member refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isObject</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isString</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isSymbol</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>isUndefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>loot</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>null</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1487786919dca0744c5cc5a50ef5b5c5" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>operator ValueWeak</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8f29f7fc54b32aa65c42ab57c80edbd9" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af6e64cb0e4faf7a7244da5a99090467f" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>stackTrace</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>stringify</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>throwJS</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>to</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>toString</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>Type</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>undefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afdf44e341bdfb6aa504ce08843eceb56" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97a125d921f216dcfc370c7a23c9575" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ExceptionWrapper_1a21513f888170af549c9ed26ddb32f4a2" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>what</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abe9db711b8ec57ff73a0e0dd309ac3c4" prot="public" virt="non-virtual"><scope>jac::ExceptionWrapper</scope><name>~ValueWrapper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

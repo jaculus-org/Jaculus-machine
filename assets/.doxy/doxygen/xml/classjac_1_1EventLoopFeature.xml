@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1EventLoopFeature" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>jac::EventLoopFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <includes refid="eventLoopFeature_8h" local="no">eventLoopFeature.h</includes>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1EventLoopFeature_1ad4683d592c794aa12fe64ee90ef2c5a4" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; jac::EventLoopFeature&lt; Next &gt;::_shouldExit</definition>
+        <argsstring></argsstring>
+        <name>_shouldExit</name>
+        <qualifiedname>jac::EventLoopFeature::_shouldExit</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="22" column="17" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1EventLoopFeature_1a92c32770c2bc3f384efcc73c643f2709" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int jac::EventLoopFeature&lt; Next &gt;::_exitCode</definition>
+        <argsstring></argsstring>
+        <name>_exitCode</name>
+        <qualifiedname>jac::EventLoopFeature::_exitCode</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="23" column="9" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classjac_1_1EventLoopFeature_1a84e603f4301cdb90fd2cdb606fa9f790" prot="protected" static="no" mutable="no">
+        <type>std::optional&lt; <ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref> &gt;</type>
+        <definition>std::optional&lt;Exception&gt; jac::EventLoopFeature&lt; Next &gt;::_error</definition>
+        <argsstring></argsstring>
+        <name>_error</name>
+        <qualifiedname>jac::EventLoopFeature::_error</qualifiedname>
+        <initializer>= std::nullopt</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="26" column="19" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1af992adce61ddc0fee097268fa78f3063" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::evalWithEventLoopCommon</definition>
+        <argsstring>(Value &amp;promise)</argsstring>
+        <name>evalWithEventLoopCommon</name>
+        <qualifiedname>jac::EventLoopFeature::evalWithEventLoopCommon</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref> &amp;</type>
+          <declname>promise</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="28" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="28" bodyend="41"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a9a1b49cefe7c4778011bcf5994b47dba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::runEventLoop</definition>
+        <argsstring>()</argsstring>
+        <name>runEventLoop</name>
+        <qualifiedname>jac::EventLoopFeature::runEventLoop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="44" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="44" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a8873d2ca9f51433d7238c5d056623242" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::kill</definition>
+        <argsstring>()</argsstring>
+        <name>kill</name>
+        <qualifiedname>jac::EventLoopFeature::kill</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="90" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="90" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a06fa997f7c7c30e38e1a170d52505a0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::exit</definition>
+        <argsstring>(int code)</argsstring>
+        <name>exit</name>
+        <qualifiedname>jac::EventLoopFeature::exit</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="97" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a8bea7b25ce4f6944788e1df3360d67ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int jac::EventLoopFeature&lt; Next &gt;::getExitCode</definition>
+        <argsstring>()</argsstring>
+        <name>getExitCode</name>
+        <qualifiedname>jac::EventLoopFeature::getExitCode</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="102" column="9" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="102" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a729cf530a660126593b088d0740c8c2e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::evalModuleWithEventLoop</definition>
+        <argsstring>(std::string code, std::string filename)</argsstring>
+        <name>evalModuleWithEventLoop</name>
+        <qualifiedname>jac::EventLoopFeature::evalModuleWithEventLoop</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="106" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="106" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a4ae0662fd6744313f70c5ee422be45f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void jac::EventLoopFeature&lt; Next &gt;::runOnEventLoop</definition>
+        <argsstring>()=0</argsstring>
+        <name>runOnEventLoop</name>
+        <qualifiedname>jac::EventLoopFeature::runOnEventLoop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="111" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1a6abdda872a9d03457f9b1fbcc8b5a63a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::EventLoopFeature::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="113" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="113" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventLoopFeature_1aa9e79d6d401922292cc6e5d531a305e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventLoopFeature&lt; Next &gt;::onEventLoop</definition>
+        <argsstring>()</argsstring>
+        <name>onEventLoop</name>
+        <qualifiedname>jac::EventLoopFeature::onEventLoop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopFeature.h" line="121" column="10" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="121" bodyend="123"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>The <ref refid="classjac_1_1EventLoopFeature" kindref="compound">EventLoopFeature</ref> must be companied by <ref refid="classjac_1_1EventLoopTerminal" kindref="compound">EventLoopTerminal</ref> at the top of the Machine stack. </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventLoopFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventLoopFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventLoopFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventLoopFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/eventLoopFeature.h" line="20" column="1" bodyfile="src/jac/features/eventLoopFeature.h" bodystart="20" bodyend="124"/>
+    <listofallmembers>
+      <member refid="classjac_1_1EventLoopFeature_1a84e603f4301cdb90fd2cdb606fa9f790" prot="protected" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>_error</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a92c32770c2bc3f384efcc73c643f2709" prot="private" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>_exitCode</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1ad4683d592c794aa12fe64ee90ef2c5a4" prot="private" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>_shouldExit</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a729cf530a660126593b088d0740c8c2e" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>evalModuleWithEventLoop</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1af992adce61ddc0fee097268fa78f3063" prot="protected" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>evalWithEventLoopCommon</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a06fa997f7c7c30e38e1a170d52505a0e" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>exit</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a8bea7b25ce4f6944788e1df3360d67ed" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>getExitCode</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a6abdda872a9d03457f9b1fbcc8b5a63a" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>initialize</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a8873d2ca9f51433d7238c5d056623242" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>kill</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1aa9e79d6d401922292cc6e5d531a305e0" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>onEventLoop</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a9a1b49cefe7c4778011bcf5994b47dba" prot="public" virt="non-virtual"><scope>jac::EventLoopFeature</scope><name>runEventLoop</name></member>
+      <member refid="classjac_1_1EventLoopFeature_1a4ae0662fd6744313f70c5ee422be45f6" prot="public" virt="pure-virtual"><scope>jac::EventLoopFeature</scope><name>runOnEventLoop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

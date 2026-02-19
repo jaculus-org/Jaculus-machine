@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ProtoBuilder_1_1Callable" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ProtoBuilder::Callable</compoundname>
+    <includes refid="class_8h" local="no">class.h</includes>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Callable_1a5865ea5916b28263ea922d50a6b70f26" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ProtoBuilder::Callable::callFunction</definition>
+        <argsstring>(ContextRef, ValueWeak, ValueWeak, std::vector&lt; ValueWeak &gt;)</argsstring>
+        <name>callFunction</name>
+        <qualifiedname>jac::ProtoBuilder::Callable::callFunction</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+        </param>
+        <briefdescription>
+<para>Process a call to the wrapped class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>funcObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>thisVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of <computeroutput>this</computeroutput> in the function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arguments passed to the function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>result of the call </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="248" column="22" bodyfile="src/jac/machine/class.h" bodystart="248" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Callable_1a67e45db3a23098adb43926fe53ce057d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ProtoBuilder::Callable::callConstructor</definition>
+        <argsstring>(ContextRef, ValueWeak, ValueWeak, std::vector&lt; ValueWeak &gt;)</argsstring>
+        <name>callConstructor</name>
+        <qualifiedname>jac::ProtoBuilder::Callable::callConstructor</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+        </param>
+        <briefdescription>
+<para>Process a call to the wrapped class as a constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>funcObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>target</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of <computeroutput>new.target</computeroutput> in the function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arguments passed to the function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of the call </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="261" column="22" bodyfile="src/jac/machine/class.h" bodystart="261" bodyend="263"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A base class for javascript classes with callable instances. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The functions <computeroutput>callFunction</computeroutput> and <computeroutput>callConstructor</computeroutput> can be overriden to provide custom handling of the class instance when it&apos;s called as a function or as a constructor (with <computeroutput>new</computeroutput>). </para>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="238" column="5" bodyfile="src/jac/machine/class.h" bodystart="238" bodyend="264"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ProtoBuilder_1_1Callable_1a67e45db3a23098adb43926fe53ce057d" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Callable</scope><name>callConstructor</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Callable_1a5865ea5916b28263ea922d50a6b70f26" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Callable</scope><name>callFunction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

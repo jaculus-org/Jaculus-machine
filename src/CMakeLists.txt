@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 
 set(JAC_MACHINE_SRC
     "jac/machine/machine.cpp"

@@ -7,8 +7,10 @@
 
 #ifdef COMPILE_CFG_ONLY
     #include "compiler/compileInterpEvalFeature.h"
-#else
+#elif defined(COMPILE_BIN)
     #include <jac/features/aotEvalFeature.h>
+#elif defined(COMPILE_TLESS)
+    #include "compiler/compileTlessInterpEvalFeature.h"
 #endif
 
 #undef CHECK

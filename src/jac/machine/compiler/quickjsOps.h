@@ -29,6 +29,20 @@ inline double getDouble(JSValue op) {
 }
 
 
+inline JSValue toNumber(JSContext* ctx, JSValue val, int32_t* exceptionFlag) {
+    constexpr std::string_view code("(x) => +x");
+    JSValue args[1] = { val };
+    JSValue fn = JS_Eval(ctx, code.data(), code.size(), "<builtin_toNumber>", JS_EVAL_TYPE_GLOBAL);
+    JSValue res = JS_Call(ctx, fn, JS_UNDEFINED, 1, args);
+    JS_FreeValue(ctx, fn);
+    if (JS_IsException(res)) {
+        *exceptionFlag = 1;
+        return JS_EXCEPTION;
+    }
+    return res;
+}
+
+
 inline JSValue add(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionFlag) {
     JSValue res;
 

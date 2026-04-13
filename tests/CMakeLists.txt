@@ -41,13 +41,22 @@ target_link_libraries(compileCfg PUBLIC jac-machine Catch2::Catch2WithMain)
 add_test(NAME compileCfg COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileCfg)
 
 add_executable(compileNative compile.cpp)
+target_compile_definitions(compileNative PRIVATE COMPILE_BIN)
 target_link_libraries(compileNative PUBLIC jac-machine Catch2::Catch2WithMain)
 add_test(NAME compileNative COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileNative)
+
+add_executable(compileTless compile.cpp)
+target_compile_definitions(compileTless PRIVATE COMPILE_TLESS)
+target_link_libraries(compileTless PUBLIC jac-machine Catch2::Catch2WithMain)
+add_test(NAME compileTless COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileTless)
 
 add_test_executable(cfgInterp)
 add_test_executable(regression)
 
 add_executable(bench bench.cpp)
 target_link_libraries(bench PUBLIC jac-machine Catch2::Catch2WithMain)
+
+add_executable(bytecodeGen bytecodeGen.cpp)
+target_link_libraries(bytecodeGen PUBLIC jac-machine Catch2::Catch2WithMain)
 
 file(COPY test_files DESTINATION "./")

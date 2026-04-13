@@ -288,7 +288,7 @@ struct Terminator {
         Branch,
         Return,
         Throw,
-        None  // invalid jump type used for initialization
+        None  // invalid terminator
     };
 
     Type type;
@@ -421,45 +421,13 @@ private:
 public:
     BasicBlockBuilder(BasicBlockPtr block_): block(block_) {}
 
-    auto& jump() {
+    auto& term() {
         return block->terminator;
     }
 
     ~BasicBlockBuilder() {
         return;
         assert(block == nullptr);
-
-        // setJump(Terminator::none());
-
-        // auto disconnectFwd = [&](auto& target) {
-        //     if (target == block.get()) {
-        //         target = nullptr;
-        //     }
-        // };
-        // for (auto pred : block->predecessors) {
-        //     disconnectFwd(pred->terminator->target);
-        //     disconnectFwd(pred->terminator->other);
-        // }
-
-        // for (auto& instr : block->instructions) {
-        //     if (auto op = std::get_if<Operation>(&instr->op)) {
-        //         for (const auto& reg : op->args) {
-        //             if (reg) {
-        //                 reg->uses.erase(instr.get());
-        //             }
-        //         }
-        //         for (const auto& reg : op->res) {
-        //             if (reg) {
-        //                 reg->assign = nullptr;
-        //             }
-        //         }
-        //     }
-        //     else if (auto init = std::get_if<ConstInit>(&instr->op)) {
-        //         if (init->reg) {
-        //             init->reg->assign = nullptr;
-        //         }
-        //     }
-        // }
     }
 
     const std::set<BasicBlockPtr>& predecessors = block->predecessors;
@@ -483,45 +451,12 @@ public:
         }
     }
 
-    /*void setJump(Terminator newJump) {
-        auto reconnect = [&](auto a, auto b) {
-            if (a != b) {
-                if (a) {
-                    a->removePredecessor(this);
-                }
-                if (b) {
-                    b->addPredecessor(this);
-                }
-            }
-        };
-
-        reconnect(_jump->target, newJump.target);
-        reconnect(_jump->other, newJump.other);
-
-        for (auto& reg : _jump->args) {
-            reg->terminatorUses.erase(_jump.get());
-        }
-        if (!_jump->value.void_()) {
-            _jump->value->terminatorUses.erase(_jump.get());
-        }
-
-        newJump.parentBlock = this;
-        (*_jump) = std::move(newJump);
-
-        for (auto& reg : _jump->args) {
-            reg->terminatorUses.insert(_jump.get());
-        }
-        if (!_jump->value.void_()) {
-            _jump->value->terminatorUses.insert(_jump.get());
-        }
-    }*/
-
     void fixTerminatorRegUses() {
-        for (auto& reg : jump().args) {
+        for (auto& reg : term().args) {
             reg.setUse(block);
         }
-        if (!jump().value.void_()) {
-            jump().value.setUse(block);
+        if (!term().value.void_()) {
+            term().value.setUse(block);
         }
     }
 

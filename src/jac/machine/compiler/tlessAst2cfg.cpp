@@ -594,7 +594,7 @@ bool emitStmt(const ast::LexicalDeclaration& stmt, FunctionEmitter& func) {
 bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
     auto preBlock = func.getActiveBlock();
 
-    assert(preBlock->jump().args.size() == 0);
+    assert(preBlock->term().args.size() == 0);
     auto initBlock = func.createBlock(func.getActiveBlock()->varToReg, 0);  // XXX: emit into preBlock?
     BasicBlockBuilderPtr condBlock;
     BasicBlockBuilderPtr updateBlock;
@@ -648,7 +648,7 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
         auto ___ = func.pushContinueTarget(updateBlock, &innerVars);
         emitStmt(*bodyStmt, func);
     }
-    if (func.getActiveBlock()->jump().type == Terminator::None) {
+    if (func.getActiveBlock()->term().type == Terminator::None) {
         func.getActiveBlock()->setJump(*updateBlock);
     }
 
@@ -741,7 +741,7 @@ bool emitStmt(const ast::IfStatement& stmt, FunctionEmitter& func) {
     func.setActiveBlock(ifBlock);
     emitStmt(*stmt.consequent(), func);
 
-    if (func.getActiveBlock()->jump().type == Terminator::None) {
+    if (func.getActiveBlock()->term().type == Terminator::None) {
         func.getActiveBlock()->setJump(*postBlock);
     }
 
@@ -750,7 +750,7 @@ bool emitStmt(const ast::IfStatement& stmt, FunctionEmitter& func) {
     if (auto alt = stmt.alternate()) {
         emitStmt(*alt, func);
     }
-    if (func.getActiveBlock()->jump().type == Terminator::None) {
+    if (func.getActiveBlock()->term().type == Terminator::None) {
         func.getActiveBlock()->setJump(*postBlock);
     }
 
@@ -827,7 +827,7 @@ FunctionEmitter ast2cfg(const ast::Function& decl, SignaturePtr sig, FunctionEmi
         emitStmt(*decl.body(), out);
     }
 
-    if (out.getActiveBlock()->jump().type == Terminator::None) {
+    if (out.getActiveBlock()->term().type == Terminator::None) {
         out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
     }
@@ -852,7 +852,7 @@ FunctionEmitter ast2cfg(const ast::Script& s) {
         emitStmt(*s.body(), out, true);
     }
 
-    if (out.getActiveBlock()->jump().type == Terminator::None) {
+    if (out.getActiveBlock()->term().type == Terminator::None) {
         out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
     }
@@ -874,7 +874,7 @@ FunctionEmitter ast2cfg(const ast::Module& m) {
         emitStmt(*m.body(), out, false);
     }
 
-    if (out.getActiveBlock()->jump().type == Terminator::None) {
+    if (out.getActiveBlock()->term().type == Terminator::None) {
         out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
     }

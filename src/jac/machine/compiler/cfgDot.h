@@ -42,7 +42,7 @@ inline void print(std::ostream& os, Opcode op) {
         case Opcode::Dup: os << "Dup"; break;
         case Opcode::PushUnref: os << "PushFree"; break;
         case Opcode::SetMember: os << "SetMember"; break;
-        }
+    }
 }
 
 inline void printShort(std::ostream& os, ValueType type) {

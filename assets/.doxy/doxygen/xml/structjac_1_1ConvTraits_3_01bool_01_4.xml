@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ConvTraits_3_01bool_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ConvTraits&lt; bool &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01bool_01_4_1a63d7d8ced5b713add56fa47bc8dcaa74" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>static bool jac::ConvTraits&lt; bool &gt;::from</definition>
+        <argsstring>(ContextRef ctx, ValueWeak val)</argsstring>
+        <name>from</name>
+        <qualifiedname>jac::ConvTraits&lt; bool &gt;::from</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/traits.h" line="27" column="17" bodyfile="src/jac/machine/traits.h" bodystart="27" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01bool_01_4_1a8ceb3d8cb1b9809d6d2e62c19557725a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ConvTraits&lt; bool &gt;::to</definition>
+        <argsstring>(ContextRef ctx, bool val)</argsstring>
+        <name>to</name>
+        <qualifiedname>jac::ConvTraits&lt; bool &gt;::to</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/traits.h" line="31" column="18" bodyfile="src/jac/machine/traits.h" bodystart="31" bodyend="33"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/traits.h" line="26" column="1" bodyfile="src/jac/machine/traits.h" bodystart="26" bodyend="34"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ConvTraits_3_01bool_01_4_1a63d7d8ced5b713add56fa47bc8dcaa74" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; bool &gt;</scope><name>from</name></member>
+      <member refid="structjac_1_1ConvTraits_3_01bool_01_4_1a8ceb3d8cb1b9809d6d2e62c19557725a" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; bool &gt;</scope><name>to</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

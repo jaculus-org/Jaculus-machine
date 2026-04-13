@@ -1,0 +1,669 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.8" xml:lang="en-US">
+  <compound refid="classjac_1_1ArrayBufferWrapper" kind="class"><name>jac::ArrayBufferWrapper</name>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a7fed2f236791c69e30c94fb652a485ac" kind="function"><name>freeArrayBuffer</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1aead28949e0d68631df49f766fd03eb47" kind="function"><name>ArrayBufferWrapper</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a7b15d32949fd1818f3ab9c6543a66e82" kind="function"><name>ArrayBufferWrapper</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a154c68e63b055e4c93bc869f1e6f3f32" kind="function"><name>data</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a383ddad02abc92fb993c7bcc1ab8c2e8" kind="function"><name>size</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a49a90cc5e4dea4a6fed118bcd9f09c54" kind="function"><name>typedView</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1ad6f26ff2c28b39189c81f59cfc1020c5" kind="function"><name>create</name></member>
+    <member refid="classjac_1_1ArrayBufferWrapper_1a21bc097d89934fa8b9b44a1431893cf5" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="classjac_1_1ArrayWrapper" kind="class"><name>jac::ArrayWrapper</name>
+    <member refid="classjac_1_1ArrayWrapper_1af2dac912e256c8e2dc91eb8d2a195034" kind="function"><name>ArrayWrapper</name></member>
+    <member refid="classjac_1_1ArrayWrapper_1a63167c686b3f4e27c06d92e7f31838fc" kind="function"><name>ArrayWrapper</name></member>
+    <member refid="classjac_1_1ArrayWrapper_1aded9d5be4c6be89cc189bb35ea6eb8e1" kind="function"><name>length</name></member>
+    <member refid="classjac_1_1ArrayWrapper_1a1ebbce86b94282080e4ec1f2e24715bd" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="classjac_1_1Atom" kind="class"><name>jac::Atom</name>
+    <member refid="classjac_1_1Atom_1a83f7c132baeb9064140408a719f0de1b" kind="variable"><name>_ctx</name></member>
+    <member refid="classjac_1_1Atom_1a1fa16dc9b597ad7ae31a6eb412d3ac3a" kind="variable"><name>_atom</name></member>
+    <member refid="classjac_1_1Atom_1a45fc82b158d06498da1345f67263ff0e" kind="function"><name>Atom</name></member>
+    <member refid="classjac_1_1Atom_1a857c3e6650bbb6f07fcfc8d51f7c1902" kind="function"><name>Atom</name></member>
+    <member refid="classjac_1_1Atom_1afe0a37ef2afca50a255b513c63a4fcb3" kind="function"><name>Atom</name></member>
+    <member refid="classjac_1_1Atom_1a84dc368cb76b731ff1bfe28c93538c8d" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1Atom_1a2d4202966e2f5ab405506cc2b73b1149" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1Atom_1a7d58be96118d10c1463f28e1b362d8df" kind="function"><name>~Atom</name></member>
+    <member refid="classjac_1_1Atom_1aa6669b84551cd4edfc9206286a4ebe3a" kind="function"><name>toString</name></member>
+    <member refid="classjac_1_1Atom_1a9119c5e4293f8f489630d95ff37a44b2" kind="function"><name>loot</name></member>
+    <member refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kind="function"><name>create</name></member>
+    <member refid="classjac_1_1Atom_1a1bcd882342d35149f028dd2b58fb7f55" kind="function"><name>create</name></member>
+    <member refid="classjac_1_1Atom_1ab9069e4e75071e7d6015d46ebf3041bb" kind="function"><name>create</name></member>
+    <member refid="classjac_1_1Atom_1a64dbb51d42ddf6a0c04a227c979bbe60" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classjac_1_1BasicStreamFeature" kind="class"><name>jac::BasicStreamFeature</name>
+    <member refid="classjac_1_1BasicStreamFeature_1a120223ceabd0e4543a0f56afe43bbaa4" kind="typedef"><name>WritableClass</name></member>
+    <member refid="classjac_1_1BasicStreamFeature_1afaab9a5a052a6c7b7368a74decb062a2" kind="typedef"><name>ReadableClass</name></member>
+    <member refid="classjac_1_1BasicStreamFeature_1acb7f3cb2532b1a0bdd159c82c43b6ab7" kind="function"><name>BasicStreamFeature</name></member>
+    <member refid="classjac_1_1BasicStreamFeature_1a91dc6819c16a21d436f3a60a1ebb03ae" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="structjac_1_1ProtoBuilder_1_1Callable" kind="struct"><name>jac::ProtoBuilder::Callable</name>
+    <member refid="structjac_1_1ProtoBuilder_1_1Callable_1a5865ea5916b28263ea922d50a6b70f26" kind="function"><name>callFunction</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Callable_1a67e45db3a23098adb43926fe53ce057d" kind="function"><name>callConstructor</name></member>
+  </compound>
+  <compound refid="classnoal_1_1callableany" kind="class"><name>noal::callableany</name>
+  </compound>
+  <compound refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4" kind="class"><name>noal::callableany&lt; Func, Res(Args...)&gt;</name>
+    <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a3be16a9c3b5449360f600357489d6644" kind="variable"><name>func</name></member>
+    <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a98932b1fbb1a2a675f18ff98fc2a8135" kind="function"><name>callableany</name></member>
+    <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1ae6a4f9ebda44272d4917725a608d65b6" kind="function"><name>operator()</name></member>
+    <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a8784f5c6d251c07bf2b57c67375989d8" kind="function"><name>call</name></member>
+  </compound>
+  <compound refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check" kind="struct"><name>jac::detail::is_base_of_template_impl::check</name>
+  </compound>
+  <compound refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check_3_01A_00_01std_1_1void__t_3_01A_3_01Derived_01_4_01_4_01_4" kind="struct"><name>jac::detail::is_base_of_template_impl::check&lt; A, std::void_t&lt; A&lt; Derived &gt; &gt; &gt;</name>
+  </compound>
+  <compound refid="classjac_1_1Class" kind="class"><name>jac::Class</name>
+    <member refid="classjac_1_1Class_1aa33e94dff79afed7fd7b32085b33a72e" kind="variable"><name>classId</name></member>
+    <member refid="classjac_1_1Class_1a8181253c4c68d535dd3b0fe708ec7043" kind="variable"><name>classDef</name></member>
+    <member refid="classjac_1_1Class_1af64fe88e57dfeddb6cd5654f1bb57409" kind="variable"><name>className</name></member>
+    <member refid="classjac_1_1Class_1ad6df6b6ad95c8fde071602af678045a2" kind="variable"><name>isConstructor</name></member>
+    <member refid="classjac_1_1Class_1acca8f9f739c6dbf09309d291fc456612" kind="function"><name>constructor_impl</name></member>
+    <member refid="classjac_1_1Class_1ab08cafccd9d4573e294e2c87d3aacaab" kind="function"><name>init</name></member>
+    <member refid="classjac_1_1Class_1adac6d64b4203b5b4e78667ed7556000d" kind="function"><name>initContext</name></member>
+    <member refid="classjac_1_1Class_1ad0c36a5256e61f87ba9d8364ded906e7" kind="function"><name>getClassId</name></member>
+    <member refid="classjac_1_1Class_1a0d16ecd79c6df7af0c96d65b0250b712" kind="function"><name>getProto</name></member>
+    <member refid="classjac_1_1Class_1a64c3f2c37b3a77e0ec3dfb11784ad647" kind="function"><name>getConstructor</name></member>
+    <member refid="classjac_1_1Class_1a904c522c9151e1b8afffb6b57304cd91" kind="function"><name>createInstance</name></member>
+  </compound>
+  <compound refid="classjac_1_1TimersFeature_1_1CompareTimer" kind="class"><name>jac::TimersFeature::CompareTimer</name>
+    <member refid="classjac_1_1TimersFeature_1_1CompareTimer_1a149388851fd8e378513b020ec22848a7" kind="function"><name>operator()</name></member>
+  </compound>
+  <compound refid="structjac_1_1ComposeMachine" kind="struct"><name>jac::ComposeMachine</name>
+  </compound>
+  <compound refid="structjac_1_1ComposeMachine_3_01Base_01_4" kind="struct"><name>jac::ComposeMachine&lt; Base &gt;</name>
+  </compound>
+  <compound refid="structjac_1_1ComposeMachine_3_01Base_00_01FirstFeature_00_01MFeatures_8_8_8_01_4" kind="struct"><name>jac::ComposeMachine&lt; Base, FirstFeature, MFeatures... &gt;</name>
+  </compound>
+  <compound refid="classjac_1_1ContextRef" kind="class"><name>jac::ContextRef</name>
+    <member refid="classjac_1_1ContextRef_1abdf85584e4e4017b5dcf5b352c1445d0" kind="variable"><name>_ctx</name></member>
+    <member refid="classjac_1_1ContextRef_1a732fa2bec33e72b5f7021b887e35ee18" kind="function"><name>ContextRef</name></member>
+    <member refid="classjac_1_1ContextRef_1ac4086fd24cb6c5ccee5e23e172cf182f" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" kind="function"><name>getException</name></member>
+    <member refid="classjac_1_1ContextRef_1a044211f4d39508aff6c39d8fe088f59a" kind="function"><name>getGlobalObject</name></member>
+    <member refid="classjac_1_1ContextRef_1aef695898f4515dd2536e0efc764fc56e" kind="function"><name>operator JSContext *</name></member>
+    <member refid="classjac_1_1ContextRef_1ad72ec9bcd884ea51a4c1f0581f2066f8" kind="function"><name>operator JSContext *</name></member>
+    <member refid="classjac_1_1ContextRef_1a46ab92aaa24c7dfd0159a50f1b8e3c7c" kind="function"><name>operator bool</name></member>
+    <member refid="classjac_1_1ContextRef_1ac6f9155457aacbb1b5bfbc784473cde6" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="structjac_1_1ConvTraits" kind="struct"><name>jac::ConvTraits</name>
+    <member refid="structjac_1_1ConvTraits_1a0569dc910b9deff033d2772ba0488062" kind="function"><name>from</name></member>
+    <member refid="structjac_1_1ConvTraits_1ab7928fcdfff76a015dfa527b575af8dc" kind="function"><name>to</name></member>
+  </compound>
+  <compound refid="structjac_1_1ConvTraits_3_01bool_01_4" kind="struct"><name>jac::ConvTraits&lt; bool &gt;</name>
+    <member refid="structjac_1_1ConvTraits_3_01bool_01_4_1a63d7d8ced5b713add56fa47bc8dcaa74" kind="function"><name>from</name></member>
+    <member refid="structjac_1_1ConvTraits_3_01bool_01_4_1a8ceb3d8cb1b9809d6d2e62c19557725a" kind="function"><name>to</name></member>
+  </compound>
+  <compound refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4" kind="struct"><name>jac::ConvTraits&lt; std::chrono::milliseconds &gt;</name>
+    <member refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a9d5e5e79d8f97d899fb74978213fc00a" kind="function"><name>from</name></member>
+    <member refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a553d935d7baff23cb019477d8d8fcb59" kind="function"><name>to</name></member>
+  </compound>
+  <compound refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d" kind="struct"><name>jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;</name>
+    <member refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a2b2c04fa6f0fbb411b14ad1ad300994f" kind="function"><name>from</name></member>
+    <member refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d_1a333aa181e612ca69a1acd24f8b9ae16d" kind="function"><name>to</name></member>
+  </compound>
+  <compound refid="classjac_1_1EventLoopFeature" kind="class"><name>jac::EventLoopFeature</name>
+    <member refid="classjac_1_1EventLoopFeature_1ad4683d592c794aa12fe64ee90ef2c5a4" kind="variable"><name>_shouldExit</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a92c32770c2bc3f384efcc73c643f2709" kind="variable"><name>_exitCode</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a84e603f4301cdb90fd2cdb606fa9f790" kind="variable"><name>_error</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1af992adce61ddc0fee097268fa78f3063" kind="function"><name>evalWithEventLoopCommon</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a9a1b49cefe7c4778011bcf5994b47dba" kind="function"><name>runEventLoop</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a8873d2ca9f51433d7238c5d056623242" kind="function"><name>kill</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a06fa997f7c7c30e38e1a170d52505a0e" kind="function"><name>exit</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a8bea7b25ce4f6944788e1df3360d67ed" kind="function"><name>getExitCode</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a729cf530a660126593b088d0740c8c2e" kind="function"><name>evalModuleWithEventLoop</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a4ae0662fd6744313f70c5ee422be45f6" kind="function"><name>runOnEventLoop</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1a6abdda872a9d03457f9b1fbcc8b5a63a" kind="function"><name>initialize</name></member>
+    <member refid="classjac_1_1EventLoopFeature_1aa9e79d6d401922292cc6e5d531a305e0" kind="function"><name>onEventLoop</name></member>
+  </compound>
+  <compound refid="classjac_1_1EventLoopTerminal" kind="class"><name>jac::EventLoopTerminal</name>
+    <member refid="classjac_1_1EventLoopTerminal_1abb337eeed4a3edab76caf9b861eb81b3" kind="function"><name>runOnEventLoop</name></member>
+  </compound>
+  <compound refid="classjac_1_1EventQueueFeature" kind="class"><name>jac::EventQueueFeature</name>
+    <member refid="classjac_1_1EventQueueFeature_1a9f76643b5fcf7bc915f6883034467177" kind="variable"><name>_scheduledFunctions</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1a140ae457beb4b5fcfe877be53734d06a" kind="variable"><name>_scheduledFunctionsMutex</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1ad6806ec33c742b76134d0fed1e478f9b" kind="variable"><name>_scheduledFunctionsCondition</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1af4b462bd504fe34eacfde1842f915e61" kind="function"><name>getEvent</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1a2148718831a9b752d0e4c87dfacb36d7" kind="function"><name>scheduleEvent</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1a0871e6590e45471ccdce614d411aa780" kind="function"><name>notifyEventLoop</name></member>
+    <member refid="classjac_1_1EventQueueFeature_1a293071568fe8c0605f4c7a34f20feb3c" kind="function"><name>~EventQueueFeature</name></member>
+  </compound>
+  <compound refid="classjac_1_1ExceptionWrapper" kind="class"><name>jac::ExceptionWrapper</name>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456" kind="enum"><name>Type</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456aed36a1ef76a59ee3f15180e0441188ad" kind="enumvalue"><name>Any</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a902b0d55fddef6f8d651fe1035b7d4bd" kind="enumvalue"><name>Error</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456aece592fd242f4ba674cc9da539a625a7" kind="enumvalue"><name>SyntaxError</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a137bf8cff2d59f0883c600f9524b3eed" kind="enumvalue"><name>TypeError</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456af0c115b5c5c017cd42bb8050e8d82306" kind="enumvalue"><name>ReferenceError</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a66d83f56eefb07fec956c23a0ee5ad2d" kind="enumvalue"><name>RangeError</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a6b497c2f4e175e363032101a6ff2b456a8462b58246e70e5c83e5b939a9332cb5" kind="enumvalue"><name>InternalError</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1af060d2ece1deae083200859c213190c4" kind="variable"><name>_message</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1ad8bde76cff986d0a25e7ea0dcff2dd20" kind="variable"><name>_type</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1acb2ed5451c4e84e21fff3b8b8bf11e3c" kind="function"><name>ExceptionWrapper</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a9a44e5d5e67878336eaf6f72ac06cf7d" kind="function"><name>ExceptionWrapper</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1ad99cc7990b4a99e85b21794f40bfcde3" kind="function"><name>ExceptionWrapper</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a57a01efe946061d7d6ebb27aeb840bb7" kind="function"><name>stackTrace</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a21513f888170af549c9ed26ddb32f4a2" kind="function"><name>what</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a73e6bd119ebe0c001496fef95f077755" kind="function"><name>throwJS</name></member>
+    <member refid="classjac_1_1ExceptionWrapper_1a89451ac6500984a18ce527a5c39b0c21" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="classjac_1_1File" kind="class"><name>jac::File</name>
+    <member refid="classjac_1_1File_1ab01aa40fb594deccf5b9e74802c48daa" kind="variable"><name>_file</name></member>
+    <member refid="classjac_1_1File_1a005949ad831fc7ce9c1006be6ece83e4" kind="variable"><name>path_</name></member>
+    <member refid="classjac_1_1File_1a46873e1d9e3faa500315f427cb8c8583" kind="function"><name>File</name></member>
+    <member refid="classjac_1_1File_1ac3eb5721c3317ca00b280953e2684125" kind="function"><name>File</name></member>
+    <member refid="classjac_1_1File_1aebb30d6e669aff8fd2980fb58c46ebb8" kind="function"><name>read</name></member>
+    <member refid="classjac_1_1File_1a8f72635c4ed45f5db5e02971fadb2937" kind="function"><name>write</name></member>
+    <member refid="classjac_1_1File_1a1f98201918bfd9e0da3ff3c3a77a8cbf" kind="function"><name>isOpen</name></member>
+    <member refid="classjac_1_1File_1aafe72d7a9840a5af71be739eac3a680a" kind="function"><name>close</name></member>
+    <member refid="classjac_1_1File_1ac891df934b7b14dafb2a9fb6e87e08c4" kind="function"><name>~File</name></member>
+  </compound>
+  <compound refid="structjac_1_1FileProtoBuilder" kind="struct"><name>jac::FileProtoBuilder</name>
+    <member refid="structjac_1_1FileProtoBuilder_1abd8ee63e75c2db6136ce9e2c0b60ec79" kind="function"><name>addProperties</name></member>
+  </compound>
+  <compound refid="classjac_1_1FilesystemFeature" kind="class"><name>jac::FilesystemFeature</name>
+    <member refid="classjac_1_1FilesystemFeature_1a01fcde3c3d1c7f0cf03651d495a6ad68" kind="typedef"><name>FileClass</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a7eba2aa77f1a3ea5975446f1ef2004b6" kind="variable"><name>_codeDir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a8608be941e612156b76cad39fa05b659" kind="variable"><name>_workingDir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a18c7d9ba99fe6c974986825c6fd48b4e" kind="variable"><name>path</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a48d8dcaa1cc35db7209bd482aa46b7b3" kind="variable"><name>fs</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a8881e0145945bb922791e3ce257ab2d6" kind="function"><name>setCodeDir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a9f67e70d290270d524c7028f6c7c0205" kind="function"><name>setWorkingDir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1a1b3f724c0a8a1139e3ef336e392a0a1f" kind="function"><name>FilesystemFeature</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1ab6896ab4f303155b5606ad1211e65f9e" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="classjac_1_1FilesystemFeature_1_1Fs" kind="class"><name>jac::FilesystemFeature::Fs</name>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1ae194d9fb1f78d5e69909a29e5454246e" kind="variable"><name>_feature</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a50191f4aeec422087c57f7c5208dca0f" kind="function"><name>Fs</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1acbca9fae28c140ee0cba967e78409cc1" kind="function"><name>loadCode</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1aeb6e8b6d747d7bc747c6dc9246641c1f" kind="function"><name>existsCode</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a8de8248032f3700a050f3abcd2b5b4a8" kind="function"><name>isFileCode</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1ae61eff5216e42dfeb3cdd4228eecc8b9" kind="function"><name>isDirectoryCode</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a5702ee967112fc43f086e6e93216e500" kind="function"><name>open</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a600b4fd56ae26dc717f3a529e3a97851" kind="function"><name>exists</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a9557b80317319aaddaaa8dd2652e20a1" kind="function"><name>isFile</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a316f4987dc21b518ea5fa6b25726f48c" kind="function"><name>isDirectory</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a181e3a72a3d47c548a18b398272beb5d" kind="function"><name>mkdir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1a24ff9bc19bb71dced30a1782717f76d7" kind="function"><name>readdir</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1ae7d0c48e5ac555b36836965b4344fc86" kind="function"><name>rm</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Fs_1affa0b9dc98033bebdb5f6a2c4937c92a" kind="function"><name>rmdir</name></member>
+  </compound>
+  <compound refid="classnoal_1_1funcptr" kind="class"><name>noal::funcptr</name>
+    <member refid="classnoal_1_1funcptr_1a26de448971a5d5b75dd3cbe6689e21c8" kind="variable"><name>_func</name></member>
+    <member refid="classnoal_1_1funcptr_1aae77f2d390155c1927f6008ef936bd71" kind="function"><name>funcptr</name></member>
+    <member refid="classnoal_1_1funcptr_1a50fd19989f89ab44810c85c6f0c50d9b" kind="function"><name>operator()</name></member>
+    <member refid="classnoal_1_1funcptr_1a3b05a0f5eebf171b270965e265e8d666" kind="function"><name>call</name></member>
+  </compound>
+  <compound refid="classnoal_1_1function" kind="class"><name>noal::function</name>
+  </compound>
+  <compound refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4" kind="class"><name>noal::function&lt; Res(Args...), dataSize &gt;</name>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a65f53f7417bb792eff99d87603bcc057" kind="typedef"><name>Sign</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a59287ddb5b7ef8c4bf36b25160a86d45" kind="variable"><name>call</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9a22337d4950b04ad0b247cf701d3ed" kind="variable"><name>data</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aacee28bc1579dd21ebbc5ab293e02657" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a0e8c6225a1287b153fe01be7f0268ff1" kind="function"><name>operator=</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af73ffb4dcb44bf7ff355f6ff48dbb095" kind="function"><name>operator=</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ae86c6fefc5a12adabb0151fc8f956640" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af6b424d97ae9e5ba161308fff93e631e" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a722359762ec835bbe463f41b8be36b82" kind="function"><name>operator()</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af525aa4ec2d8dc2cefbfcbf606bed50d" kind="function"><name>operator bool</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1aa00ca516bcfdec26ff0aeddc7f5b889e" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad9de4eb6ea1969e455036da43be7a0d1" kind="function"><name>operator=</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1af51a8834fd79e41e56c2cdf4289a6dd2" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a9cd207700294f8a5415c5956f973bedc" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1a485d5c283bab1e4f844cffbf9a90276e" kind="function"><name>function</name></member>
+    <member refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4_1ad12a8a6d90ddc6634747a7347e45d84a" kind="function"><name>operator=</name></member>
+  </compound>
+  <compound refid="classjac_1_1FunctionFactory" kind="class"><name>jac::FunctionFactory</name>
+    <member refid="classjac_1_1FunctionFactory_1a3681ae37ca53b2d1ae79101098595035" kind="variable"><name>_context</name></member>
+    <member refid="classjac_1_1FunctionFactory_1ae134b99e720037fcf528c97d8873ac18" kind="function"><name>newFunctionHelper</name></member>
+    <member refid="classjac_1_1FunctionFactory_1a2b4d90c5926531ddc371fd7a1f62e5fa" kind="function"><name>newFunctionVariadicHelper</name></member>
+    <member refid="classjac_1_1FunctionFactory_1a8606369d5040cba8df8cbb95dbbb921d" kind="function"><name>newFunctionThisHelper</name></member>
+    <member refid="classjac_1_1FunctionFactory_1aa973c5f14785c13c4b51e41c4b3ac045" kind="function"><name>newFunctionThisVariadicHelper</name></member>
+    <member refid="classjac_1_1FunctionFactory_1aeaf2124abe6c926370cebbaf839a0df3" kind="function"><name>FunctionFactory</name></member>
+    <member refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" kind="function"><name>newFunction</name></member>
+    <member refid="classjac_1_1FunctionFactory_1ae71fae8641e051a5c6ff14f48baa171b" kind="function"><name>newFunctionVariadic</name></member>
+    <member refid="classjac_1_1FunctionFactory_1acd6db9e494fcbe181d6aab5c1dd97665" kind="function"><name>newFunctionThis</name></member>
+    <member refid="classjac_1_1FunctionFactory_1a8ea36346531f599e40413358f83c29e4" kind="function"><name>newFunctionThisVariadic</name></member>
+  </compound>
+  <compound refid="classjac_1_1FunctionWrapper" kind="class"><name>jac::FunctionWrapper</name>
+    <member refid="classjac_1_1FunctionWrapper_1ac8fe842086ca31e7e1e91d20e7c67c27" kind="function"><name>FunctionWrapper</name></member>
+    <member refid="classjac_1_1FunctionWrapper_1adc8753f47cea55070e37b91ac39a6f77" kind="function"><name>FunctionWrapper</name></member>
+    <member refid="classjac_1_1FunctionWrapper_1aa891dab9770acb96e4b413e9af6d6ca8" kind="function"><name>callThis</name></member>
+    <member refid="classjac_1_1FunctionWrapper_1ac4adf9709961efb6572a7289e61ec9f0" kind="function"><name>call</name></member>
+    <member refid="classjac_1_1FunctionWrapper_1adeb5a9512138b01b08a15537f68f9428" kind="function"><name>callConstructor</name></member>
+  </compound>
+  <compound refid="structjac_1_1is__base__of__template" kind="struct"><name>jac::is_base_of_template</name>
+  </compound>
+  <compound refid="structjac_1_1detail_1_1is__base__of__template__impl" kind="struct"><name>jac::detail::is_base_of_template_impl</name>
+    <member refid="structjac_1_1detail_1_1is__base__of__template__impl_1a95fdfcecfe7c093c83dba17b8e67f5d4" kind="typedef"><name>is_callable_t</name></member>
+    <member refid="structjac_1_1detail_1_1is__base__of__template__impl_1a93441b679da3eed2549a3b28cd147c91" kind="typedef"><name>value_t</name></member>
+    <member refid="structjac_1_1detail_1_1is__base__of__template__impl_1a11ad4d3fc4bb0876bd5a32c09372b36a" kind="function"><name>is_callable</name></member>
+  </compound>
+  <compound refid="structjac_1_1ProtoBuilder_1_1LifetimeHandles" kind="struct"><name>jac::ProtoBuilder::LifetimeHandles</name>
+    <member refid="structjac_1_1ProtoBuilder_1_1LifetimeHandles_1ad80ccaa4074e3d56e679c2c1db2c79dd" kind="function"><name>postConstruction</name></member>
+  </compound>
+  <compound refid="classjac_1_1MachineBase" kind="class"><name>jac::MachineBase</name>
+    <member refid="classjac_1_1MachineBase_1a9dd1deca7619de51c547f87595e31a3f" kind="variable"><name>_modules</name></member>
+    <member refid="classjac_1_1MachineBase_1aedc7a1e825fc76f782fc0a7b004b6602" kind="variable"><name>_interrupt</name></member>
+    <member refid="classjac_1_1MachineBase_1ae56e553873cf84a8beb3df9376c6efb4" kind="variable"><name>_watchdogTimeout</name></member>
+    <member refid="classjac_1_1MachineBase_1a5539a3ea3f06df8544934509cf59697f" kind="variable"><name>_watchdogNext</name></member>
+    <member refid="classjac_1_1MachineBase_1a986c1efafe8823d7f0b2274a0fa8afb4" kind="variable"><name>_wathdogCallback</name></member>
+    <member refid="classjac_1_1MachineBase_1a6f667fc464baf034bf3248b2904c72cf" kind="variable"><name>mallocFunctions</name></member>
+    <member refid="classjac_1_1MachineBase_1afbc6e6dfc5eef89a78f995402154b372" kind="variable"><name>_runtime</name></member>
+    <member refid="classjac_1_1MachineBase_1a32712c8bfde661e5baf1f60885eeac35" kind="variable"><name>_context</name></member>
+    <member refid="classjac_1_1MachineBase_1a21f639900c480510650969df9c74d17d" kind="friend"><name>Module</name></member>
+    <member refid="classjac_1_1MachineBase_1a51055dd9efd5eb1357d839f8dd363dcd" kind="function"><name>findModule</name></member>
+    <member refid="classjac_1_1MachineBase_1ac77b7308fcf10291c6c70f9c7b744dfb" kind="function"><name>runtime</name></member>
+    <member refid="classjac_1_1MachineBase_1a1f2b82472f40cd409dcd236b11e1f6cd" kind="function"><name>context</name></member>
+    <member refid="classjac_1_1MachineBase_1abc2f84fd8c99d0e65648d2bc56d5319d" kind="function"><name>initialize</name></member>
+    <member refid="classjac_1_1MachineBase_1aa29fdb01e05d04fc70408347e54a3939" kind="function"><name>MachineBase</name></member>
+    <member refid="classjac_1_1MachineBase_1a78d2fd95d456a911fa6c2a4ff8d89911" kind="function"><name>MachineBase</name></member>
+    <member refid="classjac_1_1MachineBase_1a187c4bceb5ae436706ddc38d1736d964" kind="function"><name>MachineBase</name></member>
+    <member refid="classjac_1_1MachineBase_1ad41f18ce7168bd07b1e4d29202a89d01" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1MachineBase_1aa37b4275e2ba10525e9ddee9c34d0310" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1MachineBase_1a37aed04ca27f292d74b1bde6eeb224e9" kind="function"><name>~MachineBase</name></member>
+    <member refid="classjac_1_1MachineBase_1ae7021fc78776d60e1c7d218b039341d6" kind="function"><name>eval</name></member>
+    <member refid="classjac_1_1MachineBase_1a9f788ab64445a1e8569eac07db7c6a15" kind="function"><name>newModule</name></member>
+    <member refid="classjac_1_1MachineBase_1ad93b2852589d57f1892b6697158b4c9c" kind="function"><name>interruptRuntime</name></member>
+    <member refid="classjac_1_1MachineBase_1a13e332041037a763479cb7863498fe73" kind="function"><name>resetWatchdog</name></member>
+    <member refid="classjac_1_1MachineBase_1abc45c829a52dd079aa2dad1680d9a034" kind="function"><name>setWatchdogTimeout</name></member>
+    <member refid="classjac_1_1MachineBase_1a79fea312906e5446e00a0b1695380224" kind="function"><name>setWatchdogHandler</name></member>
+    <member refid="classjac_1_1MachineBase_1a57f2572e76d89ad660e43a0a2a56048f" kind="function"><name>setMallocFunctions</name></member>
+  </compound>
+  <compound refid="classnoal_1_1memberconstfuncptr" kind="class"><name>noal::memberconstfuncptr</name>
+    <member refid="classnoal_1_1memberconstfuncptr_1accbc09b7e4ac6a927239e91371c9c4de" kind="variable"><name>_func</name></member>
+    <member refid="classnoal_1_1memberconstfuncptr_1a16c9cb204df0b5103a4a33c327d4c83c" kind="variable"><name>_self</name></member>
+    <member refid="classnoal_1_1memberconstfuncptr_1ac2b01fecbbeb0b4c604dc67906a5cd10" kind="function"><name>memberconstfuncptr</name></member>
+    <member refid="classnoal_1_1memberconstfuncptr_1abd168b9c0fd588dcaff03947f321fa83" kind="function"><name>operator()</name></member>
+    <member refid="classnoal_1_1memberconstfuncptr_1a95239bdb1f66a4c902dfb26a8dd870fc" kind="function"><name>call</name></member>
+  </compound>
+  <compound refid="classnoal_1_1memberfuncptr" kind="class"><name>noal::memberfuncptr</name>
+    <member refid="classnoal_1_1memberfuncptr_1ac96b88cab60c64da29540579ce13bda0" kind="variable"><name>_func</name></member>
+    <member refid="classnoal_1_1memberfuncptr_1aa6a2014f69affbba68262c210af7bc5f" kind="variable"><name>_self</name></member>
+    <member refid="classnoal_1_1memberfuncptr_1a63a1c08c38366286a99d7da965dd31e2" kind="function"><name>memberfuncptr</name></member>
+    <member refid="classnoal_1_1memberfuncptr_1a6748cd13dde6f3372fe259a116d933ba" kind="function"><name>operator()</name></member>
+    <member refid="classnoal_1_1memberfuncptr_1a5f7722417bc3e311907477213f84945a" kind="function"><name>call</name></member>
+  </compound>
+  <compound refid="classjac_1_1Module" kind="class"><name>jac::Module</name>
+    <member refid="classjac_1_1Module_1a53c467dbee0c314a7edbb10088e3940d" kind="variable"><name>_ctx</name></member>
+    <member refid="classjac_1_1Module_1a22c09523dca7946dbe9268f95b0881d1" kind="variable"><name>_def</name></member>
+    <member refid="classjac_1_1Module_1a6ded13f527335221466d6bcd4cf662fd" kind="variable"><name>exports</name></member>
+    <member refid="classjac_1_1Module_1ae4cb3852146d01f3006fa4f86f028e41" kind="function"><name>base</name></member>
+    <member refid="classjac_1_1Module_1a55b131d6246afc51a3b05b68878d4a6f" kind="function"><name>base</name></member>
+    <member refid="classjac_1_1Module_1a77d79726d047785bac7b96283ffa9f39" kind="function"><name>Module</name></member>
+    <member refid="classjac_1_1Module_1a0a3126287937205b54b955a7cd59eea7" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1Module_1aea341b6c432eda2be1c9f0fc3bd024d2" kind="function"><name>Module</name></member>
+    <member refid="classjac_1_1Module_1a03b945cf5728c41f7c2c584bc2f7c82f" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1Module_1abe0ea339d6198039b9987b9e99ea0fe5" kind="function"><name>Module</name></member>
+    <member refid="classjac_1_1Module_1a29abca2dd39926a3f792db68617e5e95" kind="function"><name>addExport</name></member>
+    <member refid="classjac_1_1Module_1a6aea5235e284712f02c5f2f513989e7d" kind="function"><name>get</name></member>
+  </compound>
+  <compound refid="classjac_1_1NodeModuleLoaderFeature" kind="class"><name>jac::NodeModuleLoaderFeature</name>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1ae3b0845e297fd7f5ba2b47378f82b537" kind="variable"><name>defaultConditions</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1ade36bfba0c6a86263d5e07f08decd90a" kind="function"><name>PACKAGE_TARGET_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1aba3ee63297c48de7ebc9d8d68730f635" kind="function"><name>PACKAGE_IMPORTS_EXPORTS_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1aae01994e9c6676ae9b3870fda2c18516" kind="function"><name>PACKAGE_EXPORTS_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1aa74edc3e20c9ceb7f8239bb32524c2cd" kind="function"><name>PACKAGE_SELF_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1a7d8f33d454f035507f4e648ce50c5b0d" kind="function"><name>READ_PACKAGE_JSON</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1ad279ac54e3606b6e6a869624c96c6e20" kind="function"><name>PACKAGE_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1af306735573e8f2a755f61e095a97a45b" kind="function"><name>ESM_RESOLVE</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1a4cfaa1af69f9eeebc56364850634fce4" kind="function"><name>moduleLoaderCbk</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1a05d94e10d61a3b715e3707b8c5950143" kind="function"><name>evalFile</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1adde9a642cd5361a98adc36da3ac8185c" kind="function"><name>evalFileWithEventLoop</name></member>
+    <member refid="classjac_1_1NodeModuleLoaderFeature_1aebb216d0816225aabbf5e58f23981378" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="classjac_1_1ObjectWrapper" kind="class"><name>jac::ObjectWrapper</name>
+    <member refid="classjac_1_1ObjectWrapper_1a70bc1725583ea405d82a9aabd1649f33" kind="function"><name>ObjectWrapper</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a1e7fe64766d4cdd01ad9d948e12bb8cb" kind="function"><name>ObjectWrapper</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a5a131c6672f32a5f9578e120280f4a77" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a329f3b89d150945afc6cd568e74142fe" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" kind="function"><name>set</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a0c6fcd6d637ebf02d438a30fb6ccb21d" kind="function"><name>set</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1af48e35ce52ed5ff567bac28e999318ae" kind="function"><name>set</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" kind="function"><name>invoke</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1ab27581d0014fd95535ea13bf4d2fcccb" kind="function"><name>invoke</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a5575b52851439a71b542b79c697bb8e3" kind="function"><name>invoke</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" kind="function"><name>defineProperty</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1abbc0d7dfd49ef9f2f7cd9edb71b56c7d" kind="function"><name>hasProperty</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a5526e2afd9daba1b2dc064659d76389c" kind="function"><name>deleteProperty</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1ac0bb89529ff7b51cadac3bf96650296e" kind="function"><name>getPrototype</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a453407b45b1cc138bcdc4526ed3d99e4" kind="function"><name>setPrototype</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a8b0c2ffd645f3631e4a83473774a7eb8" kind="function"><name>getOwnPropertyNames</name></member>
+    <member refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="structjac_1_1ProtoBuilder_1_1Opaque" kind="struct"><name>jac::ProtoBuilder::Opaque</name>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a73d9f21225670346c889ba16942ee495" kind="typedef"><name>OpaqueType</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a1194ac58aadccaefef0f8d37c12dc052" kind="variable"><name>classId</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a11508965321d887cbd6bf4f7b77cdcbe" kind="function"><name>constructOpaque</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a0f840b0f74a74e1a8acb118c03748a89" kind="function"><name>destroyOpaque</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1ab5c6bc72d3296cda5415ab93386814ba" kind="function"><name>getOpaque</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a1af91b1b161bda29afa14f3c59fbe049" kind="function"><name>callMember</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a7681147239b72674bf17deaec8e5008e" kind="function"><name>addPropMember</name></member>
+    <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kind="function"><name>addMethodMember</name></member>
+  </compound>
+  <compound refid="classjac_1_1OsWritable" kind="class"><name>jac::OsWritable</name>
+    <member refid="classjac_1_1OsWritable_1ac4380f1526e5fd310cef16f9f53bef6f" kind="variable"><name>_stream</name></member>
+    <member refid="classjac_1_1OsWritable_1a99e847bee408e7212312f944b3730d42" kind="function"><name>OsWritable</name></member>
+    <member refid="classjac_1_1OsWritable_1af8f602b566f2e05f2e8bc09d9b53f8ac" kind="function"><name>write</name></member>
+  </compound>
+  <compound refid="classjac_1_1FilesystemFeature_1_1Path" kind="class"><name>jac::FilesystemFeature::Path</name>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1aba183c73b265fd2634b2da6121b20748" kind="variable"><name>_feature</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1a18512c1754cf0bc08be6820463c579f0" kind="function"><name>Path</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1a61cb6c760aea1ba6bd0437223bc664ed" kind="function"><name>normalize</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1a335054c4c2fd5e4e2158c4f896db03d7" kind="function"><name>dirname</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1a4cec0ee4b9ca9a7f052557c3d28f872e" kind="function"><name>basename</name></member>
+    <member refid="classjac_1_1FilesystemFeature_1_1Path_1a63a6a50b4ceca6e92a99734b7dfdf165" kind="function"><name>join</name></member>
+  </compound>
+  <compound refid="classjac_1_1Plugin" kind="class"><name>jac::Plugin</name>
+    <member refid="classjac_1_1Plugin_1a93e3495212396602b115add520dc116f" kind="function"><name>~Plugin</name></member>
+  </compound>
+  <compound refid="classjac_1_1PluginHandle" kind="class"><name>jac::PluginHandle</name>
+    <member refid="classjac_1_1PluginHandle_1a245cf0864c6306ab009f5fa20337bc0d" kind="variable"><name>_index</name></member>
+    <member refid="classjac_1_1PluginHandle_1a97e03be1d3354852017e0a474e69ad53" kind="function"><name>PluginHandle</name></member>
+    <member refid="classjac_1_1PluginHandle_1a6f8616092e808181756f93330b303d3c" kind="function"><name>index</name></member>
+    <member refid="classjac_1_1PluginHandle_1a5e0d4b6d1faf03ea3bb6f2a507ffb757" kind="function"><name>operator++</name></member>
+    <member refid="classjac_1_1PluginHandle_1a2184b650869c18b9a22ae98a809f1bb1" kind="function"><name>operator++</name></member>
+    <member refid="classjac_1_1PluginHandle_1a7540bb48e2cf775c82b071a59c7dca51" kind="function"><name>operator+</name></member>
+    <member refid="classjac_1_1PluginHandle_1aba92a8a79a62b24e1808f5be5ea4cad0" kind="function"><name>operator==</name></member>
+  </compound>
+  <compound refid="classjac_1_1PluginHolderFeature" kind="class"><name>jac::PluginHolderFeature</name>
+    <member refid="classjac_1_1PluginHolderFeature_1a4b635c5bc504a2cb1315354ff5c0251f" kind="variable"><name>_plugins</name></member>
+    <member refid="classjac_1_1PluginHolderFeature_1a9acb55198131c4a860bd2dd50fb83c0b" kind="function"><name>PluginHolderFeature</name></member>
+    <member refid="classjac_1_1PluginHolderFeature_1adf42e61bb401b756e8185a93bcf4b390" kind="function"><name>holdPlugin</name></member>
+    <member refid="classjac_1_1PluginHolderFeature_1a224fff9611f42aae3d1d11bffe3c6f0e" kind="function"><name>getPlugin</name></member>
+    <member refid="classjac_1_1PluginHolderFeature_1a8a58bb4d2f72536fbe15d4975843733e" kind="function"><name>pluginBegin</name></member>
+    <member refid="classjac_1_1PluginHolderFeature_1afe78e0d33a548cf2bae7add36234a76b" kind="function"><name>pluginEnd</name></member>
+  </compound>
+  <compound refid="classjac_1_1PluginManager" kind="class"><name>jac::PluginManager</name>
+    <member refid="classjac_1_1PluginManager_1a6e746f5cb311d6f0cd20daf6e353d44b" kind="variable"><name>_plugins</name></member>
+    <member refid="classjac_1_1PluginManager_1a6da121668dfcb6f4084895a856c97486" kind="function"><name>PluginManager</name></member>
+    <member refid="classjac_1_1PluginManager_1a7799592bddee4ce34bfe3dec11328328" kind="function"><name>addPlugin</name></member>
+    <member refid="classjac_1_1PluginManager_1a4e09131fb40ef66fcabc100c05bf00db" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="classjac_1_1PromiseWrapper" kind="class"><name>jac::PromiseWrapper</name>
+    <member refid="classjac_1_1PromiseWrapper_1adc231272c95090c586350374a75682ff" kind="function"><name>PromiseWrapper</name></member>
+    <member refid="classjac_1_1PromiseWrapper_1a6a14f27bde6560fe41f9dd775f5bc5fa" kind="function"><name>PromiseWrapper</name></member>
+    <member refid="classjac_1_1PromiseWrapper_1aec32a1ce1b1bba3db4d58d327441cda0" kind="function"><name>create</name></member>
+  </compound>
+  <compound refid="structjac_1_1ProtoBuilder_1_1Properties" kind="struct"><name>jac::ProtoBuilder::Properties</name>
+    <member refid="structjac_1_1ProtoBuilder_1_1Properties_1af6b9ceb88c47f5a29e6e51cee148c01e" kind="function"><name>addProperties</name></member>
+  </compound>
+  <compound refid="classjac_1_1Readable" kind="class"><name>jac::Readable</name>
+    <member refid="classjac_1_1Readable_1ae39ea866c7dba81b1d0008249716e74b" kind="function"><name>get</name></member>
+    <member refid="classjac_1_1Readable_1a5b709b5882aef174d7fc492cf3b33164" kind="function"><name>read</name></member>
+    <member refid="classjac_1_1Readable_1a524512c8b91fae23e5ae18c0f8ef98b3" kind="function"><name>~Readable</name></member>
+  </compound>
+  <compound refid="structjac_1_1ReadableProtoBuilder" kind="struct"><name>jac::ReadableProtoBuilder</name>
+    <member refid="structjac_1_1ReadableProtoBuilder_1a9eebcedfb3f01a6a7990f494a083ede4" kind="function"><name>addProperties</name></member>
+  </compound>
+  <compound refid="classjac_1_1ReadableRef" kind="class"><name>jac::ReadableRef</name>
+    <member refid="classjac_1_1ReadableRef_1aed0679d7a3b45acbaa916c711f0515b8" kind="variable"><name>_ptr</name></member>
+    <member refid="classjac_1_1ReadableRef_1a72c7d439bc87a68cc71c06003f67f052" kind="function"><name>ReadableRef</name></member>
+    <member refid="classjac_1_1ReadableRef_1a815377571cb68e46274a55b51072b7ea" kind="function"><name>read</name></member>
+    <member refid="classjac_1_1ReadableRef_1a96b9f215c86bd2e587c3b55688de588a" kind="function"><name>get</name></member>
+  </compound>
+  <compound refid="structjac_1_1SgnUnwrap" kind="struct"><name>jac::SgnUnwrap</name>
+  </compound>
+  <compound refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4" kind="struct"><name>jac::SgnUnwrap&lt; Res(Args...)&gt;</name>
+    <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1a858a50326547b951d3a30e2588a2fe8f" kind="typedef"><name>ResType</name></member>
+    <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aabe6d9e4c448e3daabe2ae567061cc90" kind="typedef"><name>ArgTypes</name></member>
+    <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aeb9f6403077bc72f39d8c6d61d9e3cfb" kind="function"><name>SgnUnwrap</name></member>
+    <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1ad1900c7830d668a9f9080bfdcfbabd8a" kind="function"><name>SgnUnwrap</name></member>
+  </compound>
+  <compound refid="structnoal_1_1signatureHelper" kind="struct"><name>noal::signatureHelper</name>
+  </compound>
+  <compound refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01_6_01_4" kind="struct"><name>noal::signatureHelper&lt; Res(Func::*)(Args...) &amp; &gt;</name>
+    <member refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01_6_01_4_1ae9113f7824bc15349848e4d995a3327f" kind="typedef"><name>type</name></member>
+  </compound>
+  <compound refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_6_01_4" kind="struct"><name>noal::signatureHelper&lt; Res(Func::*)(Args...) const &amp; &gt;</name>
+    <member refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_6_01_4_1a681a474fb750657edce299e90f256b4a" kind="typedef"><name>type</name></member>
+  </compound>
+  <compound refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_4" kind="struct"><name>noal::signatureHelper&lt; Res(Func::*)(Args...) const &gt;</name>
+    <member refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_4_1ab0cbb4d2978602b808d621e175aecbde" kind="typedef"><name>type</name></member>
+  </compound>
+  <compound refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_4" kind="struct"><name>noal::signatureHelper&lt; Res(Func::*)(Args...)&gt;</name>
+    <member refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_4_1aadf4de13fc01d69d2ff581e939388e6a" kind="typedef"><name>type</name></member>
+  </compound>
+  <compound refid="classjac_1_1SimpleModuleLoaderFeature" kind="class"><name>jac::SimpleModuleLoaderFeature</name>
+    <member refid="classjac_1_1SimpleModuleLoaderFeature_1a32f427e14c446b36080646aa200d92d9" kind="function"><name>moduleLoaderCbk</name></member>
+    <member refid="classjac_1_1SimpleModuleLoaderFeature_1a5911bfec0c4b7e3d247bc9886642fa88" kind="function"><name>evalFile</name></member>
+    <member refid="classjac_1_1SimpleModuleLoaderFeature_1a99a1a95492c193b346c3133796342275" kind="function"><name>evalFileWithEventLoop</name></member>
+    <member refid="classjac_1_1SimpleModuleLoaderFeature_1af3ce051a8ff52652e844b4a6131046da" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="classjac_1_1StdioFeature_1_1Stdio" kind="class"><name>jac::StdioFeature::Stdio</name>
+    <member refid="classjac_1_1StdioFeature_1_1Stdio_1a920e28ed2e9d65ca1f7f3ca63f0daf88" kind="variable"><name>out</name></member>
+    <member refid="classjac_1_1StdioFeature_1_1Stdio_1a6b3b9d6956162adb145c5ea72f331b50" kind="variable"><name>err</name></member>
+    <member refid="classjac_1_1StdioFeature_1_1Stdio_1a48df62a386e25ccf8bf85a0b08721862" kind="variable"><name>in</name></member>
+  </compound>
+  <compound refid="classjac_1_1StdioFeature" kind="class"><name>jac::StdioFeature</name>
+    <member refid="classjac_1_1StdioFeature_1a7885331670e64ee1b3bf4eba3644ece9" kind="variable"><name>stdio</name></member>
+    <member refid="classjac_1_1StdioFeature_1adc55de3490ff4ab76e61bdd32e8c417b" kind="function"><name>initialize</name></member>
+  </compound>
+  <compound refid="classjac_1_1StringView" kind="class"><name>jac::StringView</name>
+    <member refid="classjac_1_1StringView_1a359289c4cf9d119a2d244e6b0380e062" kind="typedef"><name>basic_string_view</name></member>
+    <member refid="classjac_1_1StringView_1a5522c07feea31f1428c8736130d9a9cf" kind="variable"><name>_ctx</name></member>
+    <member refid="classjac_1_1StringView_1abaa98e3b937f35a125efd5ec8323d012" kind="function"><name>StringView</name></member>
+    <member refid="classjac_1_1StringView_1a2bfa451a0cb10ab6deab01355f233d45" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1StringView_1a5d9ff3f196f7337b2f2472d4c0c4d64d" kind="function"><name>StringView</name></member>
+    <member refid="classjac_1_1StringView_1a0c1caf0ed3fdb8327b3407563aef7e70" kind="function"><name>StringView</name></member>
+    <member refid="classjac_1_1StringView_1a827579c8b47dc8e90a75784fc324b0f0" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1StringView_1aa65ab0000009b5adf1669cf5ebf5fd7d" kind="function"><name>c_str</name></member>
+    <member refid="classjac_1_1StringView_1aeafc54a73a66f17342d7173c61e01672" kind="function"><name>StringView</name></member>
+    <member refid="classjac_1_1StringView_1ada954857593058b26265e56fec774592" kind="function"><name>StringView</name></member>
+    <member refid="classjac_1_1StringView_1a7790ba339fda3892addce3b6fe3be3b0" kind="function"><name>~StringView</name></member>
+    <member refid="classjac_1_1StringView_1adea84c67162da691e2ee686c17046936" kind="function"><name>operator std::string</name></member>
+  </compound>
+  <compound refid="classjac_1_1TimersFeature_1_1Timer" kind="class"><name>jac::TimersFeature::Timer</name>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a2bd7c986d1caaa80704e23823997b365" kind="variable"><name>_startTime</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1ad40b23706dd818100f6218e0971f9aa6" kind="variable"><name>_duration</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a9a3678a36acbaa273b660e1e691a145f" kind="variable"><name>_callback</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1ae4fa8c8011c9df0bf01dacfe6864fae2" kind="variable"><name>_id</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a443f9069f179d0324398a17269db0b6d" kind="variable"><name>_isRepeating</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a433dce5197eb7b681c14797279525075" kind="variable"><name>cancelled</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1ae9c3b44daf889764a48f8aeaab7c0511" kind="function"><name>Timer</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a6353622e073a8aba5b5036560d975d18" kind="function"><name>operator&lt;</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1aef056e93e422db511e20ce2878a894a7" kind="function"><name>update</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1aaabcbf137c24d1dbb66a51c95b575650" kind="function"><name>getCallback</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a8878061ed7d0de900717c71d6c6d7e1b" kind="function"><name>getEndTime</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1abdeb93d3d86230ef55c1122b2f3ce3d2" kind="function"><name>isRepeating</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a62eb23db1c369a33244cee7191b5621b" kind="function"><name>isCancelled</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1a94b8d7fd44c98fd4c640ef9e04a15b4c" kind="function"><name>getId</name></member>
+    <member refid="classjac_1_1TimersFeature_1_1Timer_1aaa934d24374bc3d5147527ba84feefaf" kind="function"><name>cancel</name></member>
+  </compound>
+  <compound refid="classjac_1_1TimersFeature" kind="class"><name>jac::TimersFeature</name>
+    <member refid="classjac_1_1TimersFeature_1a13173f5226ddb97cc46593f177bcc780" kind="variable"><name>_timers</name></member>
+    <member refid="classjac_1_1TimersFeature_1a271eec8c10cc4bf5aebc3f58451555e1" kind="variable"><name>_timersById</name></member>
+    <member refid="classjac_1_1TimersFeature_1aa80bf889aecbd0ee76b10da7ced0d459" kind="variable"><name>_timersMutex</name></member>
+    <member refid="classjac_1_1TimersFeature_1ab267a7fc0398b08e2b042a0966a7fee1" kind="variable"><name>_timersCondition</name></member>
+    <member refid="classjac_1_1TimersFeature_1a00a8040d5ef19c9d4b9b8ee3ea0a63ad" kind="variable"><name>_timerThread</name></member>
+    <member refid="classjac_1_1TimersFeature_1ab6558094c38968ce5865cce55ce5d18d" kind="variable"><name>_stop</name></member>
+    <member refid="classjac_1_1TimersFeature_1af4e1486840b9ea592473cf1d7e33057e" kind="variable"><name>nextId</name></member>
+    <member refid="classjac_1_1TimersFeature_1ab89f52676ff96243f27405e9595bf79b" kind="function"><name>createTimer</name></member>
+    <member refid="classjac_1_1TimersFeature_1a08f41c100f4d75c2dfde71e467dd3991" kind="function"><name>clearTimer</name></member>
+    <member refid="classjac_1_1TimersFeature_1a734958c8454183b8f5d7180887a0080e" kind="function"><name>setInterval</name></member>
+    <member refid="classjac_1_1TimersFeature_1a0367b3e92f0f8988116b90ba372fafd2" kind="function"><name>setTimeout</name></member>
+    <member refid="classjac_1_1TimersFeature_1a1d9b15a1220f7e59983ab8f7f91c1b3d" kind="function"><name>clearInterval</name></member>
+    <member refid="classjac_1_1TimersFeature_1a1a8f5d99640c7f53136cd8681aa7f079" kind="function"><name>clearTimeout</name></member>
+    <member refid="classjac_1_1TimersFeature_1afc8a587caa67a2ab2b183a12a8896a6b" kind="function"><name>initialize</name></member>
+    <member refid="classjac_1_1TimersFeature_1a500f2e9419e25a242173ea2e7bc01095" kind="function"><name>~TimersFeature</name></member>
+  </compound>
+  <compound refid="classjac_1_1ValueWrapper" kind="class"><name>jac::ValueWrapper</name>
+    <member refid="classjac_1_1ValueWrapper_1abb202860c6e6398341e7dde74e60baa9" kind="variable"><name>_ctx</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a66a74b7b7bc37155f184b4c30f0de510" kind="variable"><name>_val</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" kind="function"><name>ValueWrapper</name></member>
+    <member refid="classjac_1_1ValueWrapper_1afdf44e341bdfb6aa504ce08843eceb56" kind="function"><name>ValueWrapper</name></member>
+    <member refid="classjac_1_1ValueWrapper_1af97a125d921f216dcfc370c7a23c9575" kind="function"><name>ValueWrapper</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a8f29f7fc54b32aa65c42ab57c80edbd9" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1ValueWrapper_1af6e64cb0e4faf7a7244da5a99090467f" kind="function"><name>operator=</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a1487786919dca0744c5cc5a50ef5b5c5" kind="function"><name>operator ValueWeak</name></member>
+    <member refid="classjac_1_1ValueWrapper_1abe9db711b8ec57ff73a0e0dd309ac3c4" kind="function"><name>~ValueWrapper</name></member>
+    <member refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" kind="function"><name>loot</name></member>
+    <member refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" kind="function"><name>getVal</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" kind="function"><name>isUndefined</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" kind="function"><name>isNull</name></member>
+    <member refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" kind="function"><name>isNumber</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" kind="function"><name>isBigInt</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" kind="function"><name>isBoolean</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" kind="function"><name>isString</name></member>
+    <member refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" kind="function"><name>isSymbol</name></member>
+    <member refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" kind="function"><name>isObject</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" kind="function"><name>isArray</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" kind="function"><name>isFunction</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" kind="function"><name>isInstanceOf</name></member>
+    <member refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" kind="function"><name>toString</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kind="function"><name>to</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" kind="function"><name>stringify</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" kind="function"><name>from</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" kind="function"><name>fromJSON</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" kind="function"><name>undefined</name></member>
+    <member refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" kind="function"><name>null</name></member>
+    <member refid="classjac_1_1ValueWrapper_1a53dc0ffba87dd752ef25a7d4aec12063" kind="friend"><name>operator&lt;&lt;</name></member>
+  </compound>
+  <compound refid="classjac_1_1Writable" kind="class"><name>jac::Writable</name>
+    <member refid="classjac_1_1Writable_1a02586e67dee1872578a6c2fd7dd62ef9" kind="function"><name>write</name></member>
+    <member refid="classjac_1_1Writable_1ab08e62e0311b6837c6d01901af413e64" kind="function"><name>~Writable</name></member>
+  </compound>
+  <compound refid="structjac_1_1WritableProtoBuilder" kind="struct"><name>jac::WritableProtoBuilder</name>
+    <member refid="structjac_1_1WritableProtoBuilder_1a282ce7cfe985ef2f6848ccfd131fa8be" kind="function"><name>addProperties</name></member>
+  </compound>
+  <compound refid="classjac_1_1WritableRef" kind="class"><name>jac::WritableRef</name>
+    <member refid="classjac_1_1WritableRef_1abd32283ff2a664960593db3ad3f1a837" kind="variable"><name>_ptr</name></member>
+    <member refid="classjac_1_1WritableRef_1a150752ee7bae5ad65c1f7bb977d8bab8" kind="function"><name>WritableRef</name></member>
+    <member refid="classjac_1_1WritableRef_1aae0754e478666707dde2c97a588a3e42" kind="function"><name>write</name></member>
+  </compound>
+  <compound refid="namespacejac" kind="namespace"><name>jac</name>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6a" kind="enum"><name>EvalFlags</name></member>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aa4cc6684df7b4a92b1dec6fce3264fac8" kind="enumvalue"><name>Global</name></member>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aae55f75a29310d7b60f7ac1d390c8ae42" kind="enumvalue"><name>Module</name></member>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aa2e979835dd62324f5bfe217449ba4974" kind="enumvalue"><name>Strict</name></member>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aac8a477aae2fccb8a49694b1b73ab6328" kind="enumvalue"><name>CompileOnly</name></member>
+    <member refid="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aaed31b94ee8374af2ebd7c0a898255af2" kind="enumvalue"><name>BacktraceBarrier</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fc" kind="enum"><name>PropFlags</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fca7a1920d61156abc05a60135aefe8bc67" kind="enumvalue"><name>Default</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fca1df876dc16c0decf35e837dc56087b13" kind="enumvalue"><name>Configurable</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fcaa1915263415d561ab5f8c7a7fcaa60af" kind="enumvalue"><name>Writable</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fca3d3427680d711efe4defd02524bd9201" kind="enumvalue"><name>Enumerable</name></member>
+    <member refid="values_8h_1a001d83c517ee032252b45348ad4a03fca3c80996f34735a22ed49afa320942c55" kind="enumvalue"><name>C_W_E</name></member>
+    <member refid="class_8h_1aae7464054e12db86fddbae125aa31dda" kind="typedef"><name>is_base_of_template_t</name></member>
+    <member refid="declarations_8h_1a08092614f736d3672b3ec6d3b24a5629" kind="typedef"><name>Value</name></member>
+    <member refid="declarations_8h_1ac75b6f5187e94637c2e1a97339c42439" kind="typedef"><name>ValueWeak</name></member>
+    <member refid="declarations_8h_1a7c86f4f91a8ff6c9c2a7bf362fbf1c1b" kind="typedef"><name>Object</name></member>
+    <member refid="declarations_8h_1aa1b9fbad8dfbd33a1f98c9aa9b4db815" kind="typedef"><name>ObjectWeak</name></member>
+    <member refid="declarations_8h_1aa756f5495e49f05e278ea32ece5db06c" kind="typedef"><name>Function</name></member>
+    <member refid="declarations_8h_1a889de453c26acd9cfe6b6e50879165b2" kind="typedef"><name>FunctionWeak</name></member>
+    <member refid="declarations_8h_1a407ad6cabf96828b04b55dfc7e48ca4b" kind="typedef"><name>Array</name></member>
+    <member refid="declarations_8h_1a3051af09bfa6b2f4ee719d62e968224c" kind="typedef"><name>ArrayWeak</name></member>
+    <member refid="declarations_8h_1aebc572d564306de631420afa29046b18" kind="typedef"><name>Promise</name></member>
+    <member refid="declarations_8h_1a883807aa1325abd1a5bfb27feba26f8f" kind="typedef"><name>PromiseWeak</name></member>
+    <member refid="declarations_8h_1a4218b99fc39b31f3efa89fc54abe7fa5" kind="typedef"><name>Exception</name></member>
+    <member refid="declarations_8h_1a58d7b9abf8eebee587bedcfbab28a012" kind="typedef"><name>ExceptionWeak</name></member>
+    <member refid="declarations_8h_1a737a3a2fe928cba196b35533d50b15af" kind="typedef"><name>ArrayBuffer</name></member>
+    <member refid="declarations_8h_1a631cbe8e28c3e7213edf9daa23a4969a" kind="typedef"><name>ArrayBufferWeak</name></member>
+    <member refid="class_8h_1a10ed25331497b40cb3122c5c0fca6765" kind="variable"><name>is_base_of_template_v</name></member>
+    <member refid="nodeModuleLoaderFeature_8h_1ad7aa09bdeb389097c4257597825f4784" kind="function"><name>strContains</name></member>
+    <member refid="nodeModuleLoaderFeature_8h_1aba2b522b81594f09be9c313ec3bf00b6" kind="function"><name>substring</name></member>
+    <member refid="ostreamjs_8h_1aeaf9b499c00bdb5eae207109263e40a4" kind="function"><name>initializeIo</name></member>
+    <member refid="atom_8h_1ad7532c0e72a6ab20a168c1ecc2033483" kind="function"><name>static_false</name></member>
+    <member refid="class_8h_1a20e118039aa2c8c57580fba677c58b29" kind="function"><name>SgnUnwrap</name></member>
+    <member refid="funcUtil_8h_1a362fe0463570bed2c3a4bab8c4b93d41" kind="function"><name>propagateExceptions</name></member>
+    <member refid="funcUtil_8h_1a3cc43e65fd461ea64dd17b46133d2f80" kind="function"><name>propagateExceptions</name></member>
+    <member refid="funcUtil_8h_1a551fad55b634996dd24419f6754e49df" kind="function"><name>processCallRaw</name></member>
+    <member refid="funcUtil_8h_1a15089b8adb842a03a56ba606b88c29f4" kind="function"><name>processCall</name></member>
+    <member refid="funcUtil_8h_1a15dda7cd688d103b9b2d175ea7343a76" kind="function"><name>processCallVariadicRaw</name></member>
+    <member refid="funcUtil_8h_1a6746d970694c5d1b6851af2e4f9b01e9" kind="function"><name>processCallVariadic</name></member>
+    <member refid="funcUtil_8h_1a36be13aaa55bde919a1ceb3477113fed" kind="function"><name>processCallThis</name></member>
+    <member refid="funcUtil_8h_1a30de27ad132dd306d1f2622f772655aa" kind="function"><name>processCallThisVariadic</name></member>
+    <member refid="funcUtil_8h_1a891da7f63025aa5a5a3f92bee560c917" kind="function"><name>convertArgs</name></member>
+    <member refid="funcUtil_8h_1a0804f06523590215c97d67e95c9e9e53" kind="function"><name>convertArgs</name></member>
+    <member refid="machine_8h_1a2f77567431ffb5e64cae90e1a8ccd730" kind="function"><name>operator|</name></member>
+    <member refid="machine_8h_1a8c4bdeb072ff121c9fcabe3a6419c8a6" kind="function"><name>operator&amp;</name></member>
+    <member refid="values_8h_1afcf45a52029b50a8d086131a8abbe151" kind="function"><name>operator|</name></member>
+    <member refid="values_8h_1a0f25438ee8719a3f490a6f71542c99b0" kind="function"><name>operator&amp;</name></member>
+    <member refid="values_8h_1a0139538b1457ca9e2c18af6737908d87" kind="function"><name>fromValue</name></member>
+    <member refid="values_8h_1a0410882ecaad2c4ffb2227ae6ac61e4d" kind="function"><name>toValue</name></member>
+  </compound>
+  <compound refid="namespacejac_1_1detail" kind="namespace"><name>jac::detail</name>
+    <member refid="traits_8h_1ae70596fd9bb1815692eb2fbeed153e6e" kind="variable"><name>is_leq_i32</name></member>
+  </compound>
+  <compound refid="namespacejac_1_1ProtoBuilder" kind="namespace"><name>jac::ProtoBuilder</name>
+  </compound>
+  <compound refid="namespacenoal" kind="namespace"><name>noal</name>
+    <member refid="noal__func_8h_1ad0cfcf1f8d25036a32381de0113ac4ba" kind="function"><name>invoker</name></member>
+    <member refid="noal__func_8h_1a1b14d7539790a3c679f1e7bd93ba3f0b" kind="function"><name>callableany</name></member>
+    <member refid="noal__func_8h_1a2433c198ff5f6acfb8bf244510eb8cc0" kind="function"><name>function</name></member>
+    <member refid="noal__func_8h_1a3a1cddd530fce29f4b9209d49277c56c" kind="function"><name>function</name></member>
+    <member refid="noal__func_8h_1a51b6dc3bed9e24452e6caa5d8ec8b510" kind="function"><name>function</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="basicStreamFeature_8h" kind="file"><name>basicStreamFeature.h</name>
+  </compound>
+  <compound refid="eventLoopFeature_8h" kind="file"><name>eventLoopFeature.h</name>
+  </compound>
+  <compound refid="eventLoopTerminal_8h" kind="file"><name>eventLoopTerminal.h</name>
+  </compound>
+  <compound refid="eventQueueFeature_8h" kind="file"><name>eventQueueFeature.h</name>
+  </compound>
+  <compound refid="filesystemFeature_8h" kind="file"><name>filesystemFeature.h</name>
+  </compound>
+  <compound refid="nodeModuleLoaderFeature_8h" kind="file"><name>nodeModuleLoaderFeature.h</name>
+  </compound>
+  <compound refid="simpleModuleLoaderFeature_8h" kind="file"><name>simpleModuleLoaderFeature.h</name>
+  </compound>
+  <compound refid="stdioFeature_8h" kind="file"><name>stdioFeature.h</name>
+  </compound>
+  <compound refid="timersFeature_8h" kind="file"><name>timersFeature.h</name>
+  </compound>
+  <compound refid="file_8h" kind="file"><name>file.h</name>
+  </compound>
+  <compound refid="streams_8h" kind="file"><name>streams.h</name>
+  </compound>
+  <compound refid="ostreamjs_8h" kind="file"><name>ostreamjs.h</name>
+  </compound>
+  <compound refid="atom_8h" kind="file"><name>atom.h</name>
+  </compound>
+  <compound refid="class_8h" kind="file"><name>class.h</name>
+  </compound>
+  <compound refid="context_8cpp" kind="file"><name>context.cpp</name>
+  </compound>
+  <compound refid="context_8h" kind="file"><name>context.h</name>
+  </compound>
+  <compound refid="functionFactory_8h" kind="file"><name>functionFactory.h</name>
+  </compound>
+  <compound refid="funcUtil_8h" kind="file"><name>funcUtil.h</name>
+  </compound>
+  <compound refid="declarations_8h" kind="file"><name>declarations.h</name>
+  </compound>
+  <compound refid="machine_8cpp" kind="file"><name>machine.cpp</name>
+  </compound>
+  <compound refid="machine_8h" kind="file"><name>machine.h</name>
+  </compound>
+  <compound refid="plugins_8h" kind="file"><name>plugins.h</name>
+  </compound>
+  <compound refid="stringView_8h" kind="file"><name>stringView.h</name>
+  </compound>
+  <compound refid="traits_8h" kind="file"><name>traits.h</name>
+  </compound>
+  <compound refid="values_8h" kind="file"><name>values.h</name>
+  </compound>
+  <compound refid="noal__func_8h" kind="file"><name>noal_func.h</name>
+  </compound>
+  <compound refid="dir_6f95e06b732314161804ab1ef73c9681" kind="dir"><name>src/jac/features</name>
+  </compound>
+  <compound refid="dir_f815192ecbd68c2ad40e839ff65387cf" kind="dir"><name>src/jac/machine/internal</name>
+  </compound>
+  <compound refid="dir_256037ad7d0c306238e2bc4f945d341d" kind="dir"><name>src/jac</name>
+  </compound>
+  <compound refid="dir_10e7d6e7bc593e38e57ffe1bab5ed259" kind="dir"><name>src/jac/machine</name>
+  </compound>
+  <compound refid="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_7e10f281dae724a55a0e1ba0acd02229" kind="dir"><name>src/jac/features/types</name>
+  </compound>
+  <compound refid="dir_8745a1fa89e3088deda48338e7669502" kind="dir"><name>src/jac/features/util</name>
+  </compound>
+</doxygenindex>

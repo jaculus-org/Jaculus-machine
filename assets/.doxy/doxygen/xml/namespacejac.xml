@@ -1,0 +1,1061 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacejac" kind="namespace" language="C++">
+    <compoundname>jac</compoundname>
+    <innerclass refid="classjac_1_1ArrayBufferWrapper" prot="public">jac::ArrayBufferWrapper</innerclass>
+    <innerclass refid="classjac_1_1ArrayWrapper" prot="public">jac::ArrayWrapper</innerclass>
+    <innerclass refid="classjac_1_1Atom" prot="public">jac::Atom</innerclass>
+    <innerclass refid="classjac_1_1BasicStreamFeature" prot="public">jac::BasicStreamFeature</innerclass>
+    <innerclass refid="classjac_1_1Class" prot="public">jac::Class</innerclass>
+    <innerclass refid="structjac_1_1ComposeMachine" prot="public">jac::ComposeMachine</innerclass>
+    <innerclass refid="structjac_1_1ComposeMachine_3_01Base_01_4" prot="public">jac::ComposeMachine&lt; Base &gt;</innerclass>
+    <innerclass refid="structjac_1_1ComposeMachine_3_01Base_00_01FirstFeature_00_01MFeatures_8_8_8_01_4" prot="public">jac::ComposeMachine&lt; Base, FirstFeature, MFeatures... &gt;</innerclass>
+    <innerclass refid="classjac_1_1ContextRef" prot="public">jac::ContextRef</innerclass>
+    <innerclass refid="structjac_1_1ConvTraits" prot="public">jac::ConvTraits</innerclass>
+    <innerclass refid="structjac_1_1ConvTraits_3_01bool_01_4" prot="public">jac::ConvTraits&lt; bool &gt;</innerclass>
+    <innerclass refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4" prot="public">jac::ConvTraits&lt; std::chrono::milliseconds &gt;</innerclass>
+    <innerclass refid="structjac_1_1ConvTraits_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_013818016e757d16d29218adaa25e8f13d" prot="public">jac::ConvTraits&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &amp;&amp;detail::is_leq_i32&lt; T &gt;, T &gt; &gt;</innerclass>
+    <innerclass refid="classjac_1_1EventLoopFeature" prot="public">jac::EventLoopFeature</innerclass>
+    <innerclass refid="classjac_1_1EventLoopTerminal" prot="public">jac::EventLoopTerminal</innerclass>
+    <innerclass refid="classjac_1_1EventQueueFeature" prot="public">jac::EventQueueFeature</innerclass>
+    <innerclass refid="classjac_1_1ExceptionWrapper" prot="public">jac::ExceptionWrapper</innerclass>
+    <innerclass refid="classjac_1_1File" prot="public">jac::File</innerclass>
+    <innerclass refid="structjac_1_1FileProtoBuilder" prot="public">jac::FileProtoBuilder</innerclass>
+    <innerclass refid="classjac_1_1FilesystemFeature" prot="public">jac::FilesystemFeature</innerclass>
+    <innerclass refid="classjac_1_1FunctionFactory" prot="public">jac::FunctionFactory</innerclass>
+    <innerclass refid="classjac_1_1FunctionWrapper" prot="public">jac::FunctionWrapper</innerclass>
+    <innerclass refid="structjac_1_1is__base__of__template" prot="public">jac::is_base_of_template</innerclass>
+    <innerclass refid="classjac_1_1MachineBase" prot="public">jac::MachineBase</innerclass>
+    <innerclass refid="classjac_1_1Module" prot="public">jac::Module</innerclass>
+    <innerclass refid="classjac_1_1NodeModuleLoaderFeature" prot="public">jac::NodeModuleLoaderFeature</innerclass>
+    <innerclass refid="classjac_1_1ObjectWrapper" prot="public">jac::ObjectWrapper</innerclass>
+    <innerclass refid="classjac_1_1OsWritable" prot="public">jac::OsWritable</innerclass>
+    <innerclass refid="classjac_1_1Plugin" prot="public">jac::Plugin</innerclass>
+    <innerclass refid="classjac_1_1PluginHandle" prot="public">jac::PluginHandle</innerclass>
+    <innerclass refid="classjac_1_1PluginHolderFeature" prot="public">jac::PluginHolderFeature</innerclass>
+    <innerclass refid="classjac_1_1PluginManager" prot="public">jac::PluginManager</innerclass>
+    <innerclass refid="classjac_1_1PromiseWrapper" prot="public">jac::PromiseWrapper</innerclass>
+    <innerclass refid="classjac_1_1Readable" prot="public">jac::Readable</innerclass>
+    <innerclass refid="structjac_1_1ReadableProtoBuilder" prot="public">jac::ReadableProtoBuilder</innerclass>
+    <innerclass refid="classjac_1_1ReadableRef" prot="public">jac::ReadableRef</innerclass>
+    <innerclass refid="structjac_1_1SgnUnwrap" prot="public">jac::SgnUnwrap</innerclass>
+    <innerclass refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4" prot="public">jac::SgnUnwrap&lt; Res(Args...)&gt;</innerclass>
+    <innerclass refid="classjac_1_1SimpleModuleLoaderFeature" prot="public">jac::SimpleModuleLoaderFeature</innerclass>
+    <innerclass refid="classjac_1_1StdioFeature" prot="public">jac::StdioFeature</innerclass>
+    <innerclass refid="classjac_1_1StringView" prot="public">jac::StringView</innerclass>
+    <innerclass refid="classjac_1_1TimersFeature" prot="public">jac::TimersFeature</innerclass>
+    <innerclass refid="classjac_1_1ValueWrapper" prot="public">jac::ValueWrapper</innerclass>
+    <innerclass refid="classjac_1_1Writable" prot="public">jac::Writable</innerclass>
+    <innerclass refid="structjac_1_1WritableProtoBuilder" prot="public">jac::WritableProtoBuilder</innerclass>
+    <innerclass refid="classjac_1_1WritableRef" prot="public">jac::WritableRef</innerclass>
+    <innernamespace refid="namespacejac_1_1detail">jac::detail</innernamespace>
+    <innernamespace refid="namespacejac_1_1ProtoBuilder">jac::ProtoBuilder</innernamespace>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6a" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>EvalFlags</name>
+        <qualifiedname>jac::EvalFlags</qualifiedname>
+        <enumvalue id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aa4cc6684df7b4a92b1dec6fce3264fac8" prot="public">
+          <name>Global</name>
+          <initializer>= JS_EVAL_TYPE_GLOBAL</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aae55f75a29310d7b60f7ac1d390c8ae42" prot="public">
+          <name>Module</name>
+          <initializer>= JS_EVAL_TYPE_MODULE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aa2e979835dd62324f5bfe217449ba4974" prot="public">
+          <name>Strict</name>
+          <initializer>= JS_EVAL_FLAG_STRICT</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aac8a477aae2fccb8a49694b1b73ab6328" prot="public">
+          <name>CompileOnly</name>
+          <initializer>= JS_EVAL_FLAG_COMPILE_ONLY</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="machine_8h_1a51eebdc343e8bbcb317e539bbc2ffe6aaed31b94ee8374af2ebd7c0a898255af2" prot="public">
+          <name>BacktraceBarrier</name>
+          <initializer>= JS_EVAL_FLAG_BACKTRACE_BARRIER</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="28" column="1" bodyfile="src/jac/machine/machine.h" bodystart="28" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="enum" id="values_8h_1a001d83c517ee032252b45348ad4a03fc" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>PropFlags</name>
+        <qualifiedname>jac::PropFlags</qualifiedname>
+        <enumvalue id="values_8h_1a001d83c517ee032252b45348ad4a03fca7a1920d61156abc05a60135aefe8bc67" prot="public">
+          <name>Default</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="values_8h_1a001d83c517ee032252b45348ad4a03fca1df876dc16c0decf35e837dc56087b13" prot="public">
+          <name>Configurable</name>
+          <initializer>= JS_PROP_CONFIGURABLE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="values_8h_1a001d83c517ee032252b45348ad4a03fcaa1915263415d561ab5f8c7a7fcaa60af" prot="public">
+          <name>Writable</name>
+          <initializer>= JS_PROP_WRITABLE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="values_8h_1a001d83c517ee032252b45348ad4a03fca3d3427680d711efe4defd02524bd9201" prot="public">
+          <name>Enumerable</name>
+          <initializer>= JS_PROP_ENUMERABLE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="values_8h_1a001d83c517ee032252b45348ad4a03fca3c80996f34735a22ed49afa320942c55" prot="public">
+          <name>C_W_E</name>
+          <initializer>= JS_PROP_C_W_E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Flags to specify property access attributes. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="21" column="1" bodyfile="src/jac/machine/values.h" bodystart="21" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="class_8h_1aae7464054e12db86fddbae125aa31dda" prot="public" static="no">
+        <templateparamlist>
+          <param>
+            <type>template&lt; typename... &gt; class</type>
+            <declname>Base</declname>
+            <defname>Base</defname>
+          </param>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>typename <ref refid="structjac_1_1is__base__of__template" kindref="compound">is_base_of_template</ref>&lt; Base, Derived &gt;::type</type>
+        <definition>using jac::is_base_of_template_t = typedef typename is_base_of_template&lt;Base, Derived&gt;::type</definition>
+        <argsstring></argsstring>
+        <name>is_base_of_template_t</name>
+        <qualifiedname>jac::is_base_of_template_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="63" column="1" bodyfile="src/jac/machine/class.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a08092614f736d3672b3ec6d3b24a5629" prot="public" static="no">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Value = typedef ValueWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <qualifiedname>jac::Value</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="23" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1ac75b6f5187e94637c2e1a97339c42439" prot="public" static="no">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::ValueWeak = typedef ValueWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>ValueWeak</name>
+        <qualifiedname>jac::ValueWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="24" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a7c86f4f91a8ff6c9c2a7bf362fbf1c1b" prot="public" static="no">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Object = typedef ObjectWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Object</name>
+        <qualifiedname>jac::Object</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="26" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1aa1b9fbad8dfbd33a1f98c9aa9b4db815" prot="public" static="no">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::ObjectWeak = typedef ObjectWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>ObjectWeak</name>
+        <qualifiedname>jac::ObjectWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="27" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1aa756f5495e49f05e278ea32ece5db06c" prot="public" static="no">
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">FunctionWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Function = typedef FunctionWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Function</name>
+        <qualifiedname>jac::Function</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="29" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a889de453c26acd9cfe6b6e50879165b2" prot="public" static="no">
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">FunctionWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::FunctionWeak = typedef FunctionWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>FunctionWeak</name>
+        <qualifiedname>jac::FunctionWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="30" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a407ad6cabf96828b04b55dfc7e48ca4b" prot="public" static="no">
+        <type><ref refid="classjac_1_1ArrayWrapper" kindref="compound">ArrayWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Array = typedef ArrayWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Array</name>
+        <qualifiedname>jac::Array</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="32" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a3051af09bfa6b2f4ee719d62e968224c" prot="public" static="no">
+        <type><ref refid="classjac_1_1ArrayWrapper" kindref="compound">ArrayWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::ArrayWeak = typedef ArrayWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArrayWeak</name>
+        <qualifiedname>jac::ArrayWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="33" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1aebc572d564306de631420afa29046b18" prot="public" static="no">
+        <type><ref refid="classjac_1_1PromiseWrapper" kindref="compound">PromiseWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Promise = typedef PromiseWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Promise</name>
+        <qualifiedname>jac::Promise</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="35" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a883807aa1325abd1a5bfb27feba26f8f" prot="public" static="no">
+        <type><ref refid="classjac_1_1PromiseWrapper" kindref="compound">PromiseWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::PromiseWeak = typedef PromiseWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>PromiseWeak</name>
+        <qualifiedname>jac::PromiseWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="36" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a4218b99fc39b31f3efa89fc54abe7fa5" prot="public" static="no">
+        <type><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::Exception = typedef ExceptionWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>Exception</name>
+        <qualifiedname>jac::Exception</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="38" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a58d7b9abf8eebee587bedcfbab28a012" prot="public" static="no">
+        <type><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">ExceptionWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::ExceptionWeak = typedef ExceptionWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>ExceptionWeak</name>
+        <qualifiedname>jac::ExceptionWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="39" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a737a3a2fe928cba196b35533d50b15af" prot="public" static="no">
+        <type><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBufferWrapper</ref>&lt; true &gt;</type>
+        <definition>using jac::ArrayBuffer = typedef ArrayBufferWrapper&lt;true&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArrayBuffer</name>
+        <qualifiedname>jac::ArrayBuffer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="41" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="declarations_8h_1a631cbe8e28c3e7213edf9daa23a4969a" prot="public" static="no">
+        <type><ref refid="classjac_1_1ArrayBufferWrapper" kindref="compound">ArrayBufferWrapper</ref>&lt; false &gt;</type>
+        <definition>using jac::ArrayBufferWeak = typedef ArrayBufferWrapper&lt;false&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArrayBufferWeak</name>
+        <qualifiedname>jac::ArrayBufferWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/internal/declarations.h" line="42" column="1" bodyfile="src/jac/machine/internal/declarations.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="class_8h_1a10ed25331497b40cb3122c5c0fca6765" prot="public" static="no" constexpr="yes" mutable="no">
+        <templateparamlist>
+          <param>
+            <type>template&lt; typename... &gt; class</type>
+            <declname>Base</declname>
+            <defname>Base</defname>
+          </param>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool jac::is_base_of_template_v</definition>
+        <argsstring></argsstring>
+        <name>is_base_of_template_v</name>
+        <qualifiedname>jac::is_base_of_template_v</qualifiedname>
+        <initializer>= <ref refid="structjac_1_1is__base__of__template" kindref="compound">is_base_of_template</ref>&lt;Base, Derived&gt;::value</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="66" column="23" bodyfile="src/jac/machine/class.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="nodeModuleLoaderFeature_8h_1ad7aa09bdeb389097c4257597825f4784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::strContains</definition>
+        <argsstring>(const auto &amp;str, const auto &amp;substr)</argsstring>
+        <name>strContains</name>
+        <qualifiedname>jac::strContains</qualifiedname>
+        <param>
+          <type>const auto &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>const auto &amp;</type>
+          <declname>substr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="34" column="6" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="34" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="nodeModuleLoaderFeature_8h_1aba2b522b81594f09be9c313ec3bf00b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::string_view</type>
+        <definition>std::string_view jac::substring</definition>
+        <argsstring>(const std::string &amp;str, size_t pos, size_t count=std::string::npos)</argsstring>
+        <name>substring</name>
+        <qualifiedname>jac::substring</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>pos</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+          <defval>std::string::npos</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="38" column="18" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="38" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="ostreamjs_8h_1aeaf9b499c00bdb5eae207109263e40a4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Machine</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void jac::initializeIo</definition>
+        <argsstring>(Machine &amp;machine)</argsstring>
+        <name>initializeIo</name>
+        <qualifiedname>jac::initializeIo</qualifiedname>
+        <param>
+          <type>Machine &amp;</type>
+          <declname>machine</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/util/ostreamjs.h" line="23" column="20" bodyfile="src/jac/features/util/ostreamjs.h" bodystart="23" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="atom_8h_1ad7532c0e72a6ab20a168c1ecc2033483" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+            <defval>int</defval>
+          </param>
+        </templateparamlist>
+        <type>constexpr bool</type>
+        <definition>constexpr bool jac::static_false</definition>
+        <argsstring>()</argsstring>
+        <name>static_false</name>
+        <qualifiedname>jac::static_false</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="18" column="16" bodyfile="src/jac/machine/atom.h" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_8h_1a20e118039aa2c8c57580fba677c58b29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Class</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>jac::SgnUnwrap</definition>
+        <argsstring>(Res(Class::*)(Args...)) -&gt; SgnUnwrap&lt; Res(Args...)&gt;</argsstring>
+        <name>SgnUnwrap</name>
+        <qualifiedname>jac::SgnUnwrap</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="30" column="1" declfile="src/jac/machine/class.h" declline="30" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a362fe0463570bed2c3a4bab8c4b93d41" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>JSValue</type>
+        <definition>JSValue jac::propagateExceptions</definition>
+        <argsstring>(ContextRef ctx, Func &amp;f) noexcept</argsstring>
+        <name>propagateExceptions</name>
+        <qualifiedname>jac::propagateExceptions</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Various functions to process function calls with unprocessed javascript arguments. Arguments and return value of the functions are automatically converted to and from javascript values. Exceptions thrown within the functions are caught and propagated to the javascript side. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="19" column="16" bodyfile="src/jac/machine/funcUtil.h" bodystart="19" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a3cc43e65fd461ea64dd17b46133d2f80" prot="public" static="no" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type>JSValue</type>
+        <definition>JSValue jac::propagateExceptions</definition>
+        <argsstring>(ContextRef ctx, Func &amp;&amp;f) noexcept</argsstring>
+        <name>propagateExceptions</name>
+        <qualifiedname>jac::propagateExceptions</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>Func &amp;&amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="35" column="16" bodyfile="src/jac/machine/funcUtil.h" bodystart="35" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a551fad55b634996dd24419f6754e49df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>JSValue</type>
+        <definition>JSValue jac::processCallRaw</definition>
+        <argsstring>(ContextRef ctx, JSValueConst, int argc, JSValueConst *argv, Func &amp;f)</argsstring>
+        <name>processCallRaw</name>
+        <qualifiedname>jac::processCallRaw</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValueConst</type>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>JSValueConst *</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="40" column="16" bodyfile="src/jac/machine/funcUtil.h" bodystart="40" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a15089b8adb842a03a56ba606b88c29f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::processCall</definition>
+        <argsstring>(ContextRef ctx, ValueWeak, std::vector&lt; ValueWeak &gt; argv, Func &amp;f)</argsstring>
+        <name>processCall</name>
+        <qualifiedname>jac::processCall</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="53" column="14" bodyfile="src/jac/machine/funcUtil.h" bodystart="53" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a15dda7cd688d103b9b2d175ea7343a76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+        </templateparamlist>
+        <type>JSValue</type>
+        <definition>JSValue jac::processCallVariadicRaw</definition>
+        <argsstring>(ContextRef ctx, JSValueConst, int argc, JSValueConst *argv, Func &amp;f)</argsstring>
+        <name>processCallVariadicRaw</name>
+        <qualifiedname>jac::processCallVariadicRaw</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValueConst</type>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>JSValueConst *</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="66" column="16" bodyfile="src/jac/machine/funcUtil.h" bodystart="66" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a6746d970694c5d1b6851af2e4f9b01e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::processCallVariadic</definition>
+        <argsstring>(ContextRef ctx, ValueWeak, std::vector&lt; ValueWeak &gt; argv, Func &amp;f)</argsstring>
+        <name>processCallVariadic</name>
+        <qualifiedname>jac::processCallVariadic</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="82" column="14" bodyfile="src/jac/machine/funcUtil.h" bodystart="82" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a36be13aaa55bde919a1ceb3477113fed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::processCallThis</definition>
+        <argsstring>(ContextRef ctx, ValueWeak thisVal, std::vector&lt; ValueWeak &gt; argv, Func &amp;f)</argsstring>
+        <name>processCallThis</name>
+        <qualifiedname>jac::processCallThis</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="93" column="14" bodyfile="src/jac/machine/funcUtil.h" bodystart="93" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a30de27ad132dd306d1f2622f772655aa" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::processCallThisVariadic</definition>
+        <argsstring>(ContextRef ctx, ValueWeak thisVal, std::vector&lt; ValueWeak &gt; argv, Func &amp;f)</argsstring>
+        <name>processCallThisVariadic</name>
+        <qualifiedname>jac::processCallThisVariadic</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>Func &amp;</type>
+          <declname>f</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="106" column="14" bodyfile="src/jac/machine/funcUtil.h" bodystart="106" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a891da7f63025aa5a5a3f92bee560c917" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>std::tuple&lt; Args... &gt;</type>
+        <definition>std::tuple&lt; Args... &gt; jac::convertArgs</definition>
+        <argsstring>(ContextRef ctx, std::vector&lt; ValueWeak &gt; argv, std::index_sequence&lt; Is... &gt;)</argsstring>
+        <name>convertArgs</name>
+        <qualifiedname>jac::convertArgs</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is... &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="118" column="19" bodyfile="src/jac/machine/funcUtil.h" bodystart="118" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="funcUtil_8h_1a0804f06523590215c97d67e95c9e9e53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+          <param>
+            <type>std::size_t...</type>
+            <declname>Is</declname>
+            <defname>Is</defname>
+          </param>
+        </templateparamlist>
+        <type>std::tuple&lt; Args... &gt;</type>
+        <definition>std::tuple&lt; Args... &gt; jac::convertArgs</definition>
+        <argsstring>(ContextRef ctx, JSValueConst *argv, int argc, std::index_sequence&lt; Is... &gt;)</argsstring>
+        <name>convertArgs</name>
+        <qualifiedname>jac::convertArgs</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValueConst *</type>
+          <declname>argv</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>std::index_sequence&lt; Is... &gt;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/funcUtil.h" line="127" column="19" bodyfile="src/jac/machine/funcUtil.h" bodystart="127" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="machine_8h_1a2f77567431ffb5e64cae90e1a8ccd730" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr EvalFlags</type>
+        <definition>constexpr EvalFlags jac::operator|</definition>
+        <argsstring>(EvalFlags a, EvalFlags b)</argsstring>
+        <name>operator|</name>
+        <qualifiedname>jac::operator|</qualifiedname>
+        <param>
+          <type>EvalFlags</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>EvalFlags</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="37" column="28" bodyfile="src/jac/machine/machine.h" bodystart="37" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="machine_8h_1a8c4bdeb072ff121c9fcabe3a6419c8a6" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr EvalFlags</type>
+        <definition>constexpr EvalFlags jac::operator&amp;</definition>
+        <argsstring>(EvalFlags a, EvalFlags b)</argsstring>
+        <name>operator&amp;</name>
+        <qualifiedname>jac::operator&amp;</qualifiedname>
+        <param>
+          <type>EvalFlags</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>EvalFlags</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="45" column="28" bodyfile="src/jac/machine/machine.h" bodystart="45" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="values_8h_1afcf45a52029b50a8d086131a8abbe151" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr PropFlags</type>
+        <definition>constexpr PropFlags jac::operator|</definition>
+        <argsstring>(PropFlags a, PropFlags b)</argsstring>
+        <name>operator|</name>
+        <qualifiedname>jac::operator|</qualifiedname>
+        <param>
+          <type>PropFlags</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>PropFlags</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="29" column="28" bodyfile="src/jac/machine/values.h" bodystart="29" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="values_8h_1a0f25438ee8719a3f490a6f71542c99b0" prot="public" static="no" constexpr="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>constexpr PropFlags</type>
+        <definition>constexpr PropFlags jac::operator&amp;</definition>
+        <argsstring>(PropFlags a, PropFlags b)</argsstring>
+        <name>operator&amp;</name>
+        <qualifiedname>jac::operator&amp;</qualifiedname>
+        <param>
+          <type>PropFlags</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>PropFlags</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="33" column="28" bodyfile="src/jac/machine/values.h" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="values_8h_1a0139538b1457ca9e2c18af6737908d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T jac::fromValue</definition>
+        <argsstring>(ContextRef ctx, ValueWeak val)</argsstring>
+        <name>fromValue</name>
+        <qualifiedname>jac::fromValue</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="947" column="3" bodyfile="src/jac/machine/values.h" bodystart="947" bodyend="954" declfile="src/jac/machine/values.h" declline="39" declcolumn="3"/>
+      </memberdef>
+      <memberdef kind="function" id="values_8h_1a0410882ecaad2c4ffb2227ae6ac61e4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::toValue</definition>
+        <argsstring>(ContextRef ctx, T val)</argsstring>
+        <name>toValue</name>
+        <qualifiedname>jac::toValue</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="957" column="7" bodyfile="src/jac/machine/values.h" bodystart="957" bodyend="965" declfile="src/jac/machine/values.h" declline="42" declcolumn="7"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/basicStreamFeature.h" line="12" column="1"/>
+  </compounddef>
+</doxygen>

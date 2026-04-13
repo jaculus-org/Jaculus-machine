@@ -1,0 +1,839 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ValueWrapper" kind="class" language="C++" prot="public">
+    <compoundname>jac::ValueWrapper</compoundname>
+    <derivedcompoundref refid="classjac_1_1ExceptionWrapper" prot="public" virt="non-virtual">jac::ExceptionWrapper&lt; managed &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classjac_1_1ObjectWrapper" prot="public" virt="non-virtual">jac::ObjectWrapper&lt; managed &gt;</derivedcompoundref>
+    <includes refid="values_8h" local="no">values.h</includes>
+    <templateparamlist>
+      <param>
+        <type>bool</type>
+        <declname>managed</declname>
+        <defname>managed</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classjac_1_1ValueWrapper_1abb202860c6e6398341e7dde74e60baa9" prot="protected" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::ValueWrapper&lt; managed &gt;::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::ValueWrapper::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="53" column="16" bodyfile="src/jac/machine/values.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1ValueWrapper_1a66a74b7b7bc37155f184b4c30f0de510" prot="protected" static="no" mutable="no">
+        <type>JSValue</type>
+        <definition>JSValue jac::ValueWrapper&lt; managed &gt;::_val</definition>
+        <argsstring></argsstring>
+        <name>_val</name>
+        <qualifiedname>jac::ValueWrapper::_val</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="54" column="13" bodyfile="src/jac/machine/values.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueWrapper&lt; managed &gt;::ValueWrapper</definition>
+        <argsstring>(ContextRef ctx, JSValue val)</argsstring>
+        <name>ValueWrapper</name>
+        <qualifiedname>jac::ValueWrapper::ValueWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValue</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Wrap an existing JSValue. If managed is true, JSValue will be freed when the Value is destroyed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Used internally when directly working with QuickJS API. New Value should be created using <ref refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" kindref="member">Value::from&lt;T&gt;()</ref>, <ref refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" kindref="member">Value::undefined()</ref>, etc.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSValue to wrap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="63" column="5" bodyfile="src/jac/machine/values.h" bodystart="876" bodyend="880"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1afdf44e341bdfb6aa504ce08843eceb56" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueWrapper&lt; managed &gt;::ValueWrapper</definition>
+        <argsstring>(const ValueWrapper &amp;other)</argsstring>
+        <name>ValueWrapper</name>
+        <qualifiedname>jac::ValueWrapper::ValueWrapper</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="64" column="5" bodyfile="src/jac/machine/values.h" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1af97a125d921f216dcfc370c7a23c9575" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueWrapper&lt; managed &gt;::ValueWrapper</definition>
+        <argsstring>(ValueWrapper &amp;&amp;other)</argsstring>
+        <name>ValueWrapper</name>
+        <qualifiedname>jac::ValueWrapper::ValueWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="68" column="5" bodyfile="src/jac/machine/values.h" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a8f29f7fc54b32aa65c42ab57c80edbd9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;</type>
+        <definition>ValueWrapper &amp; jac::ValueWrapper&lt; managed &gt;::operator=</definition>
+        <argsstring>(const ValueWrapper &amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::ValueWrapper::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="73" column="18" bodyfile="src/jac/machine/values.h" bodystart="73" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1af6e64cb0e4faf7a7244da5a99090467f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;</type>
+        <definition>ValueWrapper &amp; jac::ValueWrapper&lt; managed &gt;::operator=</definition>
+        <argsstring>(ValueWrapper &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::ValueWrapper::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="87" column="18" bodyfile="src/jac/machine/values.h" bodystart="87" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a1487786919dca0744c5cc5a50ef5b5c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueWrapper&lt; managed &gt;::operator ValueWeak</definition>
+        <argsstring>()</argsstring>
+        <name>operator ValueWeak</name>
+        <qualifiedname>jac::ValueWrapper::operator ValueWeak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="98" column="5" bodyfile="src/jac/machine/values.h" bodystart="98" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1abe9db711b8ec57ff73a0e0dd309ac3c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueWrapper&lt; managed &gt;::~ValueWrapper</definition>
+        <argsstring>()</argsstring>
+        <name>~ValueWrapper</name>
+        <qualifiedname>jac::ValueWrapper::~ValueWrapper</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="102" column="5" bodyfile="src/jac/machine/values.h" bodystart="102" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::pair&lt; <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>, JSValue &gt;</type>
+        <definition>std::pair&lt; ContextRef, JSValue &gt; jac::ValueWrapper&lt; managed &gt;::loot</definition>
+        <argsstring>()</argsstring>
+        <name>loot</name>
+        <qualifiedname>jac::ValueWrapper::loot</qualifiedname>
+        <briefdescription>
+<para>Release ownership of the JSValue. The JSValue will have to be freed manually. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>After this call, the Value is in an undefined state.</para>
+</simplesect>
+<simplesect kind="return"><para>Pair of <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref> and JSValue </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="114" column="15" bodyfile="src/jac/machine/values.h" bodystart="114" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSValue &amp;</type>
+        <definition>JSValue &amp; jac::ValueWrapper&lt; managed &gt;::getVal</definition>
+        <argsstring>()</argsstring>
+        <name>getVal</name>
+        <qualifiedname>jac::ValueWrapper::getVal</qualifiedname>
+        <briefdescription>
+<para>Get reference to the underlying JSValue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>JSValue reference </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="127" column="13" bodyfile="src/jac/machine/values.h" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isUndefined</definition>
+        <argsstring>()</argsstring>
+        <name>isUndefined</name>
+        <qualifiedname>jac::ValueWrapper::isUndefined</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is undefined. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is undefined, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="136" column="10" bodyfile="src/jac/machine/values.h" bodystart="136" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isNull</definition>
+        <argsstring>()</argsstring>
+        <name>isNull</name>
+        <qualifiedname>jac::ValueWrapper::isNull</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is null, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="145" column="10" bodyfile="src/jac/machine/values.h" bodystart="145" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isNumber</definition>
+        <argsstring>()</argsstring>
+        <name>isNumber</name>
+        <qualifiedname>jac::ValueWrapper::isNumber</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is number, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="154" column="10" bodyfile="src/jac/machine/values.h" bodystart="154" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isBigInt</definition>
+        <argsstring>()</argsstring>
+        <name>isBigInt</name>
+        <qualifiedname>jac::ValueWrapper::isBigInt</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is BigInt. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is BigInt, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="163" column="10" bodyfile="src/jac/machine/values.h" bodystart="163" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isBoolean</definition>
+        <argsstring>()</argsstring>
+        <name>isBoolean</name>
+        <qualifiedname>jac::ValueWrapper::isBoolean</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is boolean. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is boolean, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="172" column="10" bodyfile="src/jac/machine/values.h" bodystart="172" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isString</definition>
+        <argsstring>()</argsstring>
+        <name>isString</name>
+        <qualifiedname>jac::ValueWrapper::isString</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is string, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="181" column="10" bodyfile="src/jac/machine/values.h" bodystart="181" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isSymbol</definition>
+        <argsstring>()</argsstring>
+        <name>isSymbol</name>
+        <qualifiedname>jac::ValueWrapper::isSymbol</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is symbol. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is symbol, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="190" column="10" bodyfile="src/jac/machine/values.h" bodystart="190" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isObject</definition>
+        <argsstring>()</argsstring>
+        <name>isObject</name>
+        <qualifiedname>jac::ValueWrapper::isObject</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is an object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is an object, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="199" column="10" bodyfile="src/jac/machine/values.h" bodystart="199" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isArray</definition>
+        <argsstring>()</argsstring>
+        <name>isArray</name>
+        <qualifiedname>jac::ValueWrapper::isArray</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is an array. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is an array, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="208" column="10" bodyfile="src/jac/machine/values.h" bodystart="208" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isFunction</definition>
+        <argsstring>()</argsstring>
+        <name>isFunction</name>
+        <qualifiedname>jac::ValueWrapper::isFunction</qualifiedname>
+        <briefdescription>
+<para>Check if the Value is a function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the Value is a function, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="217" column="10" bodyfile="src/jac/machine/values.h" bodystart="217" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueWrapper&lt; managed &gt;::isInstanceOf</definition>
+        <argsstring>(ObjectWeak obj)</argsstring>
+        <name>isInstanceOf</name>
+        <qualifiedname>jac::ValueWrapper::isInstanceOf</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">ObjectWeak</ref></type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+<para>Check if the Value is an instance of the given object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>obj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>object to check against</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the Value is an instance of the given object, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="227" column="10" bodyfile="src/jac/machine/values.h" bodystart="883" bodyend="885"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref></type>
+        <definition>StringView jac::ValueWrapper&lt; managed &gt;::toString</definition>
+        <argsstring>()</argsstring>
+        <name>toString</name>
+        <qualifiedname>jac::ValueWrapper::toString</qualifiedname>
+        <briefdescription>
+<para>Convert the Value to a <ref refid="classjac_1_1StringView" kindref="compound">StringView</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="234" column="16" bodyfile="src/jac/machine/values.h" bodystart="234" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T jac::ValueWrapper&lt; managed &gt;::to</definition>
+        <argsstring>()</argsstring>
+        <name>to</name>
+        <qualifiedname>jac::ValueWrapper::to</qualifiedname>
+        <briefdescription>
+<para>Convert the Value to a specified type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type to convert to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The converted value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="245" column="7" bodyfile="src/jac/machine/values.h" bodystart="245" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::ValueWrapper&lt; managed &gt;::stringify</definition>
+        <argsstring>(int indent=0)</argsstring>
+        <name>stringify</name>
+        <qualifiedname>jac::ValueWrapper::stringify</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>indent</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Convert the Value to a JSON representation. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>indent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indentation level </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value containing the JSON representation </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="255" column="11" bodyfile="src/jac/machine/values.h" bodystart="255" bodyend="258"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ValueWrapper&lt; managed &gt;::from</definition>
+        <argsstring>(ContextRef ctx, T val)</argsstring>
+        <name>from</name>
+        <qualifiedname>jac::ValueWrapper::from</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Create a new Value by converting a given value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to convert </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting Value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="269" column="18" bodyfile="src/jac/machine/values.h" bodystart="269" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ValueWrapper&lt; managed &gt;::fromJSON</definition>
+        <argsstring>(ContextRef ctx, std::string json, std::string filename=&quot;&lt;json&gt;&quot;, bool extended=false)</argsstring>
+        <name>fromJSON</name>
+        <qualifiedname>jac::ValueWrapper::fromJSON</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>json</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+          <defval>&quot;&lt;json&gt;&quot;</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>extended</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Create a new Value from a given JSON string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>json</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSON string </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filename to use as the source of the JSON </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>extended</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether to use extended JSON </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting Value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="282" column="18" bodyfile="src/jac/machine/values.h" bodystart="282" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ValueWrapper&lt; managed &gt;::undefined</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>undefined</name>
+        <qualifiedname>jac::ValueWrapper::undefined</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Create a new Value containing undefined. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting Value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="292" column="18" bodyfile="src/jac/machine/values.h" bodystart="292" bodyend="294"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ValueWrapper&lt; managed &gt;::null</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>null</name>
+        <qualifiedname>jac::ValueWrapper::null</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Create a new Value containing null. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting Value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="302" column="18" bodyfile="src/jac/machine/values.h" bodystart="302" bodyend="304"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classjac_1_1ValueWrapper_1a53dc0ffba87dd752ef25a7d4aec12063" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, ValueWrapper &amp;val)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>jac::ValueWrapper::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref> &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="306" column="12" bodyfile="src/jac/machine/values.h" bodystart="306" bodyend="309"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper around JSValue with RAII. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>managed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether the JSValue should be freed when the wrapper is destroyed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="4">
+        <label>jac::ArrayBufferWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ArrayBufferWrapper"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>jac::ArrayWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ArrayWrapper"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ExceptionWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ExceptionWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jac::FunctionWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1FunctionWrapper"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jac::ObjectWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ObjectWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>jac::PromiseWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1PromiseWrapper"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jac::ContextRef</label>
+        <link refid="classjac_1_1ContextRef"/>
+      </node>
+      <node id="1">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>_ctx</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/values.h" line="51" column="1" bodyfile="src/jac/machine/values.h" bodystart="51" bodyend="310"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ValueWrapper_1abb202860c6e6398341e7dde74e60baa9" prot="protected" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a66a74b7b7bc37155f184b4c30f0de510" prot="protected" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>_val</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>from</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>fromJSON</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>getVal</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isArray</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isBigInt</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isBoolean</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isFunction</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isInstanceOf</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isNull</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isNumber</name></member>
+      <member refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isObject</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isString</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isSymbol</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>isUndefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>loot</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>null</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1487786919dca0744c5cc5a50ef5b5c5" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>operator ValueWeak</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a53dc0ffba87dd752ef25a7d4aec12063" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8f29f7fc54b32aa65c42ab57c80edbd9" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af6e64cb0e4faf7a7244da5a99090467f" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>stringify</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>to</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>toString</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>undefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afdf44e341bdfb6aa504ce08843eceb56" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97a125d921f216dcfc370c7a23c9575" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abe9db711b8ec57ff73a0e0dd309ac3c4" prot="public" virt="non-virtual"><scope>jac::ValueWrapper</scope><name>~ValueWrapper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

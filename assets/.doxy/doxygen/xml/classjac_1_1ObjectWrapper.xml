@@ -1,0 +1,809 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ObjectWrapper" kind="class" language="C++" prot="public">
+    <compoundname>jac::ObjectWrapper</compoundname>
+    <basecompoundref refid="classjac_1_1ValueWrapper" prot="public" virt="non-virtual">jac::ValueWrapper&lt; managed &gt;</basecompoundref>
+    <derivedcompoundref refid="classjac_1_1ArrayBufferWrapper" prot="public" virt="non-virtual">jac::ArrayBufferWrapper&lt; managed &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classjac_1_1ArrayWrapper" prot="public" virt="non-virtual">jac::ArrayWrapper&lt; managed &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classjac_1_1FunctionWrapper" prot="public" virt="non-virtual">jac::FunctionWrapper&lt; managed &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classjac_1_1PromiseWrapper" prot="public" virt="non-virtual">jac::PromiseWrapper&lt; managed &gt;</derivedcompoundref>
+    <includes refid="values_8h" local="no">values.h</includes>
+    <templateparamlist>
+      <param>
+        <type>bool</type>
+        <declname>managed</declname>
+        <defname>managed</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a70bc1725583ea405d82a9aabd1649f33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ObjectWrapper&lt; managed &gt;::ObjectWrapper</definition>
+        <argsstring>(ValueWrapper&lt; managed &gt; value)</argsstring>
+        <name>ObjectWrapper</name>
+        <qualifiedname>jac::ObjectWrapper::ObjectWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWrapper</ref>&lt; managed &gt;</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Wrap an existing JSValue. If managed is true, JSValue will be freed when the Object is destroyed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Used internally when directly working with QuickJS API. New Object should be created using <ref refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" kindref="member">Object::create()</ref> or by converting an existing Value to an Object using <ref refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" kindref="member">Value::to&lt;Object&gt;()</ref>.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSValue to wrap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="411" column="5" bodyfile="src/jac/machine/values.h" bodystart="411" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a1e7fe64766d4cdd01ad9d948e12bb8cb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ObjectWrapper&lt; managed &gt;::ObjectWrapper</definition>
+        <argsstring>(ContextRef ctx, JSValue val)</argsstring>
+        <name>ObjectWrapper</name>
+        <qualifiedname>jac::ObjectWrapper::ObjectWrapper</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSValue</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="416" column="5" bodyfile="src/jac/machine/values.h" bodystart="416" bodyend="416"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+            <defval><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></defval>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T jac::ObjectWrapper&lt; managed &gt;::get</definition>
+        <argsstring>(Atom prop)</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::ObjectWrapper::get</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+          <declname>prop</declname>
+        </param>
+        <briefdescription>
+<para>Get a property of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type to convert the property to </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>prop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="426" column="7" bodyfile="src/jac/machine/values.h" bodystart="426" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a5a131c6672f32a5f9578e120280f4a77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+            <defval><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></defval>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T jac::ObjectWrapper&lt; managed &gt;::get</definition>
+        <argsstring>(const std::string &amp;name)</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::ObjectWrapper::get</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="432" column="7" bodyfile="src/jac/machine/values.h" bodystart="432" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a329f3b89d150945afc6cd568e74142fe" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+            <defval><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></defval>
+          </param>
+        </templateparamlist>
+        <type>T</type>
+        <definition>T jac::ObjectWrapper&lt; managed &gt;::get</definition>
+        <argsstring>(uint32_t idx)</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::ObjectWrapper::get</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="437" column="7" bodyfile="src/jac/machine/values.h" bodystart="437" bodyend="439"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::set</definition>
+        <argsstring>(Atom prop, T val)</argsstring>
+        <name>set</name>
+        <qualifiedname>jac::ObjectWrapper::set</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+          <declname>prop</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Set a property of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the value to set </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>prop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value to set </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="449" column="10" bodyfile="src/jac/machine/values.h" bodystart="449" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a0c6fcd6d637ebf02d438a30fb6ccb21d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::set</definition>
+        <argsstring>(const std::string &amp;name, T val)</argsstring>
+        <name>set</name>
+        <qualifiedname>jac::ObjectWrapper::set</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="456" column="10" bodyfile="src/jac/machine/values.h" bodystart="456" bodyend="458"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1af48e35ce52ed5ff567bac28e999318ae" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::set</definition>
+        <argsstring>(uint32_t idx, T val)</argsstring>
+        <name>set</name>
+        <qualifiedname>jac::ObjectWrapper::set</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>T</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="461" column="10" bodyfile="src/jac/machine/values.h" bodystart="461" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>Res</type>
+        <definition>Res jac::ObjectWrapper&lt; managed &gt;::invoke</definition>
+        <argsstring>(Atom key, Args... args)</argsstring>
+        <name>invoke</name>
+        <qualifiedname>jac::ObjectWrapper::invoke</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+<para>Invoke a method of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The call will automatically convert the arguments to their JavaScript counterparts, the result will be converted to the specified type and Exceptions thrown in JS will be propagated to C++ as jac::Exception.</para>
+</simplesect>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type to convert the result to </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>types of the arguments </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>prop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the arguments </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The resulting value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="478" column="9" bodyfile="src/jac/machine/values.h" bodystart="889" bodyend="891"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1ab27581d0014fd95535ea13bf4d2fcccb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>Res</type>
+        <definition>Res jac::ObjectWrapper&lt; managed &gt;::invoke</definition>
+        <argsstring>(const std::string &amp;key, Args... args)</argsstring>
+        <name>invoke</name>
+        <qualifiedname>jac::ObjectWrapper::invoke</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="481" column="9" bodyfile="src/jac/machine/values.h" bodystart="481" bodyend="483"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a5575b52851439a71b542b79c697bb8e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>Res</type>
+        <definition>Res jac::ObjectWrapper&lt; managed &gt;::invoke</definition>
+        <argsstring>(uint32_t idx, Args... args)</argsstring>
+        <name>invoke</name>
+        <qualifiedname>jac::ObjectWrapper::invoke</qualifiedname>
+        <param>
+          <type>uint32_t</type>
+          <declname>idx</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="486" column="9" bodyfile="src/jac/machine/values.h" bodystart="486" bodyend="488"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Id</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::defineProperty</definition>
+        <argsstring>(Id id, Value value, PropFlags flags=PropFlags::Default)</argsstring>
+        <name>defineProperty</name>
+        <qualifiedname>jac::ObjectWrapper::defineProperty</qualifiedname>
+        <param>
+          <type>Id</type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>PropFlags</type>
+          <declname>flags</declname>
+          <defval>PropFlags::Default</defval>
+        </param>
+        <briefdescription>
+<para>Define a property of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the type of the property identifier (<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref>, std::string, uint32_t) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value to set </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property flags </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="499" column="10" bodyfile="src/jac/machine/values.h" bodystart="499" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1abbc0d7dfd49ef9f2f7cd9edb71b56c7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Id</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool jac::ObjectWrapper&lt; managed &gt;::hasProperty</definition>
+        <argsstring>(Id id)</argsstring>
+        <name>hasProperty</name>
+        <qualifiedname>jac::ObjectWrapper::hasProperty</qualifiedname>
+        <param>
+          <type>Id</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Check if the object has a property. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the type of the property identifier (<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref>, std::string, uint32_t) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the object has the property, false otherwise </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="514" column="10" bodyfile="src/jac/machine/values.h" bodystart="514" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a5526e2afd9daba1b2dc064659d76389c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Id</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::deleteProperty</definition>
+        <argsstring>(Id id)</argsstring>
+        <name>deleteProperty</name>
+        <qualifiedname>jac::ObjectWrapper::deleteProperty</qualifiedname>
+        <param>
+          <type>Id</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+<para>Delete a property of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the type of the property identifier (<ref refid="classjac_1_1Atom" kindref="compound">Atom</ref>, std::string, uint32_t) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the property identifier </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="530" column="10" bodyfile="src/jac/machine/values.h" bodystart="530" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1ac0bb89529ff7b51cadac3bf96650296e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+        <definition>Object jac::ObjectWrapper&lt; managed &gt;::getPrototype</definition>
+        <argsstring>()</argsstring>
+        <name>getPrototype</name>
+        <qualifiedname>jac::ObjectWrapper::getPrototype</qualifiedname>
+        <briefdescription>
+<para>Get the prototype of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The prototype </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="542" column="12" bodyfile="src/jac/machine/values.h" bodystart="542" bodyend="544"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a453407b45b1cc138bcdc4526ed3d99e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::ObjectWrapper&lt; managed &gt;::setPrototype</definition>
+        <argsstring>(Object proto)</argsstring>
+        <name>setPrototype</name>
+        <qualifiedname>jac::ObjectWrapper::setPrototype</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+          <declname>proto</declname>
+        </param>
+        <briefdescription>
+<para>Set the prototype of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>proto</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the prototype </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="551" column="10" bodyfile="src/jac/machine/values.h" bodystart="551" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a8b0c2ffd645f3631e4a83473774a7eb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::vector&lt; <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &gt;</type>
+        <definition>std::vector&lt; Atom &gt; jac::ObjectWrapper&lt; managed &gt;::getOwnPropertyNames</definition>
+        <argsstring>(int flags=JS_GPN_STRING_MASK|JS_GPN_ENUM_ONLY)</argsstring>
+        <name>getOwnPropertyNames</name>
+        <qualifiedname>jac::ObjectWrapper::getOwnPropertyNames</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+          <defval>JS_GPN_STRING_MASK|JS_GPN_ENUM_ONLY</defval>
+        </param>
+        <briefdescription>
+<para>Get own property names of the object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags to filter the properties </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Vector of property names (atoms) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="563" column="17" bodyfile="src/jac/machine/values.h" bodystart="563" bodyend="577"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+        <definition>static Object jac::ObjectWrapper&lt; managed &gt;::create</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>create</name>
+        <qualifiedname>jac::ObjectWrapper::create</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>Create a new empty object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the context to create the object in </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The new object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="585" column="19" bodyfile="src/jac/machine/values.h" bodystart="585" bodyend="587"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper for JSValue with Object type with RAII. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>managed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>whether the JSValue should be freed when the wrapper is destroyed. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>jac::ArrayBufferWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ArrayBufferWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>jac::ArrayWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ArrayWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>jac::FunctionWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1FunctionWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>jac::ObjectWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ObjectWrapper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>jac::PromiseWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1PromiseWrapper"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>jac::ContextRef</label>
+        <link refid="classjac_1_1ContextRef"/>
+      </node>
+      <node id="1">
+        <label>jac::ObjectWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ObjectWrapper"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ValueWrapper&lt; managed &gt;</label>
+        <link refid="classjac_1_1ValueWrapper"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>_ctx</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/values.h" line="398" column="1" bodyfile="src/jac/machine/values.h" bodystart="398" bodyend="588"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ValueWrapper_1abb202860c6e6398341e7dde74e60baa9" prot="protected" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a66a74b7b7bc37155f184b4c30f0de510" prot="protected" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>_val</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a6b087bcf4b16ae3809224623f3ff6e90" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>create</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a4c76a2ce0e8bc6ddaac61a2e9d82b949" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>defineProperty</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a5526e2afd9daba1b2dc064659d76389c" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>deleteProperty</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a74104ed70008d14bdcebb3a872cdef27" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>from</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a12a7c6efe316e6398e7db2f237d09a90" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>fromJSON</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a508714a413b326ac91d1cd00f1e66ed4" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>get</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a5a131c6672f32a5f9578e120280f4a77" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>get</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a329f3b89d150945afc6cd568e74142fe" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>get</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a8b0c2ffd645f3631e4a83473774a7eb8" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>getOwnPropertyNames</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1ac0bb89529ff7b51cadac3bf96650296e" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>getPrototype</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97d3917b332574cd154dec7bab4aabc" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>getVal</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1abbc0d7dfd49ef9f2f7cd9edb71b56c7d" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>hasProperty</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1ab51ad33e3efa2ec4ba4e0055385e8704" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>invoke</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1ab27581d0014fd95535ea13bf4d2fcccb" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>invoke</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a5575b52851439a71b542b79c697bb8e3" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>invoke</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8c0a3d545bf634327e841091a4fb1fbd" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isArray</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a910e4c30ddd36015b61f32deb5de2f65" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isBigInt</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1f03255ea3e2aa4ed28a842c2b0cc80e" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isBoolean</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8a1e48e9296d4546aba6e340ba42169b" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isFunction</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a7d0d0ccf36883adc1a0e2cb9b19219b9" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isInstanceOf</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a133d8273b68719adf3ee1acb7c080f18" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isNull</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afac6943c64b2ec413a1f72f63d4dc110" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isNumber</name></member>
+      <member refid="classjac_1_1ValueWrapper_1accfe8acd04c14bdb69e75e5545c73a95" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isObject</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a9ad4b11784c1bb828e7ffcbd0b908538" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isString</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afcbd5d99776d25b65ab567969bdd8604" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isSymbol</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a3dd75b227b8fa526b397db701c233635" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>isUndefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ae0b6d4f2028601bfaa53a0c12956fe21" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>loot</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abf597fa3ddb38b10a0b649717f46e77b" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>null</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a70bc1725583ea405d82a9aabd1649f33" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>ObjectWrapper</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a1e7fe64766d4cdd01ad9d948e12bb8cb" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>ObjectWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1487786919dca0744c5cc5a50ef5b5c5" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>operator ValueWeak</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a8f29f7fc54b32aa65c42ab57c80edbd9" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af6e64cb0e4faf7a7244da5a99090467f" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>operator=</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a4209b8b6c3411aa8bd56ad6b64535cfd" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>set</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a0c6fcd6d637ebf02d438a30fb6ccb21d" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>set</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1af48e35ce52ed5ff567bac28e999318ae" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>set</name></member>
+      <member refid="classjac_1_1ObjectWrapper_1a453407b45b1cc138bcdc4526ed3d99e4" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>setPrototype</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a65e5d08ce4065119e09dd7daf5515290" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>stringify</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a369f6e6a3f811ded8496196749a647b6" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>to</name></member>
+      <member refid="classjac_1_1ValueWrapper_1ac2eb88c6dc4aaa0e162be6e76de99fd1" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>toString</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a1665fd5d163b10a96bcc81a703803f08" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>undefined</name></member>
+      <member refid="classjac_1_1ValueWrapper_1a2e8591d7b97b3e3a0c30252bfb118eb6" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1afdf44e341bdfb6aa504ce08843eceb56" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1af97a125d921f216dcfc370c7a23c9575" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>ValueWrapper</name></member>
+      <member refid="classjac_1_1ValueWrapper_1abe9db711b8ec57ff73a0e0dd309ac3c4" prot="public" virt="non-virtual"><scope>jac::ObjectWrapper</scope><name>~ValueWrapper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

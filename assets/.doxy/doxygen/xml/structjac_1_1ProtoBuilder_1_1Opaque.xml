@@ -1,0 +1,482 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ProtoBuilder_1_1Opaque" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ProtoBuilder::Opaque</compoundname>
+    <includes refid="class_8h" local="no">class.h</includes>
+    <templateparamlist>
+      <param>
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">typename</ref> <ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">T</ref></type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structjac_1_1ProtoBuilder_1_1Opaque_1a73d9f21225670346c889ba16942ee495" prot="public" static="no">
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">T</ref></type>
+        <definition>using jac::ProtoBuilder::Opaque&lt; T &gt;::OpaqueType =  T</definition>
+        <argsstring></argsstring>
+        <name>OpaqueType</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::OpaqueType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="81" column="9" bodyfile="src/jac/machine/class.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="structjac_1_1ProtoBuilder_1_1Opaque_1a1194ac58aadccaefef0f8d37c12dc052" prot="public" static="yes" mutable="no">
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">JSClassID</ref></type>
+        <definition>JSClassID jac::ProtoBuilder::Opaque&lt; T &gt;::classId</definition>
+        <argsstring></argsstring>
+        <name>classId</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::classId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="82" column="33" bodyfile="src/jac/machine/class.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1a11508965321d887cbd6bf4f7b77cdcbe" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">T</ref> *</type>
+        <definition>static T * jac::ProtoBuilder::Opaque&lt; T &gt;::constructOpaque</definition>
+        <argsstring>(ContextRef, std::vector&lt; ValueWeak &gt;)</argsstring>
+        <name>constructOpaque</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::constructOpaque</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="structjac_1_1ProtoBuilder_1_1Opaque" kindref="compound">Opaque</ref> object from javascript arguments. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This function is only called upon javascript class instantiation</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>args</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arguments passed to the constructor </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the opaque data </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="92" column="18" bodyfile="src/jac/machine/class.h" bodystart="92" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1a0f840b0f74a74e1a8acb118c03748a89" prot="public" static="yes" const="no" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">void</ref></type>
+        <definition>static void jac::ProtoBuilder::Opaque&lt; T &gt;::destroyOpaque</definition>
+        <argsstring>(JSRuntime *, T *ptr) noexcept</argsstring>
+        <name>destroyOpaque</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::destroyOpaque</qualifiedname>
+        <param>
+          <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">JSRuntime</ref> *</type>
+        </param>
+        <param>
+          <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">T</ref> *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+<para>Destroy the <ref refid="structjac_1_1ProtoBuilder_1_1Opaque" kindref="compound">Opaque</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>This function is only called when the javascript object is garbage collected</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>runtime to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the opaque data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="103" column="21" bodyfile="src/jac/machine/class.h" bodystart="103" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1ab5c6bc72d3296cda5415ab93386814ba" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">T</ref> *</type>
+        <definition>static T * jac::ProtoBuilder::Opaque&lt; T &gt;::getOpaque</definition>
+        <argsstring>(ContextRef, ValueWeak thisVal)</argsstring>
+        <name>getOpaque</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::getOpaque</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <briefdescription>
+<para>Get the <ref refid="structjac_1_1ProtoBuilder_1_1Opaque" kindref="compound">Opaque</ref> object from an instance of the class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>thisVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the instance of the class </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the opaque data </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="114" column="18" bodyfile="src/jac/machine/class.h" bodystart="114" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1a1af91b1b161bda29afa14f3c59fbe049" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">typename</ref> <ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">Sgn</ref></type>
+          </param>
+          <param>
+            <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">Sgn</ref></type>
+            <declname>member</declname>
+            <defname>member</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ProtoBuilder::Opaque&lt; T &gt;::callMember</definition>
+        <argsstring>(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, std::vector&lt; ValueWeak &gt; argv)</argsstring>
+        <name>callMember</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::callMember</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>funcObj</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref> &gt;</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+<para>Process a call to a member function of the wrapped class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The arguments and return value are automatically converted to and from javascript values</para>
+</simplesect>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sgn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the signature of the member function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>member</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the member function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>funcObj</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>thisVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value of <computeroutput>this</computeroutput> in the function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>arguments passed to the function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of the call </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="135" column="22" bodyfile="src/jac/machine/class.h" bodystart="135" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1a7681147239b72674bf17deaec8e5008e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">typename</ref> <ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">U</ref></type>
+          </param>
+          <param>
+            <type>UT::*</type>
+            <declname>member</declname>
+            <defname>member</defname>
+          </param>
+        </templateparamlist>
+        <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">void</ref></type>
+        <definition>static void jac::ProtoBuilder::Opaque&lt; T &gt;::addPropMember</definition>
+        <argsstring>(ContextRef ctx, Object proto, std::string name, PropFlags flags=PropFlags::Default)</argsstring>
+        <name>addPropMember</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::addPropMember</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+          <declname>proto</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>PropFlags</type>
+          <declname>flags</declname>
+          <defval>PropFlags::Default</defval>
+        </param>
+        <briefdescription>
+<para>Add a property to the object prototype from a member variable of the wrapped class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>U</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the type of the member variable </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>U(T::*member)</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the member variable </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>proto</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the prototype of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the property </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags of the property </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="160" column="21" bodyfile="src/jac/machine/class.h" bodystart="160" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">typename</ref> <ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">Sgn</ref></type>
+          </param>
+          <param>
+            <type><ref refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" kindref="member">Sgn</ref></type>
+            <declname>member</declname>
+            <defname>member</defname>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>static void jac::ProtoBuilder::Opaque&lt; T &gt;::addMethodMember</definition>
+        <argsstring>(ContextRef ctx, Object proto, std::string name, PropFlags flags=PropFlags::Default)</argsstring>
+        <name>addMethodMember</name>
+        <qualifiedname>jac::ProtoBuilder::Opaque::addMethodMember</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+          <declname>proto</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>PropFlags</type>
+          <declname>flags</declname>
+          <defval>PropFlags::Default</defval>
+        </param>
+        <briefdescription>
+<para>Add a property to the object prototype from a member function of the wrapped class. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Sgn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>signature of the member function </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>member</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the member function </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>proto</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the prototype of the class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the property </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags of the property </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="193" column="21" bodyfile="src/jac/machine/class.h" bodystart="193" bodyend="216"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A base class for javascript classes with opaque data. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The functions <computeroutput>constructOpaque</computeroutput> and <computeroutput>destroyOpaque</computeroutput> can be overriden to provide custom construction and destruction of the opaque data.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of the opaque data </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="80" column="5" bodyfile="src/jac/machine/class.h" bodystart="80" bodyend="217"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1af744421fc942a2fa181902b98db4f40d" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>addMethodMember</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a7681147239b72674bf17deaec8e5008e" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>addPropMember</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a1af91b1b161bda29afa14f3c59fbe049" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>callMember</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a1194ac58aadccaefef0f8d37c12dc052" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>classId</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a11508965321d887cbd6bf4f7b77cdcbe" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>constructOpaque</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a0f840b0f74a74e1a8acb118c03748a89" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>destroyOpaque</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1ab5c6bc72d3296cda5415ab93386814ba" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>getOpaque</name></member>
+      <member refid="structjac_1_1ProtoBuilder_1_1Opaque_1a73d9f21225670346c889ba16942ee495" prot="public" virt="non-virtual"><scope>jac::ProtoBuilder::Opaque</scope><name>OpaqueType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

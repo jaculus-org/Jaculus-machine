@@ -1681,6 +1681,21 @@ ScriptPtr parseScript(ParserState& state) {
 }
 
 
+ModulePtr parseModule(ParserState& state) {
+    if (state.isEnd()) {
+        return std::make_unique<Module>(std::make_unique<StatementList>(StatementList::Normal, std::vector<StatementPtr>{}));
+    }
+
+    auto _ = state.pushTemplate<Yield{false}, Await{true}, Return{false}>();
+
+    if (auto statementList = parseStatementList(state)) {
+        return std::make_unique<Module>(std::move(statementList));
+    }
+
+    return nullptr;
+}
+
+
 ExpressionPtr parseConditionalExpression(ParserState& state) {
     auto start = state.getPosition();
     if (auto shortCircuit = parseBinaryExpression(state)) {

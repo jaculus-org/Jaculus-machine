@@ -6,7 +6,11 @@
 #include <cassert>
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <span>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
 #include <variant>
 #include <vector>
 
@@ -298,11 +302,13 @@ using ExpressionStatementPtr = std::unique_ptr<ExpressionStatement>;
 
 struct StatementList : public Statement {
     enum Kind {
-        Normal,
-        Block
+        Normal,   // a generic list of statements
+        Block     // list of statements bounding a lexical scope
     };
 
     Kind kind;
+    std::unordered_map<IdentifierName, bool> hoistedDeclarations;  // XXX
+
     StatementList(Kind kind_, std::vector<StatementPtr> statements_):
         Statement({}),
         kind(kind_)
@@ -311,6 +317,20 @@ struct StatementList : public Statement {
         for (auto& stmt : statements_) {
             children.emplace_back(std::move(stmt));
         }
+    }
+
+    void addHoistedDeclaration(const IdentifierName& name, bool isConst) {
+        hoistedDeclarations.emplace(name, isConst);
+    }
+
+    bool hasDeclarationOf(const IdentifierName& name) const {
+        return hoistedDeclarations.contains(name);
+    }
+
+    bool declarationIsConst(const IdentifierName& name) const {
+        auto it = hoistedDeclarations.find(name);
+        assert(it != hoistedDeclarations.end());
+        return it->second;
     }
 
     size_t statementCount() const {
@@ -350,6 +370,9 @@ struct Function : public Expression {
     bool isGenerator;
     bool isAsync;
     std::string_view code;
+
+    std::vector<IdentifierName> closureVars;
+    std::vector<IdentifierName> globalVars;
 
     Function(bool isGenerator_, bool isAsync_, IdentifierPtr name, FormalParametersPtr params_, TypeAnnotationPtr returnType_, StatementListPtr body_, std::string_view code_):
         Expression(makeChildren(std::move(name), std::move(params_), std::move(returnType_), std::move(body_))),
@@ -598,6 +621,8 @@ struct CommaExpression : public Expression {
 
 
 struct Script : public ASTNode {
+    std::vector<IdentifierName> globalVars;
+
     Script(StatementListPtr body_):
         ASTNode(makeChildren(std::move(body_)))
     {}
@@ -607,6 +632,21 @@ struct Script : public ASTNode {
     }
 };
 using ScriptPtr = std::unique_ptr<Script>;
+
+
+struct Module : public ASTNode {
+    std::vector<IdentifierName> globalVars;
+
+    // TODO: implement full ModuleItemList
+    Module(StatementListPtr items_):
+        ASTNode(makeChildren(std::move(items_)))
+    {}
+
+    StatementList* body() const {
+        return dynamic_cast<StatementList*>(children[0].get());
+    }
+};
+using ModulePtr = std::unique_ptr<Module>;
 
 
 struct Assignment : public Expression {
@@ -886,6 +926,9 @@ public:
 };
 
 
+std::unordered_set<Identifier> hoistDeclarations(Script& script);
+
+
 ExpressionPtr parseAssignmentExpression(ParserState& state);
 StatementPtr parseStatement(ParserState& state);
 StatementListPtr parseStatementList(ParserState& state);
@@ -969,6 +1012,7 @@ auto parseYieldExpression(ParserState&);
 auto parseArrowFunction(ParserState&);
 auto parseAsyncArrowFunction(ParserState&);
 ScriptPtr parseScript(ParserState& state);
+ModulePtr parseModule(ParserState& state);
 ExpressionPtr parseConditionalExpression(ParserState& state);
 AssignmentPtr parseAssignment(ParserState& state);
 ExpressionPtr parseAssignmentExpression(ParserState& state);
@@ -1020,9 +1064,6 @@ decltype(auto) visitNodeImpl(auto&& node, auto&& func, TypeList<First, Ts...>) {
 }
 
 
-static constexpr auto id = [](auto&& res) { return res; };
-
-
 }  // namespace detail
 
 
@@ -1031,6 +1072,11 @@ template<typename Types = ConcatTypeLists<ExpressionTypes, StatementTypes, MiscT
 decltype(auto) visitNode(auto&& node, auto&& func) {
     RETURN_IF_NOT_VOID(detail::visitNodeImpl(node, func, Types{}));
 }
+
+
+void hoistFunction(Function& fn);
+std::unordered_set<IdentifierName> hoistScript(Script& script);
+std::unordered_set<IdentifierName> hoistModule(Module& module);
 
 
 }  // namespace jac::ast

@@ -84,18 +84,21 @@ const std::unordered_map<ast::UnaryExpression::Op, Opcode> unaryOps = {
             .res = { v, newSlotReg }
         });
         func.getActiveBlock()->varToReg.update(varId, newSlotReg);
-        return { v };
+        return func.pushInterm(v);
     }
 
-    RValue res = { Reg::createTmp() };
+    auto res = Reg::createTmp();
     auto [obj, acc] = lv.member();
+
+    auto accReg = func.popInterm(acc);
+    auto objReg = func.popInterm(obj);
     func.emitInstruction(Operation{
         .op = Opcode::GetMember,
-        .args = { obj, acc },
+        .args = { objReg, accReg },
         .res = { res }
     });
 
-    return res;
+    return func.pushInterm(res);
 }
 
 [[nodiscard]] RValue materialize(Value val, FunctionEmitter& func) {
@@ -106,9 +109,9 @@ const std::unordered_map<ast::UnaryExpression::Op, Opcode> unaryOps = {
 }
 
 
-std::pair<RValue, RValue> emitDup(RValue val, FunctionEmitter& func) {
-    RValue res1 = { Reg::createTmp() };
-    RValue res2 = { Reg::createTmp() };
+std::pair<Reg, Reg> emitDup(Reg val, FunctionEmitter& func) {
+    auto res1 = Reg::createTmp();
+    auto res2 = Reg::createTmp();
 
     func.emitInstruction(Operation{
         .op = Opcode::Dup,
@@ -119,7 +122,7 @@ std::pair<RValue, RValue> emitDup(RValue val, FunctionEmitter& func) {
     return { res1, res2 };
 }
 
-void emitKill(RValue val, FunctionEmitter& func) {
+void emitKill(Reg val, FunctionEmitter& func) {
     func.emitInstruction(Operation{
         .op = Opcode::Kill,
         .args = { val },
@@ -147,13 +150,16 @@ void emitKillLiveVars(FunctionEmitter& func) {
 
 
 
-void emitAssign(LVRef target, RValue value, FunctionEmitter& func) {
+void emitAssign(LVRef target, Reg value, FunctionEmitter& func) {
     if (target.isMember()) {
         auto [obj, acc] = target.member();
 
+        auto accReg = func.popInterm(acc);
+        auto objReg = func.popInterm(obj);
+
         func.emitInstruction(Operation{
             .op = Opcode::SetMember,
-            .args = { obj, acc, value },
+            .args = { objReg, accReg, value },
             .res = { }
         });
     }
@@ -171,14 +177,19 @@ void emitAssign(LVRef target, RValue value, FunctionEmitter& func) {
 
 
 [[nodiscard]] RValue emitBinaryArithmetic(RValue lhs, RValue rhs, Opcode op, FunctionEmitter& func) {
-    RValue res = { Reg::createTmp() };
+    auto res = Reg::createTmp();
+    auto rhsReg = func.popInterm(rhs);
+    auto lhsReg = func.popInterm(lhs);
 
     func.emitInstruction(Operation{
         .op = op,
-        .args = { lhs, rhs },
+        .args = {
+            lhsReg,
+            rhsReg
+        },
         .res = { res }
     });
-    return res;
+    return func.pushInterm(res);
 }
 
 
@@ -190,15 +201,15 @@ template<typename F, typename G>
     static_assert(std::is_invocable_v<G, RValue, bool>);
 
     auto preBlock = func.getActiveBlock();
-    auto postBlock = func.createBlock(preBlock->varToReg, 1);
-    auto skipBlock = func.createBlock(preBlock->varToReg, 1);  // target when expression short circuits
-    auto elseBlock = func.createBlock(preBlock->varToReg, 1);  // target otherwise
+    auto postBlock = func.createBlock(preBlock->varToReg, 1, preBlock->interm.size() - 1);
+    auto skipBlock = func.createBlock(preBlock->varToReg, 1, preBlock->interm.size() - 1);  // target when expression short circuits
+    auto elseBlock = func.createBlock(preBlock->varToReg, 1, preBlock->interm.size() - 1);  // target otherwise
 
-    RValue lhs1 = { Reg::createTmp() };
-    RValue lhs2 = { Reg::createTmp() };
+    auto lhs1 = Reg::createTmp();
+    auto lhs2 = Reg::createTmp();
     func.emitInstruction(Operation{
         .op = Opcode::Dup,
-        .args = { lhs },
+        .args = { func.popInterm(lhs) },
         .res = { lhs1, lhs2 }
     });
 
@@ -210,23 +221,25 @@ template<typename F, typename G>
     }
 
     func.setActiveBlock(skipBlock);
-    RValue lhs3 = processRes({ func.getActiveBlock()->args.back() }, true);
-    func.getActiveBlock()->setJump(*postBlock, { lhs3 });
+
+    RValue lhs3 = processRes({ func.pushInterm(func.getActiveBlock()->args.back()) }, true);
+    func.getActiveBlock()->setJump(*postBlock, { func.popInterm(lhs3) });
 
     func.setActiveBlock(elseBlock);
     emitKill({ func.getActiveBlock()->args.back() }, func);
     RValue rhs = evalRhs();
     RValue rhs1 = processRes(rhs, false);
-    func.getActiveBlock()->setJump(*postBlock, { rhs1 });
+    func.getActiveBlock()->setJump(*postBlock, { func.popInterm(rhs1) });
 
     func.setActiveBlock(postBlock);
 
-    return { postBlock->args.back() };
+    return { func.pushInterm(postBlock->args.back()) };
 }
 
 
 [[nodiscard]] RValue emitCallObj(Value obj, ast::Arguments* args_, FunctionEmitter& func, bool isConstructor) {
-    std::vector<Reg> args;
+    std::vector<RValue> args;
+    Opcode op;
     if (args_) {
         args.reserve(args_->argCount() + 1 + (isConstructor ? 0 : 1));
     }
@@ -235,25 +248,22 @@ template<typename F, typename G>
     }
 
     if (isConstructor) {  // ctor (`this` created by runtime)
-        RValue ctorR = materialize(obj, func);
-        args.push_back(ctorR.reg);
+        args.push_back(materialize(obj, func));
+        op = Opcode::Construct;
     }
     else if (!obj.isRValue() && obj.asLVRef().isMember()) {  // method, obj
-        auto [objReg, accReg] = obj.asLVRef().member();
-        auto [obj1, obj2] = emitDup({ objReg }, func);
+        auto [this_, ident] = obj.asLVRef().member();
 
-        auto callableR = materialize(LVRef::mbr(obj1, accReg), func);
-
-        args.push_back(callableR.reg);
-        args.push_back(obj2);
+        args.push_back(this_);
+        args.push_back(ident);
+        op = Opcode::CallMethod;
     }
-    else {  // function, undefined
-        RValue objR = materialize(obj, func);
-        args.push_back(objR.reg);
-        args.push_back(func.emitUndefined());
+    else {  // function
+        args.push_back(materialize(obj, func));
+        op = Opcode::Call;
     }
 
-    RValue res = { Reg::createTmp() };
+    Reg res = { Reg::createTmp() };
 
     if (args_) {
         if (args_->spread()) {
@@ -265,13 +275,18 @@ template<typename F, typename G>
         }
     }
 
+    std::vector<Reg> argRegs(args.size());
+    for (size_t i = args.size(); i != 0; i--) {
+        argRegs[i - 1] = func.popInterm(args[i - 1]);
+    }
+
     func.emitInstruction(Operation{
-        .op = isConstructor ? Opcode::Construct : Opcode::Call,
-        .args = std::move(args),
+        .op = op,
+        .args = std::move(argRegs),
         .res = { res }
     });
 
-    return res;
+    return func.pushInterm(res);
 }
 
 
@@ -348,11 +363,11 @@ template<typename F, typename G>
     auto condVal = emitAsRV(*expr.test(), func);
 
     auto preBlock = func.getActiveBlock();
-    auto trueBlock = func.createBlock(preBlock->varToReg, 0);
-    auto falseBlock = func.createBlock(preBlock->varToReg, 0);
-    auto postBlock = func.createBlock(preBlock->varToReg, 1);
+    auto trueBlock = func.createBlock(preBlock->varToReg, 0, preBlock->interm.size() - 1);
+    auto falseBlock = func.createBlock(preBlock->varToReg, 0, preBlock->interm.size() - 1);
+    auto postBlock = func.createBlock(preBlock->varToReg, 1, preBlock->interm.size() - 1);
 
-    preBlock->setBranch(condVal, *trueBlock, *falseBlock);
+    preBlock->setBranch(func.popInterm(condVal), *trueBlock, *falseBlock);
 
     auto emitBranch = [&](BasicBlockBuilderPtr block, const auto& expr_) -> std::pair<BasicBlockBuilderPtr, RValue> {
         func.setActiveBlock(block);
@@ -364,11 +379,11 @@ template<typename F, typename G>
     auto [ trueCont, trueRes ] = emitBranch(trueBlock, *expr.consequent());
     auto [ falseCont, falseRes ] = emitBranch(falseBlock, *expr.alternate());
 
-    trueCont->setJump(*postBlock, { trueRes });
-    falseCont->setJump(*postBlock, { falseRes });
+    trueCont->setJump(*postBlock, { trueCont->popInterm(trueRes) });
+    falseCont->setJump(*postBlock, { falseCont->popInterm(falseRes) });
 
     func.setActiveBlock(postBlock);
-    return { postBlock->args.back() };
+    return func.pushInterm(postBlock->args.back());
 }
 
 [[nodiscard]] RValue emitAsRV(const ast::UnaryExpression& expr, FunctionEmitter& func) {
@@ -380,29 +395,29 @@ template<typename F, typename G>
     }
     Opcode op = it->second;
 
-    RValue res = { Reg::createTmp() };
+    Reg res = { Reg::createTmp() };
 
     func.emitInstruction(Operation{
         .op = op,
-        .args = { arg },
+        .args = { func.popInterm(arg) },
         .res = { res }
     });
 
-    return { res };
+    return func.pushInterm(res);
 }
 
 [[nodiscard]] RValue emitAsRV(const ast::UpdateExpression& expr, FunctionEmitter& func) {
     LVRef val = emitAsLV(*expr.expression(), func);
 
-    RValue lop = materialize(val, func);
-    RValue rop = func.emitConst(static_cast<int32_t>(1));
+    Reg lop = func.popInterm(materialize(val, func));
+    Reg rop = func.popInterm(func.emitConst(static_cast<int32_t>(1)));
 
-    RValue res;
+    Reg res;
     if (expr.kind == ast::UpdateExpression::Op::PostInc || expr.kind == ast::UpdateExpression::Op::PostDec) {
         std::tie(lop, res) = emitDup(lop, func);
     }
 
-    RValue valPost = { Reg::createTmp() };
+    Reg valPost = Reg::createTmp();
 
     switch (expr.kind) {
         case ast::UpdateExpression::Op::PreInc:
@@ -430,7 +445,7 @@ template<typename F, typename G>
     }
     emitAssign(val, valPost, func);
 
-    return { res };
+    return func.pushInterm(res);
 }
 
 [[nodiscard]] RValue emitAsRV(const ast::Function& astFn, FunctionEmitter& em) {
@@ -441,12 +456,12 @@ template<typename F, typename G>
     auto cfgFuncEm = jac::cfg::tless::ast2cfg(astFn, sig, &em);
     auto c = em.addPoolConstant(std::make_unique<Function>(cfgFuncEm.output()));
 
-    RValue code = { Reg::createTmp() };
+    auto code = Reg::createTmp();
     em.emitInstruction(ConstInit{
-        .reg = code.reg,
+        .reg = code,
         .value = c
     });
-    std::vector<Reg> args = { code.reg };
+    std::vector<Reg> args = { code };
     for (const auto& id : astFn.closureVars) {
         auto local = em.getVar(id);
         if (!local) {
@@ -459,13 +474,13 @@ template<typename F, typename G>
         args.push_back(s1);
     }
 
-    RValue closure = { Reg::createTmp() };
+    auto closure = Reg::createTmp();
     em.emitInstruction(Operation{
         .op = Opcode::MakeClosure,
         .args = args,
         .res = { closure }
     });
-    return closure;
+    return em.pushInterm(closure);
 }
 
 [[nodiscard]] RValue emitAsRV(const ast::NewCallExpression& expr, FunctionEmitter& func) {
@@ -476,7 +491,7 @@ template<typename F, typename G>
 [[nodiscard]] RValue emitAsRV(const ast::CommaExpression& expr, FunctionEmitter& func) {
     for (size_t i = 0; i + 1 < expr.itemCount(); i++) {
         auto res = emitAsRV(*expr.itemGet(i), func);
-        emitKill(res, func);
+        emitKill(func.popInterm(res), func);
     }
     if (expr.itemCount()) {
         return emitAsRV(*expr.itemGet(expr.itemCount() - 1), func);
@@ -489,9 +504,9 @@ template<typename F, typename G>
 
     if (assign.op == ast::Assignment::Op::Assign) {
         auto rhs = emitAsRV(*assign.right(), func);
-        auto [ rhs1, rhs2 ] = emitDup(rhs, func);
+        auto [ rhs1, rhs2 ] = emitDup(func.popInterm(rhs), func);
         emitAssign(target, rhs1, func);
-        return rhs2;
+        return func.pushInterm(rhs2);
     }
     if (auto it = arithAssignmentOps.find(assign.op); it != arithAssignmentOps.end()) {
         auto rhs = emitAsRV(*assign.right(), func);
@@ -499,10 +514,20 @@ template<typename F, typename G>
         Opcode op = it->second;
         RValue targetR = materialize(target, func);
 
-        RValue res = emitBinaryArithmetic(targetR, rhs, op, func);
+        Reg res = Reg::createTmp();
+        auto lhsReg = func.popInterm(targetR);
+        auto rhsReg = func.popInterm(rhs);
+        func.emitInstruction(Operation{
+            .op = op,
+            .args = {
+                lhsReg,
+                rhsReg
+            },
+            .res = { res }
+        });
         auto [ res1, res2 ] = emitDup(res, func);
         emitAssign(target, res1, func);
-        return res2;
+        return func.pushInterm(res2);
     }
     if (auto it = shortCircuitAssignmentOps.find(assign.op); it != shortCircuitAssignmentOps.end()) {
         RValue targetR = materialize(target, func);
@@ -514,15 +539,9 @@ template<typename F, typename G>
                 if (skipped) {
                     return val;
                 }
-                RValue val1 = { Reg::createTmp() };
-                RValue val2 = { Reg::createTmp() };
-                func.emitInstruction(Operation{
-                    .op = Opcode::Dup,
-                    .args = { val },
-                    .res = { val1, val2 }
-                });
+                auto [val1, val2] = emitDup(func.popInterm(val), func);
                 emitAssign(target, val1, func);  // XXX: check member assignment
-                return val2;
+                return func.pushInterm(val2);
             },
             it->second, func
         );
@@ -563,8 +582,7 @@ bool emitStmt(const ast::Statement& statement, FunctionEmitter& func);
 
 bool emitStmt(const ast::ExpressionStatement& stmt, FunctionEmitter& func) {
     auto v = emitAsRV(*stmt.expression(), func);
-    assert(!v.reg.void_());  // XXX
-    emitKill(v, func);
+    emitKill(func.popInterm(v), func);
     return false;
 }
 
@@ -586,7 +604,7 @@ bool emitStmt(const ast::LexicalDeclaration& stmt, FunctionEmitter& func) {
             rhs = func.emitUndefined();
         }
         auto ref = func.getVar(binding->target()->name);
-        emitAssign(*ref, rhs, func);
+        emitAssign(*ref, func.popInterm(rhs), func);
     }
     return false;
 }
@@ -617,7 +635,7 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
             },
             [&](const ast::Expression& e) {
                 auto res = emitAsRV(e, func);
-                emitKill(res, func);
+                emitKill(func.popInterm(res), func);
             }
         });
     }
@@ -638,7 +656,7 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
     func.setActiveBlock(condBlock);
     if (auto cond = stmt.condition()) {
         auto res = emitAsRV(*cond, func);
-        func.getActiveBlock()->setBranch(res, *statementBlock, *postBlock);
+        func.getActiveBlock()->setBranch(func.popInterm(res), *statementBlock, *postBlock);
     }
 
     // statement block
@@ -656,7 +674,7 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
     func.setActiveBlock(updateBlock);
     if (auto update = stmt.update()) {
         auto res = emitAsRV(*update, func);
-        emitKill(res, func);
+        emitKill(func.popInterm(res), func);
     }
     func.getActiveBlock()->setJump(*condBlock);
 
@@ -700,7 +718,7 @@ bool emitStmt(const ast::ReturnStatement& stmt, FunctionEmitter& func) {
     auto arg = emitAsRV(*stmt.expression(), func);
 
     emitKillLiveVars(func);
-    func.getActiveBlock()->setRetVal(arg);
+    func.getActiveBlock()->setRetVal(func.popInterm(arg));
     return true;
 }
 
@@ -708,7 +726,7 @@ bool emitStmt(const ast::ThrowStatement& stmt, FunctionEmitter& func) {
     auto val = emitAsRV(*stmt.expression(), func);
 
     emitKillLiveVars(func);
-    func.getActiveBlock()->setThrow(val);
+    func.getActiveBlock()->setThrow(func.popInterm(val));
     return true;
 }
 
@@ -723,7 +741,7 @@ bool emitStmt(const ast::HoistableDeclaration& stmt, FunctionEmitter& func) {
         throw IRGenError("Function declarations must have a name");
     }
     auto ref = func.getVar(stmt.function()->name()->name);
-    emitAssign(*ref, val, func);
+    emitAssign(*ref, func.popInterm(val), func);
     return false;
 }
 
@@ -735,7 +753,7 @@ bool emitStmt(const ast::IfStatement& stmt, FunctionEmitter& func) {
 
     // condition block
     auto res = emitAsRV(*stmt.condition(), func);
-    func.getActiveBlock()->setBranch(res, *ifBlock, *elseBlock);
+    func.getActiveBlock()->setBranch(func.popInterm(res), *ifBlock, *elseBlock);
 
     // if block
     func.setActiveBlock(ifBlock);

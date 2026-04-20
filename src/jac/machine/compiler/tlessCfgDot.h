@@ -53,6 +53,7 @@ inline void print(std::ostream& os, Opcode op) {
         case Opcode::Store: os << "Store"; break;
         case Opcode::SetMember: os << "SetMember"; break;
         case Opcode::Call: os << "Call"; break;
+        case Opcode::CallMethod: os << "CallMethod"; break;
         case Opcode::Construct: os << "Construct"; break;
         case Opcode::MakeClosure: os << "MakeClosure"; break;
     }

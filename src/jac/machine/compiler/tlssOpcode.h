@@ -51,7 +51,8 @@ enum class Opcode {
     Store,            // a slot<a> -> slot<a>
 
     // Variadic
-    Call,             // func this args... -> ret except
+    Call,             // func args... -> ret except
+    CallMethod,       // this ident args... -> ret except
     Construct,        // ctor args...      -> obj except
     MakeClosure,      // code slot... -> closure...
 };

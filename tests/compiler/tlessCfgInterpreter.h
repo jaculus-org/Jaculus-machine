@@ -519,16 +519,14 @@ struct Interpreter {
             } break;
             case Opcode::Call: {
                 auto fn = args[0].getValue();
-                JSValue thisVal = args[1].getValue().toJSValue(ctx);
                 std::vector<JSValue> callArgs;
-                for (size_t i = 2; i < args.size(); i++) {
+                for (size_t i = 1; i < args.size(); i++) {
                     callArgs.push_back(args[i].getValue().toJSValue(ctx));
                 }
                 if (std::holds_alternative<JSValue>(fn.val)) {
                     JSValue jsFn = fn.toJSValue(ctx);
-                    JSValue resVal = JS_Call(ctx, jsFn, thisVal, callArgs.size(), callArgs.data());
+                    JSValue resVal = JS_Call(ctx, jsFn, JS_UNDEFINED, callArgs.size(), callArgs.data());
                     JS_FreeValue(ctx, jsFn);
-                    JS_FreeValue(ctx, thisVal);
                     for (auto arg : callArgs) {
                         JS_FreeValue(ctx, arg);
                     }
@@ -540,8 +538,7 @@ struct Interpreter {
                 else if (std::holds_alternative<Closure>(fn.val)) {
                     auto closure = std::get<Closure>(fn.val);
                     cfg::tless::interp::Interpreter interp(ctx, *closure.code.code);
-                    JSValue resVal = interp.run(thisVal, callArgs.size(), callArgs.data(), closure.capturedVars);
-                    JS_FreeValue(ctx, thisVal);
+                    JSValue resVal = interp.run(JS_UNDEFINED, callArgs.size(), callArgs.data(), closure.capturedVars);
                     for (auto arg : callArgs) {
                         JS_FreeValue(ctx, arg);
                     }
@@ -553,6 +550,32 @@ struct Interpreter {
                 else {
                     assert(false && "Call target must be value or closure");
                 }
+            } break;
+            case Opcode::CallMethod: {
+                JSValue obj = args[0].getValue().toJSValue(ctx);
+                JSValue id = args[1].getValue().toJSValue(ctx);
+                JSAtom atom = JS_ValueToAtom(ctx, id);
+                JSValue method = JS_GetProperty(ctx, obj, atom);
+                JS_FreeValue(ctx, id);
+                JS_FreeAtom(ctx, atom);
+                if (JS_IsException(method)) {
+                    JS_FreeValue(ctx, obj);
+                    throw std::runtime_error("Exception during CallMethod (failed to get method)");
+                }
+                std::vector<JSValue> callArgs;
+                for (size_t i = 2; i < args.size(); i++) {
+                    callArgs.push_back(args[i].getValue().toJSValue(ctx));
+                }
+                JSValue resVal = JS_Call(ctx, method, obj, callArgs.size(), callArgs.data());
+                JS_FreeValue(ctx, obj);
+                JS_FreeValue(ctx, method);
+                for (auto arg : callArgs) {
+                    JS_FreeValue(ctx, arg);
+                }
+                if (JS_IsException(resVal)) {
+                    throw std::runtime_error("Exception during method call");
+                }
+                res.emplace_back(Value(resVal));
             } break;
             case Opcode::Construct: {
                 JSValue ctor = args[0].getValue().toJSValue(ctx);

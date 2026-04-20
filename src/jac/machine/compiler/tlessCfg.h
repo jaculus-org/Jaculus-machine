@@ -170,17 +170,10 @@ possible source:
     - literal
     - operator/call result
     - conversion from LVRef
+Local to current basic block
 */
 struct RValue {
-    Reg reg;
-
-    RegId id() const {
-        return reg.id();
-    }
-
-    operator Reg() const {
-        return reg;
-    }
+    int intermId;
 };
 
 /*
@@ -189,11 +182,11 @@ possible source:
     - member access -> {objectReg, accessorReg}
 */
 struct LVRef {
-    std::variant<int, std::pair<Reg, Reg>> self;  // varId or {object, accessor}
+    std::variant<int, std::pair<RValue, RValue>> self;  // varId or {object, accessor}
     bool _const = false;
 
     bool isMember() const {
-        return std::holds_alternative<std::pair<Reg, Reg>>(self);
+        return std::holds_alternative<std::pair<RValue, RValue>>(self);
     }
 
     bool isConst() const {
@@ -205,23 +198,23 @@ struct LVRef {
         return std::get<int>(self);
     }
 
-    std::pair<Reg, Reg> member() const {
+    std::pair<RValue, RValue> member() const {
         assert(isMember());
-        return std::get<std::pair<Reg, Reg>>(self);
+        return std::get<std::pair<RValue, RValue>>(self);
     }
 
     static LVRef direct(int varId, bool isConst) {
         return LVRef(varId, isConst);
     }
 
-    static LVRef mbr(Reg self_, Reg member_) {
+    static LVRef mbr(RValue self_, RValue member_) {
         return LVRef(self_, member_);
     }
 
     LVRef(): self({ 0 }) {}
 private:
     LVRef(int varId, bool isConst): self(varId), _const(isConst) {}
-    LVRef(Reg self_, Reg member_): self(std::make_pair(self_, member_)), _const(false) {}
+    LVRef(RValue self_, RValue member_): self(std::make_pair(self_, member_)), _const(false) {}
 };
 
 struct Value {
@@ -301,20 +294,20 @@ struct Terminator {
         return { Jump, {}, target, nullptr, std::move(args) };
     }
 
-    static Terminator branch(RValue condition, BasicBlockPtr target, BasicBlockPtr other, std::vector<Reg> args = {}) {
-        return { Branch, condition.reg, target, other, std::move(args) };
+    static Terminator branch(Reg condition, BasicBlockPtr target, BasicBlockPtr other, std::vector<Reg> args = {}) {
+        return { Branch, condition, target, other, std::move(args) };
     }
 
     static Terminator ret() {
         return { Return, Reg::createVoid(), nullptr, nullptr };
     }
 
-    static Terminator retVal(RValue retValue) {
-        return { Return, retValue.reg, nullptr, nullptr };
+    static Terminator retVal(Reg retValue) {
+        return { Return, retValue, nullptr, nullptr };
     }
 
-    static Terminator throw_(RValue exception) {
-        return { Throw, exception.reg, nullptr, nullptr };
+    static Terminator throw_(Reg exception) {
+        return { Throw, exception, nullptr, nullptr };
     }
 
     static Terminator none(std::vector<Reg> args = {}) {
@@ -411,6 +404,8 @@ struct VarToRegMap {
 struct BasicBlockBuilder {
     BasicBlockPtr block;
     VarToRegMap varToReg;
+    std::vector<Reg> interm;  // vector of intermediate values in the block - in order of "evaluation stack" (for easier renaming when splitting blocks)
+                              // size of interm should be same on entry and exit of block
 private:
     void addPredecessor(BasicBlockPtr pred) {
         block->predecessors.insert(pred);
@@ -462,11 +457,12 @@ public:
 
     auto getFullArgs(const auto& vars, const auto& addArgs) {
         std::vector<Reg> fullArgs;
-        fullArgs.reserve(addArgs.size() + vars.size());
+        fullArgs.reserve(vars.size() + interm.size() + addArgs.size());
         {
             auto regs = varToReg.getRegs(vars);
             fullArgs.insert(fullArgs.end(), regs.begin(), regs.end());
         }
+        fullArgs.insert(fullArgs.end(), interm.begin(), interm.end());
         fullArgs.insert(fullArgs.end(), addArgs.begin(), addArgs.end());
         return fullArgs;
     }
@@ -474,20 +470,21 @@ public:
     void setJump(BasicBlockBuilder& target, std::vector<Reg> addArgs = {}) {
         assert(block->terminator.type == Terminator::None);
         auto vars = target.varToReg.vars();
-        assert(target.args.size() == (vars.size() + addArgs.size()));
+        assert(target.args.size() == (vars.size() + addArgs.size() + interm.size()));
 
         block->terminator = Terminator::jump(target.block, getFullArgs(vars, addArgs));
         target.addPredecessor(block);
         fixTerminatorRegUses();
     }
 
-    void setBranch(RValue condition, BasicBlockBuilder& trueBlock, BasicBlockBuilder& falseBlock, std::vector<Reg> addArgs = {}) {
+    void setBranch(Reg condition, BasicBlockBuilder& trueBlock, BasicBlockBuilder& falseBlock, std::vector<Reg> addArgs = {}) {
         assert(block->terminator.type == Terminator::None);
         auto trueVars = trueBlock.varToReg.vars();
 
+        std::cout << "true args: " << trueBlock.args.size() << "; used args:" << (trueVars.size() + addArgs.size() + interm.size()) << std::endl;
         assert(trueVars == falseBlock.varToReg.vars());
         assert(trueBlock.args.size() == falseBlock.args.size());
-        assert(trueBlock.args.size() == (trueVars.size() + addArgs.size()));
+        assert(trueBlock.args.size() == (trueVars.size() + addArgs.size() + interm.size()));
 
         block->terminator = Terminator::branch(condition, trueBlock.block, falseBlock.block, getFullArgs(trueVars, addArgs));
         trueBlock.addPredecessor(block);
@@ -495,7 +492,7 @@ public:
         fixTerminatorRegUses();
     }
 
-    void setRetVal(RValue retValue) {
+    void setRetVal(Reg retValue) {
         assert(block->terminator.type == Terminator::None);
         block->terminator = Terminator::retVal(retValue);
         fixTerminatorRegUses();
@@ -506,10 +503,23 @@ public:
         block->terminator = Terminator::ret();
     }
 
-    void setThrow(RValue exception) {
+    void setThrow(Reg exception) {
         assert(block->terminator.type == Terminator::None);
         block->terminator = Terminator::throw_(exception);
         fixTerminatorRegUses();
+    }
+
+    RValue pushInterm(Reg reg) {
+        interm.push_back(reg);
+        return { static_cast<int>(interm.size() - 1) };
+    }
+
+    Reg popInterm(RValue val) {
+        std::cout << "Popping interm " << val.intermId << "; interm size: " << interm.size() << std::endl;
+        assert(val.intermId == static_cast<int>(interm.size() - 1));
+        auto reg = interm.back();
+        interm.pop_back();
+        return reg;
     }
 };
 
@@ -614,7 +624,7 @@ struct FunctionEmitter {
             getActiveBlock()->varToReg.data[var.id] = reg;
             emitInstruction(Operation{
                 .op = Opcode::GetArgRef,
-                .args = { indexVal },
+                .args = { popInterm(indexVal) },
                 .res = { reg }
             });
         }
@@ -626,7 +636,7 @@ struct FunctionEmitter {
             getActiveBlock()->varToReg.data[var.id] = reg;
             emitInstruction(Operation{
                 .op = Opcode::GetClosureRef,
-                .args = { indexVal },
+                .args = { popInterm(indexVal) },
                 .res = { reg }
             });
         }
@@ -637,7 +647,7 @@ struct FunctionEmitter {
             getActiveBlock()->varToReg.data[var.id] = reg;
             emitInstruction(Operation{
                 .op = Opcode::GetGlobalRef,
-                .args = { nameVal },
+                .args = { popInterm(nameVal) },
                 .res = { reg }
             });
         }
@@ -659,7 +669,7 @@ struct FunctionEmitter {
         RValue nameVal = emitConst(name);
         emitInstruction(Operation{
             .op = Opcode::CreateGlobalSlot,
-            .args = { nameVal },
+            .args = { popInterm(nameVal) },
             .res = { reg }
         });
         return reg;
@@ -723,7 +733,7 @@ struct FunctionEmitter {
             .reg = reg,
             .value = value
         });
-        return { reg };
+        return pushInterm(reg);
     }
     [[nodiscard]] RValue emitUndefined() {
         auto reg = Reg::createTmp();
@@ -732,7 +742,14 @@ struct FunctionEmitter {
             .args = { },
             .res = { reg }
         });
-        return { reg };
+        return pushInterm(reg);
+    }
+
+    RValue pushInterm(Reg reg) {
+        return getActiveBlock()->pushInterm(reg);
+    }
+    Reg popInterm(RValue val) {
+        return getActiveBlock()->popInterm(val);
     }
 private:
     BasicBlockPtr createBlockInternal() {
@@ -746,22 +763,28 @@ public:
         return std::make_shared<BasicBlockBuilder>(createBlockInternal());
     }
 
-    BasicBlockBuilderPtr createBlock(const VarToRegMap& varToReg, int extraArgs) {
-        return createBlock(varToReg.vars(), extraArgs);
+    BasicBlockBuilderPtr createBlock(const VarToRegMap& varToReg, int extraArgs, int inheritedInterm = 0) {
+        return createBlock(varToReg.vars(), extraArgs, inheritedInterm);
     }
 
-    BasicBlockBuilderPtr createBlock(const auto& vars, int extraArgs) {
+    BasicBlockBuilderPtr createBlock(const auto& vars, int extraArgs, int inheritedInterm = 0) {
         std::cout << "Creating block with vars: ";
         for (const auto& var : vars) {
             std::cout << var << " ";        }
-        std::cout << "and extra args: " << extraArgs << std::endl;
+        std::cout << "and extra args: " << extraArgs;
+        std::cout << "and interms: " << inheritedInterm << std::endl;
         auto block = std::make_shared<BasicBlockBuilder>(createBlockInternal());
         block->varToReg = VarToRegMap::remapVars(vars);
 
-        block->block->args.reserve(vars.size() + extraArgs);
+        block->block->args.reserve(vars.size() + extraArgs + inheritedInterm);
         {
             auto regs = block->varToReg.getRegs(vars);
             block->block->args.insert(block->block->args.end(), regs.begin(), regs.end());
+        }
+        for (int i = 0; i < inheritedInterm; i++) {
+            auto reg = Reg::createTmp();
+            block->block->args.push_back(reg);
+            block->pushInterm(reg);
         }
         for (int i = 0; i < extraArgs; i++) {
             block->block->args.push_back(Reg::createTmp());

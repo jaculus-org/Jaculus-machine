@@ -144,6 +144,25 @@ void emitKillLiveVars(FunctionEmitter& func) {
     func.getActiveBlock()->varToReg.data.clear();
 }
 
+void handleException(Reg ex, Reg hadEx, FunctionEmitter& func) {
+    auto exR = func.pushInterm(ex);
+
+    auto trueBlock = func.createBlock(func.getActiveBlock()->varToReg, 0, func.getActiveBlock()->interm.size());
+    auto falseBlock = func.createBlock(func.getActiveBlock()->varToReg, 0, func.getActiveBlock()->interm.size());
+    func.getActiveBlock()->setBranch(hadEx, *trueBlock, *falseBlock);
+
+    func.setActiveBlock(trueBlock);
+    auto toThrow = func.popInterm(exR);
+    for (auto& reg : trueBlock->interm) {
+        emitKill({ reg }, func);
+    }
+    emitKillLiveVars(func);
+    trueBlock->setThrow(toThrow);
+
+    func.setActiveBlock(falseBlock);
+    emitKill(func.popInterm(exR), func);
+}
+
 
 [[nodiscard]] RValue emitAsRV(const ast::Expression& node, FunctionEmitter& func);
 [[nodiscard]] LVRef emitAsLV(const ast::Expression& node, FunctionEmitter& func);
@@ -280,13 +299,17 @@ template<typename F, typename G>
         argRegs[i - 1] = func.popInterm(args[i - 1]);
     }
 
+    auto ex = Reg::createTmp();
+    auto hadEx = Reg::createTmp();
     func.emitInstruction(Operation{
         .op = op,
         .args = std::move(argRegs),
-        .res = { res }
+        .res = { res, ex, hadEx }
     });
 
-    return func.pushInterm(res);
+    auto resR = func.pushInterm(res);
+    handleException(ex, hadEx, func);
+    return resR;
 }
 
 

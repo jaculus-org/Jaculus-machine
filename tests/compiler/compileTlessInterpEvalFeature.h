@@ -97,9 +97,6 @@ public:
         if (func) {
             cfg::tless::interp::Interpreter interp(this->context(), *func);
             JSValue resVal = interp.run(JS_UNDEFINED, 0, nullptr);
-            if (JS_IsException(resVal)) {
-                throw std::runtime_error("Exception during interpretation");
-            }
             return Value(this->context(), resVal);
         }
         else {

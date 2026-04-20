@@ -214,7 +214,7 @@ struct Interpreter {
         auto valStr = [&](const Value& value) -> std::string {
             if (std::holds_alternative<JSValue>(value.val)) {
                 auto str = JS_ToCString(ctx, std::get<JSValue>(value.val));
-                std::string strCopy(str);
+                std::string strCopy(str ? str : "<invalid string>");
                 JS_FreeCString(ctx, str);
                 return strCopy;
             }
@@ -518,6 +518,9 @@ struct Interpreter {
                 JS_FreeAtom(ctx, atom);
             } break;
             case Opcode::Call: {
+                JSValue resVal = JS_UNDEFINED;
+                JSValue exVal = JS_UNDEFINED;
+                JSValue hadEx = JS_NewBool(ctx, 0);
                 auto fn = args[0].getValue();
                 std::vector<JSValue> callArgs;
                 for (size_t i = 1; i < args.size(); i++) {
@@ -525,31 +528,36 @@ struct Interpreter {
                 }
                 if (std::holds_alternative<JSValue>(fn.val)) {
                     JSValue jsFn = fn.toJSValue(ctx);
-                    JSValue resVal = JS_Call(ctx, jsFn, JS_UNDEFINED, callArgs.size(), callArgs.data());
+                    resVal = JS_Call(ctx, jsFn, JS_UNDEFINED, callArgs.size(), callArgs.data());
                     JS_FreeValue(ctx, jsFn);
                     for (auto arg : callArgs) {
                         JS_FreeValue(ctx, arg);
                     }
                     if (JS_IsException(resVal)) {
-                        throw std::runtime_error("Exception during function call");
+                        resVal = JS_UNDEFINED;
+                        exVal = JS_GetException(ctx);
+                        hadEx = JS_NewBool(ctx, 1);
                     }
-                    res.emplace_back(Value(resVal));
                 }
                 else if (std::holds_alternative<Closure>(fn.val)) {
                     auto closure = std::get<Closure>(fn.val);
                     cfg::tless::interp::Interpreter interp(ctx, *closure.code.code);
-                    JSValue resVal = interp.run(JS_UNDEFINED, callArgs.size(), callArgs.data(), closure.capturedVars);
+                    resVal = interp.run(JS_UNDEFINED, callArgs.size(), callArgs.data(), closure.capturedVars);
                     for (auto arg : callArgs) {
                         JS_FreeValue(ctx, arg);
                     }
                     if (JS_IsException(resVal)) {
-                        throw std::runtime_error("Exception during closure call");
+                        resVal = JS_UNDEFINED;
+                        exVal = JS_GetException(ctx);
+                        hadEx = JS_NewBool(ctx, 1);
                     }
-                    res.emplace_back(Value(resVal));
                 }
                 else {
                     assert(false && "Call target must be value or closure");
                 }
+                res.emplace_back(Value(resVal));
+                res.emplace_back(Value(exVal));
+                res.emplace_back(Value(hadEx));
             } break;
             case Opcode::CallMethod: {
                 JSValue obj = args[0].getValue().toJSValue(ctx);
@@ -558,24 +566,34 @@ struct Interpreter {
                 JSValue method = JS_GetProperty(ctx, obj, atom);
                 JS_FreeValue(ctx, id);
                 JS_FreeAtom(ctx, atom);
+                JSValue resVal = JS_UNDEFINED;
+                JSValue exVal = JS_UNDEFINED;
+                JSValue hadEx = JS_NewBool(ctx, 0);
                 if (JS_IsException(method)) {
+                    resVal = JS_UNDEFINED;
+                    exVal = JS_GetException(ctx);
+                    hadEx = JS_NewBool(ctx, 1);
+                }
+                else {
+                    std::vector<JSValue> callArgs;
+                    for (size_t i = 2; i < args.size(); i++) {
+                        callArgs.push_back(args[i].getValue().toJSValue(ctx));
+                    }
+                    resVal = JS_Call(ctx, method, obj, callArgs.size(), callArgs.data());
                     JS_FreeValue(ctx, obj);
-                    throw std::runtime_error("Exception during CallMethod (failed to get method)");
-                }
-                std::vector<JSValue> callArgs;
-                for (size_t i = 2; i < args.size(); i++) {
-                    callArgs.push_back(args[i].getValue().toJSValue(ctx));
-                }
-                JSValue resVal = JS_Call(ctx, method, obj, callArgs.size(), callArgs.data());
-                JS_FreeValue(ctx, obj);
-                JS_FreeValue(ctx, method);
-                for (auto arg : callArgs) {
-                    JS_FreeValue(ctx, arg);
-                }
-                if (JS_IsException(resVal)) {
-                    throw std::runtime_error("Exception during method call");
+                    JS_FreeValue(ctx, method);
+                    for (auto arg : callArgs) {
+                        JS_FreeValue(ctx, arg);
+                    }
+                    if (JS_IsException(resVal)) {
+                        resVal = JS_UNDEFINED;
+                        exVal = JS_GetException(ctx);
+                        hadEx = JS_NewBool(ctx, 1);
+                    }
                 }
                 res.emplace_back(Value(resVal));
+                res.emplace_back(Value(exVal));
+                res.emplace_back(Value(hadEx));
             } break;
             case Opcode::Construct: {
                 JSValue ctor = args[0].getValue().toJSValue(ctx);
@@ -584,14 +602,20 @@ struct Interpreter {
                     callArgs.push_back(args[i].getValue().toJSValue(ctx));
                 }
                 JSValue resVal = JS_CallConstructor(ctx, ctor, callArgs.size(), callArgs.data());
+                JSValue exVal = JS_UNDEFINED;
+                JSValue hadEx = JS_NewBool(ctx, 0);
                 JS_FreeValue(ctx, ctor);
                 for (auto arg : callArgs) {
                     JS_FreeValue(ctx, arg);
                 }
                 if (JS_IsException(resVal)) {
-                    throw std::runtime_error("Exception during constructor call");
+                    resVal = JS_UNDEFINED;
+                    exVal = JS_GetException(ctx);
+                    hadEx = JS_NewBool(ctx, 1);
                 }
                 res.emplace_back(Value(resVal));
+                res.emplace_back(Value(exVal));
+                res.emplace_back(Value(hadEx));
             } break;
             case Opcode::MakeClosure: {
                 auto code = std::get<Code>(args[0].getValue().val).code;

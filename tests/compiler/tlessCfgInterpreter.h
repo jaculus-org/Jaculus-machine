@@ -77,7 +77,7 @@ struct Value {
         if (std::holds_alternative<JSValue>(val)) {
             return std::get<JSValue>(val);
         }
-        throw std::runtime_error("Value cannot be converted to JS");
+        assert(false && "Value cannot be converted to JS");
     }
 };
 
@@ -124,7 +124,7 @@ struct GlobalSlotCell : public SlotCell {
         JSValue prop = JS_GetPropertyStr(ctx, globalObj, name.c_str());
         JS_FreeValue(ctx, globalObj);
         if (JS_IsException(prop)) {
-            throw std::runtime_error("Exception during global variable load: " + name);
+            assert(false && "Exception during global variable load");
         }
         return Value(prop);
     }
@@ -133,14 +133,14 @@ struct GlobalSlotCell : public SlotCell {
         JSValue globalObj = JS_GetGlobalObject(ctx);
         if (!std::holds_alternative<JSValue>(newVal.val)) {
             JS_FreeValue(ctx, globalObj);
-            throw std::runtime_error("Global variables can only store JS values");
+            assert(false && "Global variables can only store JS values");
         }
 
         JSValue value = std::get<JSValue>(newVal.val);
         if (JS_SetPropertyStr(ctx, globalObj, name.c_str(), value) < 0) {
             JS_FreeValue(ctx, value);
             JS_FreeValue(ctx, globalObj);
-            throw std::runtime_error("Exception during global variable store: " + name);
+            assert(false && "Exception during global variable store: ");
         }
         JS_FreeValue(ctx, globalObj);
     }
@@ -331,19 +331,19 @@ struct Interpreter {
             case Opcode::BitNot: {
                 int32_t operand;
                 if (JS_ToInt32(ctx, &operand, args[0].getValue().toJSValue(ctx))) {
-                    throw std::runtime_error("Exception during bitwise NOT (failed to convert operand to int32)");
+                    assert(false && "Exception during bitwise NOT (failed to convert operand to int32)");
                 }
                 res.emplace_back(Value(JS_NewInt32(ctx, ~operand)));
             } break;
             case Opcode::UnPlus: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::toNumber(ctx, args[0].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during unary plus"); }
+                if (exception) { assert(false && "Exception during unary plus"); }
             } break;
             case Opcode::UnMinus: {
                 int32_t exception = 0;
                 JSValue num = quickjs_ops::toNumber(ctx, args[0].getValue().toJSValue(ctx), &exception);
-                if (exception) { throw std::runtime_error("Exception during unary minus (failed to convert operand to number)"); }
+                if (exception) { assert(false && "Exception during unary minus (failed to convert operand to number)"); }
                 switch (JS_VALUE_GET_TAG(num)) {
                     case JS_TAG_INT: res.emplace_back(Value(JS_NewInt32(ctx, -JS_VALUE_GET_INT(num)))); break;
                     case JS_TAG_FLOAT64: res.emplace_back(Value(JS_NewFloat64(ctx, -JS_VALUE_GET_FLOAT64(num)))); break;
@@ -372,10 +372,10 @@ struct Interpreter {
             case Opcode::GetArgRef: {
                 int32_t argIndex;
                 if (JS_ToInt32(ctx, &argIndex, args[0].getValue().toJSValue(ctx))) {
-                    throw std::runtime_error("Exception during GetArgRef (failed to convert index to int32)");
+                    assert(false && "Exception during GetArgRef (failed to convert index to int32)");
                 }
                 if (argIndex < 0 || argIndex >= currentArgc) {
-                    throw std::runtime_error("GetArgRef argument index out of bounds");
+                    assert(false && "GetArgRef argument index out of bounds");
                 }
                 auto it = argSlots.find(argIndex);
                 if (it == argSlots.end()) {
@@ -386,10 +386,10 @@ struct Interpreter {
             case Opcode::GetClosureRef: {
                 int32_t closureIndex;
                 if (JS_ToInt32(ctx, &closureIndex, args[0].getValue().toJSValue(ctx))) {
-                    throw std::runtime_error("Exception during GetClosureRef (failed to convert index to int32)");
+                    assert(false && "Exception during GetClosureRef (failed to convert index to int32)");
                 }
                 if (closureIndex < 0 || static_cast<size_t>(closureIndex) >= currentClosureArgs.size()) {
-                    throw std::runtime_error("GetClosureRef closure index out of bounds");
+                    assert(false && "GetClosureRef closure index out of bounds");
                 }
                 res.emplace_back(currentClosureArgs[closureIndex]);
             } break;
@@ -397,12 +397,12 @@ struct Interpreter {
             case Opcode::GetGlobalRef: {
                 auto ident = args[0].getValue().toJSValue(ctx);
                 if (!JS_IsString(ident)) {
-                    throw std::runtime_error("Exception during CreateGlobalSlot (identifier is not a string)");
+                    assert(false && "Exception during CreateGlobalSlot (identifier is not a string)");
                 }
                 size_t len;
                 const char* name = JS_ToCStringLen(ctx, &len, ident);
                 if (name == nullptr) {
-                    throw std::runtime_error("Exception during CreateGlobalSlot (failed to convert identifier to C string)");
+                    assert(false && "Exception during CreateGlobalSlot (failed to convert identifier to C string)");
                 }
                 std::string nameStr(name, len);
                 JS_FreeCString(ctx, name);
@@ -412,39 +412,39 @@ struct Interpreter {
             case Opcode::Add: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::add(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during addition"); }
+                if (exception) { assert(false && "Exception during addition"); }
             } break;
             case Opcode::Sub: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::sub(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during subtraction"); }
+                if (exception) { assert(false && "Exception during subtraction"); }
             } break;
             case Opcode::Mul: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::mul(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during multiplication"); }
+                if (exception) { assert(false && "Exception during multiplication"); }
             } break;
             case Opcode::Div: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::div(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during division"); }
+                if (exception) { assert(false && "Exception during division"); }
             } break;
             case Opcode::Rem: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::rem(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during remainder"); }
+                if (exception) { assert(false && "Exception during remainder"); }
             } break;
             case Opcode::Pow: {
                 int32_t exception = 0;
                 res.emplace_back(Value(quickjs_ops::pow(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception)));
-                if (exception) { throw std::runtime_error("Exception during exponentiation"); }
+                if (exception) { assert(false && "Exception during exponentiation"); }
             } break;
             case Opcode::LShift: case Opcode::RShift: case Opcode::URShift:
             case Opcode::BitAnd: case Opcode::BitOr: case Opcode::BitXor: {
                 int32_t lhs;
                 int32_t rhs;
                 if (JS_ToInt32(ctx, &lhs, args[0].getValue().toJSValue(ctx)) || JS_ToInt32(ctx, &rhs, args[1].getValue().toJSValue(ctx))) {
-                    throw std::runtime_error("Exception during bitwise operation (failed to convert operand to int32)");
+                    assert(false && "Exception during bitwise operation (failed to convert operand to int32)");
                 }
                 switch (op.op) {
                     case Opcode::LShift:   res.emplace_back(Value(JS_NewInt32(ctx, lhs << (static_cast<uint32_t>(rhs) % 32)))); break;
@@ -459,32 +459,32 @@ struct Interpreter {
             case Opcode::Eq: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::equal(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during equality comparison"); }
+                if (exception) { assert(false && "Exception during equality comparison"); }
             } break;
             case Opcode::Neq: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, !quickjs_ops::equal(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during inequality comparison"); }
+                if (exception) { assert(false && "Exception during inequality comparison"); }
             } break;
             case Opcode::Gt: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::greater(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during greater-than comparison"); }
+                if (exception) { assert(false && "Exception during greater-than comparison"); }
             } break;
             case Opcode::Gte: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::greaterEq(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during greater-than-or-equal comparison"); }
+                if (exception) { assert(false && "Exception during greater-than-or-equal comparison"); }
             } break;
             case Opcode::Lt: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::less(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during less-than comparison"); }
+                if (exception) { assert(false && "Exception during less-than comparison"); }
             } break;
             case Opcode::Lte: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::lessEq(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
-                if (exception) { throw std::runtime_error("Exception during less-than-or-equal comparison"); }
+                if (exception) { assert(false && "Exception during less-than-or-equal comparison"); }
             } break;
             case Opcode::GetMember: {
                 JSValue obj = args[0].getValue().toJSValue(ctx);
@@ -495,7 +495,7 @@ struct Interpreter {
                 JS_FreeValue(ctx, id);
                 JS_FreeAtom(ctx, atom);
                 if (JS_IsException(prop)) {
-                    throw std::runtime_error("Exception during GetMember");
+                    assert(false && "Exception during GetMember");
                 }
                 res.emplace_back(Value(prop));
             } break;
@@ -512,7 +512,7 @@ struct Interpreter {
                 JSAtom atom = JS_ValueToAtom(ctx, id);
                 JS_FreeValue(ctx, id);
                 if (JS_SetProperty(ctx, obj, atom, val) < 0) {
-                    throw std::runtime_error("Exception during SetMember");
+                    assert(false && "Exception during SetMember");
                 }
                 JS_FreeValue(ctx, obj);
                 JS_FreeAtom(ctx, atom);

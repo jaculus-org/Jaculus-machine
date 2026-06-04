@@ -8,7 +8,7 @@ namespace jac::cfg::tless {
 
 enum class Opcode {
     // Nullary
-    CreateSlot,       // -> slot<a>
+    CreateLocal,      // -> slot<a>
     CreateUndefined,  // -> undefined
 
     // Unary
@@ -20,7 +20,7 @@ enum class Opcode {
     Load,             // slot<a> -> a, slot<a>
     Dup,              // a -> a a
     Kill,             // a ->
-    CreateGlobalSlot, // string -> slot<a>
+    CreateGlobalSlot, // string -> slot<any>
     GetArgRef,        // int32 -> slot<any>
     GetClosureRef,    // int32 -> slot<any>
     GetGlobalRef,     // string -> slot<any>
@@ -52,7 +52,7 @@ enum class Opcode {
 
     // Variadic
     Call,             // func args... -> ret ex, ex?
-    CallMethod,       // this ident args... -> ret ex, ex?
+    CallMethod,       // this method args... -> ret ex, ex?
     Construct,        // ctor args...      -> obj ex, ex?
     MakeClosure,      // code slot... -> closure...
 };

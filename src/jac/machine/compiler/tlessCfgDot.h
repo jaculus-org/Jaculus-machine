@@ -17,7 +17,7 @@ namespace jac::cfg::tless::dotprint {
 
 inline void print(std::ostream& os, Opcode op) {
     switch (op) {
-        case Opcode::CreateSlot: os << "CreateSlot"; break;
+        case Opcode::CreateLocal: os << "CreateLocal"; break;
         case Opcode::CreateUndefined: os << "CreateUndefined"; break;
         case Opcode::Copy: os << "Copy"; break;
         case Opcode::BoolNot: os << "BoolNot"; break;

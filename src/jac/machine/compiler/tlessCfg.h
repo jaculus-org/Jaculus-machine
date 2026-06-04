@@ -654,10 +654,10 @@ struct FunctionEmitter {
         argsScope = &scopes.front();
     }
 
-    Reg createSlot() {
+    Reg createLocal() {
         auto reg = Reg::createTmp();
         emitInstruction(Operation{
-            .op = Opcode::CreateSlot,
+            .op = Opcode::CreateLocal,
             .args = {},
             .res = { reg }
         });
@@ -698,7 +698,7 @@ struct FunctionEmitter {
     }
 
     LVRef addLexical(Identifier name, bool isConst) {
-        Reg reg = createSlot();
+        Reg reg = createLocal();
         auto var = scopes.front().addLocal(name, isConst);
         getActiveBlock()->varToReg.data[var.id] = reg;
         return LVRef::direct(var.id, isConst);

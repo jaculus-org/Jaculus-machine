@@ -316,7 +316,7 @@ struct Interpreter {
 
         std::vector<RegContent> res;
         switch (op.op) {
-            case Opcode::CreateSlot:
+            case Opcode::CreateLocal:
                 res.emplace_back(Slot::make(ctx, Value(JS_UNINITIALIZED)));
                 break;
             case Opcode::CreateUndefined:
@@ -561,11 +561,7 @@ struct Interpreter {
             } break;
             case Opcode::CallMethod: {
                 JSValue obj = args[0].getValue().toJSValue(ctx);
-                JSValue id = args[1].getValue().toJSValue(ctx);
-                JSAtom atom = JS_ValueToAtom(ctx, id);
-                JSValue method = JS_GetProperty(ctx, obj, atom);
-                JS_FreeValue(ctx, id);
-                JS_FreeAtom(ctx, atom);
+                JSValue method = args[1].getValue().toJSValue(ctx);
                 JSValue resVal = JS_UNDEFINED;
                 JSValue exVal = JS_UNDEFINED;
                 JSValue hadEx = JS_NewBool(ctx, 0);

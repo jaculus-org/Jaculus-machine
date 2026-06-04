@@ -2,6 +2,7 @@
 #include "ast.h"
 #include "tlessCfg.h"
 #include "tlssOpcode.h"
+#include <ranges>
 
 
 namespace jac::cfg::tless {
@@ -153,7 +154,7 @@ void handleException(Reg ex, Reg hadEx, FunctionEmitter& func) {
 
     func.setActiveBlock(trueBlock);
     auto toThrow = func.popInterm(exR);
-    for (auto& reg : trueBlock->interm) {
+    for (auto& reg : std::ranges::reverse_view(trueBlock->interm)) {
         emitKill({ reg }, func);
     }
     emitKillLiveVars(func);
@@ -273,8 +274,26 @@ template<typename F, typename G>
     else if (!obj.isRValue() && obj.asLVRef().isMember()) {  // method, obj
         auto [this_, ident] = obj.asLVRef().member();
 
-        args.push_back(this_);
-        args.push_back(ident);
+        auto identReg = func.popInterm(ident);
+        auto thisReg = func.popInterm(this_);
+
+        Reg thisCopy1 = Reg::createTmp();
+        Reg thisCopy2 = Reg::createTmp();
+        func.emitInstruction(Operation{
+            .op = Opcode::Dup,
+            .args = { thisReg },
+            .res = { thisCopy1, thisCopy2 }
+        });
+
+        Reg methodReg = Reg::createTmp();
+        func.emitInstruction(Operation{
+            .op = Opcode::GetMember,
+            .args = { thisCopy1, identReg },
+            .res = { methodReg }
+        });
+
+        args.push_back(func.pushInterm(thisCopy2));
+        args.push_back(func.pushInterm(methodReg));
         op = Opcode::CallMethod;
     }
     else {  // function

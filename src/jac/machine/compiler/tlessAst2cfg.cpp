@@ -24,8 +24,8 @@ const std::unordered_map<ast::BinaryExpression::Op, Opcode> binaryOps = {
     { ast::BinaryExpression::Op::BitAnd, Opcode::BitAnd },
     { ast::BinaryExpression::Op::Eq, Opcode::Eq },
     { ast::BinaryExpression::Op::Neq, Opcode::Neq },
-    // { "===", ... },
-    // { "!==", ... },
+    { ast::BinaryExpression::Op::StrictEq, Opcode::StrictEq },
+    { ast::BinaryExpression::Op::StrictNeq, Opcode::StrictNeq },
     { ast::BinaryExpression::Op::Lt, Opcode::Lt },
     { ast::BinaryExpression::Op::Lte, Opcode::Lte },
     { ast::BinaryExpression::Op::Gt, Opcode::Gt },
@@ -629,8 +629,8 @@ bool emitStmt(const ast::ExpressionStatement& stmt, FunctionEmitter& func) {
 }
 
 void preDeclareVariables(const ast::StatementList& list, FunctionEmitter& func) {
-    for (const auto& [ident, isConst] : list.hoistedDeclarations) {
-        func.addLexical(ident, isConst);
+    for (const auto& [ident, info] : list.hoistedDeclarations) {
+        func.addLexical(ident, info.isConst);
     }
 }
 
@@ -772,6 +772,10 @@ bool emitStmt(const ast::ThrowStatement& stmt, FunctionEmitter& func) {
     return true;
 }
 
+bool emitStmt(const ast::EmptyStatement&, FunctionEmitter&) {
+    return false;
+}
+
 bool emitStmt(const ast::DebuggerStatement& stmt, FunctionEmitter& func) {
     throw IRGenError("Debugger statements are not supported");
 }
@@ -904,8 +908,9 @@ FunctionEmitter ast2cfg(const ast::Script& s) {
     out.setSignature(sig);
     out.setFunctionName("<module>");
 
-    for (const auto& [ident, isConst] : s.body()->hoistedDeclarations) {
-        out.addGlobal(ident, isConst);
+    for (const auto& [ident, info] : s.body()->hoistedDeclarations) {
+        bool isLet = !info.isConst && !info.isVar && !info.isFunction;
+        out.addGlobal(ident, info.isConst, isLet);
     }
 
     if (s.body()) {

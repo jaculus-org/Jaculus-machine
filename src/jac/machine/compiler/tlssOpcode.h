@@ -40,6 +40,8 @@ enum class Opcode {
     BitXor,           // int32 int32 -> int32
     Eq,               // a a -> bool
     Neq,              // a a -> bool
+    StrictEq,         // a a -> bool
+    StrictNeq,        // a a -> bool
     Gt,               // a a -> bool
     Gte,              // a a -> bool
     Lt,               // a a -> bool

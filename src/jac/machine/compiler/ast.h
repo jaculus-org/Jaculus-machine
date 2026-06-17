@@ -307,7 +307,13 @@ struct StatementList : public Statement {
     };
 
     Kind kind;
-    std::unordered_map<IdentifierName, bool> hoistedDeclarations;  // XXX
+    struct DeclarationInfo {
+        bool isConst;
+        bool isVar;
+        bool isFunction;
+    };
+
+    std::unordered_map<IdentifierName, DeclarationInfo> hoistedDeclarations;  // XXX
 
     StatementList(Kind kind_, std::vector<StatementPtr> statements_):
         Statement({}),
@@ -319,8 +325,8 @@ struct StatementList : public Statement {
         }
     }
 
-    void addHoistedDeclaration(const IdentifierName& name, bool isConst) {
-        hoistedDeclarations.emplace(name, isConst);
+    void addHoistedDeclaration(const IdentifierName& name, bool isConst, bool isVar = false, bool isFunction = false) {
+        hoistedDeclarations.emplace(name, DeclarationInfo{isConst, isVar, isFunction});
     }
 
     bool hasDeclarationOf(const IdentifierName& name) const {
@@ -330,7 +336,19 @@ struct StatementList : public Statement {
     bool declarationIsConst(const IdentifierName& name) const {
         auto it = hoistedDeclarations.find(name);
         assert(it != hoistedDeclarations.end());
-        return it->second;
+        return it->second.isConst;
+    }
+
+    bool declarationIsVar(const IdentifierName& name) const {
+        auto it = hoistedDeclarations.find(name);
+        assert(it != hoistedDeclarations.end());
+        return it->second.isVar;
+    }
+
+    bool declarationIsFunction(const IdentifierName& name) const {
+        auto it = hoistedDeclarations.find(name);
+        assert(it != hoistedDeclarations.end());
+        return it->second.isFunction;
     }
 
     size_t statementCount() const {
@@ -345,10 +363,12 @@ using StatementListPtr = std::unique_ptr<StatementList>;
 
 struct LexicalDeclaration : public Statement {
     bool isConst;
+    bool isVar;
 
-    LexicalDeclaration(bool isConst_, std::vector<BindingElementPtr> bindings_):
+    LexicalDeclaration(bool isConst_, std::vector<BindingElementPtr> bindings_, bool isVar_ = false):
         Statement({}),
-        isConst(isConst_)
+        isConst(isConst_),
+        isVar(isVar_)
     {
         children.reserve(bindings_.size());
         for (auto& binding : bindings_) {
@@ -963,7 +983,7 @@ StatementListPtr parseFunctionBody(ParserState& state);
 StatementListPtr parseBlock(ParserState& state);
 BindingElementPtr parseLexicalBinding(ParserState& state);
 LexicalDeclarationPtr parseLexicalDeclaration(ParserState& state);
-auto parseVariableStatement(ParserState&);
+LexicalDeclarationPtr parseVariableStatement(ParserState&);
 EmptyStatementPtr parseEmptyStatement(ParserState& state);
 ExpressionStatementPtr parseExpressionStatement(ParserState& state);
 ExpressionPtr parseExpressionParenthesised(ParserState& state);
@@ -1034,7 +1054,7 @@ using ExpressionTypes = TypeList<
 
 using StatementTypes = TypeList<
     ExpressionStatement, StatementList, LexicalDeclaration, IterationStatement, ContinueStatement, BreakStatement,
-    ReturnStatement, ThrowStatement, DebuggerStatement, HoistableDeclaration, IfStatement
+    ReturnStatement, ThrowStatement, DebuggerStatement, HoistableDeclaration, IfStatement, EmptyStatement
 >;
 
 

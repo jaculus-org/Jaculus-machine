@@ -271,5 +271,9 @@ inline bool equal(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionFl
     return evalCmp(ctx, op1, op2, exceptionFlag, cmp, code, name);
 }
 
+inline bool strictEqual(JSContext* ctx, JSValue op1, JSValue op2, int32_t* /* exceptionFlag */) {
+    return JS_StrictEq(ctx, op1, op2);
+}
+
 
 }  // namespace jac::quickjs_ops

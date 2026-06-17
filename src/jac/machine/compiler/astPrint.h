@@ -288,12 +288,13 @@ inline void writeNodeJson(const ASTNode* node, std::ostream& out, int indent, in
             writeField("hoistedDeclarations", [&] {
                 out << "[";
                 bool first = true;
-                for (const auto& [id, isConst] : specificNode.hoistedDeclarations) {
+                for (const auto& [id, info] : specificNode.hoistedDeclarations) {
                     if (!first) {
                         out << ", ";
                     }
                     first = false;
-                    writeJsonEscaped(out, id + (isConst ? "[const]" : ""));
+                    std::string tag = info.isVar ? "[var]" : (info.isConst ? "[const]" : "[let]");
+                    writeJsonEscaped(out, id + tag);
                 }
                 out << "]";
             });
@@ -301,6 +302,9 @@ inline void writeNodeJson(const ASTNode* node, std::ostream& out, int indent, in
         [&](const LexicalDeclaration& specificNode) {
             writeField("const", [&] {
                 out << (specificNode.isConst ? "true" : "false");
+            });
+            writeField("var", [&] {
+                out << (specificNode.isVar ? "true" : "false");
             });
         },
         [&](const Function& specificNode) {

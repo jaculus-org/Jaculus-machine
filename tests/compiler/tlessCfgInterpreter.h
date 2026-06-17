@@ -456,10 +456,20 @@ struct Interpreter {
                     default: assert(false); break;
                 }
             } break;
+            case Opcode::StrictEq: {
+                int32_t exception = 0;
+                res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::strictEqual(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
+                if (exception) { assert(false && "Exception during strict equality comparison"); }
+            } break;
             case Opcode::Eq: {
                 int32_t exception = 0;
                 res.emplace_back(Value(JS_NewBool(ctx, quickjs_ops::equal(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
                 if (exception) { assert(false && "Exception during equality comparison"); }
+            } break;
+            case Opcode::StrictNeq: {
+                int32_t exception = 0;
+                res.emplace_back(Value(JS_NewBool(ctx, !quickjs_ops::strictEqual(ctx, args[0].getValue().toJSValue(ctx), args[1].getValue().toJSValue(ctx), &exception))));
+                if (exception) { assert(false && "Exception during strict inequality comparison"); }
             } break;
             case Opcode::Neq: {
                 int32_t exception = 0;

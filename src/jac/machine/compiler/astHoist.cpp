@@ -16,15 +16,18 @@ struct HoistPassState {
         scopes.pop_back();
     }
 
-    void declareIdentifier(const IdentifierName& name, bool isConst, bool lexical) {
-        if (!lexical) {
-            throw std::runtime_error("Variable declarations not supported");
-        }
+    void declareIdentifier(const IdentifierName& name, bool isConst, bool isVar, bool isFunction = false) {
         for (auto& scope : std::ranges::reverse_view(scopes)) {
             if (scope->hasDeclarationOf(name)) {
-                throw std::runtime_error("Redeclaration of identifier: " + name);
+                bool existingIsConst = scope->declarationIsConst(name);
+                bool existingIsVar = scope->declarationIsVar(name);
+                // var redeclaring var is allowed; anything else redeclaring is an error
+                if (!isVar || existingIsConst || !existingIsVar) {
+                    throw std::runtime_error("Redeclaration of identifier: " + name);
+                }
+                return;
             }
-            scope->addHoistedDeclaration(name, isConst);
+            scope->addHoistedDeclaration(name, isConst, isVar, isFunction);
         }
     }
 };
@@ -114,7 +117,7 @@ void hoistStmt(StatementList& stmtList, HoistPassState& state, bool skipEnter = 
 void hoistStmt(LexicalDeclaration& decl, HoistPassState& state) {
     for (size_t i = 0; i < decl.bindingCount(); i++) {
         const auto& binding = decl.bindingGet(i);
-        state.declareIdentifier(binding->target()->name, decl.isConst, true);
+        state.declareIdentifier(binding->target()->name, decl.isConst, decl.isVar, false);
     }
 }
 
@@ -155,7 +158,7 @@ void hoistStmt(DebuggerStatement&, HoistPassState& state) {
 }
 
 void hoistStmt(HoistableDeclaration& decl, HoistPassState& state) {
-    state.declareIdentifier(decl.function()->name()->name, false, true);
+    state.declareIdentifier(decl.function()->name()->name, false, false, true);
 }
 
 void hoistStmt(IfStatement& if_, HoistPassState& state) {

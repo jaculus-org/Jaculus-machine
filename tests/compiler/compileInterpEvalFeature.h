@@ -211,6 +211,9 @@ public:
         catch (const cfg::IRGenError& e) {
             throw jac::Exception::create(jac::Exception::Type::SyntaxError, "AOT compilation error: " + std::string(e.what()));
         }
+        catch (const std::runtime_error& e) {
+            throw jac::Exception::create(jac::Exception::Type::TypeError, "AOT compilation error: " + std::string(e.what()));
+        }
 
         return EvalFeature<Next>::eval(std::move(code), filename, flags);
     }

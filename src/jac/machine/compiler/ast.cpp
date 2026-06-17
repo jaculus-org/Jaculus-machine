@@ -697,9 +697,39 @@ LexicalDeclarationPtr parseLexicalDeclaration(ParserState& state) {
 }
 
 
-auto parseVariableStatement(ParserState&) {
-    // XXX: ignore for now
-    return nullptr;
+LexicalDeclarationPtr parseVariableStatement(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "var") {
+        return nullptr;
+    }
+    state.advance();
+
+    std::vector<BindingElementPtr> bindings;
+
+    while (true) {
+        if (auto binding = parseLexicalBinding(state)) {
+            bindings.emplace_back(std::move(binding));
+        }
+        else {
+            state.restorePosition(start);
+            state.error("Invalid variable declaration");
+            return nullptr;
+        }
+
+        if (state.current().kind == lex::Token::Punctuator && state.current().text == ",") {
+            state.advance();
+            continue;
+        }
+        if (state.current().kind == lex::Token::Punctuator && state.current().text == ";") {
+            state.advance();
+            break;
+        }
+        state.error("Unexpected token");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    return std::make_unique<LexicalDeclaration>(false, std::move(bindings), true);
 }
 
 

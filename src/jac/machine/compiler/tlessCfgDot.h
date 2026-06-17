@@ -44,7 +44,9 @@ inline void print(std::ostream& os, Opcode op) {
         case Opcode::BitOr: os << "BitOr"; break;
         case Opcode::BitXor: os << "BitXor"; break;
         case Opcode::Eq: os << "Eq"; break;
+        case Opcode::StrictEq: os << "StrictEq"; break;
         case Opcode::Neq: os << "Neq"; break;
+        case Opcode::StrictNeq: os << "StrictNeq"; break;
         case Opcode::Gt: os << "Gt"; break;
         case Opcode::Gte: os << "Gte"; break;
         case Opcode::Lt: os << "Lt"; break;

@@ -481,7 +481,6 @@ public:
         assert(block->terminator.type == Terminator::None);
         auto trueVars = trueBlock.varToReg.vars();
 
-        std::cout << "true args: " << trueBlock.args.size() << "; used args:" << (trueVars.size() + addArgs.size() + interm.size()) << std::endl;
         assert(trueVars == falseBlock.varToReg.vars());
         assert(trueBlock.args.size() == falseBlock.args.size());
         assert(trueBlock.args.size() == (trueVars.size() + addArgs.size() + interm.size()));
@@ -515,7 +514,6 @@ public:
     }
 
     Reg popInterm(RValue val) {
-        std::cout << "Popping interm " << val.intermId << "; interm size: " << interm.size() << std::endl;
         assert(val.intermId == static_cast<int>(interm.size() - 1));
         auto reg = interm.back();
         interm.pop_back();
@@ -664,12 +662,17 @@ struct FunctionEmitter {
         return reg;
     }
 
-    Reg createGlobalSlot(const Identifier& name) {
+    Reg createGlobalSlot(const Identifier& name, bool isConst, bool isLet = false) {
         auto reg = Reg::createTmp();
         RValue nameVal = emitConst(name);
+        int32_t kind = isConst ? 2 : (isLet ? 1 : 0);  // 0=var, 1=let, 2=const
+        RValue kindVal = emitConst(kind);
+
+        auto kindReg = popInterm(kindVal);
+        auto nameReg = popInterm(nameVal);
         emitInstruction(Operation{
             .op = Opcode::CreateGlobalSlot,
-            .args = { popInterm(nameVal) },
+            .args = { nameReg, kindReg },
             .res = { reg }
         });
         return reg;
@@ -677,10 +680,8 @@ struct FunctionEmitter {
 
     void enterScope() { scopes.emplace_front(); }
     void exitScope(bool killVars) {
-        std::cout << "Exiting scope with " << scopes.front().locals.size() << " locals\n";
         for (const auto& [ name, var ] : scopes.front().locals) {
             auto it = getActiveBlock()->varToReg.data.find(var.id);
-            std::cout << "  var " << name << " (id " << var.id << ") mapped to reg " << (it != getActiveBlock()->varToReg.data.end() ? std::to_string(it->second.id()) : "none") << "\n";
             if (killVars) {
                 assert(it != getActiveBlock()->varToReg.data.end());
                 emitInstruction(Operation{
@@ -704,8 +705,8 @@ struct FunctionEmitter {
         return LVRef::direct(var.id, isConst);
     }
 
-    LVRef addGlobal(Identifier name, bool isConst) {
-        Reg reg = createGlobalSlot(name);
+    LVRef addGlobal(Identifier name, bool isConst, bool isLet = false) {
+        Reg reg = createGlobalSlot(name, isConst, isLet);
         auto var = scopes.front().addLocal(name, isConst);
         getActiveBlock()->varToReg.data[var.id] = reg;
         return LVRef::direct(var.id, isConst);
@@ -768,11 +769,6 @@ public:
     }
 
     BasicBlockBuilderPtr createBlock(const auto& vars, int extraArgs, int inheritedInterm = 0) {
-        std::cout << "Creating block with vars: ";
-        for (const auto& var : vars) {
-            std::cout << var << " ";        }
-        std::cout << "and extra args: " << extraArgs;
-        std::cout << "and interms: " << inheritedInterm << std::endl;
         auto block = std::make_shared<BasicBlockBuilder>(createBlockInternal());
         block->varToReg = VarToRegMap::remapVars(vars);
 

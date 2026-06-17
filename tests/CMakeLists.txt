@@ -59,4 +59,10 @@ target_link_libraries(bench PUBLIC jac-machine Catch2::Catch2WithMain)
 add_executable(bytecodeGen bytecodeGen.cpp)
 target_link_libraries(bytecodeGen PUBLIC jac-machine Catch2::Catch2WithMain)
 
-file(COPY test_files DESTINATION "./")
+add_executable(run-quickjs run-quickjs.cpp)
+target_link_libraries(run-quickjs PUBLIC jac-machine)
+
+add_executable(run-cfg-interp run-cfg-interp.cpp)
+target_link_libraries(run-cfg-interp PUBLIC jac-machine)
+
+file(COPY fixtures DESTINATION "./")

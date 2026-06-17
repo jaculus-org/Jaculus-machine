@@ -1,0 +1,7 @@
+test_root: tests/test-files
+harness_dir: tests/test-files/local/harness
+tests:
+  - local/basic/pass.js
+  - local/basic/fail-runtime.js
+  - local/basic/fail-syntax.js
+  - local/negative/runtime.js

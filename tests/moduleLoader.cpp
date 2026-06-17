@@ -31,7 +31,7 @@ TEST_CASE("Eval file", "[moduleLoader]") {
     auto [comment, path, expected] = GENERATE(
         sgn {
             "Eval file",
-            "test_files/moduleLoader/test.js",
+            "fixtures/moduleLoader/test.js",
             { "first", "second" }
         }
     );
@@ -46,12 +46,12 @@ TEST_CASE("Eval file", "[moduleLoader]") {
 
     SECTION("File not found") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/notFound.js");
+        evalFileThrows(machine, "fixtures/moduleLoader/notFound.js");
     }
 
     SECTION("Exception") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/throw.js");
+        evalFileThrows(machine, "fixtures/moduleLoader/throw.js");
     }
 }
 
@@ -73,17 +73,17 @@ TEST_CASE("Import file", "[moduleLoader]") {
     auto [comment, path, expected] = GENERATE(
         sgn {
             "Neighbor",
-            "test_files/moduleLoader/importNeighbor/main.js",
+            "fixtures/moduleLoader/importNeighbor/main.js",
             { "callNeighbor" }
         },
         sgn {
             "Subdirectory",
-            "test_files/moduleLoader/importSubdir/main.js",
+            "fixtures/moduleLoader/importSubdir/main.js",
             { "callSubdir" }
         },
         sgn {
             "Subdirectory and up",
-            "test_files/moduleLoader/importSubdirUp/main.js",
+            "fixtures/moduleLoader/importSubdirUp/main.js",
             { "callUp", "callSubdir" }
         }
     );
@@ -99,6 +99,6 @@ TEST_CASE("Import file", "[moduleLoader]") {
 
     SECTION("Import not found") {
         machine.initialize();
-        evalFileThrows(machine, "test_files/moduleLoader/importNotFound/main.js");
+        evalFileThrows(machine, "fixtures/moduleLoader/importNotFound/main.js");
     }
 }

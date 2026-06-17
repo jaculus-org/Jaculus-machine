@@ -30,7 +30,7 @@ TEST_CASE("Imported promise", "[moduleLoader]") {
 
     Machine machine;
 
-    machine.setCodeDir("test_files/regression/importPromise");
+    machine.setCodeDir("fixtures/regression/importPromise");
     machine.initialize();
 
     evalFile(machine, "main.js");

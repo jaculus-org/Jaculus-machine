@@ -62,7 +62,7 @@ IdentifierPtr parseIdentifierReference(ParserState& state) {
 
 IdentifierPtr parseBindingIdentifier(ParserState& state) {
     // TODO: strict mode - cannot be "arguments" or "eval"
-    return parseSpecialIdentifier(state, true, true);
+    return parseSpecialIdentifier(state, !state.getYield(), !state.getAwait());
 }
 
 
@@ -1030,7 +1030,7 @@ auto parseWithStatement(ParserState&) {
 }
 
 
-FunctionPtr parseFunction(ParserState& state, TriState identifierRequired) {
+FunctionPtr parseFunction(ParserState& state, TriState identifierRequired, bool isAsync) {
     auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "function") {
         return nullptr;
@@ -1078,7 +1078,11 @@ FunctionPtr parseFunction(ParserState& state, TriState identifierRequired) {
     }
     state.advance();
 
-    auto body = (state.pushTemplate<Yield{false}, Await{false}>(), parseFunctionBody(state));
+    auto body = (
+        state.pushTemplate<Yield{false}>(),
+        isAsync ? state.pushTemplate<Await{true}>() : state.pushTemplate<Await{false}>(),
+        parseFunctionBody(state)
+    );
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != "}") {
         state.error("Expected }");
@@ -1089,14 +1093,14 @@ FunctionPtr parseFunction(ParserState& state, TriState identifierRequired) {
     state.advance();
 
     return std::make_unique<Function>(
-        false, false, std::move(name), std::move(params), std::move(returnType),
+        false, isAsync, std::move(name), std::move(params), std::move(returnType),
         std::move(body), std::string_view(start->text.begin(), state.current().text.begin())
     );
 }
 
 
 FunctionPtr parseFunctionDeclaration(ParserState& state, bool Default) {
-    return parseFunction(state, Default ? TriState::False : TriState::True);
+    return parseFunction(state, Default ? TriState::False : TriState::True, false);
 }
 
 
@@ -1228,9 +1232,20 @@ auto parseGeneratorDeclaration(ParserState&, bool) {
 }
 
 
-auto parseAsyncFunctionDeclaration(ParserState&, bool) {
-    // XXX: ignore for now
-    return nullptr;
+FunctionPtr parseAsyncFunctionDeclaration(ParserState& state, bool Default) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "async") {
+        return nullptr;
+    }
+    state.advance();
+
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "function") {
+        state.error("Expected function after async");
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    return parseFunction(state, Default ? TriState::False : TriState::True, true);
 }
 
 
@@ -1376,6 +1391,19 @@ ExpressionPtr parsePrimaryExpression(ParserState& state) {
     }
     if (auto lit = parseLiteral(state)) {
         return lit;
+    }
+    if (auto function = parseFunction(state, TriState::False, false)) {
+        return function;
+    }
+    if (state.current().kind == lex::Token::Keyword && state.current().text == "async") {
+        auto start = state.getPosition();
+        state.advance();
+        if (state.current().kind == lex::Token::Keyword && state.current().text == "function") {
+            if (auto function = parseFunction(state, TriState::False, true)) {
+                return function;
+            }
+        }
+        state.restorePosition(start);
     }
     if (auto cover = parseCoverParenthesizedExpressionAndArrowParameterList(state)) {
         // TODO: move to AssignmentExpression?
@@ -1684,15 +1712,113 @@ auto parseYieldExpression(ParserState&) {
 }
 
 
-auto parseArrowFunction(ParserState&) {
-    // XXX: ignore for now
+static FormalParametersPtr parseArrowFormalParameters(ParserState& state) {
+    auto start = state.getPosition();
+
+    if (auto id = parseBindingIdentifier(state)) {
+        auto binding = std::make_unique<BindingElement>(std::move(id), nullptr, nullptr);
+        std::vector<BindingElementPtr> params;
+        params.emplace_back(std::move(binding));
+        return std::make_unique<FormalParameters>(nullptr, std::move(params));
+    }
+
+    if (state.current().kind == lex::Token::Punctuator && state.current().text == "(") {
+        state.advance();
+
+        std::vector<BindingElementPtr> params;
+        bool canContinue = true;
+        while (canContinue) {
+            if (auto id = parseBindingIdentifier(state)) {
+                params.emplace_back(std::make_unique<BindingElement>(std::move(id), nullptr, nullptr));
+                if (state.current().kind == lex::Token::Punctuator && state.current().text == ",") {
+                    state.advance();
+                    continue;
+                }
+                canContinue = false;
+            }
+            else {
+                break;
+            }
+        }
+
+        if (state.current().kind != lex::Token::Punctuator || state.current().text != ")") {
+            state.restorePosition(start);
+            return nullptr;
+        }
+        state.advance();
+
+        return std::make_unique<FormalParameters>(nullptr, std::move(params));
+    }
+
     return nullptr;
 }
 
 
-auto parseAsyncArrowFunction(ParserState&) {
-    // XXX: ignore for now
-    return nullptr;
+static StatementListPtr parseArrowFunctionBody(ParserState& state, bool isAsync) {
+    auto awaitGuard = isAsync ? state.pushTemplate<Await{true}>() : state.pushTemplate<Await{false}>();
+
+    if (state.current().kind == lex::Token::Punctuator && state.current().text == "{") {
+        auto returnGuard = state.pushTemplate<Return{true}>();
+        return parseBlockStatement(state);
+    }
+
+    auto returnGuard = state.pushTemplate<Return{false}>();
+    auto expr = parseAssignmentExpression(state);
+    if (!expr) {
+        return nullptr;
+    }
+
+    std::vector<StatementPtr> stmts;
+    stmts.emplace_back(std::make_unique<ReturnStatement>(std::move(expr)));
+    return std::make_unique<StatementList>(StatementList::Kind::Normal, std::move(stmts));
+}
+
+
+static ExpressionPtr parseArrowFunctionImpl(ParserState& state, bool isAsync) {
+    auto start = state.getPosition();
+
+    auto params = parseArrowFormalParameters(state);
+    if (!params) {
+        return nullptr;
+    }
+
+    if (state.current().kind != lex::Token::Punctuator || state.current().text != "=>") {
+        state.restorePosition(start);
+        return nullptr;
+    }
+    state.advance();
+
+    auto body = parseArrowFunctionBody(state, isAsync);
+    if (!body) {
+        state.restorePosition(start);
+        return nullptr;
+    }
+
+    return std::make_unique<Function>(
+        false, isAsync, nullptr, std::move(params), nullptr,
+        std::move(body), std::string_view(start->text.begin(), state.current().text.begin())
+    );
+}
+
+
+ExpressionPtr parseArrowFunction(ParserState& state) {
+    return parseArrowFunctionImpl(state, false);
+}
+
+
+ExpressionPtr parseAsyncArrowFunction(ParserState& state) {
+    auto start = state.getPosition();
+    if (state.current().kind != lex::Token::Keyword || state.current().text != "async") {
+        return nullptr;
+    }
+    state.advance();
+
+    auto result = parseArrowFunctionImpl(state, true);
+    if (!result) {
+        state.restorePosition(start);
+        return nullptr;
+    }
+    return result;
 }
 
 

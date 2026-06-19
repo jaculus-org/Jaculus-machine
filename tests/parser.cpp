@@ -2013,3 +2013,469 @@ TEST_CASE("Type annotation", "[parser]") {
         REQUIRE(result->name == "i32");
     }
 }
+
+
+TEST_CASE("AsyncFunctionDeclaration", "[parser]") {
+
+    SECTION("async function f() {}") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "function", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 16, "f", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 17, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 18, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 20, "{", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 21, "}", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseAsyncFunctionDeclaration(state, false);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        REQUIRE(result->isAsync);
+        REQUIRE(result->name()->name == "f");
+        REQUIRE(result->parameters()->parameterCount() == 0);
+        REQUIRE(!result->body());
+    }
+
+    SECTION("async function f(x) { await x; }") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "function", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 16, "f", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 17, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 18, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 19, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 21, "{", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 23, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 29, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 30, ";", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 32, "}", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseAsyncFunctionDeclaration(state, false);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        REQUIRE(result->isAsync);
+        REQUIRE(result->name()->name == "f");
+        REQUIRE(result->parameters()->parameterCount() == 1);
+        REQUIRE(isIdent(result->parameters()->parameterGet(0)->target(), "x"));
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+
+        auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result->body()->children[0]);
+        auto& unary = dynamic_cast<jac::ast::UnaryExpression&>(*exprStmt.expression());
+        REQUIRE(unary.op == jac::ast::UnaryExpression::Op::Await);
+        REQUIRE(isIdent(unary.expression(), "x"));
+    }
+}
+
+
+TEST_CASE("AsyncFunctionExpression", "[parser]") {
+
+    SECTION("async function() {}") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "function", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 15, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 16, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 18, "{", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 19, "}", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        REQUIRE(fn.isAsync);
+        REQUIRE(!fn.name());
+        REQUIRE(fn.parameters()->parameterCount() == 0);
+    }
+
+    SECTION("let f = async function() {};") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "let", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 5, "f", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 7, "=", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 9, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 15, "function", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 23, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 24, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 26, "{", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 27, "}", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 28, ";", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseScript(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+
+        auto& decl = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->body()->children[0]);
+        auto binding = decl.bindingGet(0);
+        REQUIRE(binding->target()->name == "f");
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*binding->initializer());
+        REQUIRE(fn.isAsync);
+        REQUIRE(!fn.name());
+    }
+}
+
+
+TEST_CASE("AwaitExpression", "[parser]") {
+
+    SECTION("await x in async context") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "x", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Await{true}>();
+
+        auto result = jac::ast::parseUnaryExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& unary = dynamic_cast<jac::ast::UnaryExpression&>(*result);
+        REQUIRE(unary.op == jac::ast::UnaryExpression::Op::Await);
+        REQUIRE(isIdent(unary.expression(), "x"));
+    }
+
+    SECTION("await at module top level") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 8, ";", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseModule(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+    }
+}
+
+
+TEST_CASE("ArrowFunction", "[parser]") {
+
+    auto checkArrow = [](jac::ast::Function& fn, bool isAsync, size_t paramCount) {
+        REQUIRE(fn.isAsync == isAsync);
+        REQUIRE(!fn.name());
+        REQUIRE(fn.parameters()->parameterCount() == paramCount);
+        REQUIRE(fn.body());
+        REQUIRE(fn.body()->children.size() == 1);
+    };
+
+    SECTION("x => x") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 3, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 6, "x", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkArrow(fn, false, 1);
+        REQUIRE(isIdent(fn.parameters()->parameterGet(0)->target(), "x"));
+
+        auto& ret = dynamic_cast<jac::ast::ReturnStatement&>(*fn.body()->children[0]);
+        REQUIRE(isIdent(ret.expression(), "x"));
+    }
+
+    SECTION("(x) => x") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 2, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 3, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 5, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, "x", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkArrow(fn, false, 1);
+        REQUIRE(isIdent(fn.parameters()->parameterGet(0)->target(), "x"));
+    }
+
+    SECTION("() => 1") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 2, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 4, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 7, "1", jac::lex::Token::NumericLiteral)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkArrow(fn, false, 0);
+
+        auto& ret = dynamic_cast<jac::ast::ReturnStatement&>(*fn.body()->children[0]);
+        REQUIRE(isLit<int32_t>(ret.expression(), 1));
+    }
+
+    SECTION("(x, y) => x + y") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 2, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 3, ",", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 5, "y", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 6, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 11, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 13, "+", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 15, "y", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkArrow(fn, false, 2);
+        REQUIRE(isIdent(fn.parameters()->parameterGet(0)->target(), "x"));
+        REQUIRE(isIdent(fn.parameters()->parameterGet(1)->target(), "y"));
+    }
+
+    SECTION("x => { return x; }") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 3, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 6, "{", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, "return", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 15, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 16, ";", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 18, "}", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        REQUIRE(!fn.isAsync);
+        REQUIRE(!fn.name());
+        REQUIRE(fn.parameters()->parameterCount() == 1);
+        REQUIRE(fn.body());
+        REQUIRE(fn.body()->kind == jac::ast::StatementList::Kind::Block);
+        REQUIRE(fn.body()->children.size() == 1);
+
+        auto& ret = dynamic_cast<jac::ast::ReturnStatement&>(*fn.body()->children[0]);
+        REQUIRE(isIdent(ret.expression(), "x"));
+    }
+}
+
+
+TEST_CASE("AsyncArrowFunction", "[parser]") {
+
+    auto checkAsyncArrow = [](jac::ast::Function& fn, size_t paramCount) {
+        REQUIRE(fn.isAsync);
+        REQUIRE(!fn.name());
+        REQUIRE(fn.parameters()->parameterCount() == paramCount);
+        REQUIRE(fn.body());
+        REQUIRE(fn.body()->children.size() == 1);
+    };
+
+    SECTION("async x => x") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 9, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 12, "x", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkAsyncArrow(fn, 1);
+        REQUIRE(isIdent(fn.parameters()->parameterGet(0)->target(), "x"));
+
+        auto& ret = dynamic_cast<jac::ast::ReturnStatement&>(*fn.body()->children[0]);
+        REQUIRE(isIdent(ret.expression(), "x"));
+    }
+
+    SECTION("async (x) => await x") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 9, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 11, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 14, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 20, "x", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkAsyncArrow(fn, 1);
+
+        auto& ret = dynamic_cast<jac::ast::ReturnStatement&>(*fn.body()->children[0]);
+        auto& unary = dynamic_cast<jac::ast::UnaryExpression&>(*ret.expression());
+        REQUIRE(unary.op == jac::ast::UnaryExpression::Op::Await);
+        REQUIRE(isIdent(unary.expression(), "x"));
+    }
+
+    SECTION("async () => 1") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 10, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 13, "1", jac::lex::Token::NumericLiteral)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkAsyncArrow(fn, 0);
+    }
+
+    SECTION("async (x, y) => x + y") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "async", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 8, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 9, ",", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 11, "y", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 12, ")", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 14, "=>", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 17, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 19, "+", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 21, "y", jac::lex::Token::IdentifierName)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*result);
+        checkAsyncArrow(fn, 2);
+    }
+}
+
+
+TEST_CASE("AwaitIdentifier", "[parser]") {
+
+    SECTION("await as identifier outside async context") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseIdentifierReference(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->name == "await");
+    }
+
+    SECTION("await as binding identifier outside async context") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseBindingIdentifier(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->name == "await");
+    }
+
+    SECTION("await as binding identifier inside async context fails") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword)
+        };
+
+        jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Await{true}>();
+
+        auto result = jac::ast::parseBindingIdentifier(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(!result);
+        REQUIRE(!state.isEnd());
+    }
+}

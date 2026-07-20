@@ -822,6 +822,7 @@ class ParserState {
 
     lex::Token _errorToken = lex::Token(0, 0, "", lex::Token::NoToken);
     std::string_view _errorMessage;
+    std::ptrdiff_t _errorIndex = -1;
 
     std::vector<bool> yieldStack;
     std::vector<bool> awaitStack;
@@ -854,16 +855,21 @@ public:
             _errorMessage = message;
             return;
         }
+
+        std::ptrdiff_t curIndex = std::distance(_tokens.begin(), _pos);
+
+        if (curIndex < _errorIndex) {
+            return;
+        }
+
         if (_pos == _tokens.end()) { // TODO: fix token position
             _errorToken = _tokens.back();
-            _errorMessage = message;
-            return;
         }
-        if (_errorToken.text.begin() > _pos->text.begin()) {
-            return;
+        else {
+            _errorToken = current();
         }
-        _errorToken = current();
         _errorMessage = message;
+        _errorIndex = curIndex;
     }
 
     lex::Token current() {
@@ -990,8 +996,8 @@ ExpressionPtr parseExpressionParenthesised(ParserState& state);
 IterationStatementPtr parseDoWhileStatement(ParserState& state);
 IterationStatementPtr parseWhileStatement(ParserState& state);
 IterationStatementPtr parseForInOfStatement(ParserState&);
-IterationStatementPtr parseForStatement(ParserState& state);
-IterationStatementPtr parseIterationStatement(ParserState& state);
+StatementPtr parseForStatement(ParserState& state);
+StatementPtr parseIterationStatement(ParserState& state);
 auto parseSwitchStatement(ParserState&);
 StatementPtr parseBreakableStatement(ParserState& state);
 ContinueStatementPtr parseContinueStatement(ParserState& state);

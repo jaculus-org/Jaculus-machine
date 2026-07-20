@@ -219,6 +219,12 @@ LiteralPtr parseNumericLiteral(ParserState& state) {
     }
 
     if (suffixStart != text.end() && std::tolower(*suffixStart) == 'e' && base == 10) {
+        // An explicit exponent can overflow (2e10) or be fractional (1e-3).
+        if (!isFloatingPoint) {
+            isFloatingPoint = true;
+            dnum = num;
+        }
+
         std::string_view exponentText = text.substr(suffixStart - text.begin() + 1);
         int exp = 0;
         bool negative = false;
@@ -842,7 +848,7 @@ IterationStatementPtr parseForInOfStatement(ParserState&) {
 }
 
 
-IterationStatementPtr parseForStatement(ParserState& state) {
+StatementPtr parseForStatement(ParserState& state) {
     auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "for") {
         return nullptr;
@@ -857,6 +863,7 @@ IterationStatementPtr parseForStatement(ParserState& state) {
     state.advance();
 
     ASTNodePtr init;
+    bool isLexicalInit = false;
 
     if (state.current().kind == lex::Token::Keyword && state.current().text == "var") {
         throw std::runtime_error("Variable declarations in for loop are not supported");
@@ -864,6 +871,7 @@ IterationStatementPtr parseForStatement(ParserState& state) {
     if (state.current().kind == lex::Token::Keyword && (state.current().text == "let" || state.current().text == "const")) {
         if (auto decl = (state.pushTemplate<In{false}>(), parseLexicalDeclaration(state))) {
             init = std::move(decl);
+            isLexicalInit = true;
         }
         else {
             state.restorePosition(start);
@@ -910,11 +918,19 @@ IterationStatementPtr parseForStatement(ParserState& state) {
         return nullptr;
     }
 
-    return std::make_unique<IterationStatement>(IterationStatement::for_(std::move(init), std::move(condition), std::move(update), std::move(statement)));
+    auto iter = std::make_unique<IterationStatement>(IterationStatement::for_(std::move(init), std::move(condition), std::move(update), std::move(statement)));
+
+    if (isLexicalInit) {
+        // wrap the loop in a block to ensure correct scoping and hoisting
+        std::vector<StatementPtr> wrapped;
+        wrapped.push_back(std::move(iter));
+        return std::make_unique<StatementList>(StatementList::Block, std::move(wrapped));
+    }
+    return iter;
 }
 
 
-IterationStatementPtr parseIterationStatement(ParserState& state) {
+StatementPtr parseIterationStatement(ParserState& state) {
     if (auto doWhile = parseDoWhileStatement(state)) {
         return doWhile;
     }
@@ -951,6 +967,7 @@ StatementPtr parseBreakableStatement(ParserState& state) {
 
 
 ContinueStatementPtr parseContinueStatement(ParserState& state) {
+    auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "continue") {
         return nullptr;
     }
@@ -960,6 +977,7 @@ ContinueStatementPtr parseContinueStatement(ParserState& state) {
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
         state.error("Expected ;");
+        state.restorePosition(start);
         return nullptr;
     }
 
@@ -969,6 +987,7 @@ ContinueStatementPtr parseContinueStatement(ParserState& state) {
 
 
 BreakStatementPtr parseBreakStatement(ParserState& state) {
+    auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "break") {
         return nullptr;
     }
@@ -978,6 +997,7 @@ BreakStatementPtr parseBreakStatement(ParserState& state) {
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
         state.error("Expected ;");
+        state.restorePosition(start);
         return nullptr;
     }
     state.advance();
@@ -986,12 +1006,12 @@ BreakStatementPtr parseBreakStatement(ParserState& state) {
 
 
 ReturnStatementPtr parseReturnStatement(ParserState& state) {
+    auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "return") {
         return nullptr;
     }
     state.advance();
 
-    auto start = state.getPosition();
     auto expr = (state.pushTemplate<In{true}>(), parseExpression(state));
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
@@ -1006,12 +1026,12 @@ ReturnStatementPtr parseReturnStatement(ParserState& state) {
 
 
 ThrowStatementPtr parseThrowStatement(ParserState& state) {
+    auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "throw") {
         return nullptr;
     }
     state.advance();
 
-    auto start = state.getPosition();
     auto expr = (state.pushTemplate<In{true}>(), parseExpression(state));
 
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
@@ -1117,12 +1137,14 @@ auto parseTryStatement(ParserState&) {
 
 
 DebuggerStatementPtr parseDebuggerStatement(ParserState& state) {
+    auto start = state.getPosition();
     if (state.current().kind != lex::Token::Keyword || state.current().text != "debugger") {
         return nullptr;
     }
     state.advance();
     if (state.current().kind != lex::Token::Punctuator || state.current().text != ";") {
         state.error("Expected ;");
+        state.restorePosition(start);
         return nullptr;
     }
     state.advance();
@@ -1375,6 +1397,9 @@ ExpressionPtr refineParenthesizedExpression(ParserState& state, CoverParenthesiz
 
     auto children = std::move(cover.children);
     children.pop_back();
+    if (children.empty()) {
+        return nullptr;
+    }
     if (children.size() == 1) {
         return ExpressionPtr(static_cast<Expression*>(children[0].release()));  // NOLINT
     }
@@ -1392,25 +1417,27 @@ ExpressionPtr parsePrimaryExpression(ParserState& state) {
     if (auto lit = parseLiteral(state)) {
         return lit;
     }
-    if (auto function = parseFunction(state, TriState::False, false)) {
+    if (auto function = parseFunction(state, TriState::Unknown, false)) {
         return function;
     }
     if (state.current().kind == lex::Token::Keyword && state.current().text == "async") {
         auto start = state.getPosition();
         state.advance();
         if (state.current().kind == lex::Token::Keyword && state.current().text == "function") {
-            if (auto function = parseFunction(state, TriState::False, true)) {
+            if (auto function = parseFunction(state, TriState::Unknown, true)) {
                 return function;
             }
         }
         state.restorePosition(start);
     }
+    auto parenStart = state.getPosition();
     if (auto cover = parseCoverParenthesizedExpressionAndArrowParameterList(state)) {
         // TODO: move to AssignmentExpression?
         if (auto refined = refineParenthesizedExpression(state, *cover)) {
             return refined;
         }
         state.error("Invalid parenthesized expression");
+        state.restorePosition(parenStart);
         return nullptr;
     }
 

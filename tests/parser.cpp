@@ -86,6 +86,56 @@ TEST_CASE("NumericLiteral", "[parser]") {
         REQUIRE(isLit<int32_t>(result.get(), 123));
     }
 
+    SECTION("1e2") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "1e2", jac::lex::Token::NumericLiteral)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseNumericLiteral(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        REQUIRE((isLit<int32_t>(result.get(), 100) || isLit<double>(result.get(), 100.0)));
+    }
+
+    SECTION("1e-3") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "1e-3", jac::lex::Token::NumericLiteral)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseNumericLiteral(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        REQUIRE(std::holds_alternative<double>(result->value));
+        REQUIRE(floatEq(std::get<double>(result->value), 0.001));
+    }
+
+    SECTION("2e10") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "2e10", jac::lex::Token::NumericLiteral)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseNumericLiteral(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+
+        REQUIRE(std::holds_alternative<double>(result->value));
+        REQUIRE(floatEq(std::get<double>(result->value), 2e10));
+    }
+
     SECTION("123.456") {
         auto tokens = TokenVector{
             jac::lex::Token(1, 1, "123.456", jac::lex::Token::NumericLiteral)
@@ -1836,35 +1886,41 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::parseForStatement(state);
+        auto wrapper = jac::ast::parseForStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
-        REQUIRE(result);
+        REQUIRE(wrapper);
 
-        REQUIRE(result->init());
-        REQUIRE(result->condition());
-        REQUIRE(result->update());
-        REQUIRE(result->statement());
-        REQUIRE(!result->isDoWhile());
+        // for wrapped in a block for scoping
+        auto& outerList = dynamic_cast<jac::ast::StatementList&>(*wrapper);
+        REQUIRE(outerList.kind == jac::ast::StatementList::Kind::Block);
+        REQUIRE(outerList.children.size() == 1);
+        auto& result = dynamic_cast<jac::ast::IterationStatement&>(*outerList.children[0]);
 
-        auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->init());
+        REQUIRE(result.init());
+        REQUIRE(result.condition());
+        REQUIRE(result.update());
+        REQUIRE(result.statement());
+        REQUIRE(!result.isDoWhile());
+
+        auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result.init());
         REQUIRE(!declStmt.isConst);
         REQUIRE(declStmt.bindingCount() == 1);
         auto bindingX = declStmt.bindingGet(0);
         REQUIRE(bindingX->target()->name == "x");
         REQUIRE(isLit<int32_t>(bindingX->initializer(), 0));
 
-        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result->condition());
+        auto& binaryExp = dynamic_cast<jac::ast::BinaryExpression&>(*result.condition());
         REQUIRE(binaryExp.op == jac::ast::BinaryExpression::Op::Lt);
         REQUIRE(isIdent(binaryExp.left(), "x"));
         REQUIRE(isLit<int32_t>(binaryExp.right(), 10));
 
-        auto& updateExp = dynamic_cast<jac::ast::UpdateExpression&>(*result->update());
+        auto& updateExp = dynamic_cast<jac::ast::UpdateExpression&>(*result.update());
         REQUIRE(updateExp.kind == jac::ast::UpdateExpression::Op::PostInc);
         REQUIRE(isIdent(updateExp.expression(), "x"));
 
-        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result.statement());
         REQUIRE(stmtList.children.size() == 1);
         auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*stmtList.children[0]);
         REQUIRE(isIdent(exprStmt.expression(), "y"));
@@ -1883,18 +1939,21 @@ TEST_CASE("Loop statement", "[parser]") {
 
         jac::ast::ParserState state(tokens);
 
-        auto result = jac::ast::parseForStatement(state);
+        auto wrapper = jac::ast::parseForStatement(state);
         CAPTURE(state.getErrorMessage());
         CAPTURE(state.getErrorToken());
         REQUIRE(state.isEnd());
-        REQUIRE(result);
+        REQUIRE(wrapper);
 
-        REQUIRE(!result->init());
-        REQUIRE(!result->condition());
-        REQUIRE(!result->update());
-        REQUIRE(result->statement());
+        // no scope here
+        auto& result = dynamic_cast<jac::ast::IterationStatement&>(*wrapper);
 
-        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result->statement());
+        REQUIRE(!result.init());
+        REQUIRE(!result.condition());
+        REQUIRE(!result.update());
+        REQUIRE(result.statement());
+
+        auto& stmtList = dynamic_cast<jac::ast::StatementList&>(*result.statement());
         REQUIRE(stmtList.children.empty());
     }
 }
@@ -2574,5 +2633,247 @@ TEST_CASE("Hoisting", "[parser][hoist]") {
         auto& fn = *funcDecl.function();
         REQUIRE(fn.body() != nullptr);
         REQUIRE(fn.body()->statementCount() == 0);
+    }
+
+    SECTION("sequential for-loops each declaring let i do not collide") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { for (let i = 0; i < 3; i++) { } for (let i = 0; i < 3; i++) { } }"
+        ));
+    }
+
+    SECTION("sequential for-loops with a used loop variable do not collide") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { for (let i = 0; i < 3; i++) { console.log(i); } for (let i = 0; i < 3; i++) { console.log(i); } }"
+        ));
+    }
+
+    SECTION("for-loop's let i is usable inside condition, update and body") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { for (let i = 0; i < 3; i = i + 1) { console.log(i); } }"
+        ));
+    }
+
+    SECTION("a for-loop's let i may shadow an outer let i") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { let i = 1; for (let i = 0; i < 3; i++) { } }"
+        ));
+    }
+
+    SECTION("while and do-while loops still hoist correctly") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { let i = 0; while (i < 3) { i = i + 1; } do { i = i + 1; } while (i < 6); }"
+        ));
+    }
+}
+
+
+// True if parseScript fails outright or leaves unconsumed tokens.
+bool scriptFailsToParse(const std::string& code) {
+    auto tokens = tokenize(code);
+    jac::ast::ParserState state(tokens);
+
+    auto result = jac::ast::parseScript(state);
+    return !result || !state.isEnd();
+}
+
+
+TEST_CASE("MissingSemicolon", "[parser]") {
+
+    SECTION("continue without ; must not silently vanish") {
+        auto tokens = tokenize("continue");
+        jac::ast::ParserState state(tokens);
+        auto start = state.getPosition();
+
+        auto result = jac::ast::parseContinueStatement(state);
+        REQUIRE(!result);
+        REQUIRE(state.getPosition() == start);
+    }
+
+    SECTION("break without ; must not silently vanish") {
+        auto tokens = tokenize("break");
+        jac::ast::ParserState state(tokens);
+        auto start = state.getPosition();
+
+        auto result = jac::ast::parseBreakStatement(state);
+        REQUIRE(!result);
+        REQUIRE(state.getPosition() == start);
+    }
+
+    SECTION("return without ; must not silently vanish") {
+        auto tokens = tokenize("return");
+        jac::ast::ParserState state(tokens);
+        auto start = state.getPosition();
+        auto _ = state.pushTemplate<jac::ast::Return{true}>();
+
+        auto result = jac::ast::parseReturnStatement(state);
+        REQUIRE(!result);
+        REQUIRE(state.getPosition() == start);
+    }
+
+    SECTION("throw without ; must not silently vanish") {
+        auto tokens = tokenize("throw x");
+        jac::ast::ParserState state(tokens);
+        auto start = state.getPosition();
+
+        auto result = jac::ast::parseThrowStatement(state);
+        REQUIRE(!result);
+        REQUIRE(state.getPosition() == start);
+    }
+
+    SECTION("debugger without ; must not silently vanish") {
+        auto tokens = tokenize("debugger");
+        jac::ast::ParserState state(tokens);
+        auto start = state.getPosition();
+
+        auto result = jac::ast::parseDebuggerStatement(state);
+        REQUIRE(!result);
+        REQUIRE(state.getPosition() == start);
+    }
+
+    SECTION("function with return missing ; is a parse error, not a silent drop") {
+        REQUIRE(scriptFailsToParse(
+            "function g() { let x = 5; return }"
+        ));
+    }
+
+    SECTION("while loop with continue missing ; is a parse error, not a silent drop") {
+        REQUIRE(scriptFailsToParse(
+            "while (1) { continue }"
+        ));
+    }
+
+    SECTION("continue break; must not mis-parse as BreakStatement") {
+        REQUIRE(scriptFailsToParse(
+            "while (1) { continue break; }"
+        ));
+    }
+
+    SECTION("valid statements still parse") {
+        auto tokens = tokenize("return;");
+        jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Return{true}>();
+        auto result = jac::ast::parseReturnStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+
+    SECTION("valid return with expression still parses") {
+        auto tokens = tokenize("return 1;");
+        jac::ast::ParserState state(tokens);
+        auto _ = state.pushTemplate<jac::ast::Return{true}>();
+        auto result = jac::ast::parseReturnStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+
+    SECTION("valid break still parses") {
+        auto tokens = tokenize("break;");
+        jac::ast::ParserState state(tokens);
+        auto result = jac::ast::parseBreakStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+
+    SECTION("valid continue still parses") {
+        auto tokens = tokenize("continue;");
+        jac::ast::ParserState state(tokens);
+        auto result = jac::ast::parseContinueStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+
+    SECTION("valid throw still parses") {
+        auto tokens = tokenize("throw x;");
+        jac::ast::ParserState state(tokens);
+        auto result = jac::ast::parseThrowStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+
+    SECTION("valid debugger still parses") {
+        auto tokens = tokenize("debugger;");
+        jac::ast::ParserState state(tokens);
+        auto result = jac::ast::parseDebuggerStatement(state);
+        REQUIRE(result);
+        REQUIRE(state.isEnd());
+    }
+}
+
+
+TEST_CASE("EmptyParenthesizedExpression", "[parser]") {
+
+    SECTION("(); is a syntax error") {
+        REQUIRE(scriptFailsToParse("();"));
+    }
+
+    SECTION("() => 1; still parses as an arrow function") {
+        REQUIRE(!scriptFailsToParse("() => 1;"));
+    }
+
+    SECTION("let f = () => {}; still parses as an arrow function") {
+        REQUIRE(!scriptFailsToParse("let f = () => {};"));
+    }
+
+    SECTION("(1); still parses as a normal parenthesized expression") {
+        REQUIRE(!scriptFailsToParse("(1);"));
+    }
+
+    SECTION("() as a bare expression is rejected") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "(", jac::lex::Token::Punctuator),
+            jac::lex::Token(1, 2, ")", jac::lex::Token::Punctuator)
+        };
+        jac::ast::ParserState state(tokens);
+        auto result = jac::ast::parseExpression(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(!result);
+    }
+}
+
+
+TEST_CASE("NamedFunctionExpression", "[parser]") {
+
+    SECTION("const f = function g() { return 1; }; parses with a name") {
+        std::string code = "const f = function g() { return 1; };";
+        auto tokens = tokenize(code);
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseScript(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+
+        auto& decl = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->body()->children[0]);
+        auto binding = decl.bindingGet(0);
+        REQUIRE(binding->target()->name == "f");
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*binding->initializer());
+        REQUIRE(fn.name());
+        REQUIRE(fn.name()->name == "g");
+    }
+
+    SECTION("const f = function() { return 1; }; still parses anonymously") {
+        std::string code = "const f = function() { return 1; };";
+        auto tokens = tokenize(code);
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseScript(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+
+        auto& decl = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->body()->children[0]);
+        auto binding = decl.bindingGet(0);
+        REQUIRE(binding->target()->name == "f");
+
+        auto& fn = dynamic_cast<jac::ast::Function&>(*binding->initializer());
+        REQUIRE(!fn.name());
     }
 }

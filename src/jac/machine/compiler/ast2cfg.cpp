@@ -745,8 +745,6 @@ bool emitStmt(const ast::IterationStatement& stmt, FunctionEmitter& func) {
 
     condBlock->jump = Terminator::jump(statementBlock);
 
-    auto _ = func.pushScope();
-
     // init block
     if (stmt.init()) {
         func.setActiveBlock(initBlock);

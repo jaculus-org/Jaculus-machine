@@ -8,6 +8,8 @@ namespace jac::ast {
 struct HoistPassState {
     std::vector<StatementList*> scopes;
 
+    std::unordered_map<StatementList*, std::unordered_set<IdentifierName>> passedThroughVars;
+
     void enterScope(StatementList* scope) {
         scopes.push_back(scope);
     }
@@ -17,18 +19,33 @@ struct HoistPassState {
     }
 
     void declareIdentifier(const IdentifierName& name, bool isConst, bool isVar, bool isFunction = false) {
-        for (auto& scope : std::ranges::reverse_view(scopes)) {
-            if (scope->hasDeclarationOf(name)) {
-                bool existingIsConst = scope->declarationIsConst(name);
-                bool existingIsVar = scope->declarationIsVar(name);
-                // var redeclaring var is allowed; anything else redeclaring is an error
-                if (!isVar || existingIsConst || !existingIsVar) {
-                    throw std::runtime_error("Redeclaration of identifier: " + name);
-                }
-                return;
+        if (!isVar) {
+            StatementList* scope = scopes.back();
+            bool collidesWithVar = passedThroughVars.contains(scope) && passedThroughVars[scope].contains(name);
+            if (scope->hasDeclarationOf(name) || collidesWithVar) {
+                throw std::runtime_error("Redeclaration of identifier: " + name);
             }
             scope->addHoistedDeclaration(name, isConst, isVar, isFunction);
+            return;
         }
+
+        for (auto it = scopes.rbegin(); it != scopes.rend() - 1; ++it) {
+            if ((*it)->hasDeclarationOf(name)) {
+                throw std::runtime_error("Redeclaration of identifier: " + name);
+            }
+            passedThroughVars[*it].insert(name);
+        }
+
+        StatementList* scope = scopes.front();
+        if (scope->hasDeclarationOf(name)) {
+            bool existingIsConst = scope->declarationIsConst(name);
+            bool existingIsVar = scope->declarationIsVar(name);
+            if (existingIsConst || !existingIsVar) {
+                throw std::runtime_error("Redeclaration of identifier: " + name);
+            }
+            return;
+        }
+        scope->addHoistedDeclaration(name, isConst, isVar, isFunction);
     }
 };
 
@@ -168,6 +185,9 @@ void hoistStmt(IfStatement& if_, HoistPassState& state) {
     }
 }
 
+void hoistStmt(EmptyStatement&, HoistPassState&) {
+}
+
 void hoistStmt(Statement& stmt, HoistPassState& state) {
     visitNode<StatementTypes>(stmt, overloaded{
         [&](auto& s) {
@@ -264,6 +284,9 @@ void resolveStmt(IfStatement& if_, ResolvePassState& state) {
     if (if_.alternate()) {
         resolveStmt(*if_.alternate(), state);
     }
+}
+
+void resolveStmt(EmptyStatement&, ResolvePassState&) {
 }
 
 void resolveStmt(Statement& stmt, ResolvePassState& state) {

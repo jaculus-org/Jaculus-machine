@@ -1,12 +1,14 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/generators/catch_generators.hpp>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <string>
 #include <variant>
 
 #include <jac/machine/compiler/ast.h>
+#include <jac/machine/compiler/scanner.h>
 
 
 template<>
@@ -37,6 +39,33 @@ bool isIdent(const auto* node, auto expected) {
 
 
 using TokenVector = std::vector<jac::lex::Token>;
+
+
+TokenVector tokenize(const std::string& code) {
+    bool hadError = false;
+    jac::lex::Scanner scanner(code, [&hadError](int, int, const std::string&) {
+        hadError = true;
+    });
+    auto tokens = scanner.scan();
+    REQUIRE(!hadError);
+    return tokens;
+}
+
+
+jac::ast::ScriptPtr parseAndHoistScript(const std::string& code) {
+    auto tokens = tokenize(code);
+    jac::ast::ParserState state(tokens);
+
+    auto result = jac::ast::parseScript(state);
+    CAPTURE(state.getErrorMessage());
+    CAPTURE(state.getErrorToken());
+    REQUIRE(state.isEnd());
+    REQUIRE(result);
+
+    jac::ast::hoistScript(*result);
+
+    return result;
+}
 
 
 TEST_CASE("NumericLiteral", "[parser]") {
@@ -1081,7 +1110,8 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
         REQUIRE(result->parameters());
         REQUIRE(result->parameters()->parameterCount() == 0);
         REQUIRE(!result->parameters()->restParameter());
-        REQUIRE(!result->body());
+        REQUIRE(result->body());
+        REQUIRE(result->body()->statementCount() == 0);
     }
 
     SECTION("function fun(a, b) { const x = 3; let y = 4; return x + y; }") {
@@ -1201,7 +1231,8 @@ TEST_CASE("FunctionDeclaration", "[parser]") {
 
         REQUIRE(!params->restParameter());
 
-        REQUIRE(!result->body());
+        REQUIRE(result->body());
+        REQUIRE(result->body()->statementCount() == 0);
     }
 }
 
@@ -2039,7 +2070,8 @@ TEST_CASE("AsyncFunctionDeclaration", "[parser]") {
         REQUIRE(result->isAsync);
         REQUIRE(result->name()->name == "f");
         REQUIRE(result->parameters()->parameterCount() == 0);
-        REQUIRE(!result->body());
+        REQUIRE(result->body());
+        REQUIRE(result->body()->statementCount() == 0);
     }
 
     SECTION("async function f(x) { await x; }") {
@@ -2477,5 +2509,70 @@ TEST_CASE("AwaitIdentifier", "[parser]") {
         CAPTURE(state.getErrorToken());
         REQUIRE(!result);
         REQUIRE(!state.isEnd());
+    }
+}
+
+
+TEST_CASE("Hoisting", "[parser][hoist]") {
+
+    SECTION("shadowing let in nested block is allowed") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { let x = 1; { let x = 2; } }"
+        ));
+    }
+
+    SECTION("sibling blocks may reuse the same lexical name") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "function g() { { let x = 1; } { let x = 2; } }"
+        ));
+    }
+
+    SECTION("block-local let does not leak into outer scope") {
+        auto script = parseAndHoistScript(
+            "function g() { { let x = 1; } return x; }"
+        );
+
+        auto& funcDecl = dynamic_cast<jac::ast::HoistableDeclaration&>(*script->body()->statementGet(0));
+        auto& fn = *funcDecl.function();
+
+        REQUIRE(std::find(fn.globalVars.begin(), fn.globalVars.end(), "x") != fn.globalVars.end());
+    }
+
+    SECTION("var still hoists to function scope through nested blocks") {
+        auto script = parseAndHoistScript(
+            "function g() { { var x = 1; } return x; }"
+        );
+
+        auto& funcDecl = dynamic_cast<jac::ast::HoistableDeclaration&>(*script->body()->statementGet(0));
+        auto& fn = *funcDecl.function();
+
+        REQUIRE(std::find(fn.globalVars.begin(), fn.globalVars.end(), "x") == fn.globalVars.end());
+        REQUIRE(std::find(fn.closureVars.begin(), fn.closureVars.end(), "x") == fn.closureVars.end());
+    }
+
+    SECTION("var colliding with a let in the same nested block is an error") {
+        REQUIRE_THROWS(parseAndHoistScript(
+            "function g() { { var x = 1; let x = 2; } }"
+        ));
+        REQUIRE_THROWS(parseAndHoistScript(
+            "function g() { { let x = 2; var x = 1; } }"
+        ));
+    }
+
+    SECTION("empty statement does not crash hoisting") {
+        REQUIRE_NOTHROW(parseAndHoistScript(
+            "let x = 1; ;"
+        ));
+    }
+
+    SECTION("empty function body does not crash hoisting") {
+        auto script = parseAndHoistScript(
+            "function g() {}"
+        );
+
+        auto& funcDecl = dynamic_cast<jac::ast::HoistableDeclaration&>(*script->body()->statementGet(0));
+        auto& fn = *funcDecl.function();
+        REQUIRE(fn.body() != nullptr);
+        REQUIRE(fn.body()->statementCount() == 0);
     }
 }

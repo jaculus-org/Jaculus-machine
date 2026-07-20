@@ -597,7 +597,7 @@ StatementListPtr parseFunctionBody(ParserState& state) {
     if (auto stmts = (state.pushTemplate<Return{true}>(), parseStatementList(state))) {
         return stmts;
     }
-    return nullptr;
+    return std::make_unique<StatementList>(StatementList::Kind::Normal, std::vector<StatementPtr>{});
 }
 
 

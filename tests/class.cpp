@@ -29,6 +29,10 @@ TEST_CASE("Class", "[class]") {
 
         auto ctor = TestClass::getConstructor(machine.context());
 
+        auto proto = TestClass::getProto(machine.context());
+        auto initializedAgain = TestClass::initContext(machine.context());
+        REQUIRE(JS_StrictEq(machine.context(), proto.getVal(), initializedAgain.getVal()));
+
         global.defineProperty("TestClass", ctor);
 
         auto result = evalCode(machine, "new TestClass()", "test", jac::EvalFlags::Global);
@@ -160,6 +164,10 @@ TEST_CASE("Class", "[class]") {
         )","test", jac::EvalFlags::Global);
         REQUIRE(machine.getReports() == std::vector<std::string>{"42", "43", "44"});
         REQUIRE(aStatic == 43);
+        evalCodeThrows(machine, "val.add.call({}, 1)", "test", jac::EvalFlags::Global);
+        evalCodeThrows(machine, R"(
+            Object.getOwnPropertyDescriptor(Object.getPrototypeOf(val), "a").get.call({});
+        )", "test", jac::EvalFlags::Global);
     }
 
     SECTION("Opaque, constructible") {

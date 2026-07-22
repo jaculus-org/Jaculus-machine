@@ -18,7 +18,7 @@ An example of the `ProtoBuilder` structure is shown below:
 struct MyBuilder : public ProtoBuilder::Opaque<MyClass>, public ProtoBuilder::Properties {
 
     /* describes how to construct the opaque object */
-    static MyClass* constructOpaque(ContextRef ctx, std::vector<ValueWeak> args) {
+    static MyClass* constructOpaque(ContextRef ctx, ValueVectorWeak args) {
         if (args.size() < 1) {
             throw std::runtime_error("MyClass constructor expects 1 argument");
         }
@@ -62,13 +62,14 @@ using MyClassJs = Class<MyBuilder>;
 MyClassJs::init("MyClass");
 ```
 
-To use the class in a given Context, the class must be initialized in the Context by calling the `initContext` method:
+To use the class in a given Context, the class must be initialized in the Context by calling the idempotent `initContext` method.
+It returns the existing or newly created prototype:
 
 
 ```cpp
 ContextRef ctx = ...;
 
-MyClassJs::initContext(ctx);
+Object prototype = MyClassJs::initContext(ctx);
 ```
 
 After the class and context are initialized, you can get the class constructor and prototype and instantiate the class:

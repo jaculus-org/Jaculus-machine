@@ -15,7 +15,8 @@ will be converted to the types of the function parameters. If the number of argu
 converted to the required types, a `TypeError` will be thrown.
 
 The methods `newFunctionVariadic` and `newFunctionThisVariadic` can be used to create variadic functions --- all arguments that
-are passed to the function call will be contained in a single `std::vector<ValueWeak>`.
+are passed to the function call are exposed through a borrowed `ValueVectorWeak`. The view is valid only for the duration of
+the native callback. Call `toOwned()` to retain the arguments in an owning `ValueVector`.
 
 The methods `newFunctionThis` and `newFunctionThisVariadic` additionally give access to the `this` value of the function
 (for example, when the function is called as a method of an object).
@@ -29,25 +30,25 @@ jac::FunctionFactory ff(ctx);
 
 jac::Function f1 = ff.newFunction([](int a, int b) { return a + b; });
 
-jac::Function f2 = ff.newFunctionVariadic([](std::vector<jac::ValueWeak> args) {
+jac::Function f2 = ff.newFunctionVariadic([](jac::ValueVectorWeak args) {
     int sum = 0;
-    for (auto& arg : args) {
+    for (jac::ValueWeak arg : args) {
         sum += arg.to<int>();
     }
     return sum;
 });
 
-jac::Function f3 = ff.newFunctionThis([](jac::ValueWeak thisValue, int a, int b) {
+jac::Function f3 = ff.newFunctionThis([](jac::ContextRef, jac::ValueWeak thisValue, int a, int b) {
     auto obj = thisValue.to<jac::ObjectWeak>();
 
     return obj.get("x").to<int>() + a + b;
 });
 
-jac::Function f4 = ff.newFunctionThisVariadic([](jac::ValueWeak thisValue, std::vector<jac::ValueWeak> args) {
+jac::Function f4 = ff.newFunctionThisVariadic([](jac::ContextRef, jac::ValueWeak thisValue, jac::ValueVectorWeak args) {
     auto obj = thisValue.to<jac::ObjectWeak>();
 
     int sum = obj.get("x").to<int>();
-    for (auto& arg : args) {
+    for (jac::ValueWeak arg : args) {
         sum += arg.to<int>();
     }
     return sum;

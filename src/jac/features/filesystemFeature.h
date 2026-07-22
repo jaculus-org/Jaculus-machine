@@ -157,9 +157,9 @@ public:
         pathMod.addExport("normalize", ff.newFunction(noal::function(&Path::normalize, &(this->path))));
         pathMod.addExport("dirname", ff.newFunction(noal::function(&Path::dirname, &(this->path))));
         pathMod.addExport("basename", ff.newFunction(noal::function(&Path::basename, &(this->path))));
-        pathMod.addExport("join", ff.newFunctionVariadic([this](std::vector<ValueWeak> paths) {
+        pathMod.addExport("join", ff.newFunctionVariadic([this](ValueVectorWeak paths) {
             std::vector<std::string> paths_;
-            for (auto& p : paths) {
+            for (ValueWeak p : paths) {
                 paths_.push_back(p.to<std::string>());
             }
             return this->path.join(paths_);

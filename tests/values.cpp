@@ -16,6 +16,57 @@
 #include "util.h"
 
 
+TEST_CASE("Value vectors", "[values]") {
+    using Machine = TestReportFeature<jac::MachineBase>;
+
+    Machine machine;
+    machine.initialize();
+    auto ctx = machine.context();
+
+    jac::Value first = jac::Value::from(ctx, 11);
+    jac::Value second = jac::Value::from(ctx, std::string("second"));
+
+    jac::ValueVector values(ctx);
+    REQUIRE(values.empty());
+    values.reserve(2);
+    values.push_back(first);
+    values.push_back(std::move(second));
+
+    REQUIRE(values.size() == 2);
+    REQUIRE(values[0].to<int>() == 11);
+    REQUIRE(values.at(1).to<std::string>() == "second");
+    REQUIRE_THROWS_AS(values.at(2), std::out_of_range);
+
+    std::vector<std::string> converted;
+    for (jac::ValueWeak value : values) {
+        converted.push_back(value.toString());
+    }
+    REQUIRE(converted == std::vector<std::string>{"11", "second"});
+
+    jac::ValueVectorWeak weak = values;
+    REQUIRE(weak.size() == 2);
+    REQUIRE(weak.data() == values.data());
+    REQUIRE(weak[0].to<int>() == 11);
+
+    jac::ValueVector owned = weak.toOwned();
+    values.clear();
+    REQUIRE(owned[0].to<int>() == 11);
+    REQUIRE(owned[1].to<std::string>() == "second");
+
+    jac::ValueVector copied = owned;
+    owned.pop_back();
+    REQUIRE(owned.size() == 1);
+    REQUIRE(copied.size() == 2);
+    REQUIRE(copied[1].to<std::string>() == "second");
+
+    jac::ValueVector moved = std::move(copied);
+    REQUIRE(moved.size() == 2);
+    REQUIRE(copied.empty());
+    REQUIRE((moved.end() - moved.begin()) == 2);
+    REQUIRE((*(moved.begin() + 1)).to<std::string>() == "second");
+}
+
+
 TEST_CASE("To JS value", "[base]") {
     using Machine =
         TestReportFeature<

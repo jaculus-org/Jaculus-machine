@@ -1,7 +1,11 @@
 #pragma once
 
 #include <quickjs.h>
+#include <compare>
+#include <cstddef>
+#include <iterator>
 #include <span>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -308,6 +312,190 @@ public:
         return os;
     }
 };
+
+
+/**
+ * @brief A non-owning view over a contiguous sequence of JavaScript values.
+ *
+ * The view and all ValueWeak objects obtained from it are valid only while the
+ * underlying sequence remains alive and unmoved. All values must belong to the
+ * stored context; violating this precondition is undefined behavior.
+ */
+class ValueVectorWeak {
+    ContextRef _ctx;
+    const JSValue* _data;
+    std::size_t _size;
+
+public:
+    class const_iterator {
+        ContextRef _ctx;
+        const JSValue* _ptr;
+
+    public:
+        using iterator_category = std::random_access_iterator_tag;
+        using iterator_concept = std::random_access_iterator_tag;
+        using value_type = ValueWeak;
+        using difference_type = std::ptrdiff_t;
+        using reference = ValueWeak;
+
+        const_iterator() : _ctx(nullptr), _ptr(nullptr) {}
+        const_iterator(ContextRef ctx, const JSValue* ptr) : _ctx(ctx), _ptr(ptr) {}
+
+        ValueWeak operator*() const { return ValueWeak(_ctx, *_ptr); }
+        ValueWeak operator[](difference_type offset) const { return *(*this + offset); }
+
+        const_iterator& operator++() { ++_ptr; return *this; }
+        const_iterator operator++(int) { auto copy = *this; ++*this; return copy; }
+        const_iterator& operator--() { --_ptr; return *this; }
+        const_iterator operator--(int) { auto copy = *this; --*this; return copy; }
+        const_iterator& operator+=(difference_type offset) { _ptr += offset; return *this; }
+        const_iterator& operator-=(difference_type offset) { _ptr -= offset; return *this; }
+
+        friend const_iterator operator+(const_iterator it, difference_type offset) { return it += offset; }
+        friend const_iterator operator+(difference_type offset, const_iterator it) { return it += offset; }
+        friend const_iterator operator-(const_iterator it, difference_type offset) { return it -= offset; }
+        friend difference_type operator-(const_iterator lhs, const_iterator rhs) { return lhs._ptr - rhs._ptr; }
+        friend bool operator==(const_iterator lhs, const_iterator rhs) { return lhs._ptr == rhs._ptr; }
+        friend auto operator<=>(const_iterator lhs, const_iterator rhs) { return lhs._ptr <=> rhs._ptr; }
+    };
+
+    ValueVectorWeak(ContextRef ctx, const JSValue* data, std::size_t size)
+        : _ctx(ctx), _data(data), _size(size) {}
+
+    ValueVectorWeak(ContextRef ctx, const JSValue* data, int size)
+        : ValueVectorWeak(ctx, data, static_cast<std::size_t>(size)) {}
+
+    std::size_t size() const noexcept { return _size; }
+    bool empty() const noexcept { return _size == 0; }
+    const JSValue* data() const noexcept { return _data; }
+
+    ValueWeak operator[](std::size_t index) const { return ValueWeak(_ctx, _data[index]); }
+    ValueWeak at(std::size_t index) const {
+        if (index >= _size) {
+            throw std::out_of_range("ValueVectorWeak index out of range");
+        }
+        return (*this)[index];
+    }
+
+    const_iterator begin() const noexcept { return const_iterator(_ctx, _data); }
+    const_iterator end() const noexcept { return const_iterator(_ctx, _data + _size); }
+
+    ValueVector toOwned() const;
+};
+
+
+/**
+ * @brief An owning contiguous sequence of JavaScript values.
+ *
+ * Copies retain every contained JavaScript value. Moves transfer ownership.
+ * Values inserted into the vector must belong to its context; violating this
+ * precondition is undefined behavior. Mutating raw data must preserve the same
+ * retain/free ownership invariant.
+ */
+class ValueVector {
+    ContextRef _ctx;
+    std::vector<JSValue> _values;
+
+    void freeValues() noexcept {
+        for (JSValue value : _values) {
+            JS_FreeValue(_ctx, value);
+        }
+    }
+
+public:
+    using const_iterator = ValueVectorWeak::const_iterator;
+
+    explicit ValueVector(ContextRef ctx) : _ctx(ctx) {}
+
+    ValueVector(const ValueVector& other) : _ctx(other._ctx) {
+        _values.reserve(other.size());
+        for (JSValue value : other._values) {
+            _values.push_back(JS_DupValue(_ctx, value));
+        }
+    }
+
+    ValueVector(ValueVector&& other) noexcept : _ctx(other._ctx) {
+        _values.swap(other._values);
+        other._ctx = nullptr;
+    }
+
+    ValueVector& operator=(const ValueVector& other) {
+        ValueVector copy(other);
+        swap(copy);
+        return *this;
+    }
+
+    ValueVector& operator=(ValueVector&& other) noexcept {
+        if (this != &other) {
+            freeValues();
+            _ctx = other._ctx;
+            _values.clear();
+            _values.swap(other._values);
+            other._ctx = nullptr;
+        }
+        return *this;
+    }
+
+    ~ValueVector() { freeValues(); }
+
+    void swap(ValueVector& other) noexcept {
+        std::swap(_ctx, other._ctx);
+        _values.swap(other._values);
+    }
+
+    std::size_t size() const noexcept { return _values.size(); }
+    bool empty() const noexcept { return _values.empty(); }
+    std::size_t capacity() const noexcept { return _values.capacity(); }
+    void reserve(std::size_t capacity) { _values.reserve(capacity); }
+
+    JSValue* data() noexcept { return _values.data(); }
+    const JSValue* data() const noexcept { return _values.data(); }
+
+    ValueWeak operator[](std::size_t index) const { return ValueWeak(_ctx, _values[index]); }
+    ValueWeak at(std::size_t index) const {
+        if (index >= size()) {
+            throw std::out_of_range("ValueVector index out of range");
+        }
+        return (*this)[index];
+    }
+
+    const_iterator begin() const noexcept { return const_iterator(_ctx, _values.data()); }
+    const_iterator end() const noexcept { return const_iterator(_ctx, _values.data() + _values.size()); }
+
+    void push_back(ValueWeak value) {
+        Value retained(_ctx, JS_DupValue(_ctx, value.getVal()));
+        _values.push_back(retained.getVal());
+        retained.loot();
+    }
+
+    void push_back(Value&& value) {
+        _values.push_back(value.getVal());
+        value.loot();
+    }
+
+    void pop_back() noexcept {
+        JS_FreeValue(_ctx, _values.back());
+        _values.pop_back();
+    }
+
+    void clear() noexcept {
+        freeValues();
+        _values.clear();
+    }
+
+    operator ValueVectorWeak() const noexcept {
+        return ValueVectorWeak(_ctx, _values.data(), _values.size());
+    }
+};
+
+inline ValueVector ValueVectorWeak::toOwned() const {
+    ValueVector result(_ctx);
+    result.reserve(_size);
+    for (ValueWeak value : *this) {
+        result.push_back(value);
+    }
+    return result;
+}
 
 
 /**

@@ -18,6 +18,8 @@ template<bool managed>
 class ExceptionWrapper;
 template<bool managed>
 class ArrayBufferWrapper;
+class ValueVector;
+class ValueVectorWeak;
 
 
 using Value = ValueWrapper<true>;        // value/strong reference

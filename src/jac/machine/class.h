@@ -111,10 +111,10 @@ namespace ProtoBuilder {
          * @param thisVal the instance of the class
          * @return A pointer to the opaque data
          */
-        static T* getOpaque(ContextRef /*ctx*/, ValueWeak thisVal) {
-            T* ptr = static_cast<T*>(JS_GetOpaque(thisVal.getVal(), classId));
+        static T* getOpaque(ContextRef ctx, ValueWeak thisVal) {
+            T* ptr = static_cast<T*>(JS_GetOpaque2(ctx, thisVal.getVal(), classId));
             if (!ptr) {
-                throw Exception::create(Exception::Type::TypeError, "Invalid opaque data");
+                throw ContextRef(ctx).getException();
             }
             return ptr;
         }
@@ -137,7 +137,7 @@ namespace ProtoBuilder {
 
             return [&]<typename Res, typename... Args>(SgnUnwrap<Res(Args...)>) {
                 auto f = [&](Args... args) -> Res {
-                    T* ptr = static_cast<T*>(JS_GetOpaque(funcObj.getVal(), classId));
+                    T* ptr = getOpaque(ctx, funcObj);
                     return (ptr->*member)(args...);
                 };
 
@@ -162,20 +162,30 @@ namespace ProtoBuilder {
             using SetRaw = JSValue(*)(JSContext* ctx_, JSValueConst thisVal, JSValueConst val);
 
             GetRaw get = [](JSContext* ctx_, JSValueConst thisVal) -> JSValue {
-                T* ptr = static_cast<T*>(JS_GetOpaque(thisVal, classId));
-                return Value::from(ctx_, ptr->*member).loot().second;
+                return propagateExceptions(ctx_, [&]() -> JSValue {
+                    T* ptr = getOpaque(ctx_, ValueWeak(ctx_, thisVal));
+                    return Value::from(ctx_, ptr->*member).loot().second;
+                });
             };
             SetRaw set = [](JSContext* ctx_, JSValueConst thisVal, JSValueConst val) -> JSValue {
-                T* ptr = static_cast<T*>(JS_GetOpaque(thisVal, classId));
-                ptr->*member = ValueWeak(ctx_, val).to<U>();
-                return JS_UNDEFINED;
+                return propagateExceptions(ctx_, [&]() -> JSValue {
+                    T* ptr = getOpaque(ctx_, ValueWeak(ctx_, thisVal));
+                    ptr->*member = ValueWeak(ctx_, val).to<U>();
+                    return JS_UNDEFINED;
+                });
             };
 
-            JSValue getter = JS_NewCFunction2(ctx, reinterpret_cast<JSCFunction*>(reinterpret_cast<void*>(get)), ("get " + name).c_str(), 0, JS_CFUNC_getter, 0); // NOLINT
-            JSValue setter = JS_NewCFunction2(ctx, reinterpret_cast<JSCFunction*>(reinterpret_cast<void*>(set)), ("set " + name).c_str(), 1, JS_CFUNC_setter, 0); // NOLINT
+            Value getter(ctx, JS_NewCFunction2(ctx, reinterpret_cast<JSCFunction*>(reinterpret_cast<void*>(get)), ("get " + name).c_str(), 0, JS_CFUNC_getter, 0)); // NOLINT
+            Value setter(ctx, JS_NewCFunction2(ctx, reinterpret_cast<JSCFunction*>(reinterpret_cast<void*>(set)), ("set " + name).c_str(), 1, JS_CFUNC_setter, 0)); // NOLINT
 
-            Atom atom = Atom(ctx, JS_NewAtom(ctx, name.c_str()));
-            JS_DefinePropertyGetSet(ctx, proto.getVal(), atom.get(), getter, setter, static_cast<int>(flags));
+            JSAtom rawAtom = JS_NewAtom(ctx, name.c_str());
+            if (rawAtom == JS_ATOM_NULL) {
+                throw ctx.getException();
+            }
+            Atom atom(ctx, rawAtom);
+            if (JS_DefinePropertyGetSet(ctx, proto.getVal(), atom.get(), getter.loot().second, setter.loot().second, static_cast<int>(flags)) < 0) {
+                throw ctx.getException();
+            }
         }
 
 
@@ -197,21 +207,25 @@ namespace ProtoBuilder {
 
             [&]<typename Res, typename... Args>(SgnUnwrap<Res(Args...)>) {
                 MethodRaw func = [](JSContext* ctx_, JSValueConst thisVal, int argc, JSValueConst* argv) -> JSValue {
-                    T* ptr = static_cast<T*>(JS_GetOpaque(thisVal, classId));
-
-                    auto f = [ptr](Args... args) -> Res {
-                        return (ptr->*member)(args...);
-                    };
-
                     return propagateExceptions(ctx_, [&]() -> JSValue {
+                        T* ptr = getOpaque(ctx_, ValueWeak(ctx_, thisVal));
+                        auto f = [ptr](Args... args) -> Res {
+                            return (ptr->*member)(args...);
+                        };
                         return processCallRaw<decltype(f), Res, Args...>(ctx_, thisVal, argc, argv, f);
                     });
                 };
 
-                JSValue funcVal = JS_NewCFunction(ctx, static_cast<JSCFunction*>(func), name.c_str(), 0);
+                Value funcVal(ctx, JS_NewCFunction(ctx, static_cast<JSCFunction*>(func), name.c_str(), 0));
 
-                Atom atom = Atom(ctx, JS_NewAtom(ctx, name.c_str()));
-                JS_DefinePropertyValue(ctx, proto.getVal(), atom.get(), funcVal, static_cast<int>(flags));
+                JSAtom rawAtom = JS_NewAtom(ctx, name.c_str());
+                if (rawAtom == JS_ATOM_NULL) {
+                    throw ctx.getException();
+                }
+                Atom atom(ctx, rawAtom);
+                if (JS_DefinePropertyValue(ctx, proto.getVal(), atom.get(), funcVal.loot().second, static_cast<int>(flags)) < 0) {
+                    throw ctx.getException();
+                }
             }(Unwrap_);
         }
     };
@@ -352,7 +366,10 @@ public:
             Builder::classId = classId;
             finalizer = [](JSRuntime* rt, JSValue val) noexcept {
                 static_assert(noexcept(Builder::destroyOpaque(rt, static_cast<typename Builder::OpaqueType*>(nullptr))));
-                Builder::destroyOpaque(rt, static_cast<typename Builder::OpaqueType*>(JS_GetOpaque(val, classId)));
+                auto ptr = static_cast<typename Builder::OpaqueType*>(JS_GetOpaque(val, classId));
+                if (ptr) {
+                    Builder::destroyOpaque(rt, ptr);
+                }
             };
         }
 
@@ -386,12 +403,20 @@ public:
      *
      * @param ctx context to work in
      */
-    static void initContext(ContextRef ctx) {
+    static Object initContext(ContextRef ctx) {
         JSRuntime* rt = JS_GetRuntime(ctx);
         if (!JS_IsRegisteredClass(rt, classId)) {
-            JS_NewClass(rt, classId, &classDef);
+            if (JS_NewClass(rt, classId, &classDef) < 0) {
+                throw std::runtime_error("Failed to register JavaScript class");
+            }
         }
-        auto proto = Object::create(ctx);
+
+        Value existing(ctx, JS_GetClassProto(ctx, classId));
+        if (existing.isObject()) {
+            return existing.to<Object>();
+        }
+
+        Object proto(ctx, JS_NewObject(ctx));
 
 
         if constexpr (std::is_base_of_v<ProtoBuilder::Properties, Builder>) {
@@ -401,7 +426,9 @@ public:
         Function ctor(ctx, JS_NewCFunction2(ctx, constructor_impl, className.c_str(), 0, JS_CFUNC_constructor, 0));
         JS_SetConstructor(ctx, ctor.getVal(), proto.getVal());
 
+        Object result = proto;
         JS_SetClassProto(ctx, classId, proto.loot().second);
+        return result;
     }
 
     /**
@@ -421,16 +448,7 @@ public:
      * @return The prototype object
      */
     static Object getProto(ContextRef ctx) {
-        JSRuntime* rt = JS_GetRuntime(ctx);
-        if (!JS_IsRegisteredClass(rt, classId)) {
-            JS_NewClass(rt, classId, &classDef);
-        }
-        Value proto = Value(ctx, JS_GetClassProto(ctx, classId));
-        if (!JS_IsObject(proto.getVal())) {
-            initContext(ctx);
-            proto = Value(ctx, JS_GetClassProto(ctx, classId));
-        }
-        return proto.to<Object>();
+        return initContext(ctx);
     }
 
     /**

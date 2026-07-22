@@ -82,19 +82,19 @@ TEST_CASE("New function variadic", "[functionFactory]") {
     jac::FunctionFactory ff(machine.context());
 
     SECTION("void(args)") {
-        auto f = ff.newFunctionVariadic([](std::vector<jac::ValueWeak> args) {});
+        auto f = ff.newFunctionVariadic([](jac::ValueVectorWeak args) {});
         REQUIRE_NOTHROW(f.call<void>());
     }
 
     SECTION("int(args) - count") {
-        auto f = ff.newFunctionVariadic([](std::vector<jac::ValueWeak> args) { return static_cast<int>(args.size()); });
+        auto f = ff.newFunctionVariadic([](jac::ValueVectorWeak args) { return static_cast<int>(args.size()); });
         REQUIRE(f.call<int>(1, 2, 3) == 3);
     }
 
     SECTION("int(args) - values") {
-        auto f = ff.newFunctionVariadic([](std::vector<jac::ValueWeak> args) {
+        auto f = ff.newFunctionVariadic([](jac::ValueVectorWeak args) {
             int sum = 0;
-            for (auto& arg : args) {
+            for (jac::ValueWeak arg : args) {
                 sum += arg.to<int>();
             }
             return sum;
@@ -175,7 +175,7 @@ TEST_CASE("New function this variadic", "[functionFactory]") {
     jac::FunctionFactory ff(machine.context());
 
     SECTION("void(args)") {
-        auto f = ff.newFunctionThisVariadic([](jac::ContextRef ctx, jac::ValueWeak thisValue, std::vector<jac::ValueWeak> argv) {
+        auto f = ff.newFunctionThisVariadic([](jac::ContextRef ctx, jac::ValueWeak thisValue, jac::ValueVectorWeak argv) {
             auto obj = thisValue.to<jac::Object>();
             obj.set("test", jac::Value::from(ctx, static_cast<int>(argv.size())));
         });
@@ -186,10 +186,10 @@ TEST_CASE("New function this variadic", "[functionFactory]") {
     }
 
     SECTION("string(args)") {
-        auto f = ff.newFunctionThisVariadic([](jac::ContextRef, jac::ValueWeak thisValue, std::vector<jac::ValueWeak> argv) {
+        auto f = ff.newFunctionThisVariadic([](jac::ContextRef, jac::ValueWeak thisValue, jac::ValueVectorWeak argv) {
             auto obj = thisValue.to<jac::Object>();
             auto result = obj.get<std::string>("prefix");
-            for (auto& arg : argv) {
+            for (jac::ValueWeak arg : argv) {
                 result += arg.to<std::string>();
             }
             return result;

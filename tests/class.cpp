@@ -62,7 +62,7 @@ TEST_CASE("Class", "[class]") {
 
     SECTION("Callable function") {
         struct ClassBuilder : jac::ProtoBuilder::Callable {
-            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, std::vector<jac::ValueWeak> args) {
+            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, jac::ValueVectorWeak args) {
                 return jac::Value::from(ctx, static_cast<int>(args.size()));
             }
         };
@@ -81,7 +81,7 @@ TEST_CASE("Class", "[class]") {
 
     SECTION("Callable constructor") {
         struct ClassBuilder : jac::ProtoBuilder::Callable {
-            static jac::Value callConstructor(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, std::vector<jac::ValueWeak> args) {
+            static jac::Value callConstructor(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, jac::ValueVectorWeak args) {
                 return jac::Value::from(ctx, static_cast<int>(args.size()));
             }
         };
@@ -100,11 +100,11 @@ TEST_CASE("Class", "[class]") {
 
     SECTION("Callable function, constructor") {
         struct ClassBuilder : jac::ProtoBuilder::Callable {
-            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, std::vector<jac::ValueWeak> args) {
+            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, jac::ValueVectorWeak args) {
                 return jac::Value::from(ctx, static_cast<int>(args.size()));
             }
 
-            static jac::Value callConstructor(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, std::vector<jac::ValueWeak> args) {
+            static jac::Value callConstructor(jac::ContextRef ctx, jac::ValueWeak, jac::ValueWeak, jac::ValueVectorWeak args) {
                 return jac::Value::from(ctx, static_cast<int>(args.size()));
             }
         };
@@ -132,7 +132,7 @@ TEST_CASE("Class", "[class]") {
                 return a + b;
             }
 
-            int countArgs(std::vector<jac::ValueWeak> args) {
+            int countArgs(jac::ValueVectorWeak args) {
                 return static_cast<int>(args.size());
             }
         };
@@ -174,7 +174,7 @@ TEST_CASE("Class", "[class]") {
         };
 
         struct ClassBuilder : jac::ProtoBuilder::Opaque<Opq>, jac::ProtoBuilder::Properties, jac::ProtoBuilder::Callable {
-            static Opq* constructOpaque(jac::ContextRef, std::vector<jac::ValueWeak> args) {
+            static Opq* constructOpaque(jac::ContextRef, jac::ValueVectorWeak args) {
                 if (args.size() != 1) {
                     throw jac::Exception::create(jac::Exception::Type::TypeError, "invalid number of arguments");
                 }
@@ -212,14 +212,14 @@ TEST_CASE("Class", "[class]") {
         };
 
         struct ClassBuilder : jac::ProtoBuilder::Opaque<Opq>, jac::ProtoBuilder::Properties, jac::ProtoBuilder::Callable {
-            static Opq* constructOpaque(jac::ContextRef, std::vector<jac::ValueWeak> args) {
+            static Opq* constructOpaque(jac::ContextRef, jac::ValueVectorWeak args) {
                 if (args.size() != 1) {
                     throw jac::Exception::create(jac::Exception::Type::TypeError, "invalid number of arguments");
                 }
                 return new Opq(args[0].to<int>());
             }
 
-            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak funcObj, jac::ValueWeak thisVal, std::vector<jac::ValueWeak> args) {
+            static jac::Value callFunction(jac::ContextRef ctx, jac::ValueWeak funcObj, jac::ValueWeak thisVal, jac::ValueVectorWeak args) {
                 if (args.size() != 1) {
                     throw jac::Exception::create(jac::Exception::Type::TypeError, "invalid number of arguments");
                 }
@@ -259,10 +259,10 @@ TEST_CASE("Class", "[class]") {
             static void addProperties(jac::ContextRef ctx, jac::Object proto) {
                 addPropMember<std::string, &Opq::prefix>(ctx, proto, "prefix");
                 jac::FunctionFactory ff(ctx);
-                proto.defineProperty("pref", ff.newFunctionThisVariadic([](jac::ContextRef _ctx, jac::ValueWeak thisVal, std::vector<jac::ValueWeak> args) {
+                proto.defineProperty("pref", ff.newFunctionThisVariadic([](jac::ContextRef _ctx, jac::ValueWeak thisVal, jac::ValueVectorWeak args) {
                     auto opq = getOpaque(_ctx, thisVal);
                     std::string result = opq->prefix;
-                    for (auto& arg : args) {
+                    for (jac::ValueWeak arg : args) {
                         result += arg.to<std::string>();
                     }
                     return jac::Value::from(_ctx, result);
@@ -307,7 +307,7 @@ TEST_CASE("Class", "[class]") {
         };
 
         struct ClassBuilder : jac::ProtoBuilder::Opaque<Opq>, jac::ProtoBuilder::LifetimeHandles {
-            static Opq* constructOpaque(jac::ContextRef, std::vector<jac::ValueWeak> args) {
+            static Opq* constructOpaque(jac::ContextRef, jac::ValueVectorWeak args) {
                 if (args.size() != 1) {
                     throw jac::Exception::create(jac::Exception::Type::TypeError, "invalid number of arguments");
                 }
@@ -315,7 +315,7 @@ TEST_CASE("Class", "[class]") {
                 return new Opq(a);
             }
 
-            static void postConstruction(jac::ContextRef ctx, jac::Object thisVal, std::vector<jac::ValueWeak>) {
+            static void postConstruction(jac::ContextRef ctx, jac::Object thisVal, jac::ValueVectorWeak) {
                 auto& opq = *getOpaque(ctx, thisVal);
                 opq.owner->objects.push_back(thisVal);
 

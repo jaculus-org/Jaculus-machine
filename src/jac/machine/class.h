@@ -89,7 +89,7 @@ namespace ProtoBuilder {
          * @param args arguments passed to the constructor
          * @return A pointer to the opaque data
          */
-        static T* constructOpaque(ContextRef /*ctx*/, std::vector<ValueWeak> /*args*/) {
+        static T* constructOpaque(ContextRef /*ctx*/, ValueVectorWeak /*args*/) {
             throw Exception::create(Exception::Type::TypeError, "Class cannot be instantiated");
         }
 
@@ -132,7 +132,7 @@ namespace ProtoBuilder {
          * @return Result of the call
          */
         template<typename Sgn, Sgn member>
-        static Value callMember(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, std::vector<ValueWeak> argv) {
+        static Value callMember(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak argv) {
             const SgnUnwrap Unwrap_(member);
 
             return [&]<typename Res, typename... Args>(SgnUnwrap<Res(Args...)>) {
@@ -223,7 +223,7 @@ namespace ProtoBuilder {
      * handling of the class instance after it's constructed.
      */
     struct LifetimeHandles {
-        static void postConstruction(ContextRef ctx, Object thisVal, std::vector<ValueWeak> args) {
+        static void postConstruction(ContextRef ctx, Object thisVal, ValueVectorWeak args) {
             // do nothing
         }
     };
@@ -245,7 +245,7 @@ namespace ProtoBuilder {
          * @param args arguments passed to the function
          * @return result of the call
          */
-        static Value callFunction(ContextRef /*ctx*/, ValueWeak /*funcObj*/, ValueWeak /*thisVal*/, std::vector<ValueWeak> /*args*/) {
+        static Value callFunction(ContextRef /*ctx*/, ValueWeak /*funcObj*/, ValueWeak /*thisVal*/, ValueVectorWeak /*args*/) {
             throw Exception::create(Exception::Type::TypeError, "Class cannot be called as a function");
         }
 
@@ -258,7 +258,7 @@ namespace ProtoBuilder {
          * @param args arguments passed to the function
          * @return Result of the call
          */
-        static Value callConstructor(ContextRef /*ctx*/, ValueWeak /*funcObj*/, ValueWeak /*target*/, std::vector<ValueWeak> /*args*/) {
+        static Value callConstructor(ContextRef /*ctx*/, ValueWeak /*funcObj*/, ValueWeak /*target*/, ValueVectorWeak /*args*/) {
             throw Exception::create(Exception::Type::TypeError, "Class cannot be called as a constructor");
         }
     };
@@ -308,10 +308,7 @@ class Class {
             constexpr bool isPbConstructor = std::is_base_of_v<ProtoBuilder::LifetimeHandles, Builder>;
 
             if constexpr (isPbOpaque || isPbConstructor) {
-                std::vector<ValueWeak> args;
-                for (int i = 0; i < argc; i++) {
-                    args.emplace_back(ctx, argv[i]);
-                }
+                ValueVectorWeak args(ctx, argv, argc);
 
                 if constexpr (isPbOpaque) {
                     auto instance = Builder::constructOpaque(ctx, args);
@@ -361,13 +358,8 @@ public:
 
         if constexpr (std::is_base_of_v<ProtoBuilder::Callable, Builder>) {
             call = [](JSContext* ctx, JSValueConst funcObj, JSValueConst thisVal, int argc, JSValueConst* argv, int flags) noexcept -> JSValue {
-                std::vector<ValueWeak> args;
-                args.reserve(argc);
-                for (int i = 0; i < argc; i++) {
-                    args.emplace_back(ctx, argv[i]);
-                }
-
                 return propagateExceptions(ctx, [&]() -> JSValue {
+                    ValueVectorWeak args(ctx, argv, argc);
                     if (flags & JS_CALL_FLAG_CONSTRUCTOR) {
                         return Builder::callConstructor(ctx, ValueWeak(ctx, funcObj), ValueWeak(ctx, thisVal), args).loot().second;
                     } else {

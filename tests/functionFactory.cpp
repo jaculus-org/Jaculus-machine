@@ -67,6 +67,18 @@ TEST_CASE("New function", "[functionFactory]") {
 
         REQUIRE(a == 3);
     }
+
+    SECTION("callable types share one JavaScript class") {
+        auto first = ff.newFunction([]() { return 1; });
+        auto second = ff.newFunction([](int value) { return value + 1; });
+        auto variadic = ff.newFunctionVariadic([](jac::ValueVectorWeak args) { return args.size(); });
+
+        auto firstProto = first.getPrototype();
+        auto secondProto = second.getPrototype();
+        auto variadicProto = variadic.getPrototype();
+        REQUIRE(JS_StrictEq(machine.context(), firstProto.getVal(), secondProto.getVal()));
+        REQUIRE(JS_StrictEq(machine.context(), firstProto.getVal(), variadicProto.getVal()));
+    }
 }
 
 

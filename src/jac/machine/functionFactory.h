@@ -9,6 +9,67 @@
 
 namespace jac {
 
+namespace detail {
+
+class CallableBase {
+public:
+    virtual Value invoke(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) = 0;
+    virtual ~CallableBase() = default;
+};
+
+template<typename Func, typename Signature, bool withThis, bool variadic>
+class CallableHolder;
+
+template<typename Func, typename Res, typename... Args>
+class CallableHolder<Func, std::function<Res(Args...)>, false, false> final : public CallableBase {
+    Func _func;
+public:
+    explicit CallableHolder(Func func) : _func(std::move(func)) {}
+    Value invoke(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) override {
+        return processCall<Func, Res, Args...>(ctx, thisVal, args, _func);
+    }
+};
+
+template<typename Func, typename Res>
+class CallableHolder<Func, std::function<Res(ValueVectorWeak)>, false, true> final : public CallableBase {
+    Func _func;
+public:
+    explicit CallableHolder(Func func) : _func(std::move(func)) {}
+    Value invoke(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) override {
+        return processCallVariadic<Func, Res>(ctx, thisVal, args, _func);
+    }
+};
+
+template<typename Func, typename Res, typename... Args>
+class CallableHolder<Func, std::function<Res(ContextRef, ValueWeak, Args...)>, true, false> final : public CallableBase {
+    Func _func;
+public:
+    explicit CallableHolder(Func func) : _func(std::move(func)) {}
+    Value invoke(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) override {
+        return processCallThis<Func, Res, Args...>(ctx, thisVal, args, _func);
+    }
+};
+
+template<typename Func, typename Res>
+class CallableHolder<Func, std::function<Res(ContextRef, ValueWeak, ValueVectorWeak)>, true, true> final : public CallableBase {
+    Func _func;
+public:
+    explicit CallableHolder(Func func) : _func(std::move(func)) {}
+    Value invoke(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) override {
+        return processCallThisVariadic<Func, Res>(ctx, thisVal, args, _func);
+    }
+};
+
+struct CallableProtoBuilder : public ProtoBuilder::Opaque<CallableBase>, public ProtoBuilder::Callable {
+    static Value callFunction(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak args) {
+        return getOpaque(ctx, funcObj)->invoke(ctx, thisVal, args);
+    }
+};
+
+using CallableClass = Class<CallableProtoBuilder>;
+
+} // namespace detail
+
 /**
  * @brief Various methods for wrapping C++ functions into javascript functions
  *
@@ -23,17 +84,14 @@ class FunctionFactory {
 
     ContextRef _context;
 
-    template<typename Func, typename Res, typename... Args>
-    inline Function newFunctionHelper(Func& func, std::function<Res(Args...)>);
+    template<bool withThis, bool variadic, typename Func>
+    Function makeFunction(Func func) {
+        using Signature = decltype(std::function(func));
+        using Holder = detail::CallableHolder<Func, Signature, withThis, variadic>;
 
-    template<typename Func, typename Res>
-    inline Function newFunctionVariadicHelper(Func& func, std::function<Res(ValueVectorWeak)>);
-
-    template<typename Func, typename Res, typename... Args>
-    inline Function newFunctionThisHelper(Func& func, std::function<Res(ContextRef, ValueWeak, Args...)>);
-
-    template<typename Func, typename Res>
-    inline Function newFunctionThisVariadicHelper(Func& func, std::function<Res(ContextRef, ValueWeak, ValueVectorWeak)>);
+        detail::CallableClass::init("CppFunction");
+        return static_cast<Value>(detail::CallableClass::createInstance(_context, new Holder(std::move(func)))).to<Function>();
+    }
 public:
     FunctionFactory(ContextRef context) : _context(context) {}
 
@@ -51,7 +109,7 @@ public:
      */
     template<class Func>
     Function newFunction(Func func) {
-        return newFunctionHelper(func, std::function(func));
+        return makeFunction<false, false>(std::move(func));
     }
 
     /**
@@ -69,7 +127,7 @@ public:
      */
     template<class Func>
     Function newFunctionVariadic(Func func) {
-        return newFunctionVariadicHelper(func, std::function(func));
+        return makeFunction<false, true>(std::move(func));
     }
 
     /**
@@ -87,7 +145,7 @@ public:
      */
     template<class Func>
     Function newFunctionThis(Func func) {
-        return newFunctionThisHelper(func, std::function(func));
+        return makeFunction<true, false>(std::move(func));
     }
 
     /**
@@ -105,78 +163,9 @@ public:
      */
     template<class Func>
     Function newFunctionThisVariadic(Func func) {
-        return newFunctionThisVariadicHelper(func, std::function(func));
+        return makeFunction<true, true>(std::move(func));
     }
 };
-
-
-template<typename Func, typename Res, typename... Args>
-inline Function FunctionFactory::newFunctionHelper(Func& func, std::function<Res(Args...)>) {
-    Func* funcPtr = new Func(std::move(func));
-
-    struct FuncProtoBuilder : public ProtoBuilder::Opaque<Func>, public ProtoBuilder::Callable {
-        static Value callFunction(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak args) {
-            Func* ptr = ProtoBuilder::Opaque<Func>::getOpaque(ctx, funcObj);
-            return processCall<Func, Res, Args...>(ctx, thisVal, args, *ptr);
-        }
-    };
-
-    using FuncClass = Class<FuncProtoBuilder>;
-    FuncClass::init("CppFunction");
-
-    return static_cast<Value>(FuncClass::createInstance(_context, funcPtr)).to<Function>();
-}
-
-template<class Func, typename Res>
-Function FunctionFactory::newFunctionVariadicHelper(Func& func, std::function<Res(ValueVectorWeak)>) {
-    Func* funcPtr = new Func(std::move(func));
-
-    struct FuncProtoBuilder : public ProtoBuilder::Opaque<Func>, public ProtoBuilder::Callable {
-        static Value callFunction(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak args) {
-            Func* ptr = ProtoBuilder::Opaque<Func>::getOpaque(ctx, funcObj);
-            return processCallVariadic<Func, Res>(ctx, thisVal, args, *ptr);
-        }
-    };
-
-    using FuncClass = Class<FuncProtoBuilder>;
-    FuncClass::init("CppFunction");
-
-    return static_cast<Value>(FuncClass::createInstance(_context, funcPtr)).to<Function>();
-}
-
-template<typename Func, typename Res, typename... Args>
-Function FunctionFactory::newFunctionThisHelper(Func& func, std::function<Res(ContextRef, ValueWeak, Args...)>) {
-    Func* funcPtr = new Func(std::move(func));
-
-    struct FuncProtoBuilder : public ProtoBuilder::Opaque<Func>, public ProtoBuilder::Callable {
-        static Value callFunction(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak args) {
-            Func* ptr = ProtoBuilder::Opaque<Func>::getOpaque(ctx, funcObj);
-            return processCallThis<Func, Res, Args...>(ctx, thisVal, args, *ptr);
-        }
-    };
-
-    using FuncClass = Class<FuncProtoBuilder>;
-    FuncClass::init("CppFunction");
-
-    return static_cast<Value>(FuncClass::createInstance(_context, funcPtr)).to<Function>();
-}
-
-template<typename Func, typename Res>
-Function FunctionFactory::newFunctionThisVariadicHelper(Func& func, std::function<Res(ContextRef, ValueWeak, ValueVectorWeak)>) {
-    Func* funcPtr = new Func(std::move(func));
-
-    struct FuncProtoBuilder : public ProtoBuilder::Opaque<Func>, public ProtoBuilder::Callable {
-        static Value callFunction(ContextRef ctx, ValueWeak funcObj, ValueWeak thisVal, ValueVectorWeak args) {
-            Func* ptr = ProtoBuilder::Opaque<Func>::getOpaque(ctx, funcObj);
-            return processCallThisVariadic<Func, Res>(ctx, thisVal, args, *ptr);
-        }
-    };
-
-    using FuncClass = Class<FuncProtoBuilder>;
-    FuncClass::init("CppFunction");
-
-    return static_cast<Value>(FuncClass::createInstance(_context, funcPtr)).to<Function>();
-}
 
 
 } // namespace jac

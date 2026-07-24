@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ValueVectorWeak" kind="class" language="C++" prot="public">
+    <compoundname>jac::ValueVectorWeak</compoundname>
+    <includes refid="values_8h" local="no">values.h</includes>
+    <innerclass refid="classjac_1_1ValueVectorWeak_1_1const__iterator" prot="public">jac::ValueVectorWeak::const_iterator</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1ValueVectorWeak_1a8e1ad06b2b6be65e339918e659655a6b" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::ValueVectorWeak::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::ValueVectorWeak::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="325" column="16" bodyfile="src/jac/machine/values.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1ValueVectorWeak_1a0741f917475ead5837167ad0df2adb97" prot="private" static="no" mutable="no">
+        <type>const JSValue *</type>
+        <definition>const JSValue* jac::ValueVectorWeak::_data</definition>
+        <argsstring></argsstring>
+        <name>_data</name>
+        <qualifiedname>jac::ValueVectorWeak::_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="326" column="19" bodyfile="src/jac/machine/values.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1ValueVectorWeak_1a719c7e89cbf04fa9ec574e328736f2b0" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t jac::ValueVectorWeak::_size</definition>
+        <argsstring></argsstring>
+        <name>_size</name>
+        <qualifiedname>jac::ValueVectorWeak::_size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="327" column="17" bodyfile="src/jac/machine/values.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a80edac718393b94b14ecfcfc329ae884" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueVectorWeak::ValueVectorWeak</definition>
+        <argsstring>(ContextRef ctx, const JSValue *data, std::size_t size)</argsstring>
+        <name>ValueVectorWeak</name>
+        <qualifiedname>jac::ValueVectorWeak::ValueVectorWeak</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const JSValue *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="362" column="5" bodyfile="src/jac/machine/values.h" bodystart="362" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a7d720741198992cc5199de43d051ca3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueVectorWeak::ValueVectorWeak</definition>
+        <argsstring>(ContextRef ctx, const JSValue *data, int size)</argsstring>
+        <name>ValueVectorWeak</name>
+        <qualifiedname>jac::ValueVectorWeak::ValueVectorWeak</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const JSValue *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="365" column="5" bodyfile="src/jac/machine/values.h" bodystart="365" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a1c7bcb8f33c001ac1dbf048ac880f9d2" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t jac::ValueVectorWeak::size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>size</name>
+        <qualifiedname>jac::ValueVectorWeak::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="368" column="17" bodyfile="src/jac/machine/values.h" bodystart="368" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a1e93d1926599e66773c42f44eca63901" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::ValueVectorWeak::empty</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>empty</name>
+        <qualifiedname>jac::ValueVectorWeak::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="369" column="10" bodyfile="src/jac/machine/values.h" bodystart="369" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1ad71df61e7150ee42f3f80681436e4ba6" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const JSValue *</type>
+        <definition>const JSValue * jac::ValueVectorWeak::data</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>data</name>
+        <qualifiedname>jac::ValueVectorWeak::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="370" column="19" bodyfile="src/jac/machine/values.h" bodystart="370" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a816fd45d574222f1a5f6185d199526b2" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>ValueWeak jac::ValueVectorWeak::operator[]</definition>
+        <argsstring>(std::size_t index) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>jac::ValueVectorWeak::operator[]</qualifiedname>
+        <param>
+          <type>std::size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="372" column="15" bodyfile="src/jac/machine/values.h" bodystart="372" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1adf1dd44d0c5eb58a33ec4624193139a7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>ValueWeak jac::ValueVectorWeak::at</definition>
+        <argsstring>(std::size_t index) const</argsstring>
+        <name>at</name>
+        <qualifiedname>jac::ValueVectorWeak::at</qualifiedname>
+        <param>
+          <type>std::size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="373" column="15" bodyfile="src/jac/machine/values.h" bodystart="373" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a0bf3177edbd2d03361686b3ec1a36bb7" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator jac::ValueVectorWeak::begin</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>begin</name>
+        <qualifiedname>jac::ValueVectorWeak::begin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="380" column="20" bodyfile="src/jac/machine/values.h" bodystart="380" bodyend="380"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1a947b4e11a65a97dab01682f3198bc7d2" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator jac::ValueVectorWeak::end</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>end</name>
+        <qualifiedname>jac::ValueVectorWeak::end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="381" column="20" bodyfile="src/jac/machine/values.h" bodystart="381" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1aa967df181586e2df14a140fe3f929370" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVector" kindref="compound">ValueVector</ref></type>
+        <definition>ValueVector jac::ValueVectorWeak::toOwned</definition>
+        <argsstring>() const</argsstring>
+        <name>toOwned</name>
+        <qualifiedname>jac::ValueVectorWeak::toOwned</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="383" column="17" bodyfile="src/jac/machine/values.h" bodystart="491" bodyend="498"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A non-owning view over a contiguous sequence of JavaScript values. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The view and all ValueWeak objects obtained from it are valid only while the underlying sequence remains alive and unmoved. All values must belong to the stored context; violating this precondition is undefined behavior. </para>
+    </detaileddescription>
+    <location file="src/jac/machine/values.h" line="324" column="1" bodyfile="src/jac/machine/values.h" bodystart="324" bodyend="384"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ValueVectorWeak_1a8e1ad06b2b6be65e339918e659655a6b" prot="private" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a0741f917475ead5837167ad0df2adb97" prot="private" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>_data</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a719c7e89cbf04fa9ec574e328736f2b0" prot="private" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>_size</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1adf1dd44d0c5eb58a33ec4624193139a7" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>at</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a0bf3177edbd2d03361686b3ec1a36bb7" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>begin</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1ad71df61e7150ee42f3f80681436e4ba6" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>data</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a1e93d1926599e66773c42f44eca63901" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>empty</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a947b4e11a65a97dab01682f3198bc7d2" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>end</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a816fd45d574222f1a5f6185d199526b2" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>operator[]</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a1c7bcb8f33c001ac1dbf048ac880f9d2" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>size</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1aa967df181586e2df14a140fe3f929370" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>toOwned</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a80edac718393b94b14ecfcfc329ae884" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>ValueVectorWeak</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1a7d720741198992cc5199de43d051ca3d" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak</scope><name>ValueVectorWeak</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

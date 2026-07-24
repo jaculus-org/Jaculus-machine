@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_6f95e06b732314161804ab1ef73c9681" kind="dir">
+    <compoundname>src/jac/features</compoundname>
+    <innerdir refid="dir_7e10f281dae724a55a0e1ba0acd02229">src/jac/features/types</innerdir>
+    <innerdir refid="dir_8745a1fa89e3088deda48338e7669502">src/jac/features/util</innerdir>
+    <innerfile refid="basicStreamFeature_8h">basicStreamFeature.h</innerfile>
+    <innerfile refid="eventLoopFeature_8h">eventLoopFeature.h</innerfile>
+    <innerfile refid="eventLoopTerminal_8h">eventLoopTerminal.h</innerfile>
+    <innerfile refid="eventQueueFeature_8h">eventQueueFeature.h</innerfile>
+    <innerfile refid="filesystemFeature_8h">filesystemFeature.h</innerfile>
+    <innerfile refid="nodeModuleLoaderFeature_8h">nodeModuleLoaderFeature.h</innerfile>
+    <innerfile refid="simpleModuleLoaderFeature_8h">simpleModuleLoaderFeature.h</innerfile>
+    <innerfile refid="stdioFeature_8h">stdioFeature.h</innerfile>
+    <innerfile refid="timersFeature_8h">timersFeature.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/"/>
+  </compounddef>
+</doxygen>

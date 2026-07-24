@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1FilesystemFeature_1_1Path" kind="class" language="C++" prot="public">
+    <compoundname>jac::FilesystemFeature::Path</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1FilesystemFeature_1_1Path_1aba183c73b265fd2634b2da6121b20748" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1FilesystemFeature" kindref="compound">FilesystemFeature</ref> &amp;</type>
+        <definition>FilesystemFeature&amp; jac::FilesystemFeature&lt; Next &gt;::Path::_feature</definition>
+        <argsstring></argsstring>
+        <name>_feature</name>
+        <qualifiedname>jac::FilesystemFeature::Path::_feature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="48" column="27" bodyfile="src/jac/features/filesystemFeature.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1FilesystemFeature_1_1Path_1a18512c1754cf0bc08be6820463c579f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::FilesystemFeature&lt; Next &gt;::Path::Path</definition>
+        <argsstring>(FilesystemFeature &amp;feature)</argsstring>
+        <name>Path</name>
+        <qualifiedname>jac::FilesystemFeature::Path::Path</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1FilesystemFeature" kindref="compound">FilesystemFeature</ref> &amp;</type>
+          <declname>feature</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="50" column="9" bodyfile="src/jac/features/filesystemFeature.h" bodystart="50" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FilesystemFeature_1_1Path_1a61cb6c760aea1ba6bd0437223bc664ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::FilesystemFeature&lt; Next &gt;::Path::normalize</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>normalize</name>
+        <qualifiedname>jac::FilesystemFeature::Path::normalize</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="52" column="21" bodyfile="src/jac/features/filesystemFeature.h" bodystart="52" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FilesystemFeature_1_1Path_1a335054c4c2fd5e4e2158c4f896db03d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::FilesystemFeature&lt; Next &gt;::Path::dirname</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>dirname</name>
+        <qualifiedname>jac::FilesystemFeature::Path::dirname</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="56" column="21" bodyfile="src/jac/features/filesystemFeature.h" bodystart="56" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FilesystemFeature_1_1Path_1a4cec0ee4b9ca9a7f052557c3d28f872e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::FilesystemFeature&lt; Next &gt;::Path::basename</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>basename</name>
+        <qualifiedname>jac::FilesystemFeature::Path::basename</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="61" column="21" bodyfile="src/jac/features/filesystemFeature.h" bodystart="61" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FilesystemFeature_1_1Path_1a63a6a50b4ceca6e92a99734b7dfdf165" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::FilesystemFeature&lt; Next &gt;::Path::join</definition>
+        <argsstring>(std::vector&lt; std::string &gt; paths)</argsstring>
+        <name>join</name>
+        <qualifiedname>jac::FilesystemFeature::Path::join</qualifiedname>
+        <param>
+          <type>std::vector&lt; std::string &gt;</type>
+          <declname>paths</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/filesystemFeature.h" line="65" column="21" bodyfile="src/jac/features/filesystemFeature.h" bodystart="65" bodyend="71"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/filesystemFeature.h" line="47" column="5" bodyfile="src/jac/features/filesystemFeature.h" bodystart="47" bodyend="72"/>
+    <listofallmembers>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1aba183c73b265fd2634b2da6121b20748" prot="private" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>_feature</name></member>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1a4cec0ee4b9ca9a7f052557c3d28f872e" prot="public" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>basename</name></member>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1a335054c4c2fd5e4e2158c4f896db03d7" prot="public" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>dirname</name></member>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1a63a6a50b4ceca6e92a99734b7dfdf165" prot="public" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>join</name></member>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1a61cb6c760aea1ba6bd0437223bc664ed" prot="public" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>normalize</name></member>
+      <member refid="classjac_1_1FilesystemFeature_1_1Path_1a18512c1754cf0bc08be6820463c579f0" prot="public" virt="non-virtual"><scope>jac::FilesystemFeature::Path</scope><name>Path</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

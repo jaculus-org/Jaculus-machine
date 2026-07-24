@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1detail_1_1is__base__of__template__impl_1_1check" kind="struct" language="C++" prot="public">
+    <compoundname>jac::detail::is_base_of_template_impl::check</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::false_type</basecompoundref>
+    <derivedcompoundref refid="structjac_1_1is__base__of__template" prot="public" virt="non-virtual">jac::is_base_of_template&lt; Base, Derived &gt;</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>template&lt; class... &gt; class</type>
+        <declname>A</declname>
+        <defname>A</defname>
+      </param>
+      <param>
+        <type>class Void</type>
+        <defval>void</defval>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>jac::detail::is_base_of_template_impl&lt; Base, Derived &gt;::check&lt; A, Void &gt;</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>jac::is_base_of_template&lt; Base, Derived &gt;</label>
+        <link refid="structjac_1_1is__base__of__template"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::false_type</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>jac::detail::is_base_of_template_impl&lt; Base, Derived &gt;::check&lt; A, Void &gt;</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::false_type</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/class.h" line="44" column="9" bodyfile="src/jac/machine/class.h" bodystart="44" bodyend="44"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

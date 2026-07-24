@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab" kind="class" language="C++" prot="public" final="yes">
+    <compoundname>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</compoundname>
+    <basecompoundref refid="classjac_1_1detail_1_1CallableBase" prot="public" virt="non-virtual">jac::detail::CallableBase</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>typename Func</type>
+      </param>
+      <param>
+        <type>typename Res</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a691a1419dc42b2de4d6a65f8d8fc7870" prot="private" static="no" mutable="no">
+        <type>Func</type>
+        <definition>Func jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::_func</definition>
+        <argsstring></argsstring>
+        <name>_func</name>
+        <qualifiedname>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::_func</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="55" column="10" bodyfile="src/jac/machine/functionFactory.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a4a1128d3b8ccf5f5c62ae1c4d311290c" prot="public" static="no" const="no" explicit="yes" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::CallableHolder</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>CallableHolder</name>
+        <qualifiedname>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::CallableHolder</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="57" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a00f5a6b591609b82f14f56c9f3c86a60" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::invoke</definition>
+        <argsstring>(ContextRef ctx, ValueWeak thisVal, ValueVectorWeak args) override</argsstring>
+        <name>invoke</name>
+        <qualifiedname>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;::invoke</qualifiedname>
+        <reimplements refid="classjac_1_1detail_1_1CallableBase_1aad88ff9f600f842d0d73a6d113245d51">invoke</reimplements>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>thisVal</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak" kindref="compound">ValueVectorWeak</ref></type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="58" column="11" bodyfile="src/jac/machine/functionFactory.h" bodystart="58" bodyend="60"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>jac::detail::CallableBase</label>
+        <link refid="classjac_1_1detail_1_1CallableBase"/>
+      </node>
+      <node id="1">
+        <label>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</label>
+        <link refid="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jac::detail::CallableBase</label>
+        <link refid="classjac_1_1detail_1_1CallableBase"/>
+      </node>
+      <node id="1">
+        <label>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</label>
+        <link refid="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/functionFactory.h" line="54" column="1" bodyfile="src/jac/machine/functionFactory.h" bodystart="54" bodyend="61"/>
+    <listofallmembers>
+      <member refid="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a691a1419dc42b2de4d6a65f8d8fc7870" prot="private" virt="non-virtual"><scope>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</scope><name>_func</name></member>
+      <member refid="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a4a1128d3b8ccf5f5c62ae1c4d311290c" prot="public" virt="non-virtual"><scope>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</scope><name>CallableHolder</name></member>
+      <member refid="classjac_1_1detail_1_1CallableHolder_3_01Func_00_01std_1_1function_3_01Res_07ContextRef_00_01Valba2213dbfb9eb8737d81218b674334ab_1a00f5a6b591609b82f14f56c9f3c86a60" prot="public" virt="virtual"><scope>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</scope><name>invoke</name></member>
+      <member refid="classjac_1_1detail_1_1CallableBase_1a9b11013a99a43668f969e400479793e2" prot="public" virt="virtual"><scope>jac::detail::CallableHolder&lt; Func, std::function&lt; Res(ContextRef, ValueWeak, ValueVectorWeak)&gt;, true, true &gt;</scope><name>~CallableBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

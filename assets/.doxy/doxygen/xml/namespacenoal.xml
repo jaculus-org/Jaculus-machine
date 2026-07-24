@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacenoal" kind="namespace" language="C++">
+    <compoundname>noal</compoundname>
+    <innerclass refid="classnoal_1_1callableany" prot="public">noal::callableany</innerclass>
+    <innerclass refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4" prot="public">noal::callableany&lt; Func, Res(Args...)&gt;</innerclass>
+    <innerclass refid="classnoal_1_1funcptr" prot="public">noal::funcptr</innerclass>
+    <innerclass refid="classnoal_1_1function" prot="public">noal::function</innerclass>
+    <innerclass refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4" prot="public">noal::function&lt; Res(Args...), dataSize &gt;</innerclass>
+    <innerclass refid="classnoal_1_1memberconstfuncptr" prot="public">noal::memberconstfuncptr</innerclass>
+    <innerclass refid="classnoal_1_1memberfuncptr" prot="public">noal::memberfuncptr</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper" prot="public">noal::signatureHelper</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01_6_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) &amp; &gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_6_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) const &amp; &gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) const &gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...)&gt;</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="noal__func_8h_1ad0cfcf1f8d25036a32381de0113ac4ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type>Res</type>
+        <definition>Res noal::invoker</definition>
+        <argsstring>(void *func, Args... args)</argsstring>
+        <name>invoker</name>
+        <qualifiedname>noal::invoker</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="25" column="5" bodyfile="src/noal_func.h" bodystart="25" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="noal__func_8h_1a1b14d7539790a3c679f1e7bd93ba3f0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Sign</type>
+            <defval>typename signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type</defval>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::callableany</definition>
+        <argsstring>(Func) -&gt; callableany&lt; Func, Sign &gt;</argsstring>
+        <name>callableany</name>
+        <qualifiedname>noal::callableany</qualifiedname>
+        <param>
+          <type>Func</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="99" column="1" declfile="src/noal_func.h" declline="99" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="noal__func_8h_1a2433c198ff5f6acfb8bf244510eb8cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function</definition>
+        <argsstring>(Res(*)(Args...)) -&gt; function&lt; Res(Args...), sizeof(Res(*)(Args...))&gt;</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function</qualifiedname>
+        <param>
+          <type>Res(*)(Args...)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="171" column="1" declfile="src/noal_func.h" declline="171" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="noal__func_8h_1a3a1cddd530fce29f4b9209d49277c56c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Class</type>
+          </param>
+          <param>
+            <type>typename Res</type>
+          </param>
+          <param>
+            <type>typename...</type>
+            <declname>Args</declname>
+            <defname>Args</defname>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function</definition>
+        <argsstring>(Res(Class::*)(Args...), Class *) -&gt; function&lt; Res(Args...), sizeof(memberfuncptr&lt; Class, Res, Args... &gt;)&gt;</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...)</type>
+        </param>
+        <param>
+          <type>Class *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="174" column="1" declfile="src/noal_func.h" declline="174" declcolumn="1"/>
+      </memberdef>
+      <memberdef kind="function" id="noal__func_8h_1a51b6dc3bed9e24452e6caa5d8ec8b510" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Func</type>
+          </param>
+          <param>
+            <type>typename Sign</type>
+            <defval>typename signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type</defval>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>noal::function</definition>
+        <argsstring>(Func) -&gt; function&lt; Sign, sizeof(callableany&lt; Func, Sign &gt;)&gt;</argsstring>
+        <name>function</name>
+        <qualifiedname>noal::function</qualifiedname>
+        <param>
+          <type>Func</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="180" column="1" declfile="src/noal_func.h" declline="180" declcolumn="1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/noal_func.h" line="9" column="1"/>
+  </compounddef>
+</doxygen>

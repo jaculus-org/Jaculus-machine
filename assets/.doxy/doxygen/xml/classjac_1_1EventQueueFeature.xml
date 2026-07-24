@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1EventQueueFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::EventQueueFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1EventQueueFeature_1a9f76643b5fcf7bc915f6883034467177" prot="private" static="no" mutable="no">
+        <type>std::deque&lt; std::function&lt; void()&gt; &gt;</type>
+        <definition>std::deque&lt;std::function&lt;void()&gt; &gt; jac::EventQueueFeature&lt; Next &gt;::_scheduledFunctions</definition>
+        <argsstring></argsstring>
+        <name>_scheduledFunctions</name>
+        <qualifiedname>jac::EventQueueFeature::_scheduledFunctions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="16" column="16" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1EventQueueFeature_1a140ae457beb4b5fcfe877be53734d06a" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex jac::EventQueueFeature&lt; Next &gt;::_scheduledFunctionsMutex</definition>
+        <argsstring></argsstring>
+        <name>_scheduledFunctionsMutex</name>
+        <qualifiedname>jac::EventQueueFeature::_scheduledFunctionsMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="17" column="16" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1EventQueueFeature_1ad6806ec33c742b76134d0fed1e478f9b" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable jac::EventQueueFeature&lt; Next &gt;::_scheduledFunctionsCondition</definition>
+        <argsstring></argsstring>
+        <name>_scheduledFunctionsCondition</name>
+        <qualifiedname>jac::EventQueueFeature::_scheduledFunctionsCondition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="18" column="29" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1EventQueueFeature_1af4b462bd504fe34eacfde1842f915e61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; std::function&lt; void()&gt; &gt;</type>
+        <definition>std::optional&lt; std::function&lt; void()&gt; &gt; jac::EventQueueFeature&lt; Next &gt;::getEvent</definition>
+        <argsstring>(bool wait)</argsstring>
+        <name>getEvent</name>
+        <qualifiedname>jac::EventQueueFeature::getEvent</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>wait</declname>
+        </param>
+        <briefdescription>
+<para>Check the event queue and return the first event. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>wait</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Wait for event if no event is available </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Event or std::nullopt if no event is available </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="25" column="19" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="25" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventQueueFeature_1a2148718831a9b752d0e4c87dfacb36d7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventQueueFeature&lt; Next &gt;::scheduleEvent</definition>
+        <argsstring>(std::function&lt; void()&gt; func)</argsstring>
+        <name>scheduleEvent</name>
+        <qualifiedname>jac::EventQueueFeature::scheduleEvent</qualifiedname>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Schedule an event to be run. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function to be run </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="44" column="10" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="44" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventQueueFeature_1a0871e6590e45471ccdce614d411aa780" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::EventQueueFeature&lt; Next &gt;::notifyEventLoop</definition>
+        <argsstring>()</argsstring>
+        <name>notifyEventLoop</name>
+        <qualifiedname>jac::EventQueueFeature::notifyEventLoop</qualifiedname>
+        <briefdescription>
+<para>Wake up event loop if it is waiting for events. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="55" column="10" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="55" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1EventQueueFeature_1a293071568fe8c0605f4c7a34f20feb3c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::EventQueueFeature&lt; Next &gt;::~EventQueueFeature</definition>
+        <argsstring>()</argsstring>
+        <name>~EventQueueFeature</name>
+        <qualifiedname>jac::EventQueueFeature::~EventQueueFeature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventQueueFeature.h" line="59" column="5" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="59" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventQueueFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventQueueFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventQueueFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventQueueFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/eventQueueFeature.h" line="14" column="1" bodyfile="src/jac/features/eventQueueFeature.h" bodystart="14" bodyend="64"/>
+    <listofallmembers>
+      <member refid="classjac_1_1EventQueueFeature_1a9f76643b5fcf7bc915f6883034467177" prot="private" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>_scheduledFunctions</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1ad6806ec33c742b76134d0fed1e478f9b" prot="private" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>_scheduledFunctionsCondition</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1a140ae457beb4b5fcfe877be53734d06a" prot="private" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>_scheduledFunctionsMutex</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1af4b462bd504fe34eacfde1842f915e61" prot="public" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>getEvent</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1a0871e6590e45471ccdce614d411aa780" prot="public" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>notifyEventLoop</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1a2148718831a9b752d0e4c87dfacb36d7" prot="public" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>scheduleEvent</name></member>
+      <member refid="classjac_1_1EventQueueFeature_1a293071568fe8c0605f4c7a34f20feb3c" prot="public" virt="non-virtual"><scope>jac::EventQueueFeature</scope><name>~EventQueueFeature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

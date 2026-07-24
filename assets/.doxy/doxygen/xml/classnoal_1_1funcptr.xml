@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classnoal_1_1funcptr" kind="class" language="C++" prot="public">
+    <compoundname>noal::funcptr</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Res</type>
+      </param>
+      <param>
+        <type>typename...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classnoal_1_1funcptr_1a26de448971a5d5b75dd3cbe6689e21c8" prot="private" static="no" mutable="no">
+        <type>Res(*</type>
+        <definition>Res(* noal::funcptr&lt; Res, Args &gt;::_func) (Args...)</definition>
+        <argsstring>)(Args...)</argsstring>
+        <name>_func</name>
+        <qualifiedname>noal::funcptr::_func</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="13" column="5" bodyfile="src/noal_func.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classnoal_1_1funcptr_1aae77f2d390155c1927f6008ef936bd71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>noal::funcptr&lt; Res, Args &gt;::funcptr</definition>
+        <argsstring>(Res(*func)(Args...))</argsstring>
+        <name>funcptr</name>
+        <qualifiedname>noal::funcptr::funcptr</qualifiedname>
+        <param>
+          <type>Res(*)(Args...)</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="15" column="5" bodyfile="src/noal_func.h" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1funcptr_1a50fd19989f89ab44810c85c6f0c50d9b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Res</type>
+        <definition>Res noal::funcptr&lt; Res, Args &gt;::operator()</definition>
+        <argsstring>(Args... args)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>noal::funcptr::operator()</qualifiedname>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="16" column="16" bodyfile="src/noal_func.h" bodystart="16" bodyend="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classnoal_1_1funcptr_1a3b05a0f5eebf171b270965e265e8d666" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Res</type>
+        <definition>static Res noal::funcptr&lt; Res, Args &gt;::call</definition>
+        <argsstring>(void *self, Args... args)</argsstring>
+        <name>call</name>
+        <qualifiedname>noal::funcptr::call</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>self</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="19" column="16" bodyfile="src/noal_func.h" bodystart="19" bodyend="21"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/noal_func.h" line="12" column="1" bodyfile="src/noal_func.h" bodystart="12" bodyend="22"/>
+    <listofallmembers>
+      <member refid="classnoal_1_1funcptr_1a26de448971a5d5b75dd3cbe6689e21c8" prot="private" virt="non-virtual"><scope>noal::funcptr</scope><name>_func</name></member>
+      <member refid="classnoal_1_1funcptr_1a3b05a0f5eebf171b270965e265e8d666" prot="public" virt="non-virtual"><scope>noal::funcptr</scope><name>call</name></member>
+      <member refid="classnoal_1_1funcptr_1aae77f2d390155c1927f6008ef936bd71" prot="public" virt="non-virtual"><scope>noal::funcptr</scope><name>funcptr</name></member>
+      <member refid="classnoal_1_1funcptr_1a50fd19989f89ab44810c85c6f0c50d9b" prot="public" virt="non-virtual"><scope>noal::funcptr</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

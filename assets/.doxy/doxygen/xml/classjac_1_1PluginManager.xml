@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1PluginManager" kind="class" language="C++" prot="public">
+    <compoundname>jac::PluginManager</compoundname>
+    <includes refid="plugins_8h" local="no">plugins.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1PluginManager_1a6e746f5cb311d6f0cd20daf6e353d44b" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::unique_ptr&lt; <ref refid="classjac_1_1Plugin" kindref="compound">Plugin</ref> &gt; <ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref></type>
+        <definition>std::vector&lt;std::unique_ptr&lt;Plugin&gt; MachineBase jac::PluginManager::_plugins</definition>
+        <argsstring></argsstring>
+        <name>_plugins</name>
+        <qualifiedname>jac::PluginManager::_plugins</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="89" column="20" bodyfile="src/jac/machine/plugins.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1PluginManager_1a6da121668dfcb6f4084895a856c97486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::PluginManager::PluginManager</definition>
+        <argsstring>()=default</argsstring>
+        <name>PluginManager</name>
+        <qualifiedname>jac::PluginManager::PluginManager</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="91" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginManager_1a7799592bddee4ce34bfe3dec11328328" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Plugin_t</type>
+          </param>
+        </templateparamlist>
+        <type>size_t</type>
+        <definition>size_t jac::PluginManager::addPlugin</definition>
+        <argsstring>()</argsstring>
+        <name>addPlugin</name>
+        <qualifiedname>jac::PluginManager::addPlugin</qualifiedname>
+        <briefdescription>
+<para>Adds a plugin to the manager. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The initialization of the plugin is to be performed by the constructor. </para>
+</simplesect>
+<parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Plugin_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of the plugin to add </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The offset of the plugin in the group. Can be added to the <ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref> returned by <ref refid="classjac_1_1PluginManager_1a4e09131fb40ef66fcabc100c05bf00db" kindref="member">initialize()</ref> to get a handle to the plugin instance inside the Machine. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="102" column="12" bodyfile="src/jac/machine/plugins.h" bodystart="102" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginManager_1a4e09131fb40ef66fcabc100c05bf00db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Machine</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginManager::initialize</definition>
+        <argsstring>(Machine &amp;machine)</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::PluginManager::initialize</qualifiedname>
+        <param>
+          <type>Machine &amp;</type>
+          <declname>machine</declname>
+        </param>
+        <briefdescription>
+<para>Initializes all plugins in the manager. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The type of the machine to initialize the plugins for </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>machine</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The machine to initialize the plugins for </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A Handle to the first plugin initialized. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="117" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="117" bodyend="125"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A class for managing groups of plugins and initializing them all at once. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/plugins.h" line="87" column="1" bodyfile="src/jac/machine/plugins.h" bodystart="87" bodyend="126"/>
+    <listofallmembers>
+      <member refid="classjac_1_1PluginManager_1a6e746f5cb311d6f0cd20daf6e353d44b" prot="private" virt="non-virtual"><scope>jac::PluginManager</scope><name>_plugins</name></member>
+      <member refid="classjac_1_1PluginManager_1a7799592bddee4ce34bfe3dec11328328" prot="public" virt="non-virtual"><scope>jac::PluginManager</scope><name>addPlugin</name></member>
+      <member refid="classjac_1_1PluginManager_1a4e09131fb40ef66fcabc100c05bf00db" prot="public" virt="non-virtual"><scope>jac::PluginManager</scope><name>initialize</name></member>
+      <member refid="classjac_1_1PluginManager_1a6da121668dfcb6f4084895a856c97486" prot="public" virt="non-virtual"><scope>jac::PluginManager</scope><name>PluginManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

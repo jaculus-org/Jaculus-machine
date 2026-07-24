@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1OsWritable" kind="class" language="C++" prot="public">
+    <compoundname>jac::OsWritable</compoundname>
+    <basecompoundref refid="classjac_1_1Writable" prot="public" virt="non-virtual">jac::Writable</basecompoundref>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1OsWritable_1ac4380f1526e5fd310cef16f9f53bef6f" prot="private" static="no" mutable="no">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; jac::OsWritable::_stream</definition>
+        <argsstring></argsstring>
+        <name>_stream</name>
+        <qualifiedname>jac::OsWritable::_stream</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/util/ostreamjs.h" line="12" column="18" bodyfile="src/jac/features/util/ostreamjs.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1OsWritable_1a99e847bee408e7212312f944b3730d42" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::OsWritable::OsWritable</definition>
+        <argsstring>(std::ostream &amp;stream)</argsstring>
+        <name>OsWritable</name>
+        <qualifiedname>jac::OsWritable::OsWritable</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/util/ostreamjs.h" line="14" column="5" bodyfile="src/jac/features/util/ostreamjs.h" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OsWritable_1af8f602b566f2e05f2e8bc09d9b53f8ac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>void jac::OsWritable::write</definition>
+        <argsstring>(std::string data) override</argsstring>
+        <name>write</name>
+        <qualifiedname>jac::OsWritable::write</qualifiedname>
+        <reimplements refid="classjac_1_1Writable_1a02586e67dee1872578a6c2fd7dd62ef9">write</reimplements>
+        <param>
+          <type>std::string</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/util/ostreamjs.h" line="16" column="10" bodyfile="src/jac/features/util/ostreamjs.h" bodystart="16" bodyend="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>jac::OsWritable</label>
+        <link refid="classjac_1_1OsWritable"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::Writable</label>
+        <link refid="classjac_1_1Writable"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>jac::OsWritable</label>
+        <link refid="classjac_1_1OsWritable"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::Writable</label>
+        <link refid="classjac_1_1Writable"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/util/ostreamjs.h" line="11" column="1" bodyfile="src/jac/features/util/ostreamjs.h" bodystart="11" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classjac_1_1OsWritable_1ac4380f1526e5fd310cef16f9f53bef6f" prot="private" virt="non-virtual"><scope>jac::OsWritable</scope><name>_stream</name></member>
+      <member refid="classjac_1_1OsWritable_1a99e847bee408e7212312f944b3730d42" prot="public" virt="non-virtual"><scope>jac::OsWritable</scope><name>OsWritable</name></member>
+      <member refid="classjac_1_1OsWritable_1af8f602b566f2e05f2e8bc09d9b53f8ac" prot="public" virt="virtual"><scope>jac::OsWritable</scope><name>write</name></member>
+      <member refid="classjac_1_1Writable_1ab08e62e0311b6837c6d01901af413e64" prot="public" virt="virtual"><scope>jac::OsWritable</scope><name>~Writable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

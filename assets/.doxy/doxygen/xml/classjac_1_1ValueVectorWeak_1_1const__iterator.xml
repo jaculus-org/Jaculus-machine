@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ValueVectorWeak_1_1const__iterator" kind="class" language="C++" prot="public">
+    <compoundname>jac::ValueVectorWeak::const_iterator</compoundname>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac7f3625a00b414fa955c1e4df5e92232" prot="public" static="no">
+        <type>std::random_access_iterator_tag</type>
+        <definition>using jac::ValueVectorWeak::const_iterator::iterator_category =  std::random_access_iterator_tag</definition>
+        <argsstring></argsstring>
+        <name>iterator_category</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::iterator_category</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="335" column="9" bodyfile="src/jac/machine/values.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1aa1b6af46744f5a4e0beacd50c8fcb30b" prot="public" static="no">
+        <type>std::random_access_iterator_tag</type>
+        <definition>using jac::ValueVectorWeak::const_iterator::iterator_concept =  std::random_access_iterator_tag</definition>
+        <argsstring></argsstring>
+        <name>iterator_concept</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::iterator_concept</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="336" column="9" bodyfile="src/jac/machine/values.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a63515aace74015371c5accb2430b1de5" prot="public" static="no">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>using jac::ValueVectorWeak::const_iterator::value_type =  ValueWeak</definition>
+        <argsstring></argsstring>
+        <name>value_type</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::value_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="337" column="9" bodyfile="src/jac/machine/values.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a11882863e97555372348476bc61161e4" prot="public" static="no">
+        <type>std::ptrdiff_t</type>
+        <definition>using jac::ValueVectorWeak::const_iterator::difference_type =  std::ptrdiff_t</definition>
+        <argsstring></argsstring>
+        <name>difference_type</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::difference_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="338" column="9" bodyfile="src/jac/machine/values.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac35c1104dbf7b608d496bf06dc58ef14" prot="public" static="no">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>using jac::ValueVectorWeak::const_iterator::reference =  ValueWeak</definition>
+        <argsstring></argsstring>
+        <name>reference</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::reference</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="339" column="9" bodyfile="src/jac/machine/values.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a491ea0d0a43722cbe432cfe855959ac9" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::ValueVectorWeak::const_iterator::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="331" column="20" bodyfile="src/jac/machine/values.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1af1df63c3506ae9840493b6d1f8e763c1" prot="private" static="no" mutable="no">
+        <type>const JSValue *</type>
+        <definition>const JSValue* jac::ValueVectorWeak::const_iterator::_ptr</definition>
+        <argsstring></argsstring>
+        <name>_ptr</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::_ptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="332" column="23" bodyfile="src/jac/machine/values.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a0b0406059f7975f1e0825a3a7785a3e0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueVectorWeak::const_iterator::const_iterator</definition>
+        <argsstring>()</argsstring>
+        <name>const_iterator</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::const_iterator</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="341" column="9" bodyfile="src/jac/machine/values.h" bodystart="341" bodyend="341"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1aaade1e14d855b86d460000ba99f6f2d2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ValueVectorWeak::const_iterator::const_iterator</definition>
+        <argsstring>(ContextRef ctx, const JSValue *ptr)</argsstring>
+        <name>const_iterator</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::const_iterator</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const JSValue *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="342" column="9" bodyfile="src/jac/machine/values.h" bodystart="342" bodyend="342"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a8c9c06237d3806deffe32f26aad83d9b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>ValueWeak jac::ValueVectorWeak::const_iterator::operator*</definition>
+        <argsstring>() const</argsstring>
+        <name>operator*</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator*</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="344" column="19" bodyfile="src/jac/machine/values.h" bodystart="344" bodyend="344"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ad64fb93358717eeeddc3527264f75ad9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+        <definition>ValueWeak jac::ValueVectorWeak::const_iterator::operator[]</definition>
+        <argsstring>(difference_type offset) const</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator[]</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="345" column="19" bodyfile="src/jac/machine/values.h" bodystart="345" bodyend="345"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a83d3fa77ab3804e48486224409b1917d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref> &amp;</type>
+        <definition>const_iterator &amp; jac::ValueVectorWeak::const_iterator::operator++</definition>
+        <argsstring>()</argsstring>
+        <name>operator++</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator++</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="347" column="24" bodyfile="src/jac/machine/values.h" bodystart="347" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac46f592ccf3e324e1de28f2368ca8457" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator jac::ValueVectorWeak::const_iterator::operator++</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator++</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator++</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="348" column="24" bodyfile="src/jac/machine/values.h" bodystart="348" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a45ba4e616e446e9d03ccaef34e69154f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref> &amp;</type>
+        <definition>const_iterator &amp; jac::ValueVectorWeak::const_iterator::operator--</definition>
+        <argsstring>()</argsstring>
+        <name>operator--</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator--</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="349" column="24" bodyfile="src/jac/machine/values.h" bodystart="349" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1acedf8eb3557e34a5cfe0b15970e7c452" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator jac::ValueVectorWeak::const_iterator::operator--</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator--</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator--</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="350" column="24" bodyfile="src/jac/machine/values.h" bodystart="350" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a3a89508f4437a67bcd4f2d0344a0c7a8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref> &amp;</type>
+        <definition>const_iterator &amp; jac::ValueVectorWeak::const_iterator::operator+=</definition>
+        <argsstring>(difference_type offset)</argsstring>
+        <name>operator+=</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator+=</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="351" column="24" bodyfile="src/jac/machine/values.h" bodystart="351" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a6269adf951e4a9d96ba78cfc30eb6225" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref> &amp;</type>
+        <definition>const_iterator &amp; jac::ValueVectorWeak::const_iterator::operator-=</definition>
+        <argsstring>(difference_type offset)</argsstring>
+        <name>operator-=</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator-=</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="352" column="24" bodyfile="src/jac/machine/values.h" bodystart="352" bodyend="352"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ae3269af2e696d85d7d4b88ad9c06de54" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator operator+</definition>
+        <argsstring>(const_iterator it, difference_type offset)</argsstring>
+        <name>operator+</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator+</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>it</declname>
+        </param>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="354" column="31" bodyfile="src/jac/machine/values.h" bodystart="354" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a2fe4053fb6901a8e05007bb5d5038ba6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator operator+</definition>
+        <argsstring>(difference_type offset, const_iterator it)</argsstring>
+        <name>operator+</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator+</qualifiedname>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>it</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="355" column="31" bodyfile="src/jac/machine/values.h" bodystart="355" bodyend="355"/>
+      </memberdef>
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1aa2ee9d3e2a71609df9ee07f018a8acc7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+        <definition>const_iterator operator-</definition>
+        <argsstring>(const_iterator it, difference_type offset)</argsstring>
+        <name>operator-</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator-</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>it</declname>
+        </param>
+        <param>
+          <type>difference_type</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="356" column="31" bodyfile="src/jac/machine/values.h" bodystart="356" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1a4dafe8439a7d9e10b30189416fcbdc17" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>difference_type</type>
+        <definition>difference_type operator-</definition>
+        <argsstring>(const_iterator lhs, const_iterator rhs)</argsstring>
+        <name>operator-</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator-</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="357" column="32" bodyfile="src/jac/machine/values.h" bodystart="357" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1ae77baa3d1e4ababf6206db480a427c26" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool operator==</definition>
+        <argsstring>(const_iterator lhs, const_iterator rhs)</argsstring>
+        <name>operator==</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator==</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="358" column="21" bodyfile="src/jac/machine/values.h" bodystart="358" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="friend" id="classjac_1_1ValueVectorWeak_1_1const__iterator_1af968ab0b0362e9e23ec96dff98a0101e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>auto</type>
+        <definition>auto operator&lt;=&gt;</definition>
+        <argsstring>(const_iterator lhs, const_iterator rhs)</argsstring>
+        <name>operator&lt;=&gt;</name>
+        <qualifiedname>jac::ValueVectorWeak::const_iterator::operator&lt;=&gt;</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>lhs</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueVectorWeak_1_1const__iterator" kindref="compound">const_iterator</ref></type>
+          <declname>rhs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/values.h" line="359" column="16" bodyfile="src/jac/machine/values.h" bodystart="359" bodyend="359"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/values.h" line="330" column="5" bodyfile="src/jac/machine/values.h" bodystart="330" bodyend="360"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a491ea0d0a43722cbe432cfe855959ac9" prot="private" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1af1df63c3506ae9840493b6d1f8e763c1" prot="private" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>_ptr</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a0b0406059f7975f1e0825a3a7785a3e0" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>const_iterator</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1aaade1e14d855b86d460000ba99f6f2d2" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>const_iterator</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a11882863e97555372348476bc61161e4" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>difference_type</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac7f3625a00b414fa955c1e4df5e92232" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>iterator_category</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1aa1b6af46744f5a4e0beacd50c8fcb30b" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>iterator_concept</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a8c9c06237d3806deffe32f26aad83d9b" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator*</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ae3269af2e696d85d7d4b88ad9c06de54" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator+</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a2fe4053fb6901a8e05007bb5d5038ba6" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator+</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a83d3fa77ab3804e48486224409b1917d" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator++</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac46f592ccf3e324e1de28f2368ca8457" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator++</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a3a89508f4437a67bcd4f2d0344a0c7a8" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator+=</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1aa2ee9d3e2a71609df9ee07f018a8acc7" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator-</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a4dafe8439a7d9e10b30189416fcbdc17" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator-</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a45ba4e616e446e9d03ccaef34e69154f" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator--</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1acedf8eb3557e34a5cfe0b15970e7c452" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator--</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a6269adf951e4a9d96ba78cfc30eb6225" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator-=</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1af968ab0b0362e9e23ec96dff98a0101e" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator&lt;=&gt;</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ae77baa3d1e4ababf6206db480a427c26" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator==</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ad64fb93358717eeeddc3527264f75ad9" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>operator[]</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1ac35c1104dbf7b608d496bf06dc58ef14" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>reference</name></member>
+      <member refid="classjac_1_1ValueVectorWeak_1_1const__iterator_1a63515aace74015371c5accb2430b1de5" prot="public" virt="non-virtual"><scope>jac::ValueVectorWeak::const_iterator</scope><name>value_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

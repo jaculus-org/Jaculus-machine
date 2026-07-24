@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_7e10f281dae724a55a0e1ba0acd02229" kind="dir">
+    <compoundname>src/jac/features/types</compoundname>
+    <innerfile refid="file_8h">file.h</innerfile>
+    <innerfile refid="streams_8h">streams.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/types/"/>
+  </compounddef>
+</doxygen>

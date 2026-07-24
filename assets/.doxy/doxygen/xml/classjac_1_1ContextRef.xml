@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1ContextRef" kind="class" language="C++" prot="public">
+    <compoundname>jac::ContextRef</compoundname>
+    <includes refid="context_8h" local="no">context.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1ContextRef_1abdf85584e4e4017b5dcf5b352c1445d0" prot="private" static="no" mutable="no">
+        <type>JSContext *</type>
+        <definition>JSContext* jac::ContextRef::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::ContextRef::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="15" column="15" bodyfile="src/jac/machine/context.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1ContextRef_1a732fa2bec33e72b5f7021b887e35ee18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ContextRef::ContextRef</definition>
+        <argsstring>(JSContext *ctx)</argsstring>
+        <name>ContextRef</name>
+        <qualifiedname>jac::ContextRef::ContextRef</qualifiedname>
+        <param>
+          <type>JSContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="18" column="5" bodyfile="src/jac/machine/context.h" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1ac4086fd24cb6c5ccee5e23e172cf182f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSContext *</type>
+        <definition>JSContext * jac::ContextRef::get</definition>
+        <argsstring>()</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::ContextRef::get</qualifiedname>
+        <briefdescription>
+<para>Get the underlying JSContext*. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The JSContext* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="25" column="15" bodyfile="src/jac/machine/context.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1ExceptionWrapper" kindref="compound">Exception</ref></type>
+        <definition>Exception jac::ContextRef::getException</definition>
+        <argsstring>()</argsstring>
+        <name>getException</name>
+        <qualifiedname>jac::ContextRef::getException</qualifiedname>
+        <briefdescription>
+<para>Get pending exception thrown in this context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>If there is no pending exception, new Exception will be thrown</para>
+</simplesect>
+<simplesect kind="return"><para>The Exception </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="33" column="15" bodyfile="src/jac/machine/context.cpp" bodystart="7" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1a044211f4d39508aff6c39d8fe088f59a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">Object</ref></type>
+        <definition>Object jac::ContextRef::getGlobalObject</definition>
+        <argsstring>()</argsstring>
+        <name>getGlobalObject</name>
+        <qualifiedname>jac::ContextRef::getGlobalObject</qualifiedname>
+        <briefdescription>
+<para>Get the global object of this context. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The global object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="40" column="12" bodyfile="src/jac/machine/context.cpp" bodystart="16" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1aef695898f4515dd2536e0efc764fc56e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ContextRef::operator JSContext *</definition>
+        <argsstring>()</argsstring>
+        <name>operator JSContext *</name>
+        <qualifiedname>jac::ContextRef::operator JSContext *</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="42" column="5" bodyfile="src/jac/machine/context.h" bodystart="42" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1ad72ec9bcd884ea51a4c1f0581f2066f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ContextRef::operator JSContext *</definition>
+        <argsstring>() const</argsstring>
+        <name>operator JSContext *</name>
+        <qualifiedname>jac::ContextRef::operator JSContext *</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="43" column="5" bodyfile="src/jac/machine/context.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1a46ab92aaa24c7dfd0159a50f1b8e3c7c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::ContextRef::operator bool</definition>
+        <argsstring>()</argsstring>
+        <name>operator bool</name>
+        <qualifiedname>jac::ContextRef::operator bool</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="44" column="5" bodyfile="src/jac/machine/context.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1ContextRef_1ac6f9155457aacbb1b5bfbc784473cde6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref> &amp;</type>
+        <definition>ContextRef &amp; jac::ContextRef::operator=</definition>
+        <argsstring>(JSContext *ctx)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::ContextRef::operator=</qualifiedname>
+        <param>
+          <type>JSContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/context.h" line="45" column="16" bodyfile="src/jac/machine/context.h" bodystart="45" bodyend="45"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper around JSContext* providing some related functionality. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/context.h" line="14" column="1" bodyfile="src/jac/machine/context.h" bodystart="14" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classjac_1_1ContextRef_1abdf85584e4e4017b5dcf5b352c1445d0" prot="private" virt="non-virtual"><scope>jac::ContextRef</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1ContextRef_1a732fa2bec33e72b5f7021b887e35ee18" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>ContextRef</name></member>
+      <member refid="classjac_1_1ContextRef_1ac4086fd24cb6c5ccee5e23e172cf182f" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>get</name></member>
+      <member refid="classjac_1_1ContextRef_1a002340d5f3c940630b22b583259a0670" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>getException</name></member>
+      <member refid="classjac_1_1ContextRef_1a044211f4d39508aff6c39d8fe088f59a" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>getGlobalObject</name></member>
+      <member refid="classjac_1_1ContextRef_1a46ab92aaa24c7dfd0159a50f1b8e3c7c" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>operator bool</name></member>
+      <member refid="classjac_1_1ContextRef_1aef695898f4515dd2536e0efc764fc56e" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>operator JSContext *</name></member>
+      <member refid="classjac_1_1ContextRef_1ad72ec9bcd884ea51a4c1f0581f2066f8" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>operator JSContext *</name></member>
+      <member refid="classjac_1_1ContextRef_1ac6f9155457aacbb1b5bfbc784473cde6" prot="public" virt="non-virtual"><scope>jac::ContextRef</scope><name>operator=</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

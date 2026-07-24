@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1FunctionFactory" kind="class" language="C++" prot="public">
+    <compoundname>jac::FunctionFactory</compoundname>
+    <includes refid="functionFactory_8h" local="no">functionFactory.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1FunctionFactory_1a3681ae37ca53b2d1ae79101098595035" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::FunctionFactory::_context</definition>
+        <argsstring></argsstring>
+        <name>_context</name>
+        <qualifiedname>jac::FunctionFactory::_context</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="85" column="16" bodyfile="src/jac/machine/functionFactory.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1a1b14c3b10eff10ebaa9c392c48e4f57c" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>bool</type>
+            <declname>withThis</declname>
+            <defname>withThis</defname>
+          </param>
+          <param>
+            <type>bool</type>
+            <declname>variadic</declname>
+            <defname>variadic</defname>
+          </param>
+          <param>
+            <type>typename Func</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>Function jac::FunctionFactory::makeFunction</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>makeFunction</name>
+        <qualifiedname>jac::FunctionFactory::makeFunction</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="88" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="88" bodyend="94"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1aeaf2124abe6c926370cebbaf839a0df3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::FunctionFactory::FunctionFactory</definition>
+        <argsstring>(ContextRef context)</argsstring>
+        <name>FunctionFactory</name>
+        <qualifiedname>jac::FunctionFactory::FunctionFactory</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>context</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="96" column="5" bodyfile="src/jac/machine/functionFactory.h" bodystart="96" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Func</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>Function jac::FunctionFactory::newFunction</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>newFunction</name>
+        <qualifiedname>jac::FunctionFactory::newFunction</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Wraps a C++ function into a javascript function object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The expected signature of the function object is Res(Args...). Arguments and the result of the function call are automatically converted to and from javascript values. Exceptions thrown within the function are automatically propagated to the javascript side.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the function to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the function object to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The created function object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="111" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="111" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1ae71fae8641e051a5c6ff14f48baa171b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Func</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>Function jac::FunctionFactory::newFunctionVariadic</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>newFunctionVariadic</name>
+        <qualifiedname>jac::FunctionFactory::newFunctionVariadic</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Wraps a C++ function into a javascript function object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The expected signature of the function object is Res(std::vector&lt;ValueWeak&gt;). The vector will contain all arguments passed to the function. The result of the function call is automatically converted from a javascript value. Exceptions thrown within the function are automatically propagated to the javascript side.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the function to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the function object to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The created function object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="129" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="129" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1acd6db9e494fcbe181d6aab5c1dd97665" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Func</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>Function jac::FunctionFactory::newFunctionThis</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>newFunctionThis</name>
+        <qualifiedname>jac::FunctionFactory::newFunctionThis</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Wraps a C++ function into a javascript function object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The expected signature of the function object is Res(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>, ValueWeak, Args...). Arguments and the result of the function call are automatically converted to and from javascript values. Exceptions thrown within the function are automatically propagated to the javascript side.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the function to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the function object to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The created function object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="147" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="147" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1FunctionFactory_1a8ea36346531f599e40413358f83c29e4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Func</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="classjac_1_1FunctionWrapper" kindref="compound">Function</ref></type>
+        <definition>Function jac::FunctionFactory::newFunctionThisVariadic</definition>
+        <argsstring>(Func func)</argsstring>
+        <name>newFunctionThisVariadic</name>
+        <qualifiedname>jac::FunctionFactory::newFunctionThisVariadic</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>func</declname>
+        </param>
+        <briefdescription>
+<para>Wraps a C++ function into a javascript function object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The expected signature of the function object is Res(<ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>, ValueWeak, std::vector&lt;ValueWeak&gt;). The vector will contain all arguments passed to the function. The the result of the function call is automatically converted from a javascript value. Exceptions thrown within the function are automatically propagated to the javascript side.</para>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the function to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>func</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the function object to be wrapped </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The created function object </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/functionFactory.h" line="165" column="14" bodyfile="src/jac/machine/functionFactory.h" bodystart="165" bodyend="167"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Various methods for wrapping C++ functions into javascript functions. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>About exceptions propagation:</para>
+<para>When jac::Exception is thrown, the wrapped value or given error type is thrown. When std::exception is thrown, an InternalError is thrown. When any other exception is thrown, an InternalError is thrown with the message &quot;unknown error&quot;. </para>
+    </detaileddescription>
+    <location file="src/jac/machine/functionFactory.h" line="83" column="1" bodyfile="src/jac/machine/functionFactory.h" bodystart="83" bodyend="168"/>
+    <listofallmembers>
+      <member refid="classjac_1_1FunctionFactory_1a3681ae37ca53b2d1ae79101098595035" prot="private" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>_context</name></member>
+      <member refid="classjac_1_1FunctionFactory_1aeaf2124abe6c926370cebbaf839a0df3" prot="public" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>FunctionFactory</name></member>
+      <member refid="classjac_1_1FunctionFactory_1a1b14c3b10eff10ebaa9c392c48e4f57c" prot="private" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>makeFunction</name></member>
+      <member refid="classjac_1_1FunctionFactory_1a2a7b6457e87f0085005adf120d68dbb8" prot="public" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>newFunction</name></member>
+      <member refid="classjac_1_1FunctionFactory_1acd6db9e494fcbe181d6aab5c1dd97665" prot="public" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>newFunctionThis</name></member>
+      <member refid="classjac_1_1FunctionFactory_1a8ea36346531f599e40413358f83c29e4" prot="public" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>newFunctionThisVariadic</name></member>
+      <member refid="classjac_1_1FunctionFactory_1ae71fae8641e051a5c6ff14f48baa171b" prot="public" virt="non-virtual"><scope>jac::FunctionFactory</scope><name>newFunctionVariadic</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

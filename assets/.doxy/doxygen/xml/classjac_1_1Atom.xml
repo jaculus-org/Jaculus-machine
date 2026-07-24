@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1Atom" kind="class" language="C++" prot="public">
+    <compoundname>jac::Atom</compoundname>
+    <includes refid="atom_8h" local="no">atom.h</includes>
+    <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classjac_1_1Atom_1a83f7c132baeb9064140408a719f0de1b" prot="protected" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::Atom::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::Atom::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="30" column="16" bodyfile="src/jac/machine/atom.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Atom_1a1fa16dc9b597ad7ae31a6eb412d3ac3a" prot="protected" static="no" mutable="no">
+        <type>JSAtom</type>
+        <definition>JSAtom jac::Atom::_atom</definition>
+        <argsstring></argsstring>
+        <name>_atom</name>
+        <qualifiedname>jac::Atom::_atom</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="31" column="12" bodyfile="src/jac/machine/atom.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1Atom_1a45fc82b158d06498da1345f67263ff0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::Atom::Atom</definition>
+        <argsstring>(ContextRef ctx, JSAtom atom)</argsstring>
+        <name>Atom</name>
+        <qualifiedname>jac::Atom::Atom</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>JSAtom</type>
+          <declname>atom</declname>
+        </param>
+        <briefdescription>
+<para>Wrap an existing JSAtom. The JSAtom will be freed when the <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> is destroyed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Used internally when directly working with QuickJS API. New <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> should be created using <ref refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" kindref="member">Atom::create()</ref>.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>atom</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>JSAtom to wrap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="40" column="5" bodyfile="src/jac/machine/atom.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a857c3e6650bbb6f07fcfc8d51f7c1902" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::Atom::Atom</definition>
+        <argsstring>(const Atom &amp;other)</argsstring>
+        <name>Atom</name>
+        <qualifiedname>jac::Atom::Atom</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="41" column="5" bodyfile="src/jac/machine/atom.h" bodystart="41" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1afe0a37ef2afca50a255b513c63a4fcb3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::Atom::Atom</definition>
+        <argsstring>(Atom &amp;&amp;other)</argsstring>
+        <name>Atom</name>
+        <qualifiedname>jac::Atom::Atom</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="45" column="5" bodyfile="src/jac/machine/atom.h" bodystart="45" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a84dc368cb76b731ff1bfe28c93538c8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;</type>
+        <definition>Atom &amp; jac::Atom::operator=</definition>
+        <argsstring>(const Atom &amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::Atom::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="50" column="10" bodyfile="src/jac/machine/atom.h" bodystart="50" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a2d4202966e2f5ab405506cc2b73b1149" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;</type>
+        <definition>Atom &amp; jac::Atom::operator=</definition>
+        <argsstring>(Atom &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::Atom::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="60" column="10" bodyfile="src/jac/machine/atom.h" bodystart="60" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a7d58be96118d10c1463f28e1b362d8df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::Atom::~Atom</definition>
+        <argsstring>()</argsstring>
+        <name>~Atom</name>
+        <qualifiedname>jac::Atom::~Atom</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="71" column="5" bodyfile="src/jac/machine/atom.h" bodystart="71" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1aa6669b84551cd4edfc9206286a4ebe3a" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref></type>
+        <definition>StringView jac::Atom::toString</definition>
+        <argsstring>() const</argsstring>
+        <name>toString</name>
+        <qualifiedname>jac::Atom::toString</qualifiedname>
+        <briefdescription>
+<para>Get string representation of the atom. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="82" column="16" bodyfile="src/jac/machine/atom.h" bodystart="82" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a9119c5e4293f8f489630d95ff37a44b2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::pair&lt; <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref>, JSAtom &gt;</type>
+        <definition>std::pair&lt; ContextRef, JSAtom &gt; jac::Atom::loot</definition>
+        <argsstring>()</argsstring>
+        <name>loot</name>
+        <qualifiedname>jac::Atom::loot</qualifiedname>
+        <briefdescription>
+<para>Release ownership of the JSAtom. The JSAtom will have to be freed manually. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>After this call, the <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> will be in an invalid state.</para>
+</simplesect>
+<simplesect kind="return"><para>Pair of <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref> and JSAtom </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="92" column="15" bodyfile="src/jac/machine/atom.h" bodystart="92" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSAtom &amp;</type>
+        <definition>JSAtom &amp; jac::Atom::get</definition>
+        <argsstring>()</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::Atom::get</qualifiedname>
+        <briefdescription>
+<para>Get reference to the underlying JSAtom. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>JSAtom reference </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="105" column="12" bodyfile="src/jac/machine/atom.h" bodystart="105" bodyend="107"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+        <definition>static Atom jac::Atom::create</definition>
+        <argsstring>(ContextRef ctx, uint32_t value)</argsstring>
+        <name>create</name>
+        <qualifiedname>jac::Atom::create</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Create a new atom from an uint32_t value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to create the atom in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The newly constructed atom </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="116" column="17" bodyfile="src/jac/machine/atom.h" bodystart="116" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1a1bcd882342d35149f028dd2b58fb7f55" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+        <definition>static Atom jac::Atom::create</definition>
+        <argsstring>(ContextRef ctx, const char *value)</argsstring>
+        <name>create</name>
+        <qualifiedname>jac::Atom::create</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Create a new atom from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to create the atom in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The newly constructed atom </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="127" column="17" bodyfile="src/jac/machine/atom.h" bodystart="127" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Atom_1ab9069e4e75071e7d6015d46ebf3041bb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref></type>
+        <definition>static Atom jac::Atom::create</definition>
+        <argsstring>(ContextRef ctx, std::string value)</argsstring>
+        <name>create</name>
+        <qualifiedname>jac::Atom::create</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Create a new atom from a string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to create the atom in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The newly constructed atom </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="138" column="17" bodyfile="src/jac/machine/atom.h" bodystart="138" bodyend="140"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classjac_1_1Atom_1a64dbb51d42ddf6a0c04a227c979bbe60" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, Atom &amp;val)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>jac::Atom::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> &amp;</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/atom.h" line="142" column="12" bodyfile="src/jac/machine/atom.h" bodystart="142" bodyend="145"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper around JSAtom with RAII. In the context of QuickJS, <ref refid="classjac_1_1Atom" kindref="compound">Atom</ref> is used to represent identifiers of properties, variables, functions, etc. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>jac::Atom</label>
+        <link refid="classjac_1_1Atom"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>_ctx</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>jac::ContextRef</label>
+        <link refid="classjac_1_1ContextRef"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/atom.h" line="28" column="1" bodyfile="src/jac/machine/atom.h" bodystart="28" bodyend="146"/>
+    <listofallmembers>
+      <member refid="classjac_1_1Atom_1a1fa16dc9b597ad7ae31a6eb412d3ac3a" prot="protected" virt="non-virtual"><scope>jac::Atom</scope><name>_atom</name></member>
+      <member refid="classjac_1_1Atom_1a83f7c132baeb9064140408a719f0de1b" prot="protected" virt="non-virtual"><scope>jac::Atom</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1Atom_1a45fc82b158d06498da1345f67263ff0e" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>Atom</name></member>
+      <member refid="classjac_1_1Atom_1a857c3e6650bbb6f07fcfc8d51f7c1902" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>Atom</name></member>
+      <member refid="classjac_1_1Atom_1afe0a37ef2afca50a255b513c63a4fcb3" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>Atom</name></member>
+      <member refid="classjac_1_1Atom_1a3ee25bcabf4d8da49a1d948b7b088eba" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>create</name></member>
+      <member refid="classjac_1_1Atom_1a1bcd882342d35149f028dd2b58fb7f55" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>create</name></member>
+      <member refid="classjac_1_1Atom_1ab9069e4e75071e7d6015d46ebf3041bb" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>create</name></member>
+      <member refid="classjac_1_1Atom_1afbfeca33eac0fb7ac376403abeca0c28" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>get</name></member>
+      <member refid="classjac_1_1Atom_1a9119c5e4293f8f489630d95ff37a44b2" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>loot</name></member>
+      <member refid="classjac_1_1Atom_1a64dbb51d42ddf6a0c04a227c979bbe60" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classjac_1_1Atom_1a84dc368cb76b731ff1bfe28c93538c8d" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>operator=</name></member>
+      <member refid="classjac_1_1Atom_1a2d4202966e2f5ab405506cc2b73b1149" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>operator=</name></member>
+      <member refid="classjac_1_1Atom_1aa6669b84551cd4edfc9206286a4ebe3a" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>toString</name></member>
+      <member refid="classjac_1_1Atom_1a7d58be96118d10c1463f28e1b362d8df" prot="public" virt="non-virtual"><scope>jac::Atom</scope><name>~Atom</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

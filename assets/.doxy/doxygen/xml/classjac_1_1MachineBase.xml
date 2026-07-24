@@ -1,0 +1,552 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1MachineBase" kind="class" language="C++" prot="public">
+    <compoundname>jac::MachineBase</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1a9dd1deca7619de51c547f87595e31a3f" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; JSModuleDef *, <ref refid="classjac_1_1Module" kindref="compound">Module</ref> &gt;</type>
+        <definition>std::unordered_map&lt;JSModuleDef*, Module&gt; jac::MachineBase::_modules</definition>
+        <argsstring></argsstring>
+        <name>_modules</name>
+        <qualifiedname>jac::MachineBase::_modules</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="112" column="24" bodyfile="src/jac/machine/machine.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1aedc7a1e825fc76f782fc0a7b004b6602" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool jac::MachineBase::_interrupt</definition>
+        <argsstring></argsstring>
+        <name>_interrupt</name>
+        <qualifiedname>jac::MachineBase::_interrupt</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="115" column="10" bodyfile="src/jac/machine/machine.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1ae56e553873cf84a8beb3df9376c6efb4" prot="private" static="no" mutable="no">
+        <type>std::chrono::milliseconds</type>
+        <definition>std::chrono::milliseconds jac::MachineBase::_watchdogTimeout</definition>
+        <argsstring></argsstring>
+        <name>_watchdogTimeout</name>
+        <qualifiedname>jac::MachineBase::_watchdogTimeout</qualifiedname>
+        <initializer>= std::chrono::milliseconds(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="117" column="31" bodyfile="src/jac/machine/machine.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1a5539a3ea3f06df8544934509cf59697f" prot="private" static="no" mutable="no">
+        <type>std::chrono::time_point&lt; std::chrono::steady_clock &gt;</type>
+        <definition>std::chrono::time_point&lt;std::chrono::steady_clock&gt; jac::MachineBase::_watchdogNext</definition>
+        <argsstring></argsstring>
+        <name>_watchdogNext</name>
+        <qualifiedname>jac::MachineBase::_watchdogNext</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="118" column="29" bodyfile="src/jac/machine/machine.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1a986c1efafe8823d7f0b2274a0fa8afb4" prot="private" static="no" mutable="no">
+        <type>std::function&lt; bool()&gt;</type>
+        <definition>std::function&lt;bool()&gt; jac::MachineBase::_wathdogCallback</definition>
+        <argsstring></argsstring>
+        <name>_wathdogCallback</name>
+        <qualifiedname>jac::MachineBase::_wathdogCallback</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="119" column="19" bodyfile="src/jac/machine/machine.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1a6f667fc464baf034bf3248b2904c72cf" prot="private" static="no" mutable="no">
+        <type>const JSMallocFunctions *</type>
+        <definition>const JSMallocFunctions* jac::MachineBase::mallocFunctions</definition>
+        <argsstring></argsstring>
+        <name>mallocFunctions</name>
+        <qualifiedname>jac::MachineBase::mallocFunctions</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="120" column="29" bodyfile="src/jac/machine/machine.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1afbc6e6dfc5eef89a78f995402154b372" prot="private" static="no" mutable="no">
+        <type>JSRuntime *</type>
+        <definition>JSRuntime* jac::MachineBase::_runtime</definition>
+        <argsstring></argsstring>
+        <name>_runtime</name>
+        <qualifiedname>jac::MachineBase::_runtime</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="122" column="15" bodyfile="src/jac/machine/machine.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1MachineBase_1a32712c8bfde661e5baf1f60885eeac35" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::MachineBase::_context</definition>
+        <argsstring></argsstring>
+        <name>_context</name>
+        <qualifiedname>jac::MachineBase::_context</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="123" column="16" bodyfile="src/jac/machine/machine.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classjac_1_1MachineBase_1a21f639900c480510650969df9c74d17d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Module</definition>
+        <argsstring></argsstring>
+        <name>Module</name>
+        <qualifiedname>jac::MachineBase::Module</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="234" column="18" bodyfile="src/jac/machine/machine.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a51055dd9efd5eb1357d839f8dd363dcd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        <definition>Module &amp; jac::MachineBase::findModule</definition>
+        <argsstring>(JSModuleDef *m)</argsstring>
+        <name>findModule</name>
+        <qualifiedname>jac::MachineBase::findModule</qualifiedname>
+        <param>
+          <type>JSModuleDef *</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="113" column="12" bodyfile="src/jac/machine/machine.cpp" bodystart="76" bodyend="82"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1MachineBase_1ac77b7308fcf10291c6c70f9c7b744dfb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSRuntime *</type>
+        <definition>JSRuntime * jac::MachineBase::runtime</definition>
+        <argsstring>()</argsstring>
+        <name>runtime</name>
+        <qualifiedname>jac::MachineBase::runtime</qualifiedname>
+        <briefdescription>
+<para>Get the JSRuntime* for this machine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The JSRuntime* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="130" column="15" bodyfile="src/jac/machine/machine.h" bodystart="130" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a1f2b82472f40cd409dcd236b11e1f6cd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::MachineBase::context</definition>
+        <argsstring>()</argsstring>
+        <name>context</name>
+        <qualifiedname>jac::MachineBase::context</qualifiedname>
+        <briefdescription>
+<para>Get the <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref> for this machine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The <ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="139" column="16" bodyfile="src/jac/machine/machine.h" bodystart="139" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1abc2f84fd8c99d0e65648d2bc56d5319d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::MachineBase::initialize</qualifiedname>
+        <briefdescription>
+<para>Initialize the machine. Should be called after machine configuration is done and before any interaction with the javascript engine. Other MFeatures in the Machine stack can implement this method to initialize themselves but the first call should be Next::initialize(). </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="149" column="10" bodyfile="src/jac/machine/machine.cpp" bodystart="26" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1aa29fdb01e05d04fc70408347e54a3939" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::MachineBase::MachineBase</definition>
+        <argsstring>()=default</argsstring>
+        <name>MachineBase</name>
+        <qualifiedname>jac::MachineBase::MachineBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="151" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a78d2fd95d456a911fa6c2a4ff8d89911" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::MachineBase::MachineBase</definition>
+        <argsstring>(const MachineBase &amp;)=delete</argsstring>
+        <name>MachineBase</name>
+        <qualifiedname>jac::MachineBase::MachineBase</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="152" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a187c4bceb5ae436706ddc38d1736d964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::MachineBase::MachineBase</definition>
+        <argsstring>(MachineBase &amp;&amp;)=delete</argsstring>
+        <name>MachineBase</name>
+        <qualifiedname>jac::MachineBase::MachineBase</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="153" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1ad41f18ce7168bd07b1e4d29202a89d01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        <definition>MachineBase &amp; jac::MachineBase::operator=</definition>
+        <argsstring>(const MachineBase &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::MachineBase::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="154" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1aa37b4275e2ba10525e9ddee9c34d0310" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        <definition>MachineBase &amp; jac::MachineBase::operator=</definition>
+        <argsstring>(MachineBase &amp;&amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::MachineBase::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;&amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="155" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a37aed04ca27f292d74b1bde6eeb224e9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual jac::MachineBase::~MachineBase</definition>
+        <argsstring>()</argsstring>
+        <name>~MachineBase</name>
+        <qualifiedname>jac::MachineBase::~MachineBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="157" column="13" bodyfile="src/jac/machine/machine.h" bodystart="157" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1ae7021fc78776d60e1c7d218b039341d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::MachineBase::eval</definition>
+        <argsstring>(std::string code, std::string filename, EvalFlags flags=EvalFlags::Global)</argsstring>
+        <name>eval</name>
+        <qualifiedname>jac::MachineBase::eval</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>code</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>EvalFlags</type>
+          <declname>flags</declname>
+          <defval>EvalFlags::Global</defval>
+        </param>
+        <briefdescription>
+<para>Evaluate a string containing javascript code. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>If the evaluation mode is EvalFlags::Module, the result will be a Promise</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>code</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the code to evaluate </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filename to use for the code. Used for error reporting </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>flags to evaluate the code with </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of the evaluation </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="176" column="11" bodyfile="src/jac/machine/machine.cpp" bodystart="57" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a9f788ab64445a1e8569eac07db7c6a15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        <definition>Module &amp; jac::MachineBase::newModule</definition>
+        <argsstring>(std::string name)</argsstring>
+        <name>newModule</name>
+        <qualifiedname>jac::MachineBase::newModule</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Create a new module in the machine. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the module </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Reference to the new module </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="184" column="12" bodyfile="src/jac/machine/machine.cpp" bodystart="68" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1ad93b2852589d57f1892b6697158b4c9c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::interruptRuntime</definition>
+        <argsstring>()</argsstring>
+        <name>interruptRuntime</name>
+        <qualifiedname>jac::MachineBase::interruptRuntime</qualifiedname>
+        <briefdescription>
+<para>Interrupt running javascript code. Execution will be thrown in the javascript as an InterruptError. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="190" column="10" bodyfile="src/jac/machine/machine.h" bodystart="190" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a13e332041037a763479cb7863498fe73" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::resetWatchdog</definition>
+        <argsstring>()</argsstring>
+        <name>resetWatchdog</name>
+        <qualifiedname>jac::MachineBase::resetWatchdog</qualifiedname>
+        <briefdescription>
+<para>Reset the watchdog timer. This should be called periodically to prevent the watchdog from triggering. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="198" column="10" bodyfile="src/jac/machine/machine.h" bodystart="198" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1abc45c829a52dd079aa2dad1680d9a034" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::setWatchdogTimeout</definition>
+        <argsstring>(std::chrono::milliseconds timeout)</argsstring>
+        <name>setWatchdogTimeout</name>
+        <qualifiedname>jac::MachineBase::setWatchdogTimeout</qualifiedname>
+        <param>
+          <type>std::chrono::milliseconds</type>
+          <declname>timeout</declname>
+        </param>
+        <briefdescription>
+<para>Set the watchdog timeout. If the timeout is zero, the watchdog is disabled. Otherwise, the watchdog will be called when the timeout has passed since the last reset. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>watchdog timeout </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="209" column="10" bodyfile="src/jac/machine/machine.h" bodystart="209" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a79fea312906e5446e00a0b1695380224" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::setWatchdogHandler</definition>
+        <argsstring>(std::function&lt; bool()&gt; callback)</argsstring>
+        <name>setWatchdogHandler</name>
+        <qualifiedname>jac::MachineBase::setWatchdogHandler</qualifiedname>
+        <param>
+          <type>std::function&lt; bool()&gt;</type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+<para>Set the watchdog callback. The callback will be called when the watchdog timeout has passed since the last reset. If the callback returns true, the runtime will be interrupted. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback to call </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="220" column="10" bodyfile="src/jac/machine/machine.h" bodystart="220" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1MachineBase_1a57f2572e76d89ad660e43a0a2a56048f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::MachineBase::setMallocFunctions</definition>
+        <argsstring>(const JSMallocFunctions *fns)</argsstring>
+        <name>setMallocFunctions</name>
+        <qualifiedname>jac::MachineBase::setMallocFunctions</qualifiedname>
+        <param>
+          <type>const JSMallocFunctions *</type>
+          <declname>fns</declname>
+        </param>
+        <briefdescription>
+<para>Set custom malloc functions for the QuickJS engine. If the value is nullptr, the default malloc functions will be used. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>malloc functions to use </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="230" column="10" bodyfile="src/jac/machine/machine.h" bodystart="230" bodyend="232"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/machine.h" line="110" column="1" bodyfile="src/jac/machine/machine.h" bodystart="110" bodyend="235"/>
+    <listofallmembers>
+      <member refid="classjac_1_1MachineBase_1a32712c8bfde661e5baf1f60885eeac35" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_context</name></member>
+      <member refid="classjac_1_1MachineBase_1aedc7a1e825fc76f782fc0a7b004b6602" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_interrupt</name></member>
+      <member refid="classjac_1_1MachineBase_1a9dd1deca7619de51c547f87595e31a3f" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_modules</name></member>
+      <member refid="classjac_1_1MachineBase_1afbc6e6dfc5eef89a78f995402154b372" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_runtime</name></member>
+      <member refid="classjac_1_1MachineBase_1a5539a3ea3f06df8544934509cf59697f" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_watchdogNext</name></member>
+      <member refid="classjac_1_1MachineBase_1ae56e553873cf84a8beb3df9376c6efb4" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_watchdogTimeout</name></member>
+      <member refid="classjac_1_1MachineBase_1a986c1efafe8823d7f0b2274a0fa8afb4" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>_wathdogCallback</name></member>
+      <member refid="classjac_1_1MachineBase_1a1f2b82472f40cd409dcd236b11e1f6cd" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>context</name></member>
+      <member refid="classjac_1_1MachineBase_1ae7021fc78776d60e1c7d218b039341d6" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>eval</name></member>
+      <member refid="classjac_1_1MachineBase_1a51055dd9efd5eb1357d839f8dd363dcd" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>findModule</name></member>
+      <member refid="classjac_1_1MachineBase_1abc2f84fd8c99d0e65648d2bc56d5319d" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>initialize</name></member>
+      <member refid="classjac_1_1MachineBase_1ad93b2852589d57f1892b6697158b4c9c" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>interruptRuntime</name></member>
+      <member refid="classjac_1_1MachineBase_1aa29fdb01e05d04fc70408347e54a3939" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>MachineBase</name></member>
+      <member refid="classjac_1_1MachineBase_1a78d2fd95d456a911fa6c2a4ff8d89911" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>MachineBase</name></member>
+      <member refid="classjac_1_1MachineBase_1a187c4bceb5ae436706ddc38d1736d964" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>MachineBase</name></member>
+      <member refid="classjac_1_1MachineBase_1a6f667fc464baf034bf3248b2904c72cf" prot="private" virt="non-virtual"><scope>jac::MachineBase</scope><name>mallocFunctions</name></member>
+      <member refid="classjac_1_1MachineBase_1a21f639900c480510650969df9c74d17d" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>Module</name></member>
+      <member refid="classjac_1_1MachineBase_1a9f788ab64445a1e8569eac07db7c6a15" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>newModule</name></member>
+      <member refid="classjac_1_1MachineBase_1ad41f18ce7168bd07b1e4d29202a89d01" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>operator=</name></member>
+      <member refid="classjac_1_1MachineBase_1aa37b4275e2ba10525e9ddee9c34d0310" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>operator=</name></member>
+      <member refid="classjac_1_1MachineBase_1a13e332041037a763479cb7863498fe73" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>resetWatchdog</name></member>
+      <member refid="classjac_1_1MachineBase_1ac77b7308fcf10291c6c70f9c7b744dfb" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>runtime</name></member>
+      <member refid="classjac_1_1MachineBase_1a57f2572e76d89ad660e43a0a2a56048f" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>setMallocFunctions</name></member>
+      <member refid="classjac_1_1MachineBase_1a79fea312906e5446e00a0b1695380224" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>setWatchdogHandler</name></member>
+      <member refid="classjac_1_1MachineBase_1abc45c829a52dd079aa2dad1680d9a034" prot="public" virt="non-virtual"><scope>jac::MachineBase</scope><name>setWatchdogTimeout</name></member>
+      <member refid="classjac_1_1MachineBase_1a37aed04ca27f292d74b1bde6eeb224e9" prot="public" virt="virtual"><scope>jac::MachineBase</scope><name>~MachineBase</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

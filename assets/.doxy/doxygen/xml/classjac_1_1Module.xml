@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1Module" kind="class" language="C++" prot="public">
+    <compoundname>jac::Module</compoundname>
+    <includes refid="machine_8h" local="no">machine.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1Module_1a53c467dbee0c314a7edbb10088e3940d" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::Module::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::Module::_ctx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="57" column="16" bodyfile="src/jac/machine/machine.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Module_1a22c09523dca7946dbe9268f95b0881d1" prot="private" static="no" mutable="no">
+        <type>JSModuleDef *</type>
+        <definition>JSModuleDef* jac::Module::_def</definition>
+        <argsstring></argsstring>
+        <name>_def</name>
+        <qualifiedname>jac::Module::_def</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="58" column="17" bodyfile="src/jac/machine/machine.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1Module_1a6ded13f527335221466d6bcd4cf662fd" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::tuple&lt; std::string, <ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::tuple&lt;std::string, Value&gt; &gt; jac::Module::exports</definition>
+        <argsstring></argsstring>
+        <name>exports</name>
+        <qualifiedname>jac::Module::exports</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="60" column="17" bodyfile="src/jac/machine/machine.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classjac_1_1Module_1ae4cb3852146d01f3006fa4f86f028e41" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        <definition>MachineBase &amp; jac::Module::base</definition>
+        <argsstring>()</argsstring>
+        <name>base</name>
+        <qualifiedname>jac::Module::base</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="62" column="24" bodyfile="src/jac/machine/machine.h" bodystart="62" bodyend="64"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classjac_1_1Module_1a55b131d6246afc51a3b05b68878d4a6f" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1MachineBase" kindref="compound">MachineBase</ref> &amp;</type>
+        <definition>static MachineBase &amp; jac::Module::base</definition>
+        <argsstring>(ContextRef ctx)</argsstring>
+        <name>base</name>
+        <qualifiedname>jac::Module::base</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="66" column="31" bodyfile="src/jac/machine/machine.h" bodystart="66" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1Module_1a77d79726d047785bac7b96283ffa9f39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::Module::Module</definition>
+        <argsstring>(ContextRef ctx, std::string name)</argsstring>
+        <name>Module</name>
+        <qualifiedname>jac::Module::Module</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+<para>Create a new module in the given context. Should not be called directly, use <ref refid="classjac_1_1MachineBase_1a9f788ab64445a1e8569eac07db7c6a15" kindref="member">MachineBase::newModule</ref> instead. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the module </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="77" column="5" bodyfile="src/jac/machine/machine.cpp" bodystart="7" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1a0a3126287937205b54b955a7cd59eea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        <definition>Module &amp; jac::Module::operator=</definition>
+        <argsstring>(const Module &amp;)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::Module::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="78" column="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1aea341b6c432eda2be1c9f0fc3bd024d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::Module::Module</definition>
+        <argsstring>(const Module &amp;)=delete</argsstring>
+        <name>Module</name>
+        <qualifiedname>jac::Module::Module</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="79" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1a03b945cf5728c41f7c2c584bc2f7c82f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;</type>
+        <definition>Module &amp; jac::Module::operator=</definition>
+        <argsstring>(Module &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::Module::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="80" column="12" bodyfile="src/jac/machine/machine.h" bodystart="80" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1abe0ea339d6198039b9987b9e99ea0fe5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::Module::Module</definition>
+        <argsstring>(Module &amp;&amp;other)</argsstring>
+        <name>Module</name>
+        <qualifiedname>jac::Module::Module</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1Module" kindref="compound">Module</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="87" column="5" bodyfile="src/jac/machine/machine.h" bodystart="87" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1a29abca2dd39926a3f792db68617e5e95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::Module::addExport</definition>
+        <argsstring>(std::string name, Value val)</argsstring>
+        <name>addExport</name>
+        <qualifiedname>jac::Module::addExport</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Add a value to the module&apos;s exports. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the export </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the value to export </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="97" column="10" bodyfile="src/jac/machine/machine.cpp" bodystart="21" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1Module_1a6aea5235e284712f02c5f2f513989e7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSModuleDef *</type>
+        <definition>JSModuleDef * jac::Module::get</definition>
+        <argsstring>()</argsstring>
+        <name>get</name>
+        <qualifiedname>jac::Module::get</qualifiedname>
+        <briefdescription>
+<para>Get the underlying JSModuleDef* for this module. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>JSModuleDef* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/machine.h" line="104" column="17" bodyfile="src/jac/machine/machine.h" bodystart="104" bodyend="106"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper around JSModuleDef that allows for easy exporting of values. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/machine.h" line="56" column="1" bodyfile="src/jac/machine/machine.h" bodystart="56" bodyend="107"/>
+    <listofallmembers>
+      <member refid="classjac_1_1Module_1a53c467dbee0c314a7edbb10088e3940d" prot="private" virt="non-virtual"><scope>jac::Module</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1Module_1a22c09523dca7946dbe9268f95b0881d1" prot="private" virt="non-virtual"><scope>jac::Module</scope><name>_def</name></member>
+      <member refid="classjac_1_1Module_1a29abca2dd39926a3f792db68617e5e95" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>addExport</name></member>
+      <member refid="classjac_1_1Module_1ae4cb3852146d01f3006fa4f86f028e41" prot="private" virt="non-virtual"><scope>jac::Module</scope><name>base</name></member>
+      <member refid="classjac_1_1Module_1a55b131d6246afc51a3b05b68878d4a6f" prot="private" virt="non-virtual"><scope>jac::Module</scope><name>base</name></member>
+      <member refid="classjac_1_1Module_1a6ded13f527335221466d6bcd4cf662fd" prot="private" virt="non-virtual"><scope>jac::Module</scope><name>exports</name></member>
+      <member refid="classjac_1_1Module_1a6aea5235e284712f02c5f2f513989e7d" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>get</name></member>
+      <member refid="classjac_1_1Module_1a77d79726d047785bac7b96283ffa9f39" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>Module</name></member>
+      <member refid="classjac_1_1Module_1aea341b6c432eda2be1c9f0fc3bd024d2" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>Module</name></member>
+      <member refid="classjac_1_1Module_1abe0ea339d6198039b9987b9e99ea0fe5" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>Module</name></member>
+      <member refid="classjac_1_1Module_1a0a3126287937205b54b955a7cd59eea7" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>operator=</name></member>
+      <member refid="classjac_1_1Module_1a03b945cf5728c41f7c2c584bc2f7c82f" prot="public" virt="non-virtual"><scope>jac::Module</scope><name>operator=</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1NodeModuleLoaderFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::NodeModuleLoaderFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classjac_1_1NodeModuleLoaderFeature_1ae3b0845e297fd7f5ba2b47378f82b537" prot="public" static="yes" mutable="no">
+        <type>const std::set&lt; std::string_view &gt;</type>
+        <definition>const std::set&lt;std::string_view&gt; jac::NodeModuleLoaderFeature&lt; Next &gt;::defaultConditions</definition>
+        <argsstring></argsstring>
+        <name>defaultConditions</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::defaultConditions</qualifiedname>
+        <initializer>= { &quot;jaculus&quot;, &quot;node&quot;, &quot;import&quot; }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="47" column="34" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="47" bodyend="47"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1ade36bfba0c6a86263d5e07f08decd90a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; std::string &gt;</type>
+        <definition>static std::optional&lt; std::string &gt; jac::NodeModuleLoaderFeature&lt; Next &gt;::PACKAGE_TARGET_RESOLVE</definition>
+        <argsstring>(const std::string &amp;packageURL, jac::Value target, std::optional&lt; std::string &gt; patternMatch, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>PACKAGE_TARGET_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::PACKAGE_TARGET_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageURL</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">jac::Value</ref></type>
+          <declname>target</declname>
+        </param>
+        <param>
+          <type>std::optional&lt; std::string &gt;</type>
+          <declname>patternMatch</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="49" column="26" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="49" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1aba3ee63297c48de7ebc9d8d68730f635" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; std::string &gt;</type>
+        <definition>static std::optional&lt; std::string &gt; jac::NodeModuleLoaderFeature&lt; Next &gt;::PACKAGE_IMPORTS_EXPORTS_RESOLVE</definition>
+        <argsstring>(const std::string &amp;matchKey, jac::Object matchObj, const std::string &amp;packageURL, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>PACKAGE_IMPORTS_EXPORTS_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::PACKAGE_IMPORTS_EXPORTS_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>matchKey</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">jac::Object</ref></type>
+          <declname>matchObj</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageURL</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="121" column="26" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="121" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1aae01994e9c6676ae9b3870fda2c18516" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string jac::NodeModuleLoaderFeature&lt; Next &gt;::PACKAGE_EXPORTS_RESOLVE</definition>
+        <argsstring>(const std::string &amp;packageURL, const std::string &amp;subpath, jac::Value exports, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>PACKAGE_EXPORTS_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::PACKAGE_EXPORTS_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageURL</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>subpath</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">jac::Value</ref></type>
+          <declname>exports</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="167" column="24" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="167" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1aa74edc3e20c9ceb7f8239bb32524c2cd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::optional&lt; std::string &gt;</type>
+        <definition>static std::optional&lt; std::string &gt; jac::NodeModuleLoaderFeature&lt; Next &gt;::PACKAGE_SELF_RESOLVE</definition>
+        <argsstring>(const std::string &amp;packageName, const std::string &amp;packageSubpath, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>PACKAGE_SELF_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::PACKAGE_SELF_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageName</declname>
+        </param>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageSubpath</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="222" column="26" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="222" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1a7d8f33d454f035507f4e648ce50c5b0d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ObjectWrapper" kindref="compound">jac::Object</ref></type>
+        <definition>static jac::Object jac::NodeModuleLoaderFeature&lt; Next &gt;::READ_PACKAGE_JSON</definition>
+        <argsstring>(const std::string &amp;packageURL, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>READ_PACKAGE_JSON</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::READ_PACKAGE_JSON</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageURL</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="238" column="24" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="238" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1ad279ac54e3606b6e6a869624c96c6e20" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string jac::NodeModuleLoaderFeature&lt; Next &gt;::PACKAGE_RESOLVE</definition>
+        <argsstring>(const std::string &amp;packageSpecifier, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>PACKAGE_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::PACKAGE_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>packageSpecifier</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="245" column="24" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="245" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1af306735573e8f2a755f61e095a97a45b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>static std::string jac::NodeModuleLoaderFeature&lt; Next &gt;::ESM_RESOLVE</definition>
+        <argsstring>(const std::string &amp;specifier, NodeModuleLoaderFeature&lt; Next &gt; &amp;self)</argsstring>
+        <name>ESM_RESOLVE</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::ESM_RESOLVE</qualifiedname>
+        <param>
+          <type>const std::string &amp;</type>
+          <declname>specifier</declname>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1NodeModuleLoaderFeature" kindref="compound">NodeModuleLoaderFeature</ref>&lt; Next &gt; &amp;</type>
+          <declname>self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="310" column="24" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="310" bodyend="347"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1a4cfaa1af69f9eeebc56364850634fce4" prot="private" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>JSModuleDef *</type>
+        <definition>static JSModuleDef * jac::NodeModuleLoaderFeature&lt; Next &gt;::moduleLoaderCbk</definition>
+        <argsstring>(JSContext *ctx, const char *module_name, void *_self)</argsstring>
+        <name>moduleLoaderCbk</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::moduleLoaderCbk</qualifiedname>
+        <param>
+          <type>JSContext *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>module_name</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>_self</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="350" column="24" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="350" bodyend="378"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1a05d94e10d61a3b715e3707b8c5950143" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>Value jac::NodeModuleLoaderFeature&lt; Next &gt;::evalFile</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>evalFile</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::evalFile</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A promise that will be resolved when the module ends, and rejected if the module throws an exception. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="388" column="11" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="388" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1adde9a642cd5361a98adc36da3ac8185c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::NodeModuleLoaderFeature&lt; Next &gt;::evalFileWithEventLoop</definition>
+        <argsstring>(std::string path_)</argsstring>
+        <name>evalFileWithEventLoop</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::evalFileWithEventLoop</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path_</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate a file and run the event loop until the program exits or throws an exception. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path_</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path to the file </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="401" column="10" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="401" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1NodeModuleLoaderFeature_1aebb216d0816225aabbf5e58f23981378" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::NodeModuleLoaderFeature&lt; Next &gt;::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::NodeModuleLoaderFeature::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/nodeModuleLoaderFeature.h" line="406" column="10" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="406" bodyend="410"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::NodeModuleLoaderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1NodeModuleLoaderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::NodeModuleLoaderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1NodeModuleLoaderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/nodeModuleLoaderFeature.h" line="44" column="1" bodyfile="src/jac/features/nodeModuleLoaderFeature.h" bodystart="44" bodyend="411"/>
+    <listofallmembers>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1ae3b0845e297fd7f5ba2b47378f82b537" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>defaultConditions</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1af306735573e8f2a755f61e095a97a45b" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>ESM_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1a05d94e10d61a3b715e3707b8c5950143" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>evalFile</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1adde9a642cd5361a98adc36da3ac8185c" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>evalFileWithEventLoop</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1aebb216d0816225aabbf5e58f23981378" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>initialize</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1a4cfaa1af69f9eeebc56364850634fce4" prot="private" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>moduleLoaderCbk</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1aae01994e9c6676ae9b3870fda2c18516" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>PACKAGE_EXPORTS_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1aba3ee63297c48de7ebc9d8d68730f635" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>PACKAGE_IMPORTS_EXPORTS_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1ad279ac54e3606b6e6a869624c96c6e20" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>PACKAGE_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1aa74edc3e20c9ceb7f8239bb32524c2cd" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>PACKAGE_SELF_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1ade36bfba0c6a86263d5e07f08decd90a" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>PACKAGE_TARGET_RESOLVE</name></member>
+      <member refid="classjac_1_1NodeModuleLoaderFeature_1a7d8f33d454f035507f4e648ce50c5b0d" prot="public" virt="non-virtual"><scope>jac::NodeModuleLoaderFeature</scope><name>READ_PACKAGE_JSON</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

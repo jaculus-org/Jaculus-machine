@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1StringView" kind="class" language="C++" prot="public">
+    <compoundname>jac::StringView</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">std::basic_string_view&lt; char &gt;</basecompoundref>
+    <includes refid="stringView_8h" local="no">stringView.h</includes>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classjac_1_1StringView_1a359289c4cf9d119a2d244e6b0380e062" prot="private" static="no">
+        <type>std::basic_string_view&lt; char &gt;</type>
+        <definition>using jac::StringView::basic_string_view =  std::basic_string_view&lt;char&gt;</definition>
+        <argsstring></argsstring>
+        <name>basic_string_view</name>
+        <qualifiedname>jac::StringView::basic_string_view</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="17" column="5" bodyfile="src/jac/machine/stringView.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1StringView_1a5522c07feea31f1428c8736130d9a9cf" prot="private" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::StringView::_ctx</definition>
+        <argsstring></argsstring>
+        <name>_ctx</name>
+        <qualifiedname>jac::StringView::_ctx</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="19" column="16" bodyfile="src/jac/machine/stringView.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1StringView_1abaa98e3b937f35a125efd5ec8323d012" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::StringView</definition>
+        <argsstring>(StringView &amp;&amp;other)</argsstring>
+        <name>StringView</name>
+        <qualifiedname>jac::StringView::StringView</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="21" column="5" bodyfile="src/jac/machine/stringView.h" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1a2bfa451a0cb10ab6deab01355f233d45" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;</type>
+        <definition>StringView &amp; jac::StringView::operator=</definition>
+        <argsstring>(StringView &amp;&amp;other)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::StringView::operator=</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;&amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="25" column="16" bodyfile="src/jac/machine/stringView.h" bodystart="25" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1a5d9ff3f196f7337b2f2472d4c0c4d64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::StringView</definition>
+        <argsstring>(const basic_string_view &amp;other)=delete</argsstring>
+        <name>StringView</name>
+        <qualifiedname>jac::StringView::StringView</qualifiedname>
+        <param>
+          <type>const basic_string_view &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="35" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1a0c1caf0ed3fdb8327b3407563aef7e70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::StringView</definition>
+        <argsstring>(const StringView &amp;other)=delete</argsstring>
+        <name>StringView</name>
+        <qualifiedname>jac::StringView::StringView</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="36" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1a827579c8b47dc8e90a75784fc324b0f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;</type>
+        <definition>StringView &amp; jac::StringView::operator=</definition>
+        <argsstring>(const StringView &amp;other)=delete</argsstring>
+        <name>operator=</name>
+        <qualifiedname>jac::StringView::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="37" column="16"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1aa65ab0000009b5adf1669cf5ebf5fd7d" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * jac::StringView::c_str</definition>
+        <argsstring>() const</argsstring>
+        <name>c_str</name>
+        <qualifiedname>jac::StringView::c_str</qualifiedname>
+        <briefdescription>
+<para>Get the C string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>const char* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="44" column="16" bodyfile="src/jac/machine/stringView.h" bodystart="44" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1aeafc54a73a66f17342d7173c61e01672" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::StringView</definition>
+        <argsstring>()=default</argsstring>
+        <name>StringView</name>
+        <qualifiedname>jac::StringView::StringView</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="48" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1ada954857593058b26265e56fec774592" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::StringView</definition>
+        <argsstring>(ContextRef ctx, const char *str)</argsstring>
+        <name>StringView</name>
+        <qualifiedname>jac::StringView::StringView</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Wrap a QuickJS allocated string. The string will be freed when the <ref refid="classjac_1_1StringView" kindref="compound">StringView</ref> is freed. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>The string must be allocated using QuickJS functions - JS_NewString, JS_ToCString, etc.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to wrap </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="57" column="5" bodyfile="src/jac/machine/stringView.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1a7790ba339fda3892addce3b6fe3be3b0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::~StringView</definition>
+        <argsstring>()</argsstring>
+        <name>~StringView</name>
+        <qualifiedname>jac::StringView::~StringView</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="59" column="5" bodyfile="src/jac/machine/stringView.h" bodystart="59" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1StringView_1adea84c67162da691e2ee686c17046936" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::StringView::operator std::string</definition>
+        <argsstring>() const</argsstring>
+        <name>operator std::string</name>
+        <qualifiedname>jac::StringView::string</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/stringView.h" line="65" column="5" bodyfile="src/jac/machine/stringView.h" bodystart="65" bodyend="67"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A wrapper around QuickJS C-string with automatic memory management. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>jac::StringView</label>
+        <link refid="classjac_1_1StringView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::basic_string_view&lt; char &gt;</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>jac::StringView</label>
+        <link refid="classjac_1_1StringView"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>std::basic_string_view&lt; char &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/stringView.h" line="16" column="1" bodyfile="src/jac/machine/stringView.h" bodystart="16" bodyend="68"/>
+    <listofallmembers>
+      <member refid="classjac_1_1StringView_1a5522c07feea31f1428c8736130d9a9cf" prot="private" virt="non-virtual"><scope>jac::StringView</scope><name>_ctx</name></member>
+      <member refid="classjac_1_1StringView_1a359289c4cf9d119a2d244e6b0380e062" prot="private" virt="non-virtual"><scope>jac::StringView</scope><name>basic_string_view</name></member>
+      <member refid="classjac_1_1StringView_1aa65ab0000009b5adf1669cf5ebf5fd7d" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>c_str</name></member>
+      <member refid="classjac_1_1StringView_1adea84c67162da691e2ee686c17046936" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>operator std::string</name></member>
+      <member refid="classjac_1_1StringView_1a2bfa451a0cb10ab6deab01355f233d45" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>operator=</name></member>
+      <member refid="classjac_1_1StringView_1a827579c8b47dc8e90a75784fc324b0f0" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>operator=</name></member>
+      <member refid="classjac_1_1StringView_1abaa98e3b937f35a125efd5ec8323d012" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>StringView</name></member>
+      <member refid="classjac_1_1StringView_1a5d9ff3f196f7337b2f2472d4c0c4d64d" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>StringView</name></member>
+      <member refid="classjac_1_1StringView_1a0c1caf0ed3fdb8327b3407563aef7e70" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>StringView</name></member>
+      <member refid="classjac_1_1StringView_1aeafc54a73a66f17342d7173c61e01672" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>StringView</name></member>
+      <member refid="classjac_1_1StringView_1ada954857593058b26265e56fec774592" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>StringView</name></member>
+      <member refid="classjac_1_1StringView_1a7790ba339fda3892addce3b6fe3be3b0" prot="public" virt="non-virtual"><scope>jac::StringView</scope><name>~StringView</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -17,7 +17,7 @@ endif()
 Include(FetchContent)
 FetchContent_Declare(
     QuickJS
-    URL               https://github.com/bellard/quickjs/archive/19abf1888db5884a5758036ff6e7fa2b340acedc.tar.gz
+    URL               https://github.com/bellard/quickjs/archive/3d5e064e9dd67c70f7962836505a7fa067bf0a4e.tar.gz
     PATCH_COMMAND     ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/quickjs.CMakeLists.txt <SOURCE_DIR>/CMakeLists.txt
     CMAKE_ARGS        -DESP_PLATFORM=${ESP_PLATFORM}
 )

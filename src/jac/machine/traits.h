@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "context.h"
-#include "stringView.h"
+#include "ownedString.h"
 #include "values.h"
 
 
@@ -111,16 +111,17 @@ template<>
 struct ConvTraits<char*> : public ConvTraits<const char*> {};
 
 template<>
-struct ConvTraits<StringView> {
-    static StringView from(ContextRef ctx, ValueWeak val) {
-        const char* str = JS_ToCString(ctx, val.getVal());
+struct ConvTraits<OwnedString> {
+    static OwnedString from(ContextRef ctx, ValueWeak val) {
+        size_t len = 0;
+        const char* str = JS_ToCStringLen(ctx, &len, val.getVal());
         if (!str) {
             throw Exception::create(Exception::Type::TypeError, "Failed to convert to string");
         }
-        return StringView(ctx, str);
+        return OwnedString(ctx, str, len);
     }
 
-    static Value to(ContextRef ctx, StringView val) {
+    static Value to(ContextRef ctx, OwnedString val) {
         return ConvTraits<const char*>::to(ctx, val.c_str());
     }
 };
@@ -128,7 +129,7 @@ struct ConvTraits<StringView> {
 template<>
 struct ConvTraits<std::string> {
     static std::string from(ContextRef ctx, ValueWeak val) {
-        return std::string(ConvTraits<StringView>::from(ctx, val));
+        return std::string(ConvTraits<OwnedString>::from(ctx, val));
     }
 
     static Value to(ContextRef ctx, const std::string& val) {

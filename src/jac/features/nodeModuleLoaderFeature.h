@@ -54,13 +54,13 @@ public:
 
         if (target.isString()) {
             auto targetStr = target.toString();
-            if (!targetStr.starts_with("./")) {
+            if (!targetStr.view().starts_with("./")) {
                 throw jac::Exception::create(jac::Exception::Type::Error, "invalid package target");
             }
-            auto prevSlash = targetStr.find_first_of("/\\");
+            auto prevSlash = targetStr.view().find_first_of("/\\");
             decltype(prevSlash) nextSlash;
-            while ((nextSlash = targetStr.find_first_of("/\\", prevSlash + 1)) != std::string::npos) {
-                auto segment = targetStr.substr(prevSlash + 1, nextSlash - prevSlash - 1);
+            while ((nextSlash = targetStr.view().find_first_of("/\\", prevSlash + 1)) != std::string::npos) {
+                auto segment = targetStr.view().substr(prevSlash + 1, nextSlash - prevSlash - 1);
                 if (segment == "" || segment == "." || segment == ".." || segment == "node_modules") {
                     throw jac::Exception::create(jac::Exception::Type::Error, "invalid package target");
                 }
@@ -102,7 +102,7 @@ public:
             for (auto& key : keys) {
                 auto keyStr = key.toString();
 
-                if (keyStr == "default" || defaultConditions.contains(keyStr)) {
+                if (keyStr.view() == "default" || defaultConditions.contains(keyStr)) {
                     auto targetValue = objectTarget.get<jac::Value>(key);
                     auto resolved = PACKAGE_TARGET_RESOLVE(packageURL, targetValue, patternMatch, self);
                     if (resolved) {
@@ -131,16 +131,16 @@ public:
             auto target = matchObj.get<jac::Value>(matchKey);
             return PACKAGE_TARGET_RESOLVE(packageURL, target, std::nullopt, self);
         }
-        std::vector<jac::StringView> expansionKeys;
+        std::vector<jac::OwnedString> expansionKeys;
         {
             auto keys = matchObj.getOwnPropertyNames();
             for (auto& key : keys) {
                 auto keyStr = key.toString();
-                auto starPos = keyStr.find('*');
+                auto starPos = keyStr.view().find('*');
                 if (starPos == std::string::npos) {
                     continue;
                 }
-                if (keyStr.find('*', starPos + 1) != std::string::npos) {
+                if (keyStr.view().find('*', starPos + 1) != std::string::npos) {
                     continue;
                 }
                 expansionKeys.emplace_back(std::move(keyStr));
@@ -150,12 +150,12 @@ public:
         // FIXME: sort expansionKeys by specificity ("PATTERN_KEY_COMPARE" in docs)
 
         for (auto& expansionKey : expansionKeys) {
-            size_t starPos = expansionKey.find('*');
-            auto patternBase = expansionKey.substr(0, starPos);
+            size_t starPos = expansionKey.view().find('*');
+            auto patternBase = expansionKey.view().substr(0, starPos);
             if (!matchKey.starts_with(patternBase)) {
                 continue;
             }
-            auto patternTrailer = expansionKey.substr(starPos + 1);
+            auto patternTrailer = expansionKey.view().substr(starPos + 1);
             if (patternTrailer.empty() || (matchKey.size() >= expansionKey.size() && matchKey.ends_with(patternTrailer))) {
                 auto target = matchObj.get<jac::Value>(expansionKey);
                 auto patternMatch = matchKey.substr(patternBase.size(), matchKey.size() - patternBase.size() - patternTrailer.size());
@@ -175,7 +175,7 @@ public:
             bool anyDot = false;
             bool anyNonDot = false;
             for (auto& prop : props) {
-                if (prop.toString().starts_with(".")) {
+                if (prop.toString().view().starts_with(".")) {
                     anyDot = true;
                 }
                 else {
@@ -225,7 +225,7 @@ public:
         jac::Object pjson = READ_PACKAGE_JSON(".", self);
         if (pjson.hasProperty("name")) {
             auto nameVal = pjson.get<jac::Value>("name");
-            if (nameVal.isString() && nameVal.toString() == packageName) {
+            if (nameVal.isString() && nameVal.toString().view() == packageName) {
                 if (pjson.hasProperty("exports")) {
                     auto exports = pjson.get<jac::Value>("exports");
                     if (!exports.isUndefined() && !exports.isNull()) {

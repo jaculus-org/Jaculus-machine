@@ -13,7 +13,7 @@
 #include "atom.h"
 #include "context.h"
 #include "internal/declarations.h"
-#include "stringView.h"
+#include "ownedString.h"
 
 
 namespace jac {
@@ -231,12 +231,12 @@ public:
     bool isInstanceOf(ObjectWeak obj);
 
     /**
-     * @brief Convert the Value to a StringView.
+     * @brief Convert the Value to a OwnedString.
      *
-     * @return The StringView
+     * @return The OwnedString
      */
-    StringView toString() {
-        return to<StringView>();
+    OwnedString toString() {
+        return to<OwnedString>();
     }
 
     /**

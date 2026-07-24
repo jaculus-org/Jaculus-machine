@@ -10,6 +10,7 @@
 
 #include <jac/features/filesystemFeature.h>
 #include <jac/features/simpleModuleLoaderFeature.h>
+#include <jac/machine/atom.h>
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
@@ -808,5 +809,30 @@ TEST_CASE("Value inspect", "[values]") {
         std::string out = val.inspect(options);
         CAPTURE(out);
         REQUIRE(out.find("deep") == std::string::npos);
+    }
+}
+
+
+TEST_CASE("String length preserved with embedded NUL", "[values]") {
+    using Machine = TestReportFeature<jac::MachineBase>;
+
+    Machine machine;
+    machine.initialize();
+    auto ctx = machine.context();
+
+    const char raw[] = { 'a', '\0', 'b' };
+    jac::Value val(ctx, JS_NewStringLen(ctx, raw, sizeof(raw)));
+
+    SECTION("Value::toString") {
+        jac::OwnedString sv = val.toString();
+        REQUIRE(sv.size() == sizeof(raw));
+        REQUIRE(std::string(sv) == std::string(raw, sizeof(raw)));
+    }
+
+    SECTION("Atom::toString") {
+        jac::Atom atom(ctx, JS_ValueToAtom(ctx, val.getVal()));
+        jac::OwnedString sv = atom.toString();
+        REQUIRE(sv.size() == sizeof(raw));
+        REQUIRE(std::string(sv) == std::string(raw, sizeof(raw)));
     }
 }

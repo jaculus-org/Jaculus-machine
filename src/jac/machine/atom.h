@@ -8,7 +8,7 @@
 #include "internal/declarations.h"
 
 #include "context.h"
-#include "stringView.h"
+#include "ownedString.h"
 
 
 namespace jac {
@@ -77,10 +77,12 @@ public:
     /**
      * @brief Get string representation of the atom
      *
-     * @return StringView
+     * @return OwnedString
      */
-    StringView toString() const {
-        return { _ctx, JS_AtomToCString(_ctx, _atom) };
+    OwnedString toString() const {
+        size_t len = 0;
+        const char* str = JS_AtomToCStringLen(_ctx, &len, _atom);
+        return { _ctx, str, len };
     }
 
     /**

@@ -1,0 +1,1 @@
+{ name: 'j5', value: 7, } // trailing comma, comment, unquoted + single-quoted keys

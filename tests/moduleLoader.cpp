@@ -112,3 +112,48 @@ TEST_CASE("Import file", "[moduleLoader]") {
         evalFileThrows(machine, "./test_files/moduleLoader/importNotFound/main.js");
     }
 }
+
+
+TEST_CASE("Import JSON module", "[moduleLoader]") {
+    using Machine = jac::ComposeMachine<
+        jac::MachineBase,
+        TestReportFeature,
+        jac::EventQueueFeature,
+        jac::EventLoopFeature,
+        jac::FilesystemFeature,
+        ModuleLoaderFeature,
+        jac::EventLoopTerminal
+    >;
+    Machine machine;
+    machine.setCodeDir("test_files/moduleLoader/importJson");
+
+    SECTION("With type attribute") {
+        machine.initialize();
+        evalFile(machine, "./main.js");
+        REQUIRE(machine.getReports() == std::vector<std::string>{ "config", "42", "true" });
+    }
+
+    SECTION("By .json suffix without attribute") {
+        machine.initialize();
+        evalFile(machine, "./mainSuffix.js");
+        REQUIRE(machine.getReports() == std::vector<std::string>{ "config" });
+    }
+
+    SECTION("json5 type attribute allows extended syntax") {
+        machine.initialize();
+        evalFile(machine, "./mainJson5.js");
+        REQUIRE(machine.getReports() == std::vector<std::string>{ "j5", "7" });
+    }
+
+    SECTION("Unsupported attribute is rejected") {
+        machine.initialize();
+        try {
+            machine.evalFileWithEventLoop("./badAttr.js");
+            FAIL("expected an exception for the unsupported import attribute");
+        } catch (jac::Exception& e) {
+            std::string message(e.what());
+            CAPTURE(message);
+            REQUIRE(message.find("not supported") != std::string::npos);
+        }
+    }
+}

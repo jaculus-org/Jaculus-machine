@@ -1,0 +1,1 @@
+{ "name": "config", "value": 42, "nested": { "flag": true } }

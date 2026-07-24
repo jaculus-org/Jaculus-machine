@@ -3,6 +3,8 @@
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
+#include <jac/features/util/moduleLoader.h>
+
 #include <iostream>
 #include <cassert>
 #include <sstream>
@@ -347,7 +349,7 @@ public:
     }
 
 private:
-    static JSModuleDef *moduleLoaderCbk(JSContext* ctx, const char *module_name, void *_self) {
+    static JSModuleDef *moduleLoaderCbk(JSContext* ctx, const char *module_name, void *_self, JSValueConst attributes) {
         auto &self = *static_cast<NodeModuleLoaderFeature<Next>*>(_self);
 
         std::string filename = ESM_RESOLVE(module_name, self);
@@ -358,6 +360,17 @@ private:
         } catch (jac::Exception &e) {
             e.throwJS(ctx);
             return nullptr;
+        }
+
+
+        int jsonType = moduleAttributesJsonType(ctx, attributes);
+        if (jsonType > 0 || filename.ends_with(".json")) {
+            JSValue val = JS_ParseJSON2(ctx, buffer.c_str(), buffer.size(), module_name,
+                                        jsonType == 2 ? JS_PARSE_JSON_EXT : 0);
+            if (JS_IsException(val)) {
+                return nullptr;
+            }
+            return createJsonModule(ctx, module_name, val);
         }
 
         // compile and return module
@@ -407,7 +420,7 @@ public:
     void initialize() {
         Next::initialize();
 
-        JS_SetModuleLoaderFunc(this->runtime(), nullptr, moduleLoaderCbk, this);
+        JS_SetModuleLoaderFunc2(this->runtime(), nullptr, moduleLoaderCbk, checkModuleAttributes, this);
     }
 };
 

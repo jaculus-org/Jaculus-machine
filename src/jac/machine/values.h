@@ -262,6 +262,31 @@ public:
     }
 
     /**
+     * @brief Produce a repl-style representation of the Value.
+     *
+     * @param options formatting options and limits (recursion depth, string length, item count)
+     * @return The formatted representation
+     */
+    std::string inspect(const JSPrintValueOptions& options) {
+        std::string out;
+        JS_PrintValue(_ctx, [](void* opaque, const char* buf, size_t len) {
+            static_cast<std::string*>(opaque)->append(buf, len);
+        }, &out, _val, &options);
+        return out;
+    }
+
+    /**
+     * @brief Produce a repl-style representation of the Value with default formatting options.
+     *
+     * @return The formatted representation
+     */
+    std::string inspect() {
+        JSPrintValueOptions options;
+        JS_PrintValueSetDefaultOptions(&options);
+        return inspect(options);
+    }
+
+    /**
      * @brief Create a new Value by converting a given value.
      *
      * @tparam T Type of the value

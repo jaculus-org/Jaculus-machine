@@ -775,3 +775,38 @@ TEST_CASE("ArrayBuffer", "[base]") {
         )", "test", jac::EvalFlags::Global);
     }
 }
+
+
+TEST_CASE("Value inspect", "[values]") {
+    using Machine = TestReportFeature<jac::MachineBase>;
+
+    Machine machine;
+    machine.initialize();
+
+    SECTION("Object is expanded, not [object Object]") {
+        jac::Value val = machine.eval("({ a: 1, b: 'two' })", "test", jac::EvalFlags::Global);
+        std::string out = val.inspect();
+        CAPTURE(out);
+        REQUIRE(out.find("[object Object]") == std::string::npos);
+        REQUIRE(out.find("a") != std::string::npos);
+        REQUIRE(out.find("two") != std::string::npos);
+    }
+
+    SECTION("Array is expanded") {
+        jac::Value val = machine.eval("[1, 2, 3]", "test", jac::EvalFlags::Global);
+        std::string out = val.inspect();
+        CAPTURE(out);
+        REQUIRE(out.find("1") != std::string::npos);
+        REQUIRE(out.find("3") != std::string::npos);
+    }
+
+    SECTION("Max depth limit is honored") {
+        jac::Value val = machine.eval("({ outer: { inner: { deep: 1 } } })", "test", jac::EvalFlags::Global);
+        JSPrintValueOptions options;
+        JS_PrintValueSetDefaultOptions(&options);
+        options.max_depth = 1;
+        std::string out = val.inspect(options);
+        CAPTURE(out);
+        REQUIRE(out.find("deep") == std::string::npos);
+    }
+}

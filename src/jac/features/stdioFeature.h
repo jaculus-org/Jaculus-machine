@@ -21,6 +21,17 @@ private:
         std::unique_ptr<Writable> err;
         std::unique_ptr<Readable> in;
     };
+
+    static std::string joinArgs(ValueVectorWeak args) {
+        std::string line;
+        for (std::size_t i = 0; i < args.size(); ++i) {
+            if (i != 0) {
+                line += ' ';
+            }
+            line += args[i].isString() ? args[i].to<std::string>() : args[i].inspect();
+        }
+        return line;
+    }
 public:
     Stdio stdio;
 
@@ -37,20 +48,20 @@ public:
         }
 
         Object console = Object::create(this->context());
-        console.set("debug", ff.newFunction([this](std::string str) {
-            this->stdio.out->write(str + "\n");
+        console.set("debug", ff.newFunctionVariadic([this](ValueVectorWeak args) {
+            this->stdio.out->write(joinArgs(args) + "\n");
         }));
-        console.set("log", ff.newFunction([this](std::string str) {
-            this->stdio.out->write(str + "\n");
+        console.set("log", ff.newFunctionVariadic([this](ValueVectorWeak args) {
+            this->stdio.out->write(joinArgs(args) + "\n");
         }));
-        console.set("info", ff.newFunction([this](std::string str) {
-            this->stdio.out->write(str + "\n");
+        console.set("info", ff.newFunctionVariadic([this](ValueVectorWeak args) {
+            this->stdio.out->write(joinArgs(args) + "\n");
         }));
-        console.set("warn", ff.newFunction([this](std::string str) {
-            this->stdio.err->write(str + "\n");
+        console.set("warn", ff.newFunctionVariadic([this](ValueVectorWeak args) {
+            this->stdio.err->write(joinArgs(args) + "\n");
         }));
-        console.set("error", ff.newFunction([this](std::string str) {
-            this->stdio.err->write(str + "\n");
+        console.set("error", ff.newFunctionVariadic([this](ValueVectorWeak args) {
+            this->stdio.err->write(joinArgs(args) + "\n");
         }));
         Object global = this->context().getGlobalObject();
         global.defineProperty("console", console);

@@ -49,29 +49,58 @@ TEST_CASE("Cpp Module", "[base]") {
     machine.initialize();
 
     SECTION("Simple") {
-        auto& mdl = machine.newModule("testModule");
-        mdl.addExport("test", jac::Value::from<std::string>(machine.context(), "test string"));
+        machine.newModule("testModule", [&](jac::Module& mdl) {
+            mdl.addExport("test", jac::Value::from<std::string>(machine.context(), "test string"));
+        });
 
         evalModuleWithEventLoop(machine, "import * as testModule from 'testModule'; report(testModule.test); exit(1);", "test");
 
         REQUIRE(machine.getReports() == std::vector<std::string>{"test string"});
     }
 
-    SECTION("Not imported") {
-        auto& mdl = machine.newModule("testModule");
-        mdl.addExport("test", jac::Value::from<std::string>(machine.context(), "test string"));
+    SECTION("Builder runs lazily on first import") {
+        int builds = 0;
+        machine.newModule("testModule", [&](jac::Module& mdl) {
+            ++builds;
+            mdl.addExport("test", jac::Value::from<std::string>(machine.context(), "test string"));
+        });
+
+        // Registering a module must not build it.
+        REQUIRE(builds == 0);
+
+        evalModuleWithEventLoop(machine, R"(
+            import * as a from 'testModule';
+            import * as b from 'testModule';
+            report(a.test);
+            exit(1);
+        )", "test");
+
+        REQUIRE(machine.getReports() == std::vector<std::string>{"test string"});
+        // Built exactly once, despite two import statements.
+        REQUIRE(builds == 1);
+    }
+
+    SECTION("Not imported - builder never runs") {
+        bool built = false;
+        machine.newModule("testModule", [&](jac::Module& mdl) {
+            built = true;
+            mdl.addExport("test", jac::Value::from<std::string>(machine.context(), "test string"));
+        });
 
         evalModuleWithEventLoop(machine, "report('nothing'); exit(1);", "test");
 
         REQUIRE(machine.getReports() == std::vector<std::string>{"nothing"});
+        REQUIRE_FALSE(built);
     }
 
     SECTION("Two modules") {
-        auto& mdl = machine.newModule("testModule1");
-        mdl.addExport("test1", jac::Value::from<std::string>(machine.context(), "test string 1"));
+        machine.newModule("testModule1", [&](jac::Module& mdl) {
+            mdl.addExport("test1", jac::Value::from<std::string>(machine.context(), "test string 1"));
+        });
 
-        auto& module2 = machine.newModule("testModule2");
-        module2.addExport("test2", jac::Value::from<std::string>(machine.context(), "test string 2"));
+        machine.newModule("testModule2", [&](jac::Module& mdl) {
+            mdl.addExport("test2", jac::Value::from<std::string>(machine.context(), "test string 2"));
+        });
 
         evalModuleWithEventLoop(machine, R"(
             import * as testModule1 from 'testModule1';
@@ -82,6 +111,44 @@ TEST_CASE("Cpp Module", "[base]") {
         )", "test");
 
         REQUIRE(machine.getReports() == std::vector<std::string>{"test string 1", "test string 2"});
+    }
+
+    SECTION("Builder that throws does not poison the module name") {
+        int builds = 0;
+        machine.newModule("boom", [&](jac::Module& mdl) {
+            ++builds;
+            mdl.addExport("ok", jac::Value::from<std::string>(machine.context(), "ok"));
+            throw jac::Exception::create(jac::Exception::Type::Error, "builder boom");
+        });
+
+        // First import: the builder throws, so the import fails and the module
+        // body must not run.
+        evalModuleWithEventLoopThrows(machine, "import * as m from 'boom'; report('reached'); exit(1);", "t1");
+        REQUIRE(builds == 1);
+        REQUIRE(machine.getReports().empty());
+
+        // The machine stays usable.
+        machine.newModule("good", [&](jac::Module& mdl) {
+            mdl.addExport("v", jac::Value::from<std::string>(machine.context(), "good"));
+        });
+        evalModuleWithEventLoop(machine, "import * as g from 'good'; report(g.v); exit(1);", "t2");
+        REQUIRE(machine.getReports() == std::vector<std::string>{"good"});
+
+        // Re-importing the failed module must re-run the builder and fail again,
+        // not silently return a half-built module with undefined exports.
+        evalModuleWithEventLoopThrows(machine, "import * as m from 'boom'; report('reached2'); exit(1);", "t3");
+        REQUIRE(builds == 2);
+        REQUIRE(machine.getReports() == std::vector<std::string>{"good"});
+    }
+
+    SECTION("Duplicate export name fails the import") {
+        machine.newModule("dup", [&](jac::Module& mdl) {
+            mdl.addExport("x", jac::Value::from<std::string>(machine.context(), "1"));
+            mdl.addExport("x", jac::Value::from<std::string>(machine.context(), "2"));
+        });
+
+        evalModuleWithEventLoopThrows(machine, "import * as m from 'dup'; report('reached'); exit(1);", "t");
+        REQUIRE(machine.getReports().empty());
     }
 }
 

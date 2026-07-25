@@ -62,6 +62,11 @@ machine.eval("print('Hello, world!');", "<eval>", jac::EvalFlags::Global);
 Often, an MFeatures will want to define a JavaScript module. This can be done by using the
 `MachineBase::newModule` method.
 
+Modules are lazy: `newModule` only registers the module's name and a builder callback.
+The builder is invoked at most once, the first time the module is actually imported, at
+which point it adds the module's exports via `Module::addExport`. A module that is never
+imported allocates nothing beyond the stored builder.
+
 ```cpp
 #include <jac/machine.h>
 #include <jac/functionFactory.h>
@@ -78,12 +83,12 @@ public:
     void initialize() {
         Next::initialize();
 
-        jac::FunctionFactory ff(this->context());
-
-        jac::Module& mdl = this->newModule("printer");
-        mdl.addExport("print", ff.newFunction([this](std::string str) {
-            this->print(str);
-        }));
+        this->newModule("printer", [this](jac::Module& mdl) {
+            jac::FunctionFactory ff(this->context());
+            mdl.addExport("print", ff.newFunction([this](std::string str) {
+                this->print(str);
+            }));
+        });
     }
 };
 ```

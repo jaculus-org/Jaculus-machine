@@ -151,31 +151,33 @@ public:
 
         FileClass::initContext(this->context());
 
-        FunctionFactory ff(this->context());
+        this->newModule("path", [this](Module& pathMod) {
+            FunctionFactory ff(this->context());
+            pathMod.addExport("normalize", ff.newFunction(noal::function(&Path::normalize, &(this->path))));
+            pathMod.addExport("dirname", ff.newFunction(noal::function(&Path::dirname, &(this->path))));
+            pathMod.addExport("basename", ff.newFunction(noal::function(&Path::basename, &(this->path))));
+            pathMod.addExport("join", ff.newFunctionVariadic([this](ValueVectorWeak paths) {
+                std::vector<std::string> paths_;
+                for (ValueWeak p : paths) {
+                    paths_.push_back(p.to<std::string>());
+                }
+                return this->path.join(paths_);
+            }));
+        });
 
-        Module& pathMod = this->newModule("path");
-        pathMod.addExport("normalize", ff.newFunction(noal::function(&Path::normalize, &(this->path))));
-        pathMod.addExport("dirname", ff.newFunction(noal::function(&Path::dirname, &(this->path))));
-        pathMod.addExport("basename", ff.newFunction(noal::function(&Path::basename, &(this->path))));
-        pathMod.addExport("join", ff.newFunctionVariadic([this](ValueVectorWeak paths) {
-            std::vector<std::string> paths_;
-            for (ValueWeak p : paths) {
-                paths_.push_back(p.to<std::string>());
-            }
-            return this->path.join(paths_);
-        }));
-
-        Module& fsMod = this->newModule("fs");
-        fsMod.addExport("open", ff.newFunction([this](std::string path_, std::string flags) {
-            return FileClass::createInstance(this->context(), new File(this->fs.open(path_, flags)));
-        }));
-        fsMod.addExport("exists", ff.newFunction(noal::function(&Fs::exists, &(this->fs))));
-        fsMod.addExport("isFile", ff.newFunction(noal::function(&Fs::isFile, &(this->fs))));
-        fsMod.addExport("isDirectory", ff.newFunction(noal::function(&Fs::isDirectory, &(this->fs))));
-        fsMod.addExport("mkdir", ff.newFunction(noal::function(&Fs::mkdir, &(this->fs))));
-        fsMod.addExport("rm", ff.newFunction(noal::function(&Fs::rm, &(this->fs))));
-        fsMod.addExport("rmdir", ff.newFunction(noal::function(&Fs::rmdir, &(this->fs))));
-        fsMod.addExport("readdir", ff.newFunction(noal::function(&Fs::readdir, &(this->fs))));
+        this->newModule("fs", [this](Module& fsMod) {
+            FunctionFactory ff(this->context());
+            fsMod.addExport("open", ff.newFunction([this](std::string path_, std::string flags) {
+                return FileClass::createInstance(this->context(), new File(this->fs.open(path_, flags)));
+            }));
+            fsMod.addExport("exists", ff.newFunction(noal::function(&Fs::exists, &(this->fs))));
+            fsMod.addExport("isFile", ff.newFunction(noal::function(&Fs::isFile, &(this->fs))));
+            fsMod.addExport("isDirectory", ff.newFunction(noal::function(&Fs::isDirectory, &(this->fs))));
+            fsMod.addExport("mkdir", ff.newFunction(noal::function(&Fs::mkdir, &(this->fs))));
+            fsMod.addExport("rm", ff.newFunction(noal::function(&Fs::rm, &(this->fs))));
+            fsMod.addExport("rmdir", ff.newFunction(noal::function(&Fs::rmdir, &(this->fs))));
+            fsMod.addExport("readdir", ff.newFunction(noal::function(&Fs::readdir, &(this->fs))));
+        });
     }
 };
 

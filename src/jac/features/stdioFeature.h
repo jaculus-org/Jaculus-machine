@@ -66,12 +66,13 @@ public:
         Object global = this->context().getGlobalObject();
         global.defineProperty("console", console);
 
-        auto& mdl = this->newModule("stdio");
-        mdl.addExport("stdout", Next::WritableClass::createInstance(this->context(), new WritableRef(stdio.out.get())));
-        mdl.addExport("stderr", Next::WritableClass::createInstance(this->context(), new WritableRef(stdio.err.get())));
-        if (stdio.in) {
-            mdl.addExport("stdin", Next::ReadableClass::createInstance(this->context(), new ReadableRef(stdio.in.get())));
-        }
+        this->newModule("stdio", [this](Module& mdl) {
+            mdl.addExport("stdout", Next::WritableClass::createInstance(this->context(), new WritableRef(stdio.out.get())));
+            mdl.addExport("stderr", Next::WritableClass::createInstance(this->context(), new WritableRef(stdio.err.get())));
+            if (stdio.in) {
+                mdl.addExport("stdin", Next::ReadableClass::createInstance(this->context(), new ReadableRef(stdio.in.get())));
+            }
+        });
     }
 };
 

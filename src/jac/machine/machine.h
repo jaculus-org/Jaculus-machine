@@ -57,15 +57,15 @@ class Module {
     ContextRef _ctx;
     JSModuleDef *_def;
 
-    std::vector<std::tuple<std::string, Value>> exports;
+    Object _exports;
 
-    inline MachineBase& base() {
-        return *static_cast<MachineBase*>(JS_GetContextOpaque(_ctx));
-    }
+    /**
+     * @brief Attach the accumulated exports to the module so its init function
+     * installs them on instantiation. Called once, after the builder runs.
+     */
+    void finalize();
 
-    static inline MachineBase& base(ContextRef ctx) {
-        return *static_cast<MachineBase*>(JS_GetContextOpaque(ctx));
-    }
+    friend class MachineBase;
 public:
     /**
      * @brief Create a new module in the given context. Should not be called
@@ -77,16 +77,8 @@ public:
     Module(ContextRef ctx, std::string name);
     Module& operator=(const Module&) = delete;
     Module(const Module&) = delete;
-    Module& operator=(Module&& other) {
-        _ctx = other._ctx;
-        _def = other._def;
-        exports = std::move(other.exports);
-        other._def = nullptr;
-        return *this;
-    }
-    Module(Module&& other): _ctx(other._ctx), _def(other._def), exports(std::move(other.exports)) {
-        other._def = nullptr;
-    }
+    Module& operator=(Module&&) = delete;
+    Module(Module&&) = delete;
 
     /**
      * @brief Add a value to the module's exports
@@ -108,9 +100,20 @@ public:
 
 
 class MachineBase {
+public:
+    using ModuleBuilder = std::function<void(Module&)>;
+    using FileModuleLoader = std::function<JSModuleDef*(JSContext* ctx, const char* name, JSValueConst attributes)>;
+
 private:
-    std::unordered_map<JSModuleDef*, Module> _modules;
-    Module& findModule(JSModuleDef* m);
+    std::unordered_map<std::string, ModuleBuilder> _moduleBuilders;
+    FileModuleLoader _fileModuleLoader;
+
+
+    /**
+     * @brief The single module loader callback installed on the runtime.
+     * Dispatches to the native-module registry, then to the file loader.
+     */
+    static JSModuleDef* loadModule(JSContext* ctx, const char* name, void* opaque, JSValueConst attributes);
 
     bool _interrupt = false;
 
@@ -155,7 +158,6 @@ public:
     MachineBase& operator=(MachineBase&&) = delete;
 
     virtual ~MachineBase() {
-        _modules.clear();
         if (_context) {
             JS_FreeContext(_context);
         }
@@ -176,12 +178,13 @@ public:
     Value eval(std::string code, std::string filename, EvalFlags flags = EvalFlags::Global);
 
     /**
-     * @brief Create a new module in the machine
+     * @brief Register a new native module. The content of the module is provided by
+     * the builder callback, which is run on the first import of the module.
      *
      * @param name name of the module
-     * @return Reference to the new module
+     * @param builder callback that populates the module's exports on first import
      */
-    Module& newModule(std::string name);
+    void newModule(std::string name, ModuleBuilder builder);
 
     /**
      * @brief Interrupt running javascript code. Execution will be thrown
@@ -231,7 +234,15 @@ public:
         mallocFunctions = fns;
     }
 
-    friend class Module;
+protected:
+    /**
+     * @brief Set the loader used for source-file (non-native) modules.
+     *
+     * @param loader the file module loader
+     */
+    void setFileModuleLoader(FileModuleLoader loader) {
+        _fileModuleLoader = std::move(loader);
+    }
 };
 
 

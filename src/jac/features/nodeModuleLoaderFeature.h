@@ -420,7 +420,9 @@ public:
     void initialize() {
         Next::initialize();
 
-        JS_SetModuleLoaderFunc2(this->runtime(), nullptr, moduleLoaderCbk, checkModuleAttributes, this);
+        this->setFileModuleLoader([this](JSContext* ctx, const char* name, JSValueConst attributes) {
+            return moduleLoaderCbk(ctx, name, this, attributes);
+        });
     }
 };
 

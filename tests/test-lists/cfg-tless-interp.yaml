@@ -1,0 +1,24 @@
+test_root: tests/test-files
+harness_dir: tests/test-files/local/harness
+tests:
+  - local/basic/pass.js
+  - local/basic/tless-arithmetic-slow-path.js
+  - local/basic/fail-runtime.js
+  - local/basic/fail-syntax.js
+  - local/script/const-let-redeclare.js
+  - local/script/const-reassign.js
+  - local/negative/local-const-reassign.js
+  - local/negative/local-const-postinc.js
+  - local/negative/local-tdz.js
+  - local/negative/runtime.js
+  - local/negative/sync-closure-throw.js
+  - local/negative/member-null-throws.js
+  - local/negative/arith-symbol-throws.js
+  - local/closure/escaped-nested-closure-later.js
+  - local/await/top-level-await-resolve.js
+  - local/await/nested-async-closure.js
+  - local/await/await-reject-propagates.js
+  - local/await/timer-interleave.js
+  - local/await/escaped-closure-later.js
+  - local/await/escaped-nested-async-closure-later.js
+  - local/await/promise-then-callback.js

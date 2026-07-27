@@ -280,9 +280,11 @@ public:
             auto msg = val.to<std::string>();
             if (msg == "Test262:AsyncTestComplete") {
                 _asyncCompleted = true;
+                this->exit(0);
             } else if (msg.starts_with("Test262:AsyncTestFailure:")) {
                 _asyncFailed = true;
                 _asyncMessage = std::string(msg.substr(strlen("Test262:AsyncTestFailure:")));
+                this->exit(1);
             }
             return jac::Value::undefined(this->context());
         }));

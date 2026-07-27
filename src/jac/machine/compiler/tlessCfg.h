@@ -184,6 +184,7 @@ possible source:
 struct LVRef {
     std::variant<int, std::pair<RValue, RValue>> self;  // varId or {object, accessor}
     bool _const = false;
+    bool _global = false;
 
     bool isMember() const {
         return std::holds_alternative<std::pair<RValue, RValue>>(self);
@@ -191,6 +192,10 @@ struct LVRef {
 
     bool isConst() const {
         return _const;
+    }
+
+    bool isGlobal() const {
+        return _global;
     }
 
     int varId() const {
@@ -203,8 +208,8 @@ struct LVRef {
         return std::get<std::pair<RValue, RValue>>(self);
     }
 
-    static LVRef direct(int varId, bool isConst) {
-        return LVRef(varId, isConst);
+    static LVRef direct(int varId, bool isConst, bool isGlobal = false) {
+        return LVRef(varId, isConst, isGlobal);
     }
 
     static LVRef mbr(RValue self_, RValue member_) {
@@ -213,7 +218,7 @@ struct LVRef {
 
     LVRef(): self({ 0 }) {}
 private:
-    LVRef(int varId, bool isConst): self(varId), _const(isConst) {}
+    LVRef(int varId, bool isConst, bool isGlobal): self(varId), _const(isConst), _global(isGlobal) {}
     LVRef(RValue self_, RValue member_): self(std::make_pair(self_, member_)), _const(false) {}
 };
 
@@ -525,15 +530,16 @@ public:
 struct Variable {
     int id;
     bool isConst;
+    bool isGlobal = false;
 };
 
 
 struct Scope {
     std::map<Identifier, Variable> locals;
 
-    Variable addLocal(Identifier name, bool isConst) {
+    Variable addLocal(Identifier name, bool isConst, bool isGlobal = false) {
         static int id = 0;
-        auto [it, succ] = locals.emplace(name, Variable{ ++id, isConst });
+        auto [it, succ] = locals.emplace(name, Variable{ ++id, isConst, isGlobal });
         if (!succ) {
             throw std::runtime_error("Redeclaration of local variable: " + name);
         }
@@ -583,6 +589,8 @@ struct Function {
     BasicBlockPtr entry;
     std::list<std::unique_ptr<BasicBlock>> blocks;
     std::string _name;
+    bool isAsync = false;
+    size_t argCount = 0;
     std::vector<Constant> constPool;
 
     std::string name() const { return _name; }
@@ -614,6 +622,7 @@ struct FunctionEmitter {
             throw std::runtime_error("Signature already set");
         }
         signature = sig;
+        data.argCount = sig->args.size();
         for (size_t argIndex = 0; argIndex < sig->args.size(); ++argIndex) {
             const auto& name = sig->args[argIndex];
             RValue indexVal = emitConst(static_cast<int32_t>(argIndex));
@@ -652,11 +661,13 @@ struct FunctionEmitter {
         argsScope = &scopes.front();
     }
 
-    Reg createLocal() {
+    Reg createLocal(bool isConst = false) {
         auto reg = Reg::createTmp();
+        RValue isConstVal = emitConst(static_cast<int32_t>(isConst ? 1 : 0));
+        auto isConstReg = popInterm(isConstVal);
         emitInstruction(Operation{
             .op = Opcode::CreateLocal,
-            .args = {},
+            .args = { isConstReg },
             .res = { reg }
         });
         return reg;
@@ -699,23 +710,23 @@ struct FunctionEmitter {
     }
 
     LVRef addLexical(Identifier name, bool isConst) {
-        Reg reg = createLocal();
-        auto var = scopes.front().addLocal(name, isConst);
+        Reg reg = createLocal(isConst);
+        auto var = scopes.front().addLocal(name, isConst, false);
         getActiveBlock()->varToReg.data[var.id] = reg;
-        return LVRef::direct(var.id, isConst);
+        return LVRef::direct(var.id, isConst, false);
     }
 
     LVRef addGlobal(Identifier name, bool isConst, bool isLet = false) {
         Reg reg = createGlobalSlot(name, isConst, isLet);
-        auto var = scopes.front().addLocal(name, isConst);
+        auto var = scopes.front().addLocal(name, isConst, true);
         getActiveBlock()->varToReg.data[var.id] = reg;
-        return LVRef::direct(var.id, isConst);
+        return LVRef::direct(var.id, isConst, true);
     }
 
     std::optional<LVRef> getVar(Identifier name) {
         for (auto& scope : scopes) {
             if (auto var = scope.getLocal(name); var.has_value()) {
-                return LVRef::direct(var->id, var->isConst);
+                return LVRef::direct(var->id, var->isConst, var->isGlobal);
             }
         }
         return std::nullopt;

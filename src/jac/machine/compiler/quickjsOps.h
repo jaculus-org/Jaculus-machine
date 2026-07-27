@@ -83,7 +83,6 @@ static void js_binary_arith_slow(JSContext *ctx, JSValue op1, JSValue op2, JSVal
     double d1, d2, r;
 
     if (JS_ToFloat64(ctx, &d1, op1)) {
-        JS_FreeValue(ctx, op2);
         goto exception;
     }
     if (JS_ToFloat64(ctx, &d2, op2)) {
@@ -157,7 +156,7 @@ inline JSValue mul(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionF
     mul_fp_res:
         res = __JS_NewFloat64(ctx, d);
     } else {
-        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Sub, exceptionFlag);
+        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Mul, exceptionFlag);
     }
     return res;
 }
@@ -171,7 +170,7 @@ inline JSValue div(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionF
         v2 = JS_VALUE_GET_INT(op2);
         res = JS_NewFloat64(ctx, (double)v1 / (double)v2);
     } else {
-        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Sub, exceptionFlag);
+        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Div, exceptionFlag);
     }
     return res;
 }
@@ -191,7 +190,7 @@ inline JSValue rem(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionF
         res = JS_NewInt32(ctx, r);
     } else {
     binary_arith_slow:
-        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Sub, exceptionFlag);
+        js_binary_arith_slow(ctx, op1, op2, &res, ArithOpcode::Mod, exceptionFlag);
     }
     return res;
 }

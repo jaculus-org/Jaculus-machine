@@ -45,11 +45,6 @@ target_compile_definitions(compileNative PRIVATE COMPILE_BIN)
 target_link_libraries(compileNative PUBLIC jac-machine Catch2::Catch2WithMain)
 add_test(NAME compileNative COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileNative)
 
-add_executable(compileTless compile.cpp)
-target_compile_definitions(compileTless PRIVATE COMPILE_TLESS)
-target_link_libraries(compileTless PUBLIC jac-machine Catch2::Catch2WithMain)
-add_test(NAME compileTless COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileTless)
-
 add_test_executable(cfgInterp)
 add_test_executable(regression)
 
@@ -59,10 +54,40 @@ target_link_libraries(bench PUBLIC jac-machine Catch2::Catch2WithMain)
 add_executable(bytecodeGen bytecodeGen.cpp)
 target_link_libraries(bytecodeGen PUBLIC jac-machine Catch2::Catch2WithMain)
 
+add_executable(bytecodeDecompile bytecodeDecompile.cpp)
+target_link_libraries(bytecodeDecompile PUBLIC jac-machine Catch2::Catch2WithMain)
+
+add_executable(bcRun bcRun.cpp)
+target_link_libraries(bcRun PUBLIC jac-machine Catch2::Catch2WithMain)
+
 add_executable(run-quickjs run-quickjs.cpp)
 target_link_libraries(run-quickjs PUBLIC jac-machine)
 
+add_executable(run-cfg2bc run-cfg2bc.cpp)
+target_link_libraries(run-cfg2bc PUBLIC jac-machine)
+
 add_executable(run-cfg-interp run-cfg-interp.cpp)
 target_link_libraries(run-cfg-interp PUBLIC jac-machine)
+
+add_executable(run-cfg-tless-interp run-cfg-tless-interp.cpp)
+target_link_libraries(run-cfg-tless-interp PUBLIC jac-machine)
+
+find_package(Python3 COMPONENTS Interpreter)
+
+function(add_runner_target name)
+    add_custom_target(run-${name}-tests
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test262/runner.py
+            --executable $<TARGET_FILE:run-${name}>
+            --test-list ${CMAKE_CURRENT_SOURCE_DIR}/test-lists/${name}.yaml
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        DEPENDS run-${name}
+        VERBATIM
+    )
+endfunction()
+
+add_runner_target(quickjs)
+add_runner_target(cfg2bc)
+add_runner_target(cfg-interp)
+add_runner_target(cfg-tless-interp)
 
 file(COPY fixtures DESTINATION "./")

@@ -57,6 +57,7 @@ inline void print(std::ostream& os, Opcode op) {
         case Opcode::Call: os << "Call"; break;
         case Opcode::CallMethod: os << "CallMethod"; break;
         case Opcode::Construct: os << "Construct"; break;
+        case Opcode::Await: os << "Await"; break;
         case Opcode::MakeClosure: os << "MakeClosure"; break;
     }
 }
@@ -238,8 +239,14 @@ inline void print(std::ostream& os, const BasicBlock& block, std::set<const Basi
 
 
 inline void printContent(std::ostream& os, const Function& fn, std::optional<std::string> title = std::nullopt) {
+    std::string label;
+    if (title) {
+        label = *title + " ";
+    }
+    label += "isAsync=" + std::string(fn.isAsync ? "true" : "false");
+
     std::set<const BasicBlock*> seen;
-    print(os, *fn.entry, seen, true, title);
+    print(os, *fn.entry, seen, true, label);
     for (auto& block : fn.blocks) {
         print(os, *block, seen);
     }

@@ -175,7 +175,7 @@ void hoistStmt(DebuggerStatement&, HoistPassState& state) {
 }
 
 void hoistStmt(HoistableDeclaration& decl, HoistPassState& state) {
-    state.declareIdentifier(decl.function()->name()->name, false, false, true);
+    state.declareIdentifier(decl.function()->name()->name, false, true, true);
 }
 
 void hoistStmt(IfStatement& if_, HoistPassState& state) {

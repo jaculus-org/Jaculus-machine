@@ -1,0 +1,23 @@
+test_root: tests/test-files
+harness_dir: tests/test-files/local/harness
+tests:
+  - local/basic/pass.js
+  - local/basic/binop-operand-order.js
+  - local/basic/deep-stack-reorder.js
+  - local/basic/fail-runtime.js
+  - local/basic/fail-syntax.js
+  - local/negative/runtime.js
+  - local/closure/closure-basic.js
+  - local/closure/closure-two-captures.js
+  - local/closure/closure-multi-capture.js
+  - local/closure/closure-no-captures.js
+  - local/closure/closure-deep.js
+  - local/closure/closure-returned.js
+  - local/closure/closure-direct-arg.js
+  - local/script/var-assign.js
+  - local/script/let-assign.js
+  - local/script/const-assign.js
+  - local/script/function-decl.js
+  - local/script/const-reassign.js
+  - local/negative/member-null-throws.js
+  - local/negative/arith-symbol-throws.js

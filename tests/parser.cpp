@@ -1529,6 +1529,46 @@ TEST_CASE("Script", "[parser]") {
         auto& exprStmt = dynamic_cast<jac::ast::ExpressionStatement&>(*result->body()->children[0]);
         REQUIRE(isIdent(exprStmt.expression(), "x"));
     }
+
+    SECTION("await x;") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 7, "x", jac::lex::Token::IdentifierName),
+            jac::lex::Token(1, 8, ";", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseScript(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(!result);
+        REQUIRE(!state.isEnd());
+    }
+
+    SECTION("let await;") {
+        auto tokens = TokenVector{
+            jac::lex::Token(1, 1, "let", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 5, "await", jac::lex::Token::Keyword),
+            jac::lex::Token(1, 10, ";", jac::lex::Token::Punctuator)
+        };
+
+        jac::ast::ParserState state(tokens);
+
+        auto result = jac::ast::parseScript(state);
+        CAPTURE(state.getErrorMessage());
+        CAPTURE(state.getErrorToken());
+        REQUIRE(state.isEnd());
+        REQUIRE(result);
+        REQUIRE(result->body());
+        REQUIRE(result->body()->children.size() == 1);
+        auto& declStmt = dynamic_cast<jac::ast::LexicalDeclaration&>(*result->body()->children[0]);
+        REQUIRE(declStmt.isConst == false);
+        REQUIRE(declStmt.bindingCount() == 1);
+        auto binding = declStmt.bindingGet(0);
+        REQUIRE(binding->target()->name == "await");
+        REQUIRE(binding->initializer() == nullptr);
+    }
 }
 
 

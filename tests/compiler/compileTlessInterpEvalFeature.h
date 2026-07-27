@@ -13,13 +13,8 @@
 
 #include "tlessCfgInterpreter.h"
 
-#include <list>
-
-#include <algorithm>
 #include <cstdint>
-#include <cstdio>
 #include <iostream>
-#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -33,7 +28,7 @@ namespace jac {
 template<class Next>
 class AotEvalFeature : public EvalFeature<Next> {
 
-    jac::ast::ModulePtr parseModule(std::string_view js) {
+    std::vector<jac::lex::Token> scan(std::string_view js) {
         bool hadError = false;
         std::vector<std::string> reports;
         jac::lex::Scanner scanner(js, [&hadError, &reports](int line, int col, const std::string& msg) {
@@ -48,29 +43,34 @@ class AotEvalFeature : public EvalFeature<Next> {
             throw std::runtime_error("Lex error");
         }
 
-        auto tokens = scanner.scan();
+        return scanner.scan();
+    }
 
+    jac::cfg::tless::Function tryAot(std::string_view js, bool isModule) {
+        auto tokens = scan(js);
         jac::ast::ParserState state(tokens);
 
-        auto mod = jac::ast::parseModule(state);
-        if (!mod || !state.isEnd()) {
-            lex::Token errorToken = state.getErrorToken();
+        if (isModule) {
+            auto mod = jac::ast::parseModule(state);
+            if (!mod || !state.isEnd()) {
+                jac::lex::Token errorToken = state.getErrorToken();
+                std::cerr << "Parse error: " << state.getErrorMessage()
+                          << " at " << errorToken.line << ":" << errorToken.column << '\n';
+                throw std::runtime_error("Parse error");
+            }
+            jac::ast::hoistModule(*mod);
+            return jac::cfg::tless::ast2cfg(*mod).output();
+        }
+
+        auto script = jac::ast::parseScript(state);
+        if (!script || !state.isEnd()) {
+            jac::lex::Token errorToken = state.getErrorToken();
             std::cerr << "Parse error: " << state.getErrorMessage()
                       << " at " << errorToken.line << ":" << errorToken.column << '\n';
             throw std::runtime_error("Parse error");
         }
-
-        return mod;
-    }
-
-    jac::cfg::tless::Function tryAot(std::string_view js) {
-        jac::ast::ModulePtr mod = parseModule(js);
-        jac::ast::hoistModule(*mod);
-
-        auto em = jac::cfg::tless::ast2cfg(*mod);
-        auto func = em.output();
-
-        return func;
+        jac::ast::hoistScript(*script);
+        return jac::cfg::tless::ast2cfg(*script).output();
     }
 public:
 
@@ -84,24 +84,27 @@ public:
      * @return Result of the evaluation
      */
     Value eval(std::string code, std::string filename, EvalFlags flags = EvalFlags::Global) {
-        assert(flags | EvalFlags::Module);  // XXX: only module code can be AOT compiled for now
+        bool isModule = (flags & EvalFlags::Module) == EvalFlags::Module;
 
         std::optional<jac::cfg::tless::Function> func;
         try {
-            func.emplace(tryAot(code));
+            func.emplace(tryAot(code, isModule));
         }
         catch (const cfg::tless::IRGenError& e) {
-            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "AOT compilation error: " + std::string(e.what()));
+            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: AOT compilation error: " + std::string(e.what()));
+        }
+        catch (const std::runtime_error& e) {
+            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: " + std::string(e.what()));
         }
 
-        if (func) {
-            cfg::tless::interp::Interpreter interp(this->context(), *func);
-            JSValue resVal = interp.run(JS_UNDEFINED, 0, nullptr);
-            return Value(this->context(), resVal);
+        auto compiled = std::make_shared<jac::cfg::tless::Function>(std::move(*func));
+        JSValue resVal;
+        if (compiled->isAsync) {
+            resVal = cfg::tless::interp::Frame<Next>::runAsync(this->context(), *this, *compiled, compiled, JS_UNDEFINED, 0, nullptr);
+        } else {
+            resVal = cfg::tless::interp::Frame<Next>::runSync(this->context(), *this, *compiled, compiled, JS_UNDEFINED, 0, nullptr);
         }
-        else {
-            return EvalFeature<Next>::eval(std::move(code), filename, flags);
-        }
+        return Value(this->context(), resVal);
     }
 };
 

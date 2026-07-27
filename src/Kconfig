@@ -1,2 +1,10 @@
 menu "QuickJS"
+
+    config JAC_MACHINE_QUICKJS_DISABLE_ARENA_ALLOCATOR
+        bool "Disable the QuickJS arena allocator"
+        default n
+        help
+            Allocate every QuickJS object through the configured host allocator
+            instead of using QuickJS's internal small-object arenas.
+
 endmenu

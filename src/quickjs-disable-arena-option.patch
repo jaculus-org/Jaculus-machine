@@ -1,0 +1,19 @@
+diff --git a/quickjs.c b/quickjs.c
+index 7e379ac..6caf67d 100644
+--- a/quickjs.c
++++ b/quickjs.c
+@@ -245,12 +245,14 @@
+ #define JS_MALLOC_BLOCK_SIZE_COUNT 31
+ #define JS_MALLOC_MIN_SMALL_SIZE 16
+ #define JS_MALLOC_MAX_SMALL_SIZE 512
++#ifndef JS_MALLOC_LARGE_BLOCKS_ONLY
+ #if defined(__SANITIZE_ADDRESS__)
+ /* use the host malloc() for all allocations */
+ #define JS_MALLOC_LARGE_BLOCKS_ONLY 1
+ #else
+ #define JS_MALLOC_LARGE_BLOCKS_ONLY 0
+ #endif
++#endif
+ 
+ /* allow iteration among the allocated blocks. Currently not used. May
+    be used to suppress the memory overhead of JSGCObjectHeader */

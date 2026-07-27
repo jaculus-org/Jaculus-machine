@@ -5,6 +5,16 @@ set(JAC_MACHINE_SRC
     "jac/machine/context.cpp"
 )
 
+option(
+    JAC_MACHINE_QUICKJS_DISABLE_ARENA_ALLOCATOR
+    "Disable the QuickJS small-object arena allocator"
+    OFF
+)
+
+if(ESP_PLATFORM AND CONFIG_JAC_MACHINE_QUICKJS_DISABLE_ARENA_ALLOCATOR)
+    set(JAC_MACHINE_QUICKJS_DISABLE_ARENA_ALLOCATOR ON)
+endif()
+
 
 if(ESP_PLATFORM)
     idf_component_register(
@@ -18,7 +28,9 @@ Include(FetchContent)
 FetchContent_Declare(
     QuickJS
     URL               https://github.com/bellard/quickjs/archive/3d5e064e9dd67c70f7962836505a7fa067bf0a4e.tar.gz
-    PATCH_COMMAND     ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/quickjs.CMakeLists.txt <SOURCE_DIR>/CMakeLists.txt
+    PATCH_COMMAND
+        patch -p1 -i ${CMAKE_CURRENT_SOURCE_DIR}/quickjs-disable-arena-option.patch
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/quickjs.CMakeLists.txt <SOURCE_DIR>/CMakeLists.txt
     CMAKE_ARGS        -DESP_PLATFORM=${ESP_PLATFORM}
 )
 FetchContent_MakeAvailable(QuickJS)

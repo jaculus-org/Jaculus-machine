@@ -9,7 +9,7 @@
 #include <variant>
 
 #include "tlessCfg.h"
-#include "tlssOpcode.h"
+#include "tlessOpcode.h"
 
 
 namespace jac::cfg::tless::dotprint {

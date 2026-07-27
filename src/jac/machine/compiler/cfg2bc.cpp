@@ -3,7 +3,7 @@
 #include "jac/machine/compiler/bcWriter.h"
 #include "jac/machine/compiler/qjsBcOpcodes.h"
 #include "jac/machine/compiler/tlessCfg.h"
-#include "jac/machine/compiler/tlssOpcode.h"
+#include "jac/machine/compiler/tlessOpcode.h"
 
 #include <algorithm>
 #include <cstring>

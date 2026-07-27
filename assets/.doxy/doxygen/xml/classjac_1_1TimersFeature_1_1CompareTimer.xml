@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1TimersFeature_1_1CompareTimer" kind="class" language="C++" prot="private">
+    <compoundname>jac::TimersFeature::CompareTimer</compoundname>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1_1CompareTimer_1a149388851fd8e378513b020ec22848a7" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::TimersFeature&lt; Next &gt;::CompareTimer::operator()</definition>
+        <argsstring>(const std::shared_ptr&lt; Timer &gt; &amp;a, const std::shared_ptr&lt; Timer &gt; &amp;b) const</argsstring>
+        <name>operator()</name>
+        <qualifiedname>jac::TimersFeature::CompareTimer::operator()</qualifiedname>
+        <param>
+          <type>const std::shared_ptr&lt; Timer &gt; &amp;</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>const std::shared_ptr&lt; Timer &gt; &amp;</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="88" column="14" bodyfile="src/jac/features/timersFeature.h" bodystart="88" bodyend="90"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/timersFeature.h" line="86" column="5" bodyfile="src/jac/features/timersFeature.h" bodystart="86" bodyend="91"/>
+    <listofallmembers>
+      <member refid="classjac_1_1TimersFeature_1_1CompareTimer_1a149388851fd8e378513b020ec22848a7" prot="public" virt="non-virtual"><scope>jac::TimersFeature::CompareTimer</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

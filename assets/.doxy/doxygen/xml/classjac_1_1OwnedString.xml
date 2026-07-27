@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1OwnedString" kind="class" language="C++" prot="public">
+    <compoundname>jac::OwnedString</compoundname>
+    <includes refid="ownedString_8h" local="no">ownedString.h</includes>
+    <innerclass refid="structjac_1_1OwnedString_1_1Deleter" prot="private">jac::OwnedString::Deleter</innerclass>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1OwnedString_1ad49d4b27745308da6ef82ff9da9f3457" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; const char[], Deleter &gt;</type>
+        <definition>std::unique_ptr&lt;const char[], Deleter&gt; jac::OwnedString::_data</definition>
+        <argsstring></argsstring>
+        <name>_data</name>
+        <qualifiedname>jac::OwnedString::_data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="33" column="21" bodyfile="src/jac/machine/ownedString.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1OwnedString_1a0cd748e0a9bda327e42568f0fec53b2c" prot="private" static="no" mutable="no">
+        <type>std::size_t</type>
+        <definition>std::size_t jac::OwnedString::_size</definition>
+        <argsstring></argsstring>
+        <name>_size</name>
+        <qualifiedname>jac::OwnedString::_size</qualifiedname>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="34" column="17" bodyfile="src/jac/machine/ownedString.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a8ea595f31f6fec7abe0dd3818c38e664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::OwnedString::OwnedString</definition>
+        <argsstring>()=default</argsstring>
+        <name>OwnedString</name>
+        <qualifiedname>jac::OwnedString::OwnedString</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="36" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1ac838ebf1912d2e504266404632a4e03a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::OwnedString::OwnedString</definition>
+        <argsstring>(ContextRef ctx, const char *str)</argsstring>
+        <name>OwnedString</name>
+        <qualifiedname>jac::OwnedString::OwnedString</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+<para>Wrap a QuickJS allocated, null-terminated string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to take ownership of </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="44" column="5" bodyfile="src/jac/machine/ownedString.h" bodystart="44" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a3460accc9d3fe527b80d6eba43ad62c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::OwnedString::OwnedString</definition>
+        <argsstring>(ContextRef ctx, const char *str, std::size_t len)</argsstring>
+        <name>OwnedString</name>
+        <qualifiedname>jac::OwnedString::OwnedString</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>std::size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>Wrap a QuickJS allocated string of a known length. The string may contain embedded null bytes. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>context to work in </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to take ownership of </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>length of the string in bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="55" column="5" bodyfile="src/jac/machine/ownedString.h" bodystart="55" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a5f5080d959a1cd017b1fd5ece5e133a7" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::string_view</type>
+        <definition>std::string_view jac::OwnedString::view</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>view</name>
+        <qualifiedname>jac::OwnedString::view</qualifiedname>
+        <briefdescription>
+<para>Get a non-owning view of the string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>std::string_view valid for the lifetime of this handle </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="63" column="22" bodyfile="src/jac/machine/ownedString.h" bodystart="63" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a0d7ed54864888483ab8b3c0fbb66fda1" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::OwnedString::operator std::string_view</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>operator std::string_view</name>
+        <qualifiedname>jac::OwnedString::string_view</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="67" column="5" bodyfile="src/jac/machine/ownedString.h" bodystart="67" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a53a332daeb62581f45a258ee1f956a85" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::OwnedString::operator std::string</definition>
+        <argsstring>() const</argsstring>
+        <name>operator std::string</name>
+        <qualifiedname>jac::OwnedString::string</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="71" column="5" bodyfile="src/jac/machine/ownedString.h" bodystart="71" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1ad8dbfc748905db0dab40d6f49d6777d6" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * jac::OwnedString::c_str</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>c_str</name>
+        <qualifiedname>jac::OwnedString::c_str</qualifiedname>
+        <briefdescription>
+<para>Get the underlying null-terminated C string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>const char* </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="80" column="16" bodyfile="src/jac/machine/ownedString.h" bodystart="80" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a783be701e573cbd55f40e4a420d8b200" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * jac::OwnedString::data</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>data</name>
+        <qualifiedname>jac::OwnedString::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="84" column="16" bodyfile="src/jac/machine/ownedString.h" bodystart="84" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1ac565d45c5cecc75b2a46ce9ac8db3b05" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>std::size_t</type>
+        <definition>std::size_t jac::OwnedString::size</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>size</name>
+        <qualifiedname>jac::OwnedString::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="88" column="17" bodyfile="src/jac/machine/ownedString.h" bodystart="88" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1OwnedString_1a5b779830644e4d53b96f4af01b15fa03" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::OwnedString::empty</definition>
+        <argsstring>() const noexcept</argsstring>
+        <name>empty</name>
+        <qualifiedname>jac::OwnedString::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="92" column="10" bodyfile="src/jac/machine/ownedString.h" bodystart="92" bodyend="94"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classjac_1_1OwnedString_1a8cf8315b9f228077ba799837fc59a925" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream &amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;os, const OwnedString &amp;str)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <qualifiedname>jac::OwnedString::operator&lt;&lt;</qualifiedname>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>os</declname>
+        </param>
+        <param>
+          <type>const <ref refid="classjac_1_1OwnedString" kindref="compound">OwnedString</ref> &amp;</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="96" column="12" bodyfile="src/jac/machine/ownedString.h" bodystart="96" bodyend="98"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>An owning RAII handle for a QuickJS-allocated C string. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The string must be allocated using QuickJS functions (JS_ToCString, JS_AtomToCString, etc.); it is released with JS_FreeCString when the handle is destroyed. The handle is move-only. Use <ref refid="classjac_1_1OwnedString_1a5f5080d959a1cd017b1fd5ece5e133a7" kindref="member">view</ref> to obtain a (non-owning) std::string_view for inspection. </para>
+    </detaileddescription>
+    <location file="src/jac/machine/ownedString.h" line="23" column="1" bodyfile="src/jac/machine/ownedString.h" bodystart="23" bodyend="99"/>
+    <listofallmembers>
+      <member refid="classjac_1_1OwnedString_1ad49d4b27745308da6ef82ff9da9f3457" prot="private" virt="non-virtual"><scope>jac::OwnedString</scope><name>_data</name></member>
+      <member refid="classjac_1_1OwnedString_1a0cd748e0a9bda327e42568f0fec53b2c" prot="private" virt="non-virtual"><scope>jac::OwnedString</scope><name>_size</name></member>
+      <member refid="classjac_1_1OwnedString_1ad8dbfc748905db0dab40d6f49d6777d6" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>c_str</name></member>
+      <member refid="classjac_1_1OwnedString_1a783be701e573cbd55f40e4a420d8b200" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>data</name></member>
+      <member refid="classjac_1_1OwnedString_1a5b779830644e4d53b96f4af01b15fa03" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>empty</name></member>
+      <member refid="classjac_1_1OwnedString_1a53a332daeb62581f45a258ee1f956a85" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>operator std::string</name></member>
+      <member refid="classjac_1_1OwnedString_1a0d7ed54864888483ab8b3c0fbb66fda1" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>operator std::string_view</name></member>
+      <member refid="classjac_1_1OwnedString_1a8cf8315b9f228077ba799837fc59a925" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>operator&lt;&lt;</name></member>
+      <member refid="classjac_1_1OwnedString_1a8ea595f31f6fec7abe0dd3818c38e664" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>OwnedString</name></member>
+      <member refid="classjac_1_1OwnedString_1ac838ebf1912d2e504266404632a4e03a" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>OwnedString</name></member>
+      <member refid="classjac_1_1OwnedString_1a3460accc9d3fe527b80d6eba43ad62c5" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>OwnedString</name></member>
+      <member refid="classjac_1_1OwnedString_1ac565d45c5cecc75b2a46ce9ac8db3b05" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>size</name></member>
+      <member refid="classjac_1_1OwnedString_1a5f5080d959a1cd017b1fd5ece5e133a7" prot="public" virt="non-virtual"><scope>jac::OwnedString</scope><name>view</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

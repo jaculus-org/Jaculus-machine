@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1TimersFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::TimersFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <innerclass refid="classjac_1_1TimersFeature_1_1CompareTimer" prot="private">jac::TimersFeature::CompareTimer</innerclass>
+    <innerclass refid="classjac_1_1TimersFeature_1_1Timer" prot="private">jac::TimersFeature::Timer</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1a13173f5226ddb97cc46593f177bcc780" prot="private" static="no" mutable="no">
+        <type>std::priority_queue&lt; std::shared_ptr&lt; Timer &gt;, std::vector&lt; std::shared_ptr&lt; Timer &gt; &gt;, CompareTimer &gt;</type>
+        <definition>std::priority_queue&lt;std::shared_ptr&lt;Timer&gt;, std::vector&lt;std::shared_ptr&lt;Timer&gt; &gt;, CompareTimer&gt; jac::TimersFeature&lt; Next &gt;::_timers</definition>
+        <argsstring></argsstring>
+        <name>_timers</name>
+        <qualifiedname>jac::TimersFeature::_timers</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="93" column="25" bodyfile="src/jac/features/timersFeature.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1a271eec8c10cc4bf5aebc3f58451555e1" prot="private" static="no" mutable="no">
+        <type>std::unordered_map&lt; int, std::shared_ptr&lt; Timer &gt; &gt;</type>
+        <definition>std::unordered_map&lt;int, std::shared_ptr&lt;Timer&gt; &gt; jac::TimersFeature&lt; Next &gt;::_timersById</definition>
+        <argsstring></argsstring>
+        <name>_timersById</name>
+        <qualifiedname>jac::TimersFeature::_timersById</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="94" column="24" bodyfile="src/jac/features/timersFeature.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1aa80bf889aecbd0ee76b10da7ced0d459" prot="private" static="no" mutable="no">
+        <type>std::mutex</type>
+        <definition>std::mutex jac::TimersFeature&lt; Next &gt;::_timersMutex</definition>
+        <argsstring></argsstring>
+        <name>_timersMutex</name>
+        <qualifiedname>jac::TimersFeature::_timersMutex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="95" column="16" bodyfile="src/jac/features/timersFeature.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1ab267a7fc0398b08e2b042a0966a7fee1" prot="private" static="no" mutable="no">
+        <type>std::condition_variable</type>
+        <definition>std::condition_variable jac::TimersFeature&lt; Next &gt;::_timersCondition</definition>
+        <argsstring></argsstring>
+        <name>_timersCondition</name>
+        <qualifiedname>jac::TimersFeature::_timersCondition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="96" column="29" bodyfile="src/jac/features/timersFeature.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1a00a8040d5ef19c9d4b9b8ee3ea0a63ad" prot="private" static="no" mutable="no">
+        <type>std::thread</type>
+        <definition>std::thread jac::TimersFeature&lt; Next &gt;::_timerThread</definition>
+        <argsstring></argsstring>
+        <name>_timerThread</name>
+        <qualifiedname>jac::TimersFeature::_timerThread</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="97" column="17" bodyfile="src/jac/features/timersFeature.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1ab6558094c38968ce5865cce55ce5d18d" prot="private" static="no" mutable="no">
+        <type>std::atomic&lt; bool &gt;</type>
+        <definition>std::atomic&lt;bool&gt; jac::TimersFeature&lt; Next &gt;::_stop</definition>
+        <argsstring></argsstring>
+        <name>_stop</name>
+        <qualifiedname>jac::TimersFeature::_stop</qualifiedname>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="98" column="17" bodyfile="src/jac/features/timersFeature.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1TimersFeature_1af4e1486840b9ea592473cf1d7e33057e" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int jac::TimersFeature&lt; Next &gt;::nextId</definition>
+        <argsstring></argsstring>
+        <name>nextId</name>
+        <qualifiedname>jac::TimersFeature::nextId</qualifiedname>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="100" column="9" bodyfile="src/jac/features/timersFeature.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1ab89f52676ff96243f27405e9595bf79b" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int jac::TimersFeature&lt; Next &gt;::createTimer</definition>
+        <argsstring>(std::function&lt; void()&gt; func, std::chrono::milliseconds millis, bool isRepeating)</argsstring>
+        <name>createTimer</name>
+        <qualifiedname>jac::TimersFeature::createTimer</qualifiedname>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>std::chrono::milliseconds</type>
+          <declname>millis</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>isRepeating</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="102" column="9" bodyfile="src/jac/features/timersFeature.h" bodystart="102" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a08f41c100f4d75c2dfde71e467dd3991" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::TimersFeature&lt; Next &gt;::clearTimer</definition>
+        <argsstring>(int id)</argsstring>
+        <name>clearTimer</name>
+        <qualifiedname>jac::TimersFeature::clearTimer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="112" column="10" bodyfile="src/jac/features/timersFeature.h" bodystart="112" bodyend="118"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a734958c8454183b8f5d7180887a0080e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int jac::TimersFeature&lt; Next &gt;::setInterval</definition>
+        <argsstring>(std::function&lt; void()&gt; func, std::chrono::milliseconds millis)</argsstring>
+        <name>setInterval</name>
+        <qualifiedname>jac::TimersFeature::setInterval</qualifiedname>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>std::chrono::milliseconds</type>
+          <declname>millis</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="120" column="9" bodyfile="src/jac/features/timersFeature.h" bodystart="120" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a0367b3e92f0f8988116b90ba372fafd2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int jac::TimersFeature&lt; Next &gt;::setTimeout</definition>
+        <argsstring>(std::function&lt; void()&gt; func, std::chrono::milliseconds millis)</argsstring>
+        <name>setTimeout</name>
+        <qualifiedname>jac::TimersFeature::setTimeout</qualifiedname>
+        <param>
+          <type>std::function&lt; void()&gt;</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>std::chrono::milliseconds</type>
+          <declname>millis</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="124" column="9" bodyfile="src/jac/features/timersFeature.h" bodystart="124" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a1d9b15a1220f7e59983ab8f7f91c1b3d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::TimersFeature&lt; Next &gt;::clearInterval</definition>
+        <argsstring>(int id)</argsstring>
+        <name>clearInterval</name>
+        <qualifiedname>jac::TimersFeature::clearInterval</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="128" column="10" bodyfile="src/jac/features/timersFeature.h" bodystart="128" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a1a8f5d99640c7f53136cd8681aa7f079" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::TimersFeature&lt; Next &gt;::clearTimeout</definition>
+        <argsstring>(int id)</argsstring>
+        <name>clearTimeout</name>
+        <qualifiedname>jac::TimersFeature::clearTimeout</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="132" column="10" bodyfile="src/jac/features/timersFeature.h" bodystart="132" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1afc8a587caa67a2ab2b183a12a8896a6b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::TimersFeature&lt; Next &gt;::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>jac::TimersFeature::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="136" column="10" bodyfile="src/jac/features/timersFeature.h" bodystart="136" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1TimersFeature_1a500f2e9419e25a242173ea2e7bc01095" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::TimersFeature&lt; Next &gt;::~TimersFeature</definition>
+        <argsstring>()</argsstring>
+        <name>~TimersFeature</name>
+        <qualifiedname>jac::TimersFeature::~TimersFeature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="226" column="5" bodyfile="src/jac/features/timersFeature.h" bodystart="226" bodyend="237"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::TimersFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1TimersFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::TimersFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1TimersFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/timersFeature.h" line="30" column="1" bodyfile="src/jac/features/timersFeature.h" bodystart="30" bodyend="238"/>
+    <listofallmembers>
+      <member refid="classjac_1_1TimersFeature_1ab6558094c38968ce5865cce55ce5d18d" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_stop</name></member>
+      <member refid="classjac_1_1TimersFeature_1a13173f5226ddb97cc46593f177bcc780" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_timers</name></member>
+      <member refid="classjac_1_1TimersFeature_1a271eec8c10cc4bf5aebc3f58451555e1" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_timersById</name></member>
+      <member refid="classjac_1_1TimersFeature_1ab267a7fc0398b08e2b042a0966a7fee1" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_timersCondition</name></member>
+      <member refid="classjac_1_1TimersFeature_1aa80bf889aecbd0ee76b10da7ced0d459" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_timersMutex</name></member>
+      <member refid="classjac_1_1TimersFeature_1a00a8040d5ef19c9d4b9b8ee3ea0a63ad" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>_timerThread</name></member>
+      <member refid="classjac_1_1TimersFeature_1a1d9b15a1220f7e59983ab8f7f91c1b3d" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>clearInterval</name></member>
+      <member refid="classjac_1_1TimersFeature_1a1a8f5d99640c7f53136cd8681aa7f079" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>clearTimeout</name></member>
+      <member refid="classjac_1_1TimersFeature_1a08f41c100f4d75c2dfde71e467dd3991" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>clearTimer</name></member>
+      <member refid="classjac_1_1TimersFeature_1ab89f52676ff96243f27405e9595bf79b" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>createTimer</name></member>
+      <member refid="classjac_1_1TimersFeature_1afc8a587caa67a2ab2b183a12a8896a6b" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>initialize</name></member>
+      <member refid="classjac_1_1TimersFeature_1af4e1486840b9ea592473cf1d7e33057e" prot="private" virt="non-virtual"><scope>jac::TimersFeature</scope><name>nextId</name></member>
+      <member refid="classjac_1_1TimersFeature_1a734958c8454183b8f5d7180887a0080e" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>setInterval</name></member>
+      <member refid="classjac_1_1TimersFeature_1a0367b3e92f0f8988116b90ba372fafd2" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>setTimeout</name></member>
+      <member refid="classjac_1_1TimersFeature_1a500f2e9419e25a242173ea2e7bc01095" prot="public" virt="non-virtual"><scope>jac::TimersFeature</scope><name>~TimersFeature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

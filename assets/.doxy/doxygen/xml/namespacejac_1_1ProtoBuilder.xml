@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacejac_1_1ProtoBuilder" kind="namespace" language="C++">
+    <compoundname>jac::ProtoBuilder</compoundname>
+    <innerclass refid="structjac_1_1ProtoBuilder_1_1Callable" prot="public">jac::ProtoBuilder::Callable</innerclass>
+    <innerclass refid="structjac_1_1ProtoBuilder_1_1LifetimeHandles" prot="public">jac::ProtoBuilder::LifetimeHandles</innerclass>
+    <innerclass refid="structjac_1_1ProtoBuilder_1_1Opaque" prot="public">jac::ProtoBuilder::Opaque</innerclass>
+    <innerclass refid="structjac_1_1ProtoBuilder_1_1Properties" prot="public">jac::ProtoBuilder::Properties</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="69" column="1"/>
+  </compounddef>
+</doxygen>

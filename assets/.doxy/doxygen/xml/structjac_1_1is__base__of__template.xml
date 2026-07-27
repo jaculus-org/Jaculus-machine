@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1is__base__of__template" kind="struct" language="C++" prot="public">
+    <compoundname>jac::is_base_of_template</compoundname>
+    <basecompoundref refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check" prot="public" virt="non-virtual">jac::detail::is_base_of_template_impl&lt; is_callable_t &gt;::check</basecompoundref>
+    <includes refid="class_8h" local="no">class.h</includes>
+    <templateparamlist>
+      <param>
+        <type>template&lt; typename... &gt; class</type>
+        <declname>Base</declname>
+        <defname>Base</defname>
+      </param>
+      <param>
+        <type>typename Derived</type>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+<para>Checks if a type is derived from a template class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base template class </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Derived</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tested type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>detail::is_base_of_template_impl&lt; Base, Derived &gt;::value_t</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>jac::is_base_of_template&lt; Base, Derived &gt;</label>
+        <link refid="structjac_1_1is__base__of__template"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::false_type</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>detail::is_base_of_template_impl&lt; Base, Derived &gt;::value_t</label>
+        <link refid="structjac_1_1detail_1_1is__base__of__template__impl_1_1check"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>jac::is_base_of_template&lt; Base, Derived &gt;</label>
+        <link refid="structjac_1_1is__base__of__template"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>std::false_type</label>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/class.h" line="60" column="1" bodyfile="src/jac/machine/class.h" bodystart="60" bodyend="60"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

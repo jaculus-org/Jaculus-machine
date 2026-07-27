@@ -1,0 +1,255 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="noal__func_8h" kind="file" language="C++">
+    <compoundname>noal_func.h</compoundname>
+    <includes local="no">algorithm</includes>
+    <includes local="no">cstddef</includes>
+    <includes local="no">cstdint</includes>
+    <includes local="no">utility</includes>
+    <includedby refid="eventLoopFeature_8h" local="no">src/jac/features/eventLoopFeature.h</includedby>
+    <includedby refid="filesystemFeature_8h" local="no">src/jac/features/filesystemFeature.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/noal_func.h</label>
+        <link refid="noal__func_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>algorithm</label>
+      </node>
+      <node id="3">
+        <label>cstddef</label>
+      </node>
+      <node id="4">
+        <label>cstdint</label>
+      </node>
+      <node id="5">
+        <label>utility</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/jac/features/eventLoopFeature.h</label>
+        <link refid="eventLoopFeature_8h_source"/>
+      </node>
+      <node id="3">
+        <label>src/jac/features/filesystemFeature.h</label>
+        <link refid="filesystemFeature_8h_source"/>
+      </node>
+      <node id="1">
+        <label>src/noal_func.h</label>
+        <link refid="noal__func_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classnoal_1_1funcptr" prot="public">noal::funcptr</innerclass>
+    <innerclass refid="classnoal_1_1memberfuncptr" prot="public">noal::memberfuncptr</innerclass>
+    <innerclass refid="classnoal_1_1memberconstfuncptr" prot="public">noal::memberconstfuncptr</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...)&gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01_6_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) &amp; &gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) const &gt;</innerclass>
+    <innerclass refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_6_01_4" prot="public">noal::signatureHelper&lt; Res(Func::*)(Args...) const &amp; &gt;</innerclass>
+    <innerclass refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4" prot="public">noal::callableany&lt; Func, Res(Args...)&gt;</innerclass>
+    <innerclass refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4" prot="public">noal::function&lt; Res(Args...), dataSize &gt;</innerclass>
+    <innernamespace refid="namespacenoal">noal</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstddef&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;utility&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">noal<sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="12" refid="classnoal_1_1funcptr" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1funcptr" kindref="compound">funcptr</ref><sp/>{</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/>(*_func)(Args...);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1funcptr" kindref="compound">funcptr</ref>(Res<sp/>(*func)(Args...))<sp/>:<sp/>_func(func)<sp/>{}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>Res<sp/>operator()(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_func(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Res<sp/>call(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>self,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="classnoal_1_1funcptr" kindref="compound">funcptr</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(self))-&gt;operator()(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">Res<sp/>invoker(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>func,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(*</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">Res(**)(Args...)</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(func))(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Class,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="30" refid="classnoal_1_1memberfuncptr" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr</ref><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/>(Class::*_func)(Args...);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>Class*<sp/>_self;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr</ref>(Res<sp/>(Class::*func)(Args...),<sp/>Class*<sp/>self)<sp/>:<sp/>_func(func),<sp/>_self(self)<sp/>{}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>Res<sp/>operator()(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(_self-&gt;*_func)(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Res<sp/>call(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>self,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(self)-&gt;</highlight><highlight class="keyword">operator</highlight><highlight class="normal">()(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Class,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="44" refid="classnoal_1_1memberconstfuncptr" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr</ref><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/>(Class::*_func)(Args...)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>Class*<sp/>_self;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr</ref>(Res<sp/>(Class::*func)(Args...)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">,<sp/>Class*<sp/>self)<sp/>:<sp/>_func(func),<sp/>_self(self)<sp/>{}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>Res<sp/>operator()(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_func(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Res<sp/>call(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>self,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr</ref>*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(self)-&gt;</highlight><highlight class="keyword">operator</highlight><highlight class="normal">()(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func&gt;</highlight></codeline>
+<codeline lineno="58" refid="structnoal_1_1signatureHelper" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="61" refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;Res<sp/>(Func::*)(Args...)&gt;<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">type<sp/>=<sp/>Res(Args...);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="66" refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01_6_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;Res<sp/>(Func::*)(Args...)<sp/>&amp;&gt;<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">type<sp/>=<sp/>Res(Args...);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="71" refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;Res<sp/>(Func::*)(Args...)<sp/>const&gt;<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">type<sp/>=<sp/>Res(Args...);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="76" refid="structnoal_1_1signatureHelper_3_01Res_07Func_1_1_5_08_07Args_8_8_8_08_01const_01_6_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structnoal_1_1signatureHelper" kindref="compound">signatureHelper</ref>&lt;Res<sp/>(Func::*)(Args...)<sp/>const<sp/>&amp;&gt;<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">type<sp/>=<sp/>Res(Args...);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign&gt;</highlight></codeline>
+<codeline lineno="81" refid="classnoal_1_1callableany" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1callableany" kindref="compound">callableany</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="84" refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1callableany" kindref="compound">callableany</ref>&lt;Func,<sp/>Res(Args...)&gt;<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>Func<sp/>func;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1callableany" kindref="compound">callableany</ref>(Func<sp/>_func)<sp/>:<sp/>func(_func)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(std::is_trivially_copyable_v&lt;Func&gt;);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(std::is_trivially_destructible_v&lt;Func&gt;);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>Res<sp/>operator()(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>func(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>Res<sp/>call(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>self,<sp/>Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="classnoal_1_1callableany" kindref="compound">callableany</ref>&lt;Func,<sp/>Res(Args...)</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">*&gt;(self)-&gt;</highlight><highlight class="keyword">operator</highlight><highlight class="normal">()(std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type&gt;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><ref refid="classnoal_1_1callableany" kindref="compound">callableany</ref>(Func)<sp/>-&gt;<sp/><ref refid="classnoal_1_1callableany" kindref="compound">callableany&lt;Func, Sign&gt;</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>dataSize&gt;</highlight></codeline>
+<codeline lineno="103" refid="classnoal_1_1function" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>dataSize&gt;</highlight></codeline>
+<codeline lineno="106" refid="classnoal_1_1function_3_01Res_07Args_8_8_8_08_00_01dataSize_01_4" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt;Res(Args...),<sp/>dataSize&gt;<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">using<sp/></highlight><highlight class="normal">Sign<sp/>=<sp/>Res(Args...);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/>(*call)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*,<sp/>Args...);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>data[dataSize];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">//<sp/>default/copy/move<sp/>constructors,<sp/>copy/move<sp/>assignment<sp/>operators</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>otherSize&gt;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&amp;<sp/>operator=(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classnoal_1_1function" kindref="compound">function&lt;Sign, otherSize&gt;</ref>&amp;<sp/>other)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_assert</highlight><highlight class="normal">(otherSize<sp/>&lt;=<sp/>dataSize,<sp/></highlight><highlight class="stringliteral">&quot;Other<sp/>function<sp/>object<sp/>is<sp/>too<sp/>large&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>static_assert(sizeof(other)<sp/>&lt;=<sp/>sizeof(*this),<sp/>&quot;Other<sp/>function<sp/>object<sp/>is<sp/>too<sp/>large&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::copy(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;other),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;other)<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(other),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::fill(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(other),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(*</highlight><highlight class="keyword">this</highlight><highlight class="normal">),<sp/>0);<sp/><sp/></highlight><highlight class="comment">//<sp/>possibly<sp/>unnecessary<sp/>-<sp/>prevent<sp/>data<sp/>leaks?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>otherSize&gt;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&amp;<sp/>operator=(<ref refid="classnoal_1_1function" kindref="compound">function&lt;Sign, otherSize&gt;</ref>&amp;&amp;<sp/>other)<sp/>{<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>=<sp/>other;<sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>otherSize&gt;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classnoal_1_1function" kindref="compound">function&lt;Sign, otherSize&gt;</ref>&amp;<sp/>other)<sp/>{<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>=<sp/>other;<sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>otherSize&gt;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(<ref refid="classnoal_1_1function" kindref="compound">function&lt;Sign, otherSize&gt;</ref>&amp;&amp;<sp/>other)<sp/>{<sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal"><sp/>=<sp/>other;<sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">//<sp/>member<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>Res<sp/>operator()(Args...<sp/>args)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call(data,<sp/>std::forward&lt;Args&gt;(args)...);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">operator</highlight><highlight class="normal"><sp/>bool()</highlight><highlight class="keyword"><sp/>const<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>call<sp/>!=<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">//<sp/>type<sp/>erasure<sp/>constructors,<sp/>assignment<sp/>operators</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(*func)(Args...))<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>new<sp/>(data)<sp/>funcptr&lt;Res,<sp/>Args...&gt;(func);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>call<sp/>=<sp/>funcptr&lt;Res,<sp/>Args...&gt;::call;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::copy(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;func),<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint8_t*</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(&amp;func)<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(func),<sp/>data);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>=<sp/>invoker&lt;Res,<sp/>Args...&gt;;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&amp;<sp/>operator=(Res<sp/>(*func)(Args...))<sp/>{<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(func);<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Class&gt;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(Class::*func)(Args...),<sp/>Class*<sp/>self)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(data)<sp/><ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr&lt;Class, Res, Args...&gt;</ref>(func,<sp/>self);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>=<sp/><ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr</ref>&lt;Class,<sp/>Res,<sp/>Args...&gt;::call;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class</highlight><highlight class="normal"><sp/>Class&gt;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(Class::*func)(Args...)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">,<sp/>Class*<sp/>self)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(data)<sp/><ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr&lt;Class, Res, Args...&gt;</ref>(func,<sp/>self);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>=<sp/><ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr</ref>&lt;Class,<sp/>Res,<sp/>Args...&gt;::call;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type&gt;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">explicit</highlight><highlight class="normal"><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Func<sp/>func)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(data)<sp/><ref refid="classnoal_1_1callableany" kindref="compound">callableany&lt;Func, Sign&gt;</ref>(func);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>call<sp/>=<sp/><ref refid="classnoal_1_1callableany" kindref="compound">callableany&lt;Func, Sign&gt;::call</ref>;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type&gt;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&amp;<sp/>operator=(Func<sp/>func)<sp/>{<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">this</highlight><highlight class="normal">)<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>(func);<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">this</highlight><highlight class="normal">;<sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">//<sp/>template&lt;typename<sp/>Res,<sp/>typename...<sp/>Args&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">//<sp/>function(Res<sp/>(*)(Args...))<sp/>-&gt;<sp/>function&lt;Res(Args...),<sp/>sizeof(funcptr&lt;Res,<sp/>Args...&gt;)&gt;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(*)(Args...))<sp/>-&gt;<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt;Res(Args...),<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Res<sp/>(*)(Args...))&gt;;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Class,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(Class::*)(Args...),<sp/>Class*)<sp/>-&gt;<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt;Res(Args...),<sp/>sizeof(<ref refid="classnoal_1_1memberfuncptr" kindref="compound">memberfuncptr</ref>&lt;Class,<sp/>Res,<sp/>Args...&gt;)&gt;;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal">Class,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Res,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal">...<sp/>Args&gt;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Res<sp/>(Class::*)(Args...)<sp/>const,<sp/>Class*)<sp/>-&gt;<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt;Res(Args...),<sp/>sizeof(<ref refid="classnoal_1_1memberconstfuncptr" kindref="compound">memberconstfuncptr</ref>&lt;Class,<sp/>Res,<sp/>Args...&gt;)&gt;;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Func,<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>Sign<sp/>=<sp/></highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>signatureHelper&lt;decltype(&amp;Func::operator())&gt;::type&gt;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><ref refid="classnoal_1_1function" kindref="compound">function</ref>(Func)<sp/>-&gt;<sp/><ref refid="classnoal_1_1function" kindref="compound">function</ref>&lt;Sign,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="classnoal_1_1callableany" kindref="compound">callableany&lt;Func, Sign&gt;</ref>)&gt;;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>noal</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="src/noal_func.h"/>
+  </compounddef>
+</doxygen>

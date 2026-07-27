@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ComposeMachine_3_01Base_00_01FirstFeature_00_01MFeatures_8_8_8_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ComposeMachine&lt; Base, FirstFeature, MFeatures... &gt;</compoundname>
+    <basecompoundref refid="structjac_1_1ComposeMachine" prot="public" virt="non-virtual">jac::ComposeMachine&lt; FirstFeature&lt; Base &gt;, MFeatures... &gt;</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Base</type>
+      </param>
+      <param>
+        <type>template&lt; class &gt; class</type>
+        <declname>FirstFeature</declname>
+        <defname>FirstFeature</defname>
+      </param>
+      <param>
+        <type>template&lt; class &gt; class...</type>
+        <declname>MFeatures</declname>
+        <defname>MFeatures</defname>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>jac::ComposeMachine&lt; FirstFeature&lt; Base &gt;, MFeatures... &gt;</label>
+        <link refid="structjac_1_1ComposeMachine"/>
+      </node>
+      <node id="1">
+        <label>jac::ComposeMachine&lt; Base, FirstFeature, MFeatures... &gt;</label>
+        <link refid="structjac_1_1ComposeMachine_3_01Base_00_01FirstFeature_00_01MFeatures_8_8_8_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>jac::ComposeMachine&lt; FirstFeature&lt; Base &gt;, MFeatures... &gt;</label>
+        <link refid="structjac_1_1ComposeMachine"/>
+      </node>
+      <node id="1">
+        <label>jac::ComposeMachine&lt; Base, FirstFeature, MFeatures... &gt;</label>
+        <link refid="structjac_1_1ComposeMachine_3_01Base_00_01FirstFeature_00_01MFeatures_8_8_8_01_4"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/machine.h" line="22" column="1" bodyfile="src/jac/machine/machine.h" bodystart="22" bodyend="22"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -11,6 +11,7 @@ set(JAC_MACHINE_SRC
     "jac/machine/compiler/mirUtil.cpp"
     "jac/machine/compiler/cfg2bc.cpp"
     "jac/machine/compiler/tlessAst2cfg.cpp"
+    "jac/machine/compiler/tlessBodies.cpp"
     "jac/machine/compiler/tlessCfg.cpp"
 )
 

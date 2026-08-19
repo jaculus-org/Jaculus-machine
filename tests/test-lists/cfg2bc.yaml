@@ -4,6 +4,8 @@ tests:
   - local/basic/pass.js
   - local/basic/binop-operand-order.js
   - local/basic/deep-stack-reorder.js
+  - local/basic/tless-cross-block-carry.js
+  - local/basic/exit-return.js
   - local/basic/fail-runtime.js
   - local/basic/fail-syntax.js
   - local/negative/runtime.js
@@ -14,10 +16,14 @@ tests:
   - local/closure/closure-deep.js
   - local/closure/closure-returned.js
   - local/closure/closure-direct-arg.js
+  - local/closure/entry-slot-arguments.js
   - local/script/var-assign.js
   - local/script/let-assign.js
   - local/script/const-assign.js
   - local/script/function-decl.js
   - local/script/const-reassign.js
   - local/negative/member-null-throws.js
+  - local/negative/method-receiver-carry-throws.js
+  - local/negative/member-set-carry-throws.js
   - local/negative/arith-symbol-throws.js
+  - local/negative/exit-throw.js

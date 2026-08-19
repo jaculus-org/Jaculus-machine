@@ -3,6 +3,8 @@ harness_dir: tests/test-files/local/harness
 tests:
   - local/basic/pass.js
   - local/basic/tless-arithmetic-slow-path.js
+  - local/basic/tless-cross-block-carry.js
+  - local/basic/exit-return.js
   - local/basic/fail-runtime.js
   - local/basic/fail-syntax.js
   - local/script/const-let-redeclare.js
@@ -13,8 +15,13 @@ tests:
   - local/negative/runtime.js
   - local/negative/sync-closure-throw.js
   - local/negative/member-null-throws.js
+  - local/negative/method-receiver-carry-throws.js
+  - local/negative/member-set-carry-throws.js
   - local/negative/arith-symbol-throws.js
+  - local/negative/exit-throw.js
   - local/closure/escaped-nested-closure-later.js
+  - local/closure/entry-slot-arguments.js
+  - local/closure/local-closure-identity-current.js
   - local/await/top-level-await-resolve.js
   - local/await/nested-async-closure.js
   - local/await/await-reject-propagates.js

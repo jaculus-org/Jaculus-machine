@@ -3,63 +3,47 @@
 
 #include <cstddef>
 #include <iomanip>
+#include <limits>
+#include <locale>
 #include <ostream>
 #include <set>
 #include <sstream>
+#include <string_view>
 #include <variant>
 
 #include "tlessCfg.h"
-#include "tlessOpcode.h"
+#include "tlessOpInfo.h"
 
 
 namespace jac::cfg::tless::dotprint {
 
 
 inline void print(std::ostream& os, Opcode op) {
-    switch (op) {
-        case Opcode::CreateLocal: os << "CreateLocal"; break;
-        case Opcode::CreateUndefined: os << "CreateUndefined"; break;
-        case Opcode::Copy: os << "Copy"; break;
-        case Opcode::BoolNot: os << "BoolNot"; break;
-        case Opcode::BitNot: os << "BitNot"; break;
-        case Opcode::UnPlus: os << "UnPlus"; break;
-        case Opcode::UnMinus: os << "UnMinus"; break;
-        case Opcode::Load: os << "Load"; break;
-        case Opcode::Dup: os << "Dup"; break;
-        case Opcode::Kill: os << "Kill"; break;
-        case Opcode::CreateGlobalSlot: os << "CreateGlobalSlot"; break;
-        case Opcode::GetArgRef: os << "GetArgRef"; break;
-        case Opcode::GetClosureRef: os << "GetClosureRef"; break;
-        case Opcode::GetGlobalRef: os << "GetGlobalRef"; break;
-        case Opcode::Add: os << "Add"; break;
-        case Opcode::Sub: os << "Sub"; break;
-        case Opcode::Mul: os << "Mul"; break;
-        case Opcode::Div: os << "Div"; break;
-        case Opcode::Rem: os << "Rem"; break;
-        case Opcode::Pow: os << "Pow"; break;
-        case Opcode::LShift: os << "LShift"; break;
-        case Opcode::RShift: os << "RShift"; break;
-        case Opcode::URShift: os << "URShift"; break;
-        case Opcode::BitAnd: os << "BitAnd"; break;
-        case Opcode::BitOr: os << "BitOr"; break;
-        case Opcode::BitXor: os << "BitXor"; break;
-        case Opcode::Eq: os << "Eq"; break;
-        case Opcode::StrictEq: os << "StrictEq"; break;
-        case Opcode::Neq: os << "Neq"; break;
-        case Opcode::StrictNeq: os << "StrictNeq"; break;
-        case Opcode::Gt: os << "Gt"; break;
-        case Opcode::Gte: os << "Gte"; break;
-        case Opcode::Lt: os << "Lt"; break;
-        case Opcode::Lte: os << "Lte"; break;
-        case Opcode::GetMember: os << "GetMember"; break;
-        case Opcode::Store: os << "Store"; break;
-        case Opcode::SetMember: os << "SetMember"; break;
-        case Opcode::Call: os << "Call"; break;
-        case Opcode::CallMethod: os << "CallMethod"; break;
-        case Opcode::Construct: os << "Construct"; break;
-        case Opcode::Await: os << "Await"; break;
-        case Opcode::MakeClosure: os << "MakeClosure"; break;
+    os << opInfo(op).name;
+}
+
+
+constexpr std::string_view name(Tag tag) {
+    switch (tag) {
+        case Tag::Int: return "Int";
+        case Tag::Float64: return "Float64";
+        case Tag::Bool: return "Bool";
+        case Tag::Undefined: return "Undefined";
+        case Tag::Null: return "Null";
+        case Tag::String: return "String";
+        case Tag::Object: return "Object";
+        case Tag::Symbol: return "Symbol";
+        case Tag::BigInt: return "BigInt";
+        case Tag::Exception: return "Exception";
+        case Tag::Uninitialized: return "Uninitialized";
+        case Tag::Closure: return "Closure";
+        case Tag::Other: return "Other";
     }
+    return "InvalidTag";
+}
+
+inline void print(std::ostream& os, Tag tag) {
+    os << name(tag);
 }
 
 
@@ -75,7 +59,7 @@ inline void print(std::ostream& os, const std::vector<Reg>& regs, bool bracket =
     if (bracket) { os << "["; }
     for (const auto& r : regs) {
         os << " ";
-        printRegId(os, r.id());
+        print(os, r);
     }
     if (bracket) { os << " ]"; }
 }
@@ -91,18 +75,71 @@ inline void print(std::ostream& os, const Operation& op) {
     os << "";
 }
 
+inline void printRecordText(std::ostream& os, std::string_view text) {
+    for (const char ch : text) {
+        const auto byte = static_cast<unsigned char>(ch);
+        switch (ch) {
+            case '\\': os << "\\\\"; break;
+            case '"': os << "\\\""; break;
+            case '{':
+            case '}':
+            case '|':
+            case '<':
+            case '>':
+            case '\'': os << '\\' << ch; break;
+            case '\n': os << "\\n"; break;
+            case '\r': os << "\\r"; break;
+            case '\t': os << "\\t"; break;
+            default:
+                if (byte < 0x20 || byte == 0x7F) {
+                    constexpr std::string_view HEX = "0123456789ABCDEF";
+                    os << "\\\\x" << HEX[(byte >> 4) & 0x0F] << HEX[byte & 0x0F];
+                }
+                else {
+                    os << ch;
+                }
+                break;
+        }
+    }
+}
+
+inline void printF64(std::ostream& os, double value) {
+    std::ostringstream valueStream;
+    valueStream.imbue(std::locale::classic());
+    valueStream << std::setprecision(std::numeric_limits<double>::max_digits10) << value;
+    os << valueStream.str();
+}
+
 inline void print(std::ostream& os, const ConstInit& init) {
-    printRegId(os, init.reg.id());
+    print(os, init.reg);
     os << " ← const ";
     std::visit([&os](const auto& value) {
         if constexpr (std::is_same_v<std::decay_t<decltype(value)>, std::string>) {
-            os << std::quoted(value, '\'');
+            os << "'";
+            printRecordText(os, value);
+            os << "'";
         }
         else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, bool>) {
             os << (value ? "True" : "False");
         }
         else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, PoolConst>) {
             os << "Pool(" << value.id << ")";
+        }
+        else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, RawI32Const>) {
+            os << "RawI32(" << value.v << ")";
+        }
+        else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, RawF64Const>) {
+            os << "RawF64(";
+            printF64(os, value.v);
+            os << ")";
+        }
+        else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, RawBoolConst>) {
+            os << "RawBool(" << (value.v ? "True" : "False") << ")";
+        }
+        else if constexpr (std::is_same_v<std::decay_t<decltype(value)>, RawTagConst>) {
+            os << "RawTag(";
+            print(os, value.v);
+            os << ")";
         }
         else {
             os << value;
@@ -160,12 +197,12 @@ inline void print(std::ostream& os, const BasicBlock& block, std::set<const Basi
     switch (block.terminator.type) {
         case Terminator::None:
             printTermLabel();
-            os << "<<none>>";
+            os << "\\<\\<none\\>\\>";
             break;
         case Terminator::Branch:
             printTermLabel();
             os << "if (";
-            printRegId(os, block.terminator.value.id());
+            print(os, block.terminator.value);
             os << ") ";
             print(os, block.terminator.args, true);
             break;
@@ -174,18 +211,10 @@ inline void print(std::ostream& os, const BasicBlock& block, std::set<const Basi
             os << "jump ";
             print(os, block.terminator.args, true);
             break;
-        case Terminator::Return:
+        case Terminator::Exit:
             printTermLabel();
-            os << "return";
-            if (!block.terminator.value.void_()) {
-                os << " ";
-                printRegId(os, block.terminator.value.id());
-            }
-            break;
-        case Terminator::Throw:
-            printTermLabel();
-            os << "throw ";
-            printRegId(os, block.terminator.value.id());
+            os << "exit ";
+            print(os, block.terminator.args, true);
             break;
     }
     os << "}\"];\n";
@@ -200,9 +229,7 @@ inline void print(std::ostream& os, const BasicBlock& block, std::set<const Basi
         case Terminator::Jump:
             os << "  block" << &block << ":s -> block" << block.terminator.target << ":n;\n";
             break;
-        case Terminator::Return:
-            break;
-        case Terminator::Throw:
+        case Terminator::Exit:
             break;
     }
 

@@ -9,6 +9,7 @@
 #include <memory>
 #include <optional>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 #include <utility>
@@ -16,10 +17,16 @@
 #include <vector>
 #include <algorithm>
 
-#include "tlessOpcode.h"
+#include "tlessOpInfo.h"
 
 
 namespace jac::cfg::tless {
+
+
+class IRGenError : public std::runtime_error {
+public:
+    explicit IRGenError(const std::string& message) : std::runtime_error(message) {}
+};
 
 
 struct BasicBlock;
@@ -247,9 +254,28 @@ struct PoolConst {
     int id;
 };
 
+struct RawI32Const {
+    int32_t v;
+};
+
+struct RawF64Const {
+    double v;
+};
+
+struct RawBoolConst {
+    bool v;
+};
+
+struct RawTagConst {
+    Tag v;
+};
+
 struct ConstInit {
     Reg reg;
-    std::variant<int32_t, double, bool, std::string, PoolConst> value;
+    std::variant<
+        int32_t, double, bool, std::string, PoolConst,
+        RawI32Const, RawF64Const, RawBoolConst, RawTagConst
+    > value;
 };
 
 struct Instruction {
@@ -284,8 +310,7 @@ struct Terminator {
     enum Type {
         Jump,
         Branch,
-        Return,
-        Throw,
+        Exit,
         None  // invalid terminator
     };
 
@@ -303,16 +328,8 @@ struct Terminator {
         return { Branch, condition, target, other, std::move(args) };
     }
 
-    static Terminator ret() {
-        return { Return, Reg::createVoid(), nullptr, nullptr };
-    }
-
-    static Terminator retVal(Reg retValue) {
-        return { Return, retValue, nullptr, nullptr };
-    }
-
-    static Terminator throw_(Reg exception) {
-        return { Throw, exception, nullptr, nullptr };
+    static Terminator exit(std::vector<Reg> args) {
+        return { Exit, {}, nullptr, nullptr, std::move(args) };
     }
 
     static Terminator none(std::vector<Reg> args = {}) {
@@ -451,6 +468,29 @@ public:
         }
     }
 
+    std::vector<Reg> emitOperation(size_t resCount, Opcode op, std::vector<Reg> operands) {
+        std::vector<Reg> res;
+        res.reserve(resCount);
+        for (size_t i = 0; i < resCount; i++) {
+            res.push_back(Reg::createTmp());
+        }
+        pushInstruction(Instruction{ Operation{
+            .op = op,
+            .args = std::move(operands),
+            .res = res,
+        } });
+        return res;
+    }
+
+    Reg emitConst(auto value) {
+        Reg reg = Reg::createTmp();
+        pushInstruction(Instruction{ ConstInit{
+            .reg = reg,
+            .value = std::move(value),
+        } });
+        return reg;
+    }
+
     void fixTerminatorRegUses() {
         for (auto& reg : term().args) {
             reg.setUse(block);
@@ -496,20 +536,9 @@ public:
         fixTerminatorRegUses();
     }
 
-    void setRetVal(Reg retValue) {
+    void setExit(std::vector<Reg> exitArgs) {
         assert(block->terminator.type == Terminator::None);
-        block->terminator = Terminator::retVal(retValue);
-        fixTerminatorRegUses();
-    }
-
-    void setReturn() {
-        assert(block->terminator.type == Terminator::None);
-        block->terminator = Terminator::ret();
-    }
-
-    void setThrow(Reg exception) {
-        assert(block->terminator.type == Terminator::None);
-        block->terminator = Terminator::throw_(exception);
+        block->terminator = Terminator::exit(std::move(exitArgs));
         fixTerminatorRegUses();
     }
 
@@ -586,11 +615,12 @@ struct Constant {
 
 
 struct Function {
-    BasicBlockPtr entry;
+    BasicBlockPtr entry = nullptr;
     std::list<std::unique_ptr<BasicBlock>> blocks;
     std::string _name;
     bool isAsync = false;
     size_t argCount = 0;
+    size_t closureCount = 0;
     std::vector<Constant> constPool;
 
     std::string name() const { return _name; }
@@ -623,29 +653,18 @@ struct FunctionEmitter {
         }
         signature = sig;
         data.argCount = sig->args.size();
-        for (size_t argIndex = 0; argIndex < sig->args.size(); ++argIndex) {
-            const auto& name = sig->args[argIndex];
-            RValue indexVal = emitConst(static_cast<int32_t>(argIndex));
+        data.closureCount = sig->closureVars.size();
+        for (const auto& name : sig->args) {
             auto var = scopes.front().addLocal(name, false);
             Reg reg = Reg::createTmp();
             getActiveBlock()->varToReg.data[var.id] = reg;
-            emitInstruction(Operation{
-                .op = Opcode::GetArgRef,
-                .args = { popInterm(indexVal) },
-                .res = { reg }
-            });
+            data.entry->args.push_back(reg);
         }
-        for (size_t closureIndex = 0; closureIndex < sig->closureVars.size(); ++closureIndex) {
-            const auto& name = sig->closureVars[closureIndex];
-            RValue indexVal = emitConst(static_cast<int32_t>(closureIndex));
+        for (const auto& name : sig->closureVars) {
             auto var = scopes.front().addLocal(name, false);
             Reg reg = Reg::createTmp();
             getActiveBlock()->varToReg.data[var.id] = reg;
-            emitInstruction(Operation{
-                .op = Opcode::GetClosureRef,
-                .args = { popInterm(indexVal) },
-                .res = { reg }
-            });
+            data.entry->args.push_back(reg);
         }
         for (const auto & name : sig->globalVars) {
             RValue nameVal = emitConst(name);
@@ -755,6 +774,46 @@ struct FunctionEmitter {
             .res = { reg }
         });
         return pushInterm(reg);
+    }
+
+    void emitReturn(Reg value) {
+        auto undefined = Reg::createTmp();
+        emitInstruction(Operation{
+            .op = Opcode::CreateUndefined,
+            .args = {},
+            .res = { undefined }
+        });
+        auto hadException = Reg::createTmp();
+        emitInstruction(ConstInit{
+            .reg = hadException,
+            .value = RawBoolConst{ false }
+        });
+        getActiveBlock()->setExit({ value, undefined, hadException });
+    }
+
+    void emitReturn() {
+        auto value = Reg::createTmp();
+        emitInstruction(Operation{
+            .op = Opcode::CreateUndefined,
+            .args = {},
+            .res = { value }
+        });
+        emitReturn(value);
+    }
+
+    void emitThrow(Reg exception) {
+        auto value = Reg::createTmp();
+        emitInstruction(Operation{
+            .op = Opcode::CreateUndefined,
+            .args = {},
+            .res = { value }
+        });
+        auto hadException = Reg::createTmp();
+        emitInstruction(ConstInit{
+            .reg = hadException,
+            .value = RawBoolConst{ true }
+        });
+        getActiveBlock()->setExit({ value, exception, hadException });
     }
 
     RValue pushInterm(Reg reg) {

@@ -42,6 +42,36 @@ inline JSValue toNumber(JSContext* ctx, JSValue val, int32_t* exceptionFlag) {
     return res;
 }
 
+inline JSValue toPrimitive(JSContext* ctx, JSValue value, int32_t* exceptionFlag) {
+    constexpr std::string_view code(R"((x) => {
+if (Object(x) !== x) return x;
+const exotic = x[Symbol.toPrimitive];
+if (exotic !== undefined) {
+    if (typeof exotic !== 'function') throw new TypeError();
+    const r = exotic.call(x, 'default');
+    if (Object(r) === r) throw new TypeError();
+    return r;
+}
+if (typeof x.valueOf === 'function') {
+    const r = x.valueOf();
+    if (Object(r) !== r) return r;
+}
+if (typeof x.toString === 'function') {
+    const r = x.toString();
+    if (Object(r) !== r) return r;
+}
+throw new TypeError();
+})");
+    JSValue args[1] = { value };
+    JSValue fn = JS_Eval(ctx, code.data(), code.size(), "<builtin_toPrimitive>",JS_EVAL_TYPE_GLOBAL);
+    JSValue result = JS_Call(ctx, fn, JS_UNDEFINED, 1, args);
+    JS_FreeValue(ctx, fn);
+    if (JS_IsException(result)) {
+        *exceptionFlag = 1;
+    }
+    return result;
+}
+
 
 inline JSValue add(JSContext* ctx, JSValue op1, JSValue op2, int32_t* exceptionFlag) {
     JSValue res;

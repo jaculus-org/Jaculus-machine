@@ -24,6 +24,7 @@
 #include <jac/machine/compiler/tlessAst2cfg.h>
 #include <jac/machine/compiler/tlessCfg.h>
 #include <jac/machine/compiler/tlessCfgDot.h>
+#include <jac/machine/compiler/tlessCfgUtil.h>
 
 #include "quickjs.h"
 #include "test262/harness.h"
@@ -97,6 +98,7 @@ std::vector<uint8_t> compileAndDump(const AST& node, const std::string& path,
 
     auto cfgEm = jac::cfg::tless::ast2cfg(node);
     auto cfgFunc = cfgEm.output();
+    jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
 
     dumpCFG(cfgFunc, path, dump);
 

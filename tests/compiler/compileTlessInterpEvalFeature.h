@@ -15,6 +15,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -26,7 +27,7 @@ namespace jac {
 
 
 template<class Next>
-class AotEvalFeature : public EvalFeature<Next> {
+class TlessInterpEvalFeature : public EvalFeature<Next> {
 
     std::vector<jac::lex::Token> scan(std::string_view js) {
         bool hadError = false;
@@ -74,6 +75,32 @@ class AotEvalFeature : public EvalFeature<Next> {
     }
 public:
 
+    std::shared_ptr<cfg::tless::Function> compileTless(std::string_view code, EvalFlags flags = EvalFlags::Global) {
+        bool isModule = (flags & EvalFlags::Module) == EvalFlags::Module;
+        try {
+            auto func = tryAot(code, isModule);
+            cfg::tless::removeUnreachableBlocks(func);
+            return std::make_shared<cfg::tless::Function>(std::move(func));
+        }
+        catch (const cfg::tless::IRGenError& e) {
+            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: AOT compilation error: " + std::string(e.what()));
+        }
+        catch (const std::runtime_error& e) {
+            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: " + std::string(e.what()));
+        }
+    }
+
+    Value evalTless(const std::shared_ptr<cfg::tless::Function>& compiled) {
+        JSValue result;
+        if (compiled->isAsync) {
+            result = cfg::tless::interp::runAsync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
+        }
+        else {
+            result = cfg::tless::interp::runSync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
+        }
+        return Value(this->context(), result);
+    }
+
     /**
      * @brief Evaluate a string containing javascript code, while compiling some
      * parts to native code
@@ -84,27 +111,7 @@ public:
      * @return Result of the evaluation
      */
     Value eval(std::string code, std::string filename, EvalFlags flags = EvalFlags::Global) {
-        bool isModule = (flags & EvalFlags::Module) == EvalFlags::Module;
-
-        std::optional<jac::cfg::tless::Function> func;
-        try {
-            func.emplace(tryAot(code, isModule));
-        }
-        catch (const cfg::tless::IRGenError& e) {
-            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: AOT compilation error: " + std::string(e.what()));
-        }
-        catch (const std::runtime_error& e) {
-            throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: " + std::string(e.what()));
-        }
-
-        auto compiled = std::make_shared<jac::cfg::tless::Function>(std::move(*func));
-        JSValue resVal;
-        if (compiled->isAsync) {
-            resVal = cfg::tless::interp::Frame<Next>::runAsync(this->context(), *this, *compiled, compiled, JS_UNDEFINED, 0, nullptr);
-        } else {
-            resVal = cfg::tless::interp::Frame<Next>::runSync(this->context(), *this, *compiled, compiled, JS_UNDEFINED, 0, nullptr);
-        }
-        return Value(this->context(), resVal);
+        return evalTless(compileTless(code, flags));
     }
 };
 

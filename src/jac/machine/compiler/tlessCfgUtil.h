@@ -43,6 +43,37 @@ namespace detail {
 }  // namespace detail
 
 
+inline void removeUnreachableBlocks(Function& fn) {
+    const auto reachable = detail::findReachable(fn.entry);
+
+    for (auto it = fn.blocks.begin(); it != fn.blocks.end();) {
+        if (!reachable.contains(it->get())) {
+            it = fn.blocks.erase(it);
+        }
+        else {
+            ++it;
+        }
+    }
+
+    for (const auto& block : fn.blocks) {
+        block->predecessors.clear();
+    }
+    for (const auto& block : fn.blocks) {
+        const Terminator& term = block->terminator;
+        if (term.type == Terminator::Jump || term.type == Terminator::Branch) {
+            term.target->predecessors.insert(block.get());
+        }
+        if (term.type == Terminator::Branch) {
+            term.other->predecessors.insert(block.get());
+        }
+    }
+
+    for (Constant& constant : fn.constPool) {
+        removeUnreachableBlocks(*std::get<std::unique_ptr<Function>>(constant.value));
+    }
+}
+
+
 inline void removeEmptyBlocks(Function& fn) {
     std::set<BasicBlockPtr> toRemove;
 

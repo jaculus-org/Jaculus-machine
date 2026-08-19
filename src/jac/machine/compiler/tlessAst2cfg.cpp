@@ -178,7 +178,7 @@ void handleException(Reg ex, Reg hadEx, FunctionEmitter& func) {
         emitKill({ reg }, func);
     }
     emitKillLiveVars(func);
-    trueBlock->setThrow(toThrow);
+    func.emitThrow(toThrow);
 
     func.setActiveBlock(falseBlock);
     emitKill(func.popInterm(exR), func);
@@ -216,7 +216,6 @@ void emitCheckedVoidOp(Opcode op, std::vector<Reg> args, FunctionEmitter& func) 
 [[nodiscard]] LVRef emitAsLV(const ast::Expression& node, FunctionEmitter& func);
 
 
-
 void emitAssign(LVRef target, Reg value, FunctionEmitter& func) {
     if (target.isMember()) {
         auto [obj, acc] = target.member();
@@ -243,8 +242,12 @@ void emitAssign(LVRef target, Reg value, FunctionEmitter& func) {
 
 [[nodiscard]] RValue emitAssignAndKeep(LVRef target, Reg toAssign, Reg toKeep, FunctionEmitter& func) {
     if (target.isMember()) {
-        emitAssign(target, toAssign, func);
-        return func.pushInterm(toKeep);
+        auto [obj, acc] = target.member();
+        auto accReg = func.popInterm(acc);
+        auto objReg = func.popInterm(obj);
+        auto kept = func.pushInterm(toKeep);
+        emitCheckedVoidOp(Opcode::SetMember, { objReg, accReg, toAssign }, func);
+        return kept;
     }
 
     auto toKeepR = func.pushInterm(toKeep);
@@ -368,9 +371,10 @@ template<typename F, typename G>
             .res = { thisCopy1, thisCopy2 }
         });
 
+        auto receiver = func.pushInterm(thisCopy2);
         Reg methodReg = emitCheckedOp(Opcode::GetMember, { thisCopy1, identReg }, func);
 
-        args.push_back(func.pushInterm(thisCopy2));
+        args.push_back(receiver);
         args.push_back(func.pushInterm(methodReg));
         op = Opcode::CallMethod;
     }
@@ -560,13 +564,23 @@ template<typename F, typename G>
 
     switch (expr.kind) {
         case ast::UpdateExpression::Op::PreInc:
-        case ast::UpdateExpression::Op::PostInc:
             valPost = emitCheckedOp(Opcode::Add, { lop, rop }, func);
             break;
+        case ast::UpdateExpression::Op::PostInc: {
+            auto original = func.pushInterm(res);
+            valPost = emitCheckedOp(Opcode::Add, { lop, rop }, func);
+            res = func.popInterm(original);
+            break;
+        }
         case ast::UpdateExpression::Op::PreDec:
-        case ast::UpdateExpression::Op::PostDec:
             valPost = emitCheckedOp(Opcode::Sub, { lop, rop }, func);
             break;
+        case ast::UpdateExpression::Op::PostDec: {
+            auto original = func.pushInterm(res);
+            valPost = emitCheckedOp(Opcode::Sub, { lop, rop }, func);
+            res = func.popInterm(original);
+            break;
+        }
         default:
             assert(false);
     }
@@ -666,8 +680,9 @@ template<typename F, typename G>
             auto [val1, val2] = emitDup(func.popInterm(val), func);
             auto accReg = func.popInterm(passthrough[1]);
             auto objReg = func.popInterm(passthrough[0]);
+            auto kept = func.pushInterm(val2);
             emitCheckedVoidOp(Opcode::SetMember, { objReg, accReg, val1 }, func);
-            return func.pushInterm(val2);
+            return kept;
         },
         kind, func
     );
@@ -893,14 +908,14 @@ bool emitStmt(const ast::BreakStatement& stmt, FunctionEmitter& func) {
 bool emitStmt(const ast::ReturnStatement& stmt, FunctionEmitter& func) {
     if (!stmt.expression()) {
         emitKillLiveVars(func);
-        func.getActiveBlock()->setReturn();
+        func.emitReturn();
         return true;
     }
 
     auto arg = emitAsRV(*stmt.expression(), func);
 
     emitKillLiveVars(func);
-    func.getActiveBlock()->setRetVal(func.popInterm(arg));
+    func.emitReturn(func.popInterm(arg));
     return true;
 }
 
@@ -908,7 +923,7 @@ bool emitStmt(const ast::ThrowStatement& stmt, FunctionEmitter& func) {
     auto val = emitAsRV(*stmt.expression(), func);
 
     emitKillLiveVars(func);
-    func.getActiveBlock()->setThrow(func.popInterm(val));
+    func.emitThrow(func.popInterm(val));
     return true;
 }
 
@@ -1033,8 +1048,8 @@ FunctionEmitter ast2cfg(const ast::Function& decl, SignaturePtr sig, FunctionEmi
     }
 
     if (out.getActiveBlock()->term().type == Terminator::None) {
-        out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
+        out.emitReturn();
     }
 
     return out;
@@ -1060,8 +1075,8 @@ FunctionEmitter ast2cfg(const ast::Script& s) {
     }
 
     if (out.getActiveBlock()->term().type == Terminator::None) {
-        out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
+        out.emitReturn();
     }
 
     return out;
@@ -1083,8 +1098,8 @@ FunctionEmitter ast2cfg(const ast::Module& m) {
     }
 
     if (out.getActiveBlock()->term().type == Terminator::None) {
-        out.getActiveBlock()->setReturn();
         emitKillLiveVars(out);
+        out.emitReturn();
     }
 
     return out;

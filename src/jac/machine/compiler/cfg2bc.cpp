@@ -62,6 +62,9 @@ struct OpcodeInfo {
 
 static OpcodeInfo getOpcodeInfo(cfg::Opcode op) {
     using Op = cfg::Opcode;
+    if (static_cast<size_t>(op) >= cfg::OPCODE_COUNT) {
+        throw _IRGenError("Unknown opcode in cfg2bc");
+    }
     switch (op) {
         case Op::CreateLocal:       return {{}, {0}};
         case Op::CreateUndefined:   return {{}, {}};
@@ -74,8 +77,6 @@ static OpcodeInfo getOpcodeInfo(cfg::Opcode op) {
         case Op::Dup:               return {{0}, {}};
         case Op::Kill:              return {{0}, {}};
         case Op::CreateGlobalSlot:  return {{}, {0}};
-        case Op::GetArgRef:         return {{}, {0}};
-        case Op::GetClosureRef:     return {{}, {0}};
         case Op::GetGlobalRef:      return {{}, {0}};
         case Op::Add:               return {{0, 1}, {}};
         case Op::Sub:               return {{0, 1}, {}};
@@ -105,11 +106,48 @@ static OpcodeInfo getOpcodeInfo(cfg::Opcode op) {
         case Op::Construct:         return {{}, {}, true};
         case Op::Await:             return {{0}, {}};
         case Op::MakeClosure:       return {{}, {}, true};
+        case Op::ToPrimitive: case Op::StringConcat:
+        case Op::AddSlow: case Op::SubSlow: case Op::MulSlow:
+        case Op::GetTag: case Op::CmpEqTag:
+        case Op::UnboxI32: case Op::UnboxF64:
+        case Op::BoxI32: case Op::BoxF64:
+        case Op::AddI32: case Op::SubI32: case Op::MulI32:
+        case Op::AddF64: case Op::SubF64: case Op::MulF64:
+        case Op::I32ToF64:
+            throw _IRGenError("Low-level opcodes cannot be lowered by cfg2bc");
     }
-    return {{}, {}};
+    throw _IRGenError("Opcode is missing cfg2bc stack metadata");
+}
+
+static const cfg::ConstInit& pullConst(cfg::RegInfo* regInfo) {
+    if (regInfo->assign && !regInfo->assign->isOperation()) {
+        return regInfo->assign->asConstInit();
+    }
+    throw _IRGenError("Expected constant value");
 }
 
 void prepass(const cfg::Function& fun, State& state) {
+    if (fun.entry->args.size() != fun.argCount + fun.closureCount) {
+        throw _IRGenError("Function entry argument count does not match its signature");
+    }
+    state.argCount = static_cast<int>(fun.argCount);
+    for (size_t i = 0; i < fun.entry->args.size(); i++) {
+        auto* reg = fun.entry->args[i].get();
+        state.unmaterializedRegs.insert(reg);
+        if (i < fun.argCount) {
+            state.slotMap[reg] = SlotInfo{
+                .type = SlotInfo::Arg,
+                .id = static_cast<int>(i)
+            };
+        }
+        else {
+            state.slotMap[reg] = SlotInfo{
+                .type = SlotInfo::Closure,
+                .id = static_cast<int>(i - fun.argCount)
+            };
+        }
+    }
+
     std::deque<cfg::BasicBlockPtr> worklist;
     worklist.push_back(fun.entry);
     std::set<cfg::BasicBlockPtr> visited{ fun.entry };
@@ -119,13 +157,6 @@ void prepass(const cfg::Function& fun, State& state) {
             worklist.push_back(blockPtr);
             visited.insert(blockPtr);
         }
-    };
-
-    auto pullConst = [&](cfg::RegInfo* regInfo) -> cfg::ConstInit {
-        if (regInfo->assign && !regInfo->assign->isOperation()) {
-            return regInfo->assign->asConstInit();
-        }
-        throw _IRGenError("Expected constant value in prepass");
     };
 
     while (!worklist.empty()) {
@@ -200,18 +231,6 @@ void prepass(const cfg::Function& fun, State& state) {
                     state.globalDefs.push_back({ name, kind });
                     break;
                 }
-                case cfg::Opcode::GetArgRef:
-                    state.slotMap[op->res[0].get()] = SlotInfo{
-                        .type = SlotInfo::Arg,
-                        .id = std::get<int>(pullConst(op->args[0].get()).value)
-                    };
-                    break;
-                case cfg::Opcode::GetClosureRef:
-                    state.slotMap[op->res[0].get()] = SlotInfo{
-                        .type = SlotInfo::Closure,
-                        .id = std::get<int>(pullConst(op->args[0].get()).value)
-                    };
-                    break;
                 case cfg::Opcode::GetGlobalRef:
                     state.slotMap[op->res[0].get()] = SlotInfo{
                         .type = SlotInfo::Global,
@@ -243,8 +262,14 @@ void prepass(const cfg::Function& fun, State& state) {
                 }
             }
             else if (auto* const_ = std::get_if<cfg::ConstInit>(&instr->op)) {
-                if (std::get_if<cfg::PoolConst>(&const_->value)) {
+                const bool isPoolConst = std::holds_alternative<cfg::PoolConst>(const_->value);
+                if (isPoolConst) {
                     state.unmaterializedRegs.insert(const_->reg.get());
+                }
+                else if (std::get_if<cfg::RawI32Const>(&const_->value)
+                         || std::get_if<cfg::RawF64Const>(&const_->value)
+                         || std::get_if<cfg::RawTagConst>(&const_->value)) {
+                    throw _IRGenError("cfg2bc can materialize only RawBool raw constants");
                 }
             }
         }
@@ -261,13 +286,6 @@ void prepass(const cfg::Function& fun, State& state) {
         }
     }
 
-    auto maxArg = -1;
-    for (const auto& slot : state.slotMap) {
-        if (slot.second.type == SlotInfo::Arg) {
-            maxArg = std::max(maxArg, std::get<int>(slot.second.id));
-        }
-    }
-    state.argCount = maxArg + 1;
 }
 
 std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Function& fun, const std::string& filename,
@@ -363,6 +381,42 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
             stackState.erase(std::prev(rit.base()));
             stackState.push_back(x);
         };
+        auto bringToTop = [&](cfg::RegInfo* target) {
+            int depth = 0;
+            auto it = stackState.rbegin();
+            for (; it != stackState.rend(); ++it) {
+                if (*it == target) break;
+                depth++;
+            }
+
+            if (it == stackState.rend()) {
+                throw _IRGenError("Register not found on stack");
+            }
+
+            auto n = std::min(depth + 1, static_cast<int>(stackState.size()));
+            switch (n) {
+                case 1: break;
+                case 2: writeByte(bc.bytecode, OP_swap); rotateTop(2); break;
+                case 3: writeByte(bc.bytecode, OP_rot3l); rotateTop(3); break;
+                case 4: writeByte(bc.bytecode, OP_rot4l); rotateTop(4); break;
+                case 5: writeByte(bc.bytecode, OP_rot5l); rotateTop(5); break;
+                default: {
+                    writeByte(bc.bytecode, OP_array_from);
+                    writeInt<2>(bc.bytecode, static_cast<uint16_t>(n));
+                    for (int idx = 1; idx < n; idx++) {
+                        writeByte(bc.bytecode, OP_push_i32);
+                        writeInt<4>(bc.bytecode, idx);
+                        writeByte(bc.bytecode, OP_get_array_el2);
+                        writeByte(bc.bytecode, OP_swap);
+                    }
+                    writeByte(bc.bytecode, OP_push_i32);
+                    writeInt<4>(bc.bytecode, 0);
+                    writeByte(bc.bytecode, OP_get_array_el);
+                    rotateTop(n);
+                    break;
+                }
+            }
+        };
 
         auto consumeArgs = [&](const cfg::Operation& op) {
             const auto& info = getOpcodeInfo(op.op);
@@ -378,41 +432,7 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
             for (int argIdx : order) {
                 auto* target = op.args[argIdx].get();
                 if (state.unmaterializedRegs.contains(target)) continue;
-
-                int depth = 0;
-                auto it = stackState.rbegin();
-                for (; it != stackState.rend(); ++it) {
-                    if (*it == target) break;
-                    depth++;
-                }
-
-                if (it == stackState.rend()) {
-                    throw _IRGenError("Arg register not found on stack during consumeArgs");
-                }
-
-                auto n = std::min(depth + 1, static_cast<int>(stackState.size()));
-                switch (n) {
-                    case 1: break;
-                    case 2: writeByte(bc.bytecode, OP_swap); rotateTop(2); break;
-                    case 3: writeByte(bc.bytecode, OP_rot3l); rotateTop(3); break;
-                    case 4: writeByte(bc.bytecode, OP_rot4l); rotateTop(4); break;
-                    case 5: writeByte(bc.bytecode, OP_rot5l); rotateTop(5); break;
-                    default: {
-                        writeByte(bc.bytecode, OP_array_from);
-                        writeInt<2>(bc.bytecode, static_cast<uint16_t>(n));
-                        for (int idx = 1; idx < n; idx++) {
-                            writeByte(bc.bytecode, OP_push_i32);
-                            writeInt<4>(bc.bytecode, idx);
-                            writeByte(bc.bytecode, OP_get_array_el2);
-                            writeByte(bc.bytecode, OP_swap);
-                        }
-                        writeByte(bc.bytecode, OP_push_i32);
-                        writeInt<4>(bc.bytecode, 0);
-                        writeByte(bc.bytecode, OP_get_array_el);
-                        rotateTop(n);
-                        break;
-                    }
-                }
+                bringToTop(target);
             }
 
             for (int argIdx : order) {
@@ -552,10 +572,6 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
                         }
                         break;
                     case cfg::Opcode::CreateGlobalSlot:
-                        break;
-                    case cfg::Opcode::GetArgRef:
-                        break;
-                    case cfg::Opcode::GetClosureRef:
                         break;
                     case cfg::Opcode::GetGlobalRef:
                         break;
@@ -727,6 +743,15 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
                         writeInt<4>(bc.bytecode, it->second);
                         break;
                     }
+                    case cfg::Opcode::ToPrimitive: case cfg::Opcode::StringConcat:
+                    case cfg::Opcode::AddSlow: case cfg::Opcode::SubSlow: case cfg::Opcode::MulSlow:
+                    case cfg::Opcode::GetTag: case cfg::Opcode::CmpEqTag:
+                    case cfg::Opcode::UnboxI32: case cfg::Opcode::UnboxF64:
+                    case cfg::Opcode::BoxI32: case cfg::Opcode::BoxF64:
+                    case cfg::Opcode::AddI32: case cfg::Opcode::SubI32: case cfg::Opcode::MulI32:
+                    case cfg::Opcode::AddF64: case cfg::Opcode::SubF64: case cfg::Opcode::MulF64:
+                    case cfg::Opcode::I32ToF64:
+                        throw _IRGenError("Low-level opcodes cannot be lowered by cfg2bc");
                 }
             }
             else if (auto* const_ = std::get_if<cfg::ConstInit>(&instr->op)) {
@@ -744,6 +769,14 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
                     }
                     else if (std::get_if<bool>(&const_->value)) {
                         writeByte(bc.bytecode, std::get<bool>(const_->value) ? OP_push_true : OP_push_false);
+                    }
+                    else if (auto* rawBool = std::get_if<cfg::RawBoolConst>(&const_->value)) {
+                        writeByte(bc.bytecode, rawBool->v ? OP_push_true : OP_push_false);
+                    }
+                    else if (std::get_if<cfg::RawI32Const>(&const_->value)
+                             || std::get_if<cfg::RawF64Const>(&const_->value)
+                             || std::get_if<cfg::RawTagConst>(&const_->value)) {
+                        throw _IRGenError("cfg2bc can materialize only RawBool raw constants");
                     }
                     else {
                         throw std::runtime_error("Unsupported constant type");
@@ -780,28 +813,41 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
             writeInt<4>(bc.bytecode, 0);
             termOffsets.emplace_back(offsetPos, blockPtr->terminator.target);
         }
-        else if (blockPtr->terminator.type == cfg::Terminator::Type::Return) {
-            if (blockPtr->terminator.value.id() != 0) {
-                useReg(blockPtr->terminator.value.get());
-                writeByte(bc.bytecode, OP_return);
+        else if (blockPtr->terminator.type == cfg::Terminator::Type::Exit) {
+            const auto& exitArgs = blockPtr->terminator.args;
+            if (exitArgs.size() != 3) {
+                throw _IRGenError("JS function Exit must carry (res, ex, hadEx)");
             }
-            else {
-                writeByte(bc.bytecode, OP_return_undef);
+            auto* hadExReg = exitArgs[2].get();
+            if (!hadExReg->assign || hadExReg->assign->isOperation()) {
+                throw _IRGenError("JS function Exit hadEx must be a boolean constant");
             }
-        }
-        else if (blockPtr->terminator.type == cfg::Terminator::Type::Throw) {
-            if (blockPtr->terminator.value.id() != 0) {
-                useReg(blockPtr->terminator.value.get());
-                writeByte(bc.bytecode, OP_throw);
+            const auto& hadExConst = hadExReg->assign->asConstInit();
+            const auto* rawHadException = std::get_if<cfg::RawBoolConst>(&hadExConst.value);
+            if (!rawHadException) {
+                throw _IRGenError("JS function Exit hadEx must be a boolean constant");
             }
-            else {
-                writeByte(bc.bytecode, OP_undefined);
-                writeByte(bc.bytecode, OP_throw);
-            }
+            const bool hadException = rawHadException->v;
+
+            auto dropReg = [&](cfg::RegInfo* reg) {
+                bringToTop(reg);
+                useReg(reg);
+                writeByte(bc.bytecode, OP_drop);
+            };
+
+            dropReg(exitArgs[2].get());
+            auto selectedIndex = hadException ? 1 : 0;
+            auto unselectedIndex = hadException ? 0 : 1;
+            dropReg(exitArgs[unselectedIndex].get());
+            bringToTop(exitArgs[selectedIndex].get());
+            useReg(exitArgs[selectedIndex].get());
+            writeByte(bc.bytecode, hadException ? OP_throw : OP_return);
         }
 
-        for (auto& arg : std::ranges::reverse_view(blockPtr->terminator.args)) {
-            useReg(arg.get());
+        if (blockPtr->terminator.type != cfg::Terminator::Type::Exit) {
+            for (auto& arg : std::ranges::reverse_view(blockPtr->terminator.args)) {
+                useReg(arg.get());
+            }
         }
 
         blockRanges.emplace_back(blockOffsets[blockPtr], static_cast<uint32_t>(bc.pos()), blockEntryDepth);
@@ -844,11 +890,9 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
     bc.stackSize = maxStackDepth;
 
     auto maxLocal = -1;
-    auto maxArg = -1;
     for (const auto& slot : state.slotMap) {
         switch (slot.second.type) {
             case SlotInfo::Arg:
-                maxArg = std::max(maxArg, std::get<int>(slot.second.id));
                 break;
             case SlotInfo::Local:
                 maxLocal = std::max(maxLocal, std::get<int>(slot.second.id));
@@ -874,10 +918,10 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
             bc.closures.emplace_back(nameAtom, cap.index, flags);
         }
     }
-    for (int argIndex = 0; argIndex <= maxArg; ++argIndex) {
+    for (int argIndex = 0; argIndex < state.argCount; ++argIndex) {
         bc.args.push_back(root.addAtom("arg" + std::to_string(argIndex)));
     }
-    bc.argCount = static_cast<uint32_t>(bc.args.size());
+    bc.argCount = static_cast<uint32_t>(state.argCount);
     bc.varCount = 0;
 
     return bcPtr;

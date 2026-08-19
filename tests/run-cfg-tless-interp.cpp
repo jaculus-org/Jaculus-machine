@@ -19,7 +19,7 @@
 using Machine = jac::ComposeMachine<
     jac::MachineBase,
     jac::EventQueueFeature,
-    jac::AotEvalFeature,
+    jac::TlessInterpEvalFeature,
     jac::BasicStreamFeature,
     jac::StdioFeature,
     jac::EventLoopFeature,

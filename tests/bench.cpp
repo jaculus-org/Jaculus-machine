@@ -15,6 +15,7 @@
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
+#include "compiler/compileTlessInterpEvalFeature.h"
 
 using MachineInterp = jac::ComposeMachine<
     jac::MachineBase,
@@ -31,6 +32,15 @@ using MachineAot = jac::ComposeMachine<
     jac::BasicStreamFeature,
     jac::StdioFeature,
     jac::EventQueueFeature,
+    jac::EventLoopFeature,
+    jac::EventLoopTerminal
+>;
+using MachineTless = jac::ComposeMachine<
+    jac::MachineBase,
+    jac::EventQueueFeature,
+    jac::TlessInterpEvalFeature,
+    jac::BasicStreamFeature,
+    jac::StdioFeature,
     jac::EventLoopFeature,
     jac::EventLoopTerminal
 >;
@@ -67,6 +77,25 @@ auto run(std::string& code, const auto& defines) {
 }
 
 
+auto runTless(std::string& code, const auto& defines) {
+    auto start = std::chrono::high_resolution_clock::now();
+
+    MachineTless machine;
+    initializeIo(machine);
+    machine.initialize();
+
+    for (const auto& [id, val] : defines) {
+        machine.context().getGlobalObject().defineProperty(std::string(id), jac::Value::from(machine.context(), std::string(val)));
+    }
+
+    auto compiled = machine.compileTless(code);
+    auto initialized = std::chrono::high_resolution_clock::now();
+    jac::Value result = machine.evalTless(compiled);
+    auto finished = std::chrono::high_resolution_clock::now();
+    return std::make_pair(initialized - start, finished - initialized);
+}
+
+
 template<typename Machine>
 void repeat(std::string& code, int count, const auto& defines) {
     using Duration = decltype(run<Machine>(code, defines).first);
@@ -89,8 +118,26 @@ void repeat(std::string& code, int count, const auto& defines) {
 }
 
 
+void repeatTless(std::string& code, int count, const auto& defines) {
+    using Duration = decltype(runTless(code, defines).first);
+
+    auto initSum = Duration::zero();
+    auto runSum = Duration::zero();
+    for (int i = 0; i < count; ++i) {
+        std::cerr << '\r' << i << " / " << count << ' ' << std::flush;
+        auto [init, runtime] = runTless(code, defines);
+        initSum += init;
+        runSum += runtime;
+    }
+    std::cerr << '\r' << count << " / " << count << std::endl;
+
+    std::cout << std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(initSum).count() / count << ";"
+              << std::chrono::duration_cast<std::chrono::duration<double, std::milli>>(runSum).count() / count << ";" << std::endl;
+}
+
+
 int main(const int argc, const char* argv[]) {
-    // --path <file> --count <count> --mode <interp|aot> [-D<name>=<value>]
+    // --path <file> --count <count> --mode <interp|aot|tless> [-D<name>=<value>]
 
     std::string path;
     int count = 1;
@@ -170,6 +217,9 @@ int main(const int argc, const char* argv[]) {
     }
     else if (mode == "aot") {
         repeat<MachineAot>(code, count, defines);
+    }
+    else if (mode == "tless") {
+        repeatTless(code, count, defines);
     }
     else {
         std::cerr << "Unknown mode: " << mode << std::endl;

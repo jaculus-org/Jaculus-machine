@@ -68,7 +68,6 @@ static OpcodeInfo getOpcodeInfo(cfg::Opcode op) {
     switch (op) {
         case Op::CreateLocal:       return {{}, {0}};
         case Op::CreateUndefined:   return {{}, {}};
-        case Op::Copy:              return {{0}, {}};
         case Op::BoolNot:           return {{0}, {}};
         case Op::BitNot:            return {{0}, {}};
         case Op::UnPlus:            return {{0}, {}};
@@ -522,8 +521,6 @@ std::unique_ptr<FunctionBytecode> emitFunction(BytecodeRoot& root, const cfg::Fu
                         break;
                     case cfg::Opcode::CreateUndefined:
                         writeByte(bc.bytecode, OP_undefined);
-                        break;
-                    case cfg::Opcode::Copy:
                         break;
                     case cfg::Opcode::BoolNot:
                         writeByte(bc.bytecode, OP_lnot);

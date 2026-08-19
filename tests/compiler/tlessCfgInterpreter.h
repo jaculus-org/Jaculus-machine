@@ -543,7 +543,6 @@ inline std::optional<ExecResult> evalOperation(Frame& f, const Operation& op) {
             res.emplace_back(Slot::make(ctx, Value(JS_UNINITIALIZED), isConst));
         } break;
         case Opcode::CreateUndefined: res.emplace_back(Value(JS_UNDEFINED)); break;
-        case Opcode::Copy: res.emplace_back(args[0].takeContent()); break;
         case Opcode::BitNot: {
             int32_t operand;
             JSValue operandVal = takeJSValue(args[0]);

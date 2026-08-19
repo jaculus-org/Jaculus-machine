@@ -27,7 +27,6 @@ enum class Tag {
 #define JAC_TLESS_OPCODE_TABLE(X) \
     X(CreateLocal,       1,         1)  /* bool -> slot<a> */ \
     X(CreateUndefined,   0,         1)  /* -> undefined */ \
-    X(Copy,              1,         1)  /* a -> b */ \
     X(BoolNot,           1,         1)  /* a -> bool */ \
     X(BitNot,            1,         3)  /* int32 -> int32, ex, ex? */ \
     X(UnPlus,            1,         3)  /* a -> number, ex, ex? */ \

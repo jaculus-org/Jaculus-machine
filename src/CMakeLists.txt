@@ -6,9 +6,9 @@ set(JAC_MACHINE_SRC
     "jac/machine/compiler/ast.cpp"
     "jac/machine/compiler/astHoist.cpp"
     "jac/machine/compiler/cfg2bc.cpp"
-    "jac/machine/compiler/tlessAst2cfg.cpp"
-    "jac/machine/compiler/tlessBodies.cpp"
-    "jac/machine/compiler/tlessCfg.cpp"
+    "jac/machine/compiler/ast2cfg.cpp"
+    "jac/machine/compiler/opBodies.cpp"
+    "jac/machine/compiler/cfg.cpp"
 )
 
 

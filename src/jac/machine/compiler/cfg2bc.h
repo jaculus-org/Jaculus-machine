@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tlessCfg.h"
+#include "cfg.h"
 #include "bcWriter.h"
 
 
@@ -19,8 +19,8 @@ enum class CompileMode {
 };
 
 
-void cfg2bc(BytecodeRoot& root, const cfg::tless::Function& fun, const std::string& filename);
-void cfg2bc(BytecodeRoot& root, const cfg::tless::Function& fun, const std::string& filename, CompileMode mode);
+void cfg2bc(BytecodeRoot& root, const cfg::Function& fun, const std::string& filename);
+void cfg2bc(BytecodeRoot& root, const cfg::Function& fun, const std::string& filename, CompileMode mode);
 
 
 }  // namespace jac::bc

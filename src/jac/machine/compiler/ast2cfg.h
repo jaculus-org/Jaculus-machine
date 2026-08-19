@@ -1,10 +1,10 @@
 #pragma once
 
 #include "ast.h"
-#include "tlessCfg.h"
+#include "cfg.h"
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 SignaturePtr getSignature(const ast::Function& decl);

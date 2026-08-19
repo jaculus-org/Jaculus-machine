@@ -14,28 +14,28 @@ function exerciseCarriedValues() {
         throw new Error("method receiver carry was not preserved");
     }
 
-    let assigned = (Math.__tlessCarry = 4);
-    if (assigned !== 4 || Math.__tlessCarry !== 4) {
+    let assigned = (Math.__cfgCarry = 4);
+    if (assigned !== 4 || Math.__cfgCarry !== 4) {
         throw new Error("member assignment result was not preserved");
     }
 
-    let oldIncrement = Math.__tlessCarry++;
-    let oldDecrement = Math.__tlessCarry--;
+    let oldIncrement = Math.__cfgCarry++;
+    let oldDecrement = Math.__cfgCarry--;
     if (oldIncrement !== 4 || oldDecrement !== 5
-        || Math.__tlessCarry !== 4) {
+        || Math.__cfgCarry !== 4) {
         throw new Error("member update result was not preserved");
     }
 
-    let compound = (Math.__tlessCarry += 3);
-    if (compound !== 7 || Math.__tlessCarry !== 7) {
+    let compound = (Math.__cfgCarry += 3);
+    if (compound !== 7 || Math.__cfgCarry !== 7) {
         throw new Error("member compound result was not preserved");
     }
 
-    let andAssigned = (Math.__tlessCarry &&= 9);
-    Math.__tlessCarry = 0;
-    let andSkipped = (Math.__tlessCarry &&= 10);
-    let orAssigned = (Math.__tlessCarry ||= 11);
-    let orSkipped = (Math.__tlessCarry ||= 12);
+    let andAssigned = (Math.__cfgCarry &&= 9);
+    Math.__cfgCarry = 0;
+    let andSkipped = (Math.__cfgCarry &&= 10);
+    let orAssigned = (Math.__cfgCarry ||= 11);
+    let orSkipped = (Math.__cfgCarry ||= 12);
     if (andAssigned !== 9 || andSkipped !== 0
         || orAssigned !== 11 || orSkipped !== 11) {
         throw new Error("member short-circuit result was not preserved");

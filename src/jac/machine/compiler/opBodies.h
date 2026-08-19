@@ -1,10 +1,10 @@
 #pragma once
 
-#include "tlessCfg.h"
-#include "tlessOpInfo.h"
+#include "cfg.h"
+#include "opInfo.h"
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 // Returns implementation using simpler opcodes or nullptr if no implementation is available.

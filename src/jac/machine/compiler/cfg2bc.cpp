@@ -2,8 +2,8 @@
 
 #include "jac/machine/compiler/bcWriter.h"
 #include "jac/machine/compiler/qjsBcOpcodes.h"
-#include "jac/machine/compiler/tlessCfg.h"
-#include "jac/machine/compiler/tlessOpcode.h"
+#include "jac/machine/compiler/cfg.h"
+#include "jac/machine/compiler/opcode.h"
 
 #include <algorithm>
 #include <cstring>
@@ -11,7 +11,7 @@
 
 namespace jac::bc {
 
-namespace cfg = jac::cfg::tless;
+namespace cfg = jac::cfg;
 
 namespace {
     enum class GlobalKind : int { Var = 0, Let = 1, Const = 2 };

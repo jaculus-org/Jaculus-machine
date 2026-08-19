@@ -17,10 +17,10 @@
 #include <vector>
 #include <algorithm>
 
-#include "tlessOpInfo.h"
+#include "opInfo.h"
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 class IRGenError : public std::runtime_error {

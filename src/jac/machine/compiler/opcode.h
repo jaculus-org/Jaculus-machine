@@ -5,7 +5,7 @@
 #include <cstdint>
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 enum class Tag {
@@ -24,7 +24,7 @@ enum class Tag {
     Other,
 };
 
-#define JAC_TLESS_OPCODE_TABLE(X) \
+#define JAC_CFG_OPCODE_TABLE(X) \
     X(CreateLocal,       1,         1)  /* bool -> slot<a> */ \
     X(CreateUndefined,   0,         1)  /* -> undefined */ \
     X(BoolNot,           1,         1)  /* a -> bool */ \
@@ -86,15 +86,15 @@ enum class Tag {
     X(I32ToF64,          1,         1)  /* rawI32 -> rawF64 */
 
 enum class Opcode {
-#define JAC_TLESS_DECLARE_OPCODE(name, ...) name,
-    JAC_TLESS_OPCODE_TABLE(JAC_TLESS_DECLARE_OPCODE)
-#undef JAC_TLESS_DECLARE_OPCODE
+#define JAC_CFG_DECLARE_OPCODE(name, ...) name,
+    JAC_CFG_OPCODE_TABLE(JAC_CFG_DECLARE_OPCODE)
+#undef JAC_CFG_DECLARE_OPCODE
 };
 
 inline constexpr size_t OPCODE_COUNT = 0
-#define JAC_TLESS_COUNT_OPCODE(name, ...) + 1
-    JAC_TLESS_OPCODE_TABLE(JAC_TLESS_COUNT_OPCODE)
-#undef JAC_TLESS_COUNT_OPCODE
+#define JAC_CFG_COUNT_OPCODE(name, ...) + 1
+    JAC_CFG_OPCODE_TABLE(JAC_CFG_COUNT_OPCODE)
+#undef JAC_CFG_COUNT_OPCODE
 ;
 
 

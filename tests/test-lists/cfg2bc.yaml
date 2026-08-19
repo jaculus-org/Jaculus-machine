@@ -4,7 +4,7 @@ tests:
   - local/basic/pass.js
   - local/basic/binop-operand-order.js
   - local/basic/deep-stack-reorder.js
-  - local/basic/tless-cross-block-carry.js
+  - local/basic/cfg-cross-block-carry.js
   - local/basic/exit-return.js
   - local/basic/fail-runtime.js
   - local/basic/fail-syntax.js

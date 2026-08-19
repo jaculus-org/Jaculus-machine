@@ -14,7 +14,7 @@
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
-#include "compiler/compileTlessInterpEvalFeature.h"
+#include "compiler/compileCfgInterpEvalFeature.h"
 
 using MachineInterp = jac::ComposeMachine<
     jac::MachineBase,
@@ -25,10 +25,10 @@ using MachineInterp = jac::ComposeMachine<
     jac::EventLoopFeature,
     jac::EventLoopTerminal
 >;
-using MachineTless = jac::ComposeMachine<
+using MachineCfg = jac::ComposeMachine<
     jac::MachineBase,
     jac::EventQueueFeature,
-    jac::TlessInterpEvalFeature,
+    jac::CfgInterpEvalFeature,
     jac::BasicStreamFeature,
     jac::StdioFeature,
     jac::EventLoopFeature,
@@ -67,10 +67,10 @@ auto run(std::string& code, const auto& defines) {
 }
 
 
-auto runTless(std::string& code, const auto& defines) {
+auto runCfg(std::string& code, const auto& defines) {
     auto start = std::chrono::high_resolution_clock::now();
 
-    MachineTless machine;
+    MachineCfg machine;
     initializeIo(machine);
     machine.initialize();
 
@@ -78,9 +78,9 @@ auto runTless(std::string& code, const auto& defines) {
         machine.context().getGlobalObject().defineProperty(std::string(id), jac::Value::from(machine.context(), std::string(val)));
     }
 
-    auto compiled = machine.compileTless(code);
+    auto compiled = machine.compileCfg(code);
     auto initialized = std::chrono::high_resolution_clock::now();
-    jac::Value result = machine.evalTless(compiled);
+    jac::Value result = machine.evalCfg(compiled);
     auto finished = std::chrono::high_resolution_clock::now();
     return std::make_pair(initialized - start, finished - initialized);
 }
@@ -108,14 +108,14 @@ void repeat(std::string& code, int count, const auto& defines) {
 }
 
 
-void repeatTless(std::string& code, int count, const auto& defines) {
-    using Duration = decltype(runTless(code, defines).first);
+void repeatCfg(std::string& code, int count, const auto& defines) {
+    using Duration = decltype(runCfg(code, defines).first);
 
     auto initSum = Duration::zero();
     auto runSum = Duration::zero();
     for (int i = 0; i < count; ++i) {
         std::cerr << '\r' << i << " / " << count << ' ' << std::flush;
-        auto [init, runtime] = runTless(code, defines);
+        auto [init, runtime] = runCfg(code, defines);
         initSum += init;
         runSum += runtime;
     }
@@ -127,7 +127,7 @@ void repeatTless(std::string& code, int count, const auto& defines) {
 
 
 int main(const int argc, const char* argv[]) {
-    // --path <file> --count <count> --mode <interp|tless> [-D<name>=<value>]
+    // --path <file> --count <count> --mode <interp|cfg> [-D<name>=<value>]
 
     std::string path;
     int count = 1;
@@ -205,8 +205,8 @@ int main(const int argc, const char* argv[]) {
     if (mode == "interp") {
         repeat<MachineInterp>(code, count, defines);
     }
-    else if (mode == "tless") {
-        repeatTless(code, count, defines);
+    else if (mode == "cfg") {
+        repeatCfg(code, count, defines);
     }
     else {
         std::cerr << "Unknown mode: " << mode << std::endl;

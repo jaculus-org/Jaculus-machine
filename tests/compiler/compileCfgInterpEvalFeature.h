@@ -5,13 +5,13 @@
 #include <jac/machine/machine.h>
 
 #include <jac/machine/compiler/ast.h>
-#include <jac/machine/compiler/tlessAst2cfg.h>
-#include <jac/machine/compiler/tlessCfg.h>
-#include <jac/machine/compiler/tlessCfgUtil.h>
+#include <jac/machine/compiler/ast2cfg.h>
+#include <jac/machine/compiler/cfg.h>
+#include <jac/machine/compiler/cfgUtil.h>
 #include <jac/machine/compiler/scanner.h>
 #include <jac/machine/compiler/traverseFuncs.h>
 
-#include "tlessCfgInterpreter.h"
+#include "cfgInterpreter.h"
 
 #include <cstdint>
 #include <iostream>
@@ -27,7 +27,7 @@ namespace jac {
 
 
 template<class Next>
-class TlessInterpEvalFeature : public EvalFeature<Next> {
+class CfgInterpEvalFeature : public EvalFeature<Next> {
 
     std::vector<jac::lex::Token> scan(std::string_view js) {
         bool hadError = false;
@@ -47,7 +47,7 @@ class TlessInterpEvalFeature : public EvalFeature<Next> {
         return scanner.scan();
     }
 
-    jac::cfg::tless::Function tryAot(std::string_view js, bool isModule) {
+    jac::cfg::Function compileAst(std::string_view js, bool isModule) {
         auto tokens = scan(js);
         jac::ast::ParserState state(tokens);
 
@@ -60,7 +60,7 @@ class TlessInterpEvalFeature : public EvalFeature<Next> {
                 throw std::runtime_error("Parse error");
             }
             jac::ast::hoistModule(*mod);
-            return jac::cfg::tless::ast2cfg(*mod).output();
+            return jac::cfg::ast2cfg(*mod).output();
         }
 
         auto script = jac::ast::parseScript(state);
@@ -71,18 +71,18 @@ class TlessInterpEvalFeature : public EvalFeature<Next> {
             throw std::runtime_error("Parse error");
         }
         jac::ast::hoistScript(*script);
-        return jac::cfg::tless::ast2cfg(*script).output();
+        return jac::cfg::ast2cfg(*script).output();
     }
 public:
 
-    std::shared_ptr<cfg::tless::Function> compileTless(std::string_view code, EvalFlags flags = EvalFlags::Global) {
+    std::shared_ptr<cfg::Function> compileCfg(std::string_view code, EvalFlags flags = EvalFlags::Global) {
         bool isModule = (flags & EvalFlags::Module) == EvalFlags::Module;
         try {
-            auto func = tryAot(code, isModule);
-            cfg::tless::removeUnreachableBlocks(func);
-            return std::make_shared<cfg::tless::Function>(std::move(func));
+            auto func = compileAst(code, isModule);
+            cfg::removeUnreachableBlocks(func);
+            return std::make_shared<cfg::Function>(std::move(func));
         }
-        catch (const cfg::tless::IRGenError& e) {
+        catch (const cfg::IRGenError& e) {
             throw jac::Exception::create(jac::Exception::Type::SyntaxError, "SyntaxError: AOT compilation error: " + std::string(e.what()));
         }
         catch (const std::runtime_error& e) {
@@ -90,13 +90,13 @@ public:
         }
     }
 
-    Value evalTless(const std::shared_ptr<cfg::tless::Function>& compiled) {
+    Value evalCfg(const std::shared_ptr<cfg::Function>& compiled) {
         JSValue result;
         if (compiled->isAsync) {
-            result = cfg::tless::interp::runAsync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
+            result = cfg::interp::runAsync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
         }
         else {
-            result = cfg::tless::interp::runSync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
+            result = cfg::interp::runSync(this->context(), *compiled, compiled, JS_UNDEFINED, 0, nullptr);
         }
         return Value(this->context(), result);
     }
@@ -111,7 +111,7 @@ public:
      * @return Result of the evaluation
      */
     Value eval(std::string code, std::string filename, EvalFlags flags = EvalFlags::Global) {
-        return evalTless(compileTless(code, flags));
+        return evalCfg(compileCfg(code, flags));
     }
 };
 

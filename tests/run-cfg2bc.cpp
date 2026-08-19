@@ -21,10 +21,10 @@
 #include <jac/machine/compiler/cfg2bc.h>
 #include <jac/machine/compiler/bcWriter.h>
 #include <jac/machine/compiler/scanner.h>
-#include <jac/machine/compiler/tlessAst2cfg.h>
-#include <jac/machine/compiler/tlessCfg.h>
-#include <jac/machine/compiler/tlessCfgDot.h>
-#include <jac/machine/compiler/tlessCfgUtil.h>
+#include <jac/machine/compiler/ast2cfg.h>
+#include <jac/machine/compiler/cfg.h>
+#include <jac/machine/compiler/cfgDot.h>
+#include <jac/machine/compiler/cfgUtil.h>
 
 #include "quickjs.h"
 #include "test262/harness.h"
@@ -74,7 +74,7 @@ void dumpAST(const jac::ast::ASTNode& node, const std::string& inputPath,
     }
 }
 
-void dumpCFG(const jac::cfg::tless::Function& cfgFunc, const std::string& inputPath,
+void dumpCFG(const jac::cfg::Function& cfgFunc, const std::string& inputPath,
              const DumpConfig& dump) {
     if (!dump.cfg) {
         return;
@@ -85,7 +85,7 @@ void dumpCFG(const jac::cfg::tless::Function& cfgFunc, const std::string& inputP
         std::cerr << "Failed to open " << path << " for CFG dump\n";
         return;
     }
-    jac::cfg::tless::dotprint::print(file, cfgFunc);
+    jac::cfg::dotprint::print(file, cfgFunc);
     if (!file) {
         std::cerr << "Failed to write " << path << " for CFG dump\n";
     }
@@ -96,9 +96,9 @@ std::vector<uint8_t> compileAndDump(const AST& node, const std::string& path,
                                     bool isScript, const DumpConfig& dump) {
     dumpAST(node, path, dump);
 
-    auto cfgEm = jac::cfg::tless::ast2cfg(node);
+    auto cfgEm = jac::cfg::ast2cfg(node);
     auto cfgFunc = cfgEm.output();
-    jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
+    jac::cfg::removeUnreachableBlocks(cfgFunc);
 
     dumpCFG(cfgFunc, path, dump);
 

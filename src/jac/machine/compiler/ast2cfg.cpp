@@ -1,11 +1,11 @@
-#include "tlessAst2cfg.h"
+#include "ast2cfg.h"
 #include "ast.h"
-#include "tlessCfg.h"
-#include "tlessOpcode.h"
+#include "cfg.h"
+#include "opcode.h"
 #include <ranges>
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 enum class ShortCircuitKind {
@@ -592,7 +592,7 @@ template<typename F, typename G>
 }
 
 [[nodiscard]] RValue emitAsRV(const ast::Function& astFn, FunctionEmitter& em) {
-    auto sig = jac::cfg::tless::getSignature(astFn);
+    auto sig = jac::cfg::getSignature(astFn);
     if (!sig) {
         throw std::runtime_error("Failed to get function signature");
     }
@@ -612,7 +612,7 @@ template<typename F, typename G>
     }
     sig->closureVars = closureVars;
 
-    auto cfgFuncEm = jac::cfg::tless::ast2cfg(astFn, sig, &em);
+    auto cfgFuncEm = jac::cfg::ast2cfg(astFn, sig, &em);
     auto c = em.addPoolConstant(std::make_unique<Function>(cfgFuncEm.output()));
 
     auto code = Reg::createTmp();

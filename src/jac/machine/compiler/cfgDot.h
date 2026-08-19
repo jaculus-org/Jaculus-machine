@@ -11,11 +11,11 @@
 #include <string_view>
 #include <variant>
 
-#include "tlessCfg.h"
-#include "tlessOpInfo.h"
+#include "cfg.h"
+#include "opInfo.h"
 
 
-namespace jac::cfg::tless::dotprint {
+namespace jac::cfg::dotprint {
 
 
 inline void print(std::ostream& os, Opcode op) {

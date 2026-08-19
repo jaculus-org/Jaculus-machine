@@ -1,7 +1,7 @@
-#include "tlessCfg.h"
+#include "cfg.h"
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 RegId newTmpId() {

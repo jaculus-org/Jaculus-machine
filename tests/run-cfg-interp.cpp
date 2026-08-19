@@ -12,14 +12,14 @@
 #include <jac/machine/machine.h>
 #include <jac/machine/values.h>
 
-#include "compiler/compileTlessInterpEvalFeature.h"
+#include "compiler/compileCfgInterpEvalFeature.h"
 #include "test262/harness.h"
 
 
 using Machine = jac::ComposeMachine<
     jac::MachineBase,
     jac::EventQueueFeature,
-    jac::TlessInterpEvalFeature,
+    jac::CfgInterpEvalFeature,
     jac::BasicStreamFeature,
     jac::StdioFeature,
     jac::EventLoopFeature,
@@ -33,7 +33,7 @@ using Machine = jac::ComposeMachine<
 
 namespace {
 
-Test262Result runEvalFileTless(const std::string& path, bool isModule,
+Test262Result runEvalFileCfg(const std::string& path, bool isModule,
                                const std::string& harnessDir, const DumpConfig&) {
     Machine machine;
     jac::initializeIo(machine);
@@ -92,5 +92,5 @@ Test262Result runEvalFileTless(const std::string& path, bool isModule,
 
 
 int main(const int argc, const char* argv[]) {
-    return runnerMain(argc, argv, runEvalFileTless);
+    return runnerMain(argc, argv, runEvalFileCfg);
 }

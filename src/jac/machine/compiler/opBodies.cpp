@@ -1,4 +1,4 @@
-#include "tlessBodies.h"
+#include "opBodies.h"
 
 #include <cstddef>
 #include <map>
@@ -8,7 +8,7 @@
 #include <utility>
 
 
-namespace jac::cfg::tless {
+namespace jac::cfg {
 
 
 namespace {

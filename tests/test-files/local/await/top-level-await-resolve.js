@@ -1,5 +1,5 @@
 /*---
-desc: top-level await resolves through tless cfg interp
+desc: top-level await resolves through cfg interp
 flags: [module, async]
 ---*/
 

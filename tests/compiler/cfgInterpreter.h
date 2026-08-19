@@ -20,16 +20,16 @@
 #include <quickjs.h>
 
 #include <jac/machine/compiler/quickjsOps.h>
-#include <jac/machine/compiler/tlessCfg.h>
-#include <jac/machine/compiler/tlessBodies.h>
+#include <jac/machine/compiler/cfg.h>
+#include <jac/machine/compiler/opBodies.h>
 #include <jac/machine/functionFactory.h>
 #include <jac/util.h>
 
 
-namespace jac::cfg::tless::interp {
+namespace jac::cfg::interp {
 
-#ifdef JAC_TLESS_INTERP_TRACE
-inline constexpr bool traceEnabled = JAC_TLESS_INTERP_TRACE != 0;
+#ifdef JAC_CFG_INTERP_TRACE
+inline constexpr bool traceEnabled = JAC_CFG_INTERP_TRACE != 0;
 #else
 inline constexpr bool traceEnabled = false;
 #endif
@@ -39,8 +39,8 @@ struct Slot;
 
 
 struct Code {
-    cfg::tless::Function* code;
-    std::shared_ptr<cfg::tless::Function> root;
+    cfg::Function* code;
+    std::shared_ptr<cfg::Function> root;
 };
 
 
@@ -1538,4 +1538,4 @@ inline JSValue Value::toJSValue(JSContext* ctx) const {
 }
 
 
-}  // namespace jac::cfg::tless::interp
+}  // namespace jac::cfg::interp

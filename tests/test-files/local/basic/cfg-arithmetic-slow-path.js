@@ -1,5 +1,5 @@
 /*---
-desc: tless arithmetic slow paths use the requested operation
+desc: cfg arithmetic slow paths use the requested operation
 ---*/
 
 if (2 * 0.5 !== 1) throw new Error("mixed-mul");

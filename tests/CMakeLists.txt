@@ -51,8 +51,8 @@ target_link_libraries(run-quickjs PUBLIC jac-machine)
 add_executable(run-cfg2bc run-cfg2bc.cpp)
 target_link_libraries(run-cfg2bc PUBLIC jac-machine)
 
-add_executable(run-cfg-tless-interp run-cfg-tless-interp.cpp)
-target_link_libraries(run-cfg-tless-interp PUBLIC jac-machine)
+add_executable(run-cfg-interp run-cfg-interp.cpp)
+target_link_libraries(run-cfg-interp PUBLIC jac-machine)
 
 find_package(Python3 COMPONENTS Interpreter)
 
@@ -77,6 +77,6 @@ endfunction()
 
 add_runner_target(quickjs)
 add_runner_target(cfg2bc)
-add_runner_target(cfg-tless-interp)
+add_runner_target(cfg-interp)
 
 file(COPY fixtures DESTINATION "./")

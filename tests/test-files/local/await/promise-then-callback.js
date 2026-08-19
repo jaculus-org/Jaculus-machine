@@ -1,5 +1,5 @@
 /*---
-desc: async tless closure can be used as Promise.then callback
+desc: async cfg closure can be used as Promise.then callback
 flags: [module, async]
 ---*/
 

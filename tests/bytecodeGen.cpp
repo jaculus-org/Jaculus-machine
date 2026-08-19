@@ -2,10 +2,10 @@
 #include "jac/machine/compiler/cfg2bc.h"
 #include "jac/machine/compiler/astPrint.h"
 #include "jac/machine/compiler/bcWriter.h"
-#include "jac/machine/compiler/tlessAst2cfg.h"
-#include "jac/machine/compiler/tlessCfg.h"
-#include "jac/machine/compiler/tlessCfgDot.h"
-#include "jac/machine/compiler/tlessCfgUtil.h"
+#include "jac/machine/compiler/ast2cfg.h"
+#include "jac/machine/compiler/cfg.h"
+#include "jac/machine/compiler/cfgDot.h"
+#include "jac/machine/compiler/cfgUtil.h"
 #include "quickjs.h"
 #include <cstddef>
 #include <cstdlib>
@@ -169,13 +169,13 @@ int main(const int argc, const char* argv[]) {
             jac::ast::hoistScript(*script);
             printAst(*script);
 
-            auto cfgFuncEm = jac::cfg::tless::ast2cfg(*script);
+            auto cfgFuncEm = jac::cfg::ast2cfg(*script);
             auto cfgFunc = cfgFuncEm.output();
-            jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
+            jac::cfg::removeUnreachableBlocks(cfgFunc);
 
             {
                 std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
-                jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+                jac::cfg::dotprint::print(outFile, cfgFunc);
             }
 
             BytecodeRoot root;
@@ -193,13 +193,13 @@ int main(const int argc, const char* argv[]) {
             jac::ast::hoistModule(*mod);
             printAst(*mod);
 
-            auto cfgFuncEm = jac::cfg::tless::ast2cfg(*mod);
+            auto cfgFuncEm = jac::cfg::ast2cfg(*mod);
             auto cfgFunc = cfgFuncEm.output();
-            jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
+            jac::cfg::removeUnreachableBlocks(cfgFunc);
 
             {
                 std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
-                jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+                jac::cfg::dotprint::print(outFile, cfgFunc);
             }
 
             BytecodeRoot root;
@@ -260,11 +260,11 @@ int main(const int argc, const char* argv[]) {
             jac::ast::hoistModule(*mod);
             printAst(*mod);
 
-            auto cfgFuncEm = jac::cfg::tless::ast2cfg(*mod);
+            auto cfgFuncEm = jac::cfg::ast2cfg(*mod);
 
             auto cfgFunc = cfgFuncEm.output();
             std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
-            jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+            jac::cfg::dotprint::print(outFile, cfgFunc);
         }
         else if (mode == 3) {
             BytecodeRoot root = compileAlt(code, path, true);

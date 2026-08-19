@@ -13,10 +13,6 @@ FetchContent_MakeAvailable(Catch2)
 
 add_executable(main main.cpp)
 target_link_libraries(main PUBLIC jac-machine)
-add_executable(mainCompFn mainCompFn.cpp)
-target_link_libraries(mainCompFn PUBLIC jac-machine)
-
-
 function(add_test_executable name)
     add_executable(${name} ${name}.cpp)
     target_link_libraries(${name} PUBLIC jac-machine Catch2::Catch2WithMain)
@@ -35,17 +31,6 @@ add_test_executable(plugins)
 add_test_executable(scanner)
 add_test_executable(parser)
 
-add_executable(compileCfg compile.cpp)
-target_compile_definitions(compileCfg PRIVATE COMPILE_CFG_ONLY)
-target_link_libraries(compileCfg PUBLIC jac-machine Catch2::Catch2WithMain)
-add_test(NAME compileCfg COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileCfg)
-
-add_executable(compileNative compile.cpp)
-target_compile_definitions(compileNative PRIVATE COMPILE_BIN)
-target_link_libraries(compileNative PUBLIC jac-machine Catch2::Catch2WithMain)
-add_test(NAME compileNative COMMAND ${EXECUTABLE_OUTPUT_PATH}/compileNative)
-
-add_test_executable(cfgInterp)
 add_test_executable(regression)
 
 add_executable(bench bench.cpp)
@@ -66,9 +51,6 @@ target_link_libraries(run-quickjs PUBLIC jac-machine)
 add_executable(run-cfg2bc run-cfg2bc.cpp)
 target_link_libraries(run-cfg2bc PUBLIC jac-machine)
 
-add_executable(run-cfg-interp run-cfg-interp.cpp)
-target_link_libraries(run-cfg-interp PUBLIC jac-machine)
-
 add_executable(run-cfg-tless-interp run-cfg-tless-interp.cpp)
 target_link_libraries(run-cfg-tless-interp PUBLIC jac-machine)
 
@@ -83,11 +65,18 @@ function(add_runner_target name)
         DEPENDS run-${name}
         VERBATIM
     )
+    if(NOT "${ARGV1}" STREQUAL "NO_TEST")
+        add_test(NAME ${name}-tests
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/test262/runner.py
+                --executable $<TARGET_FILE:run-${name}>
+                --test-list ${CMAKE_CURRENT_SOURCE_DIR}/test-lists/${name}.yaml
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        )
+    endif()
 endfunction()
 
 add_runner_target(quickjs)
 add_runner_target(cfg2bc)
-add_runner_target(cfg-interp)
 add_runner_target(cfg-tless-interp)
 
 file(COPY fixtures DESTINATION "./")

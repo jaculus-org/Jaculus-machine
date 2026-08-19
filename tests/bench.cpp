@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-#include <jac/features/aotEvalFeature.h>
 #include <jac/features/basicStreamFeature.h>
 #include <jac/features/evalFeature.h>
 #include <jac/features/eventLoopFeature.h>
@@ -20,15 +19,6 @@
 using MachineInterp = jac::ComposeMachine<
     jac::MachineBase,
     jac::EvalFeature,
-    jac::BasicStreamFeature,
-    jac::StdioFeature,
-    jac::EventQueueFeature,
-    jac::EventLoopFeature,
-    jac::EventLoopTerminal
->;
-using MachineAot = jac::ComposeMachine<
-    jac::MachineBase,
-    jac::AotEvalFeature,
     jac::BasicStreamFeature,
     jac::StdioFeature,
     jac::EventQueueFeature,
@@ -137,7 +127,7 @@ void repeatTless(std::string& code, int count, const auto& defines) {
 
 
 int main(const int argc, const char* argv[]) {
-    // --path <file> --count <count> --mode <interp|aot|tless> [-D<name>=<value>]
+    // --path <file> --count <count> --mode <interp|tless> [-D<name>=<value>]
 
     std::string path;
     int count = 1;
@@ -214,9 +204,6 @@ int main(const int argc, const char* argv[]) {
 
     if (mode == "interp") {
         repeat<MachineInterp>(code, count, defines);
-    }
-    else if (mode == "aot") {
-        repeat<MachineAot>(code, count, defines);
     }
     else if (mode == "tless") {
         repeatTless(code, count, defines);

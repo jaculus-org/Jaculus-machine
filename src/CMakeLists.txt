@@ -5,10 +5,6 @@ set(JAC_MACHINE_SRC
     "jac/machine/context.cpp"
     "jac/machine/compiler/ast.cpp"
     "jac/machine/compiler/astHoist.cpp"
-    "jac/machine/compiler/cfg.cpp"
-    "jac/machine/compiler/ast2cfg.cpp"
-    "jac/machine/compiler/cfg2mir.cpp"
-    "jac/machine/compiler/mirUtil.cpp"
     "jac/machine/compiler/cfg2bc.cpp"
     "jac/machine/compiler/tlessAst2cfg.cpp"
     "jac/machine/compiler/tlessBodies.cpp"
@@ -40,23 +36,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(QuickJS)
 
-FetchContent_Declare(
-    MIR
-    URL               https://github.com/vnmakarov/mir/archive/refs/tags/v0.1.2.tar.gz
-    CMAKE_ARGS        -D
-)
-FetchContent_MakeAvailable(MIR)
-set(MIR_INCLUDE_DIR ${mir_SOURCE_DIR}/include)
-
-
 if(ESP_PLATFORM)
     target_link_libraries(${COMPONENT_LIB} PUBLIC quickjs)
 else()
 
     add_library(jac-machine STATIC ${JAC_MACHINE_SRC})
-    target_include_directories(jac-machine PUBLIC . ${mir_SOURCE_DIR})
+    target_include_directories(jac-machine PUBLIC .)
     set_target_properties(jac-machine PROPERTIES LINKER_LANGUAGE CXX)
-    target_link_libraries(jac-machine PUBLIC quickjs mir)
+    target_link_libraries(jac-machine PUBLIC quickjs)
     target_compile_options(jac-machine PUBLIC -Wall -Wextra -Wold-style-cast -Wshadow -Wimplicit-fallthrough -Wno-unused-parameter -Wno-cast-function-type -Wno-missing-field-initializers -Wno-old-style-cast)
 
 endif()

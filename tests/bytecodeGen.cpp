@@ -1,10 +1,14 @@
 #include "jac/machine/compiler/ast.h"
+#include "jac/machine/compiler/cfg2bc.h"
 #include "jac/machine/compiler/astPrint.h"
+#include "jac/machine/compiler/bcWriter.h"
 #include "jac/machine/compiler/tlessAst2cfg.h"
 #include "jac/machine/compiler/tlessCfg.h"
 #include "jac/machine/compiler/tlessCfgDot.h"
+#include "jac/machine/compiler/tlessCfgUtil.h"
 #include "quickjs.h"
 #include <cstddef>
+#include <cstdlib>
 #include <iostream>
 
 #include <jac/features/basicStreamFeature.h>
@@ -76,6 +80,10 @@ int main(const int argc, const char* argv[]) {
             assert(mode == 0);
             mode = 2;
         }
+        else if (arg == "--alt-cfg-script") {
+            assert(mode == 0);
+            mode = 3;
+        }
         else {
             std::cerr << "Unknown argument: " << arg << std::endl;
             return 1;
@@ -146,13 +154,78 @@ int main(const int argc, const char* argv[]) {
         }
     }
 
+    auto compileAlt = [&](const std::string& source, const std::string& filePath, bool asScript) {
+        auto tokens = getTokens(source);
+        jac::ast::ParserState state(tokens);
+
+        if (asScript) {
+            auto script = jac::ast::parseScript(state);
+            if (!script || !state.isEnd()) {
+                jac::lex::Token errorToken = state.getErrorToken();
+                std::cerr << "Parse error: " << state.getErrorMessage()
+                          << " at " << errorToken.line << ":" << errorToken.column << '\n';
+                throw std::runtime_error("Parse error");
+            }
+            jac::ast::hoistScript(*script);
+            printAst(*script);
+
+            auto cfgFuncEm = jac::cfg::tless::ast2cfg(*script);
+            auto cfgFunc = cfgFuncEm.output();
+            jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
+
+            {
+                std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
+                jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+            }
+
+            BytecodeRoot root;
+            jac::bc::cfg2bc(root, cfgFunc, filePath, jac::bc::CompileMode::Script);
+            return root;
+        }
+        else {
+            auto mod = jac::ast::parseModule(state);
+            if (!mod || !state.isEnd()) {
+                jac::lex::Token errorToken = state.getErrorToken();
+                std::cerr << "Parse error: " << state.getErrorMessage()
+                          << " at " << errorToken.line << ":" << errorToken.column << '\n';
+                throw std::runtime_error("Parse error");
+            }
+            jac::ast::hoistModule(*mod);
+            printAst(*mod);
+
+            auto cfgFuncEm = jac::cfg::tless::ast2cfg(*mod);
+            auto cfgFunc = cfgFuncEm.output();
+            jac::cfg::tless::removeUnreachableBlocks(cfgFunc);
+
+            {
+                std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
+                jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+            }
+
+            BytecodeRoot root;
+            jac::bc::cfg2bc(root, cfgFunc, filePath);
+            return root;
+        }
+    };
+
+    auto writeBytecode = [&](BytecodeRoot& root, const std::string& outPath) {
+        std::vector<uint8_t> bytecodeData;
+        root.write(bytecodeData);
+        std::ofstream outFile(outPath, std::ios::binary);
+        if (!outFile || !outFile.is_open()) {
+            std::cerr << "Failed to open output file" << std::endl;
+            std::exit(1);
+        }
+        outFile.write(reinterpret_cast<const char*>(bytecodeData.data()), bytecodeData.size());
+    };
+
     Machine machine;
     try {
         if (mode == 0) {
             initializeIo(machine);
             machine.initialize();
 
-            auto val = machine.eval(code, "main.js", jac::EvalFlags::Module | jac::EvalFlags::CompileOnly);
+            auto val = machine.eval(code, "main.js", jac::EvalFlags::Global | jac::EvalFlags::CompileOnly);
             size_t size;
             uint8_t* data = JS_WriteObject(machine.context(), &size, val.getVal(), JS_WRITE_OBJ_BYTECODE);
 
@@ -168,7 +241,8 @@ int main(const int argc, const char* argv[]) {
             js_free(machine.context(), data);
         }
         else if (mode == 1) {
-            abort();
+            BytecodeRoot root = compileAlt(code, path, false);
+            writeBytecode(root, out);
         }
         else if (mode == 2) {
             auto tokens = getTokens(code);
@@ -191,6 +265,10 @@ int main(const int argc, const char* argv[]) {
             auto cfgFunc = cfgFuncEm.output();
             std::fstream outFile("cfg.dot", std::ios::out | std::ios::trunc);
             jac::cfg::tless::dotprint::print(outFile, cfgFunc);
+        }
+        else if (mode == 3) {
+            BytecodeRoot root = compileAlt(code, path, true);
+            writeBytecode(root, out);
         }
     } catch (jac::Exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;

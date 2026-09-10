@@ -1,4 +1,5 @@
 #include "machine.h"
+#include "funcUtil.h"
 
 #include <cstring>
 
@@ -119,7 +120,25 @@ void MachineBase::initialize() {
         return 0;
     }, this);
 
-    JS_SetModuleLoaderFunc2(_runtime, nullptr, loadModule, checkModuleAttributes, this);
+    JS_SetModuleLoaderFunc2(
+        _runtime,
+        _moduleNormalizer ? normalizeModule : nullptr,
+        loadModule,
+        checkModuleAttributes,
+        this
+    );
+}
+
+void MachineBase::setModuleLoader(FileModuleLoader loader, ModuleNormalizer normalizer) {
+    _fileModuleLoader = std::move(loader);
+    _moduleNormalizer = std::move(normalizer);
+    JS_SetModuleLoaderFunc2(
+        _runtime,
+        _moduleNormalizer ? normalizeModule : nullptr,
+        loadModule,
+        checkModuleAttributes,
+        this
+    );
 }
 
 Value MachineBase::eval(std::string code, std::string filename, EvalFlags flags /*= EvalFlags::Global*/) {
@@ -138,6 +157,27 @@ void MachineBase::newModule(std::string name, ModuleBuilder builder) {
     if (!inserted) {
         throw std::runtime_error("module already defined: " + it->first);
     }
+}
+
+char* MachineBase::normalizeModule(JSContext* ctx, const char* baseName, const char* name, void* opaque) {
+    auto& self = *static_cast<MachineBase*>(opaque);
+
+    return propagateExceptions(ctx, [&]() -> char* {
+        std::string normalized;
+        if (self._moduleBuilders.contains(name)) {
+            normalized = name;
+        }
+        else {
+            normalized = self._moduleNormalizer(ctx, baseName, name);
+        }
+
+        auto* result = static_cast<char*>(js_malloc(ctx, normalized.size() + 1));
+        if (!result) {
+            return nullptr;
+        }
+        std::memcpy(result, normalized.c_str(), normalized.size() + 1);
+        return result;
+    }, static_cast<char*>(nullptr));
 }
 
 JSModuleDef* MachineBase::loadModule(JSContext* ctx, const char* name, void* opaque, JSValueConst attributes) {

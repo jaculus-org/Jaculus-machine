@@ -15,25 +15,26 @@ namespace jac {
  * caught and propagated to the javascript side.
  */
 
-template<typename Func>
-inline JSValue propagateExceptions(ContextRef ctx, Func& f) noexcept {
+template<typename Result = JSValue, typename Func>
+inline Result propagateExceptions(ContextRef ctx, Func& f, Result exceptionResult = JS_EXCEPTION) noexcept {
     try {
         return f();
     }
     catch (Exception& e) {
-        return e.throwJS(ctx);
+        e.throwJS(ctx);
     }
     catch (std::exception& e) {
-        return Exception::create(Exception::Type::InternalError, e.what()).throwJS(ctx);
+        Exception::create(Exception::Type::InternalError, e.what()).throwJS(ctx);
     }
     catch (...) {
-        return Exception::create(Exception::Type::InternalError, "unknown error").throwJS(ctx);
+        Exception::create(Exception::Type::InternalError, "unknown error").throwJS(ctx);
     }
+    return exceptionResult;
 }
 
-template<typename Func>
-inline JSValue propagateExceptions(ContextRef ctx, Func&& f) noexcept {
-    return propagateExceptions(ctx, f);
+template<typename Result = JSValue, typename Func>
+inline Result propagateExceptions(ContextRef ctx, Func&& f, Result exceptionResult = JS_EXCEPTION) noexcept {
+    return propagateExceptions(ctx, f, exceptionResult);
 }
 
 template<typename Func, typename Res, typename... Args>

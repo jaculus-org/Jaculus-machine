@@ -102,11 +102,21 @@ public:
 class MachineBase {
 public:
     using ModuleBuilder = std::function<void(Module&)>;
+    using ModuleNormalizer = std::function<std::string(JSContext* ctx, const char* baseName, const char* name)>;
     using FileModuleLoader = std::function<JSModuleDef*(JSContext* ctx, const char* name, JSValueConst attributes)>;
 
 private:
     std::unordered_map<std::string, ModuleBuilder> _moduleBuilders;
+    ModuleNormalizer _moduleNormalizer;
     FileModuleLoader _fileModuleLoader;
+
+
+    /**
+     * @brief The module normalizer callback installed on the runtime.
+     * Leaves native-module names unchanged and dispatches all other names to
+     * the configured source-module normalizer.
+     */
+    static char* normalizeModule(JSContext* ctx, const char* baseName, const char* name, void* opaque);
 
 
     /**
@@ -236,13 +246,14 @@ public:
 
 protected:
     /**
-     * @brief Set the loader used for source-file (non-native) modules.
+     * @brief Set the loader and optional normalizer used for source-file
+     * (non-native) modules.
      *
      * @param loader the file module loader
+     * @param normalizer optional source module normalizer, given both the
+     * importing module name and the original import specifier
      */
-    void setFileModuleLoader(FileModuleLoader loader) {
-        _fileModuleLoader = std::move(loader);
-    }
+    void setModuleLoader(FileModuleLoader loader, ModuleNormalizer normalizer = {});
 };
 
 

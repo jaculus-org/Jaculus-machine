@@ -37,7 +37,9 @@ TEST_CASE("Import file", "[moduleLoader]") {
             "exports",
             "exports/aliased",
             "exports/nested/a",
-            "exports/extension/x.js"
+            "exports/extension/x.js",
+            "remapped/relative",
+            "remapped"
         });
     }
 }

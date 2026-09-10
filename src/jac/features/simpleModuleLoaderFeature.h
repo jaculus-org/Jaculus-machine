@@ -82,7 +82,7 @@ public:
     void initialize() {
         Next::initialize();
 
-        this->setFileModuleLoader([this](JSContext* ctx, const char* name, JSValueConst attributes) {
+        this->setModuleLoader([this](JSContext* ctx, const char* name, JSValueConst attributes) {
             return moduleLoaderCbk(ctx, name, this, attributes);
         });
     }

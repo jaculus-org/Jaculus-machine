@@ -18,16 +18,9 @@
 
 // XXX: experimental and not fully implemented and tested
 //
-// To avoid using URLs (i.e., "file://" in our case), we identify paths by initial "./".
-// Because quickjs performs automatic of relative imports to current module URL, we can
-// only differentiate relative imports ("./", "../") and package imports by initial characters
-// of "module_name". We therefore expect the entry point to have a file path starting with "./".
-//
-// Known issues:
-// - Relative imports in modules do not work because of quickjs's automatic "import path"
-//   concatenation (and thus missing information whether the import is relative inside a module
-//   or an import of package entry point). If exports are written consistently with the internal
-//   structure of the package, it can be made to work (but all internal imports must be listed).
+// To avoid using URLs (i.e., "file://" in our case), module names are canonical paths relative
+// to the configured code directory. Package specifiers are resolved to such paths by the module
+// normalizer before QuickJS looks up or loads the module.
 
 
 namespace jac {
@@ -309,14 +302,16 @@ public:
         throw jac::Exception::create(jac::Exception::Type::Error, std::string("module not found: ") + packageSpecifier);
     }
 
-    static std::string ESM_RESOLVE(const std::string& specifier, NodeModuleLoaderFeature<Next>& self) {
-        // XXX: parentURL is always empty -> ignored
+    static std::string ESM_RESOLVE(const std::string& specifier, const std::string& parentURL, NodeModuleLoaderFeature<Next>& self) {
         // XXX: url specifiers not supported
         // XXX: format is always set to "module"
 
         std::string resolved;
-        if (specifier.starts_with("./") || specifier.starts_with("../") || specifier.starts_with("/")) {
-            resolved = specifier;
+        if (specifier.starts_with("./") || specifier.starts_with("../")) {
+            resolved = self.path.normalize(self.path.join({ self.path.dirname(parentURL), specifier }));
+        }
+        else if (specifier.starts_with("/")) {
+            resolved = self.path.normalize(specifier);
         }
         else if (specifier.starts_with("#")) {
             throw jac::Exception::create(jac::Exception::Type::Error, "not implemented (#module specifiers)");
@@ -324,6 +319,7 @@ public:
         else {
             resolved = PACKAGE_RESOLVE(specifier, self);
         }
+        resolved = self.path.normalize(resolved);
 
         size_t start = 0;
         size_t percentPos;
@@ -352,7 +348,7 @@ private:
     static JSModuleDef *moduleLoaderCbk(JSContext* ctx, const char *module_name, void *_self, JSValueConst attributes) {
         auto &self = *static_cast<NodeModuleLoaderFeature<Next>*>(_self);
 
-        std::string filename = ESM_RESOLVE(module_name, self);
+        std::string filename = module_name;
 
         std::string buffer;
         try {
@@ -420,9 +416,14 @@ public:
     void initialize() {
         Next::initialize();
 
-        this->setFileModuleLoader([this](JSContext* ctx, const char* name, JSValueConst attributes) {
-            return moduleLoaderCbk(ctx, name, this, attributes);
-        });
+        this->setModuleLoader(
+            [this](JSContext* ctx, const char* name, JSValueConst attributes) {
+                return moduleLoaderCbk(ctx, name, this, attributes);
+            },
+            [this](JSContext*, const char* baseName, const char* name) {
+                return ESM_RESOLVE(name, baseName, *this);
+            }
+        );
     }
 };
 

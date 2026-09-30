@@ -15,14 +15,7 @@ private:
         auto &self = *static_cast<SimpleModuleLoaderFeature<Next>*>(_self);
 
         std::string filename = module_name;
-
-        std::string buffer;
-        try {
-            buffer = self.fs.loadCode(filename);
-        } catch (jac::Exception &e) {
-            e.throwJS(ctx);
-            return nullptr;
-        }
+        std::string buffer = self.fs.loadCode(filename);
 
         self.resetWatchdog();
 
@@ -43,13 +36,13 @@ private:
             return nullptr;
         }
 
-        auto mdl = static_cast<JSModuleDef*>(JS_VALUE_GET_PTR(val));
+        Value bytecode(ctx, val);
+        auto mdl = static_cast<JSModuleDef*>(JS_VALUE_GET_PTR(bytecode.getVal()));
 
         Object meta(ctx, JS_GetImportMeta(ctx, mdl));
         meta.set("url", filename);
         meta.set("main", false);
 
-        JS_FreeValue(ctx, val);
         return mdl;
     }
 

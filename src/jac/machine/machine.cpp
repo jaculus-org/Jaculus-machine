@@ -1,5 +1,6 @@
 #include "machine.h"
 #include "funcUtil.h"
+#include <jac/features/util/moduleLoader.h>
 
 #include <cstring>
 
@@ -45,7 +46,13 @@ static int checkModuleAttributes(JSContext* ctx, void* /*opaque*/, JSValueConst 
     }
 
     JS_FreePropertyEnum(ctx, tab, len);
-    return ret;
+    if (ret < 0) {
+        return ret;
+    }
+    return propagateExceptions(ctx, [&]() {
+        moduleAttributesJsonType(ctx, attributes);
+        return 0;
+    }, -1);
 }
 
 
@@ -183,42 +190,32 @@ char* MachineBase::normalizeModule(JSContext* ctx, const char* baseName, const c
 JSModuleDef* MachineBase::loadModule(JSContext* ctx, const char* name, void* opaque, JSValueConst attributes) {
     auto& self = *static_cast<MachineBase*>(opaque);
 
-    auto it = self._moduleBuilders.find(name);
-    if (it != self._moduleBuilders.end()) {
-        JSModuleDef* def = nullptr;
-        try {
-            Module mdl(self._context, name);
-            def = mdl.get();
-            it->second(mdl);
-            mdl.finalize();
-            return mdl.get();
-        }
-        catch (...) {
-            if (def) {
-                JS_FreeValue(ctx, JS_MKPTR(JS_TAG_MODULE, def));
-            }
+    return propagateExceptions(ctx, [&]() -> JSModuleDef* {
+        auto it = self._moduleBuilders.find(name);
+        if (it != self._moduleBuilders.end()) {
+            JSModuleDef* def = nullptr;
             try {
-                throw;
-            }
-            catch (Exception& e) {
-                e.throwJS(ctx);
-            }
-            catch (std::exception& e) {
-                Exception::create(Exception::Type::InternalError, e.what()).throwJS(ctx);
+                Module mdl(self._context, name);
+                def = mdl.get();
+                it->second(mdl);
+                mdl.finalize();
+                return mdl.get();
             }
             catch (...) {
-                Exception::create(Exception::Type::InternalError, "unknown error").throwJS(ctx);
+                if (def) {
+                    JS_FreeValue(ctx, JS_MKPTR(JS_TAG_MODULE, def));
+                }
+                throw;
             }
-            return nullptr;
         }
-    }
 
-    if (self._fileModuleLoader) {
-        return self._fileModuleLoader(ctx, name, attributes);
-    }
+        if (self._fileModuleLoader) {
+            return self._fileModuleLoader(ctx, name, attributes);
+        }
 
-    JS_ThrowReferenceError(ctx, "could not load module '%s'", name);
-    return nullptr;
+        JS_ThrowReferenceError(ctx, "could not load module '%s'", name);
+        return nullptr;
+    }, static_cast<JSModuleDef*>(nullptr));
 }
 
 

@@ -1,9 +1,8 @@
 #pragma once
 
-#include <quickjs.h>
+#include <jac/machine/values.h>
 
-#include <cstdint>
-#include <cstring>
+#include <quickjs.h>
 
 
 namespace jac {
@@ -19,27 +18,22 @@ inline int moduleAttributesJsonType(JSContext* ctx, JSValueConst attributes) {
         return 0;
     }
 
-    JSValue type = JS_GetPropertyStr(ctx, attributes, "type");
-    if (!JS_IsString(type)) {
-        JS_FreeValue(ctx, type);
+    Value type(ctx, JS_GetPropertyStr(ctx, attributes, "type"));
+    if (type.isUndefined()) {
         return 0;
     }
-
-    size_t len = 0;
-    const char* str = JS_ToCStringLen(ctx, &len, type);
-    JS_FreeValue(ctx, type);
-    if (!str) {
-        return 0;
+    if (!type.isString()) {
+        throw jac::Exception::create(jac::Exception::Type::TypeError, "import type must be a string");
     }
 
-    int res = 0;
-    if (len == 4 && std::memcmp(str, "json", len) == 0) {
-        res = 1;
-    } else if (len == 5 && std::memcmp(str, "json5", len) == 0) {
-        res = 2;
+    auto str = type.toString();
+    if (str.view() == "json") {
+        return 1;
     }
-    JS_FreeCString(ctx, str);
-    return res;
+    if (str.view() == "json5") {
+        return 2;
+    }
+    throw jac::Exception::create(jac::Exception::Type::TypeError, "unsupported import type");
 }
 
 /**

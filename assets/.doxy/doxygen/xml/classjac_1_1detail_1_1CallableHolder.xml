@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1detail_1_1CallableHolder" kind="class" language="C++" prot="public">
+    <compoundname>jac::detail::CallableHolder</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Func</type>
+      </param>
+      <param>
+        <type>typename Signature</type>
+      </param>
+      <param>
+        <type>bool</type>
+        <declname>withThis</declname>
+        <defname>withThis</defname>
+      </param>
+      <param>
+        <type>bool</type>
+        <declname>variadic</declname>
+        <defname>variadic</defname>
+      </param>
+    </templateparamlist>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/functionFactory.h" line="21" column="1" bodyfile="src/jac/machine/functionFactory.h" bodystart="21" bodyend="-1"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

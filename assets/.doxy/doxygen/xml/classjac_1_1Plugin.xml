@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1Plugin" kind="class" language="C++" prot="public">
+    <compoundname>jac::Plugin</compoundname>
+    <includes refid="plugins_8h" local="no">plugins.h</includes>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1Plugin_1a93e3495212396602b115add520dc116f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual jac::Plugin::~Plugin</definition>
+        <argsstring>()=default</argsstring>
+        <name>~Plugin</name>
+        <qualifiedname>jac::Plugin::~Plugin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="17" column="13"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A base class for all plugins. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/plugins.h" line="15" column="1" bodyfile="src/jac/machine/plugins.h" bodystart="15" bodyend="18"/>
+    <listofallmembers>
+      <member refid="classjac_1_1Plugin_1a93e3495212396602b115add520dc116f" prot="public" virt="virtual"><scope>jac::Plugin</scope><name>~Plugin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

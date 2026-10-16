@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4" kind="class" language="C++" prot="public">
+    <compoundname>noal::callableany&lt; Func, Res(Args...)&gt;</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Func</type>
+      </param>
+      <param>
+        <type>typename Res</type>
+      </param>
+      <param>
+        <type>typename...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a3be16a9c3b5449360f600357489d6644" prot="private" static="no" mutable="no">
+        <type>Func</type>
+        <definition>Func noal::callableany&lt; Func, Res(Args...)&gt;::func</definition>
+        <argsstring></argsstring>
+        <name>func</name>
+        <qualifiedname>noal::callableany&lt; Func, Res(Args...)&gt;::func</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="85" column="10" bodyfile="src/noal_func.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a98932b1fbb1a2a675f18ff98fc2a8135" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>noal::callableany&lt; Func, Res(Args...)&gt;::callableany</definition>
+        <argsstring>(Func _func)</argsstring>
+        <name>callableany</name>
+        <qualifiedname>noal::callableany&lt; Func, Res(Args...)&gt;::callableany</qualifiedname>
+        <param>
+          <type>Func</type>
+          <declname>_func</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="87" column="5" bodyfile="src/noal_func.h" bodystart="87" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1ae6a4f9ebda44272d4917725a608d65b6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Res</type>
+        <definition>Res noal::callableany&lt; Func, Res(Args...)&gt;::operator()</definition>
+        <argsstring>(Args... args)</argsstring>
+        <name>operator()</name>
+        <qualifiedname>noal::callableany&lt; Func, Res(Args...)&gt;::operator()</qualifiedname>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="91" column="16" bodyfile="src/noal_func.h" bodystart="91" bodyend="93"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a8784f5c6d251c07bf2b57c67375989d8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Res</type>
+        <definition>static Res noal::callableany&lt; Func, Res(Args...)&gt;::call</definition>
+        <argsstring>(void *self, Args... args)</argsstring>
+        <name>call</name>
+        <qualifiedname>noal::callableany&lt; Func, Res(Args...)&gt;::call</qualifiedname>
+        <param>
+          <type>void *</type>
+          <declname>self</declname>
+        </param>
+        <param>
+          <type>Args...</type>
+          <declname>args</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/noal_func.h" line="94" column="16" bodyfile="src/noal_func.h" bodystart="94" bodyend="96"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/noal_func.h" line="84" column="1" bodyfile="src/noal_func.h" bodystart="84" bodyend="97"/>
+    <listofallmembers>
+      <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a8784f5c6d251c07bf2b57c67375989d8" prot="public" virt="non-virtual"><scope>noal::callableany&lt; Func, Res(Args...)&gt;</scope><name>call</name></member>
+      <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a98932b1fbb1a2a675f18ff98fc2a8135" prot="public" virt="non-virtual"><scope>noal::callableany&lt; Func, Res(Args...)&gt;</scope><name>callableany</name></member>
+      <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1a3be16a9c3b5449360f600357489d6644" prot="private" virt="non-virtual"><scope>noal::callableany&lt; Func, Res(Args...)&gt;</scope><name>func</name></member>
+      <member refid="classnoal_1_1callableany_3_01Func_00_01Res_07Args_8_8_8_08_4_1ae6a4f9ebda44272d4917725a608d65b6" prot="public" virt="non-virtual"><scope>noal::callableany&lt; Func, Res(Args...)&gt;</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

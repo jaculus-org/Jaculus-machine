@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1OwnedString_1_1Deleter" kind="struct" language="C++" prot="private">
+    <compoundname>jac::OwnedString::Deleter</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjac_1_1OwnedString_1_1Deleter_1a091da26e1a0751dbf5060b7e28fea223" prot="public" static="no" mutable="no">
+        <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        <definition>ContextRef jac::OwnedString::Deleter::ctx</definition>
+        <argsstring></argsstring>
+        <name>ctx</name>
+        <qualifiedname>jac::OwnedString::Deleter::ctx</qualifiedname>
+        <initializer>= nullptr</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="25" column="20" bodyfile="src/jac/machine/ownedString.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structjac_1_1OwnedString_1_1Deleter_1ad6f6b9f5d2d6bff2eab63a7923437ffe" prot="public" static="no" const="yes" explicit="no" inline="yes" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::OwnedString::Deleter::operator()</definition>
+        <argsstring>(const char *ptr) const noexcept</argsstring>
+        <name>operator()</name>
+        <qualifiedname>jac::OwnedString::Deleter::operator()</qualifiedname>
+        <param>
+          <type>const char *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/ownedString.h" line="26" column="14" bodyfile="src/jac/machine/ownedString.h" bodystart="26" bodyend="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>jac::ContextRef</label>
+        <link refid="classjac_1_1ContextRef"/>
+      </node>
+      <node id="1">
+        <label>jac::OwnedString::Deleter</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ctx</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/ownedString.h" line="24" column="5" bodyfile="src/jac/machine/ownedString.h" bodystart="24" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structjac_1_1OwnedString_1_1Deleter_1a091da26e1a0751dbf5060b7e28fea223" prot="public" virt="non-virtual"><scope>jac::OwnedString::Deleter</scope><name>ctx</name></member>
+      <member refid="structjac_1_1OwnedString_1_1Deleter_1ad6f6b9f5d2d6bff2eab63a7923437ffe" prot="public" virt="non-virtual"><scope>jac::OwnedString::Deleter</scope><name>operator()</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

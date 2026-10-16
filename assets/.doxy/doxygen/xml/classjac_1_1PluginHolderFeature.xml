@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1PluginHolderFeature" kind="class" language="C++" prot="public">
+    <compoundname>jac::PluginHolderFeature</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <includes refid="plugins_8h" local="no">plugins.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1PluginHolderFeature_1a4b635c5bc504a2cb1315354ff5c0251f" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; std::unique_ptr&lt; <ref refid="classjac_1_1Plugin" kindref="compound">Plugin</ref> &gt; &gt;</type>
+        <definition>std::vector&lt;std::unique_ptr&lt;Plugin&gt; &gt; jac::PluginHolderFeature&lt; Next &gt;::_plugins</definition>
+        <argsstring></argsstring>
+        <name>_plugins</name>
+        <qualifiedname>jac::PluginHolderFeature::_plugins</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="59" column="17" bodyfile="src/jac/machine/plugins.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1PluginHolderFeature_1a9acb55198131c4a860bd2dd50fb83c0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>jac::PluginHolderFeature&lt; Next &gt;::PluginHolderFeature</definition>
+        <argsstring>()=default</argsstring>
+        <name>PluginHolderFeature</name>
+        <qualifiedname>jac::PluginHolderFeature::PluginHolderFeature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="61" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHolderFeature_1adf42e61bb401b756e8185a93bcf4b390" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginHolderFeature&lt; Next &gt;::holdPlugin</definition>
+        <argsstring>(std::unique_ptr&lt; Plugin &gt; plugin)</argsstring>
+        <name>holdPlugin</name>
+        <qualifiedname>jac::PluginHolderFeature::holdPlugin</qualifiedname>
+        <param>
+          <type>std::unique_ptr&lt; <ref refid="classjac_1_1Plugin" kindref="compound">Plugin</ref> &gt;</type>
+          <declname>plugin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="63" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="63" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHolderFeature_1a224fff9611f42aae3d1d11bffe3c6f0e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Plugin_t</type>
+            <defval><ref refid="classjac_1_1Plugin" kindref="compound">Plugin</ref></defval>
+          </param>
+        </templateparamlist>
+        <type>Plugin_t &amp;</type>
+        <definition>Plugin_t &amp; jac::PluginHolderFeature&lt; Next &gt;::getPlugin</definition>
+        <argsstring>(PluginHandle handle)</argsstring>
+        <name>getPlugin</name>
+        <qualifiedname>jac::PluginHolderFeature::getPlugin</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="69" column="14" bodyfile="src/jac/machine/plugins.h" bodystart="69" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHolderFeature_1a8a58bb4d2f72536fbe15d4975843733e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginHolderFeature&lt; Next &gt;::pluginBegin</definition>
+        <argsstring>()</argsstring>
+        <name>pluginBegin</name>
+        <qualifiedname>jac::PluginHolderFeature::pluginBegin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="73" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="73" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHolderFeature_1afe78e0d33a548cf2bae7add36234a76b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginHolderFeature&lt; Next &gt;::pluginEnd</definition>
+        <argsstring>()</argsstring>
+        <name>pluginEnd</name>
+        <qualifiedname>jac::PluginHolderFeature::pluginEnd</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="77" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="77" bodyend="79"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>An MFeature that allows for inserting plugins into the machine and retrieving them using PluginHandeles. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::PluginHolderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1PluginHolderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::PluginHolderFeature&lt; Next &gt;</label>
+        <link refid="classjac_1_1PluginHolderFeature"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/machine/plugins.h" line="57" column="1" bodyfile="src/jac/machine/plugins.h" bodystart="57" bodyend="80"/>
+    <listofallmembers>
+      <member refid="classjac_1_1PluginHolderFeature_1a4b635c5bc504a2cb1315354ff5c0251f" prot="private" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>_plugins</name></member>
+      <member refid="classjac_1_1PluginHolderFeature_1a224fff9611f42aae3d1d11bffe3c6f0e" prot="public" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>getPlugin</name></member>
+      <member refid="classjac_1_1PluginHolderFeature_1adf42e61bb401b756e8185a93bcf4b390" prot="public" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>holdPlugin</name></member>
+      <member refid="classjac_1_1PluginHolderFeature_1a8a58bb4d2f72536fbe15d4975843733e" prot="public" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>pluginBegin</name></member>
+      <member refid="classjac_1_1PluginHolderFeature_1afe78e0d33a548cf2bae7add36234a76b" prot="public" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>pluginEnd</name></member>
+      <member refid="classjac_1_1PluginHolderFeature_1a9acb55198131c4a860bd2dd50fb83c0b" prot="public" virt="non-virtual"><scope>jac::PluginHolderFeature</scope><name>PluginHolderFeature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

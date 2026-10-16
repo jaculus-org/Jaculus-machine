@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1PluginHandle" kind="class" language="C++" prot="public">
+    <compoundname>jac::PluginHandle</compoundname>
+    <includes refid="plugins_8h" local="no">plugins.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1PluginHandle_1a245cf0864c6306ab009f5fa20337bc0d" prot="private" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t jac::PluginHandle::_index</definition>
+        <argsstring></argsstring>
+        <name>_index</name>
+        <qualifiedname>jac::PluginHandle::_index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="25" column="12" bodyfile="src/jac/machine/plugins.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1a97e03be1d3354852017e0a474e69ad53" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::PluginHandle::PluginHandle</definition>
+        <argsstring>(size_t index)</argsstring>
+        <name>PluginHandle</name>
+        <qualifiedname>jac::PluginHandle::PluginHandle</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="27" column="5" bodyfile="src/jac/machine/plugins.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1a6f8616092e808181756f93330b303d3c" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t jac::PluginHandle::index</definition>
+        <argsstring>() const</argsstring>
+        <name>index</name>
+        <qualifiedname>jac::PluginHandle::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="29" column="12" bodyfile="src/jac/machine/plugins.h" bodystart="29" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1a5e0d4b6d1faf03ea3bb6f2a507ffb757" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref> &amp;</type>
+        <definition>PluginHandle &amp; jac::PluginHandle::operator++</definition>
+        <argsstring>()</argsstring>
+        <name>operator++</name>
+        <qualifiedname>jac::PluginHandle::operator++</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="33" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="33" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1a2184b650869c18b9a22ae98a809f1bb1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginHandle::operator++</definition>
+        <argsstring>(int)</argsstring>
+        <name>operator++</name>
+        <qualifiedname>jac::PluginHandle::operator++</qualifiedname>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="38" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="38" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1a7540bb48e2cf775c82b071a59c7dca51" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref></type>
+        <definition>PluginHandle jac::PluginHandle::operator+</definition>
+        <argsstring>(size_t offset)</argsstring>
+        <name>operator+</name>
+        <qualifiedname>jac::PluginHandle::operator+</qualifiedname>
+        <param>
+          <type>size_t</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="44" column="18" bodyfile="src/jac/machine/plugins.h" bodystart="44" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1PluginHandle_1aba92a8a79a62b24e1808f5be5ea4cad0" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::PluginHandle::operator==</definition>
+        <argsstring>(const PluginHandle &amp;other) const =default</argsstring>
+        <name>operator==</name>
+        <qualifiedname>jac::PluginHandle::operator==</qualifiedname>
+        <param>
+          <type>const <ref refid="classjac_1_1PluginHandle" kindref="compound">PluginHandle</ref> &amp;</type>
+          <declname>other</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/plugins.h" line="48" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A handle which can be used to retrieve a plugin from a machine. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/plugins.h" line="24" column="1" bodyfile="src/jac/machine/plugins.h" bodystart="24" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classjac_1_1PluginHandle_1a245cf0864c6306ab009f5fa20337bc0d" prot="private" virt="non-virtual"><scope>jac::PluginHandle</scope><name>_index</name></member>
+      <member refid="classjac_1_1PluginHandle_1a6f8616092e808181756f93330b303d3c" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>index</name></member>
+      <member refid="classjac_1_1PluginHandle_1a7540bb48e2cf775c82b071a59c7dca51" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>operator+</name></member>
+      <member refid="classjac_1_1PluginHandle_1a5e0d4b6d1faf03ea3bb6f2a507ffb757" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>operator++</name></member>
+      <member refid="classjac_1_1PluginHandle_1a2184b650869c18b9a22ae98a809f1bb1" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>operator++</name></member>
+      <member refid="classjac_1_1PluginHandle_1aba92a8a79a62b24e1808f5be5ea4cad0" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>operator==</name></member>
+      <member refid="classjac_1_1PluginHandle_1a97e03be1d3354852017e0a474e69ad53" prot="public" virt="non-virtual"><scope>jac::PluginHandle</scope><name>PluginHandle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

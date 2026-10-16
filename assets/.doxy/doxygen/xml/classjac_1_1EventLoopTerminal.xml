@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1EventLoopTerminal" kind="class" language="C++" prot="public">
+    <compoundname>jac::EventLoopTerminal</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Next</basecompoundref>
+    <templateparamlist>
+      <param>
+        <type>class Next</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1EventLoopTerminal_1abb337eeed4a3edab76caf9b861eb81b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type>void</type>
+        <definition>virtual void jac::EventLoopTerminal&lt; Next &gt;::runOnEventLoop</definition>
+        <argsstring>() override</argsstring>
+        <name>runOnEventLoop</name>
+        <qualifiedname>jac::EventLoopTerminal::runOnEventLoop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/eventLoopTerminal.h" line="10" column="18" bodyfile="src/jac/features/eventLoopTerminal.h" bodystart="10" bodyend="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventLoopTerminal&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventLoopTerminal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Next</label>
+      </node>
+      <node id="1">
+        <label>jac::EventLoopTerminal&lt; Next &gt;</label>
+        <link refid="classjac_1_1EventLoopTerminal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/jac/features/eventLoopTerminal.h" line="8" column="1" bodyfile="src/jac/features/eventLoopTerminal.h" bodystart="8" bodyend="13"/>
+    <listofallmembers>
+      <member refid="classjac_1_1EventLoopTerminal_1abb337eeed4a3edab76caf9b861eb81b3" prot="public" virt="virtual"><scope>jac::EventLoopTerminal</scope><name>runOnEventLoop</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

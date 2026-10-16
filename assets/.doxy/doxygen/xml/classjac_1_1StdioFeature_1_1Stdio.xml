@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1StdioFeature_1_1Stdio" kind="class" language="C++" prot="private">
+    <compoundname>jac::StdioFeature::Stdio</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classjac_1_1StdioFeature_1_1Stdio_1a920e28ed2e9d65ca1f7f3ca63f0daf88" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classjac_1_1Writable" kindref="compound">Writable</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Writable&gt; jac::StdioFeature&lt; Next &gt;::Stdio::out</definition>
+        <argsstring></argsstring>
+        <name>out</name>
+        <qualifiedname>jac::StdioFeature::Stdio::out</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/stdioFeature.h" line="20" column="25" bodyfile="src/jac/features/stdioFeature.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1StdioFeature_1_1Stdio_1a6b3b9d6956162adb145c5ea72f331b50" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classjac_1_1Writable" kindref="compound">Writable</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Writable&gt; jac::StdioFeature&lt; Next &gt;::Stdio::err</definition>
+        <argsstring></argsstring>
+        <name>err</name>
+        <qualifiedname>jac::StdioFeature::Stdio::err</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/stdioFeature.h" line="21" column="25" bodyfile="src/jac/features/stdioFeature.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classjac_1_1StdioFeature_1_1Stdio_1a48df62a386e25ccf8bf85a0b08721862" prot="public" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="classjac_1_1Readable" kindref="compound">Readable</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;Readable&gt; jac::StdioFeature&lt; Next &gt;::Stdio::in</definition>
+        <argsstring></argsstring>
+        <name>in</name>
+        <qualifiedname>jac::StdioFeature::Stdio::in</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/stdioFeature.h" line="22" column="25" bodyfile="src/jac/features/stdioFeature.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/stdioFeature.h" line="18" column="5" bodyfile="src/jac/features/stdioFeature.h" bodystart="18" bodyend="23"/>
+    <listofallmembers>
+      <member refid="classjac_1_1StdioFeature_1_1Stdio_1a6b3b9d6956162adb145c5ea72f331b50" prot="public" virt="non-virtual"><scope>jac::StdioFeature::Stdio</scope><name>err</name></member>
+      <member refid="classjac_1_1StdioFeature_1_1Stdio_1a48df62a386e25ccf8bf85a0b08721862" prot="public" virt="non-virtual"><scope>jac::StdioFeature::Stdio</scope><name>in</name></member>
+      <member refid="classjac_1_1StdioFeature_1_1Stdio_1a920e28ed2e9d65ca1f7f3ca63f0daf88" prot="public" virt="non-virtual"><scope>jac::StdioFeature::Stdio</scope><name>out</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

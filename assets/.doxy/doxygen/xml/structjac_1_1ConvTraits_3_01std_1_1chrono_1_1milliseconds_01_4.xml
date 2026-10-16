@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4" kind="struct" language="C++" prot="public">
+    <compoundname>jac::ConvTraits&lt; std::chrono::milliseconds &gt;</compoundname>
+    <templateparamlist>
+    </templateparamlist>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a9d5e5e79d8f97d899fb74978213fc00a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::chrono::milliseconds</type>
+        <definition>static std::chrono::milliseconds jac::ConvTraits&lt; std::chrono::milliseconds &gt;::from</definition>
+        <argsstring>(ContextRef, ValueWeak value)</argsstring>
+        <name>from</name>
+        <qualifiedname>jac::ConvTraits&lt; std::chrono::milliseconds &gt;::from</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+        </param>
+        <param>
+          <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">ValueWeak</ref></type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="20" column="38" bodyfile="src/jac/features/timersFeature.h" bodystart="20" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a553d935d7baff23cb019477d8d8fcb59" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classjac_1_1ValueWrapper" kindref="compound">Value</ref></type>
+        <definition>static Value jac::ConvTraits&lt; std::chrono::milliseconds &gt;::to</definition>
+        <argsstring>(ContextRef ctx, std::chrono::milliseconds value)</argsstring>
+        <name>to</name>
+        <qualifiedname>jac::ConvTraits&lt; std::chrono::milliseconds &gt;::to</qualifiedname>
+        <param>
+          <type><ref refid="classjac_1_1ContextRef" kindref="compound">ContextRef</ref></type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>std::chrono::milliseconds</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/timersFeature.h" line="24" column="18" bodyfile="src/jac/features/timersFeature.h" bodystart="24" bodyend="26"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/timersFeature.h" line="19" column="1" bodyfile="src/jac/features/timersFeature.h" bodystart="19" bodyend="27"/>
+    <listofallmembers>
+      <member refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a9d5e5e79d8f97d899fb74978213fc00a" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; std::chrono::milliseconds &gt;</scope><name>from</name></member>
+      <member refid="structjac_1_1ConvTraits_3_01std_1_1chrono_1_1milliseconds_01_4_1a553d935d7baff23cb019477d8d8fcb59" prot="public" virt="non-virtual"><scope>jac::ConvTraits&lt; std::chrono::milliseconds &gt;</scope><name>to</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

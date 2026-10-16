@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4" kind="struct" language="C++" prot="public">
+    <compoundname>jac::SgnUnwrap&lt; Res(Args...)&gt;</compoundname>
+    <templateparamlist>
+      <param>
+        <type>typename Res</type>
+      </param>
+      <param>
+        <type>typename...</type>
+        <declname>Args</declname>
+        <defname>Args</defname>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1a858a50326547b951d3a30e2588a2fe8f" prot="public" static="no">
+        <type>Res</type>
+        <definition>using jac::SgnUnwrap&lt; Res(Args...)&gt;::ResType =  Res</definition>
+        <argsstring></argsstring>
+        <name>ResType</name>
+        <qualifiedname>jac::SgnUnwrap&lt; Res(Args...)&gt;::ResType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="21" column="5" bodyfile="src/jac/machine/class.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aabe6d9e4c448e3daabe2ae567061cc90" prot="public" static="no">
+        <type>std::tuple&lt; Args... &gt;</type>
+        <definition>using jac::SgnUnwrap&lt; Res(Args...)&gt;::ArgTypes =  std::tuple&lt;Args...&gt;</definition>
+        <argsstring></argsstring>
+        <name>ArgTypes</name>
+        <qualifiedname>jac::SgnUnwrap&lt; Res(Args...)&gt;::ArgTypes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="22" column="5" bodyfile="src/jac/machine/class.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aeb9f6403077bc72f39d8c6d61d9e3cfb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class <ref refid="classjac_1_1Class" kindref="compound">Class</ref></type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>jac::SgnUnwrap&lt; Res(Args...)&gt;::SgnUnwrap</definition>
+        <argsstring>(Res(Class::*)(Args...))</argsstring>
+        <name>SgnUnwrap</name>
+        <qualifiedname>jac::SgnUnwrap&lt; Res(Args...)&gt;::SgnUnwrap</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="25" column="5" bodyfile="src/jac/machine/class.h" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1ad1900c7830d668a9f9080bfdcfbabd8a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class <ref refid="classjac_1_1Class" kindref="compound">Class</ref></type>
+          </param>
+        </templateparamlist>
+        <type></type>
+        <definition>jac::SgnUnwrap&lt; Res(Args...)&gt;::SgnUnwrap</definition>
+        <argsstring>(Res(Class::*)(Args...) const)</argsstring>
+        <name>SgnUnwrap</name>
+        <qualifiedname>jac::SgnUnwrap&lt; Res(Args...)&gt;::SgnUnwrap</qualifiedname>
+        <param>
+          <type>Res(Class::*)(Args...) const</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/machine/class.h" line="27" column="5" bodyfile="src/jac/machine/class.h" bodystart="27" bodyend="27"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/machine/class.h" line="20" column="1" bodyfile="src/jac/machine/class.h" bodystart="20" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aabe6d9e4c448e3daabe2ae567061cc90" prot="public" virt="non-virtual"><scope>jac::SgnUnwrap&lt; Res(Args...)&gt;</scope><name>ArgTypes</name></member>
+      <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1a858a50326547b951d3a30e2588a2fe8f" prot="public" virt="non-virtual"><scope>jac::SgnUnwrap&lt; Res(Args...)&gt;</scope><name>ResType</name></member>
+      <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1aeb9f6403077bc72f39d8c6d61d9e3cfb" prot="public" virt="non-virtual"><scope>jac::SgnUnwrap&lt; Res(Args...)&gt;</scope><name>SgnUnwrap</name></member>
+      <member refid="structjac_1_1SgnUnwrap_3_01Res_07Args_8_8_8_08_4_1ad1900c7830d668a9f9080bfdcfbabd8a" prot="public" virt="non-virtual"><scope>jac::SgnUnwrap&lt; Res(Args...)&gt;</scope><name>SgnUnwrap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

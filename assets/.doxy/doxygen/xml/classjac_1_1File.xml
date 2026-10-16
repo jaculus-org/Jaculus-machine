@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classjac_1_1File" kind="class" language="C++" prot="public">
+    <compoundname>jac::File</compoundname>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classjac_1_1File_1ab01aa40fb594deccf5b9e74802c48daa" prot="private" static="no" mutable="no">
+        <type>std::fstream</type>
+        <definition>std::fstream jac::File::_file</definition>
+        <argsstring></argsstring>
+        <name>_file</name>
+        <qualifiedname>jac::File::_file</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="13" column="18" bodyfile="src/jac/features/types/file.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classjac_1_1File_1a005949ad831fc7ce9c1006be6ece83e4" prot="public" static="no" mutable="no">
+        <type>std::string</type>
+        <definition>std::string jac::File::path_</definition>
+        <argsstring></argsstring>
+        <name>path_</name>
+        <qualifiedname>jac::File::path_</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="15" column="17" bodyfile="src/jac/features/types/file.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classjac_1_1File_1a46873e1d9e3faa500315f427cb8c8583" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::File::File</definition>
+        <argsstring>(std::string path, std::string flags)</argsstring>
+        <name>File</name>
+        <qualifiedname>jac::File::File</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="17" column="5" bodyfile="src/jac/features/types/file.h" bodystart="17" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1ac3eb5721c3317ca00b280953e2684125" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::File::File</definition>
+        <argsstring>(std::filesystem::path path, std::string flags)</argsstring>
+        <name>File</name>
+        <qualifiedname>jac::File::File</qualifiedname>
+        <param>
+          <type>std::filesystem::path</type>
+          <declname>path</declname>
+        </param>
+        <param>
+          <type>std::string</type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="44" column="5" bodyfile="src/jac/features/types/file.h" bodystart="44" bodyend="44"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1aebb30d6e669aff8fd2980fb58c46ebb8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::string</type>
+        <definition>std::string jac::File::read</definition>
+        <argsstring>(int length=1024)</argsstring>
+        <name>read</name>
+        <qualifiedname>jac::File::read</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+          <defval>1024</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="46" column="17" bodyfile="src/jac/features/types/file.h" bodystart="46" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1a8f72635c4ed45f5db5e02971fadb2937" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::File::write</definition>
+        <argsstring>(std::string data)</argsstring>
+        <name>write</name>
+        <qualifiedname>jac::File::write</qualifiedname>
+        <param>
+          <type>std::string</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="54" column="10" bodyfile="src/jac/features/types/file.h" bodystart="54" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1a1f98201918bfd9e0da3ff3c3a77a8cbf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool jac::File::isOpen</definition>
+        <argsstring>()</argsstring>
+        <name>isOpen</name>
+        <qualifiedname>jac::File::isOpen</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="58" column="10" bodyfile="src/jac/features/types/file.h" bodystart="58" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1aafe72d7a9840a5af71be739eac3a680a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void jac::File::close</definition>
+        <argsstring>()</argsstring>
+        <name>close</name>
+        <qualifiedname>jac::File::close</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="62" column="10" bodyfile="src/jac/features/types/file.h" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classjac_1_1File_1ac891df934b7b14dafb2a9fb6e87e08c4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>jac::File::~File</definition>
+        <argsstring>()</argsstring>
+        <name>~File</name>
+        <qualifiedname>jac::File::~File</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/jac/features/types/file.h" line="66" column="5" bodyfile="src/jac/features/types/file.h" bodystart="66" bodyend="68"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/jac/features/types/file.h" line="12" column="1" bodyfile="src/jac/features/types/file.h" bodystart="12" bodyend="69"/>
+    <listofallmembers>
+      <member refid="classjac_1_1File_1ab01aa40fb594deccf5b9e74802c48daa" prot="private" virt="non-virtual"><scope>jac::File</scope><name>_file</name></member>
+      <member refid="classjac_1_1File_1aafe72d7a9840a5af71be739eac3a680a" prot="public" virt="non-virtual"><scope>jac::File</scope><name>close</name></member>
+      <member refid="classjac_1_1File_1a46873e1d9e3faa500315f427cb8c8583" prot="public" virt="non-virtual"><scope>jac::File</scope><name>File</name></member>
+      <member refid="classjac_1_1File_1ac3eb5721c3317ca00b280953e2684125" prot="public" virt="non-virtual"><scope>jac::File</scope><name>File</name></member>
+      <member refid="classjac_1_1File_1a1f98201918bfd9e0da3ff3c3a77a8cbf" prot="public" virt="non-virtual"><scope>jac::File</scope><name>isOpen</name></member>
+      <member refid="classjac_1_1File_1a005949ad831fc7ce9c1006be6ece83e4" prot="public" virt="non-virtual"><scope>jac::File</scope><name>path_</name></member>
+      <member refid="classjac_1_1File_1aebb30d6e669aff8fd2980fb58c46ebb8" prot="public" virt="non-virtual"><scope>jac::File</scope><name>read</name></member>
+      <member refid="classjac_1_1File_1a8f72635c4ed45f5db5e02971fadb2937" prot="public" virt="non-virtual"><scope>jac::File</scope><name>write</name></member>
+      <member refid="classjac_1_1File_1ac891df934b7b14dafb2a9fb6e87e08c4" prot="public" virt="non-virtual"><scope>jac::File</scope><name>~File</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
